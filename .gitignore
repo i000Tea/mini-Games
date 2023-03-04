@@ -1,7 +1,10 @@
 # This .gitignore file should be placed at the root of your Unity project directory
+# 这个.gitignore文件应该放在你的Unity项目目录的根目录下
 #
 # Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
-#
+# 从 地址 获取最新信息
+# 
+/[Ll].plastic/
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
