@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Tea;
 using Tea.CyberCard;
 using DG.Tweening;
 
@@ -11,22 +12,28 @@ namespace Tea.PolygonHit
     /// <summary>
     /// 输入控制器
     /// </summary>
-    public class InputController : BaseButtonController
+    public class InputController : ButtonControlBase
     {
 		#region bianliang 
 
 		[Space(20)]
 		public bool reverseDrag;
 		/// <summary>
-		/// 线段渲染器
+		/// 拖拽线
 		/// </summary>
 		public LineRenderer LR;
+		/// <summary>
+		/// 拖拽方向箭头
+		/// </summary>
         public Transform dragImage;
 		[SerializeField]
 		private RectTransform rectImage;
 		[SerializeField]
 		private Image _image;
         public Transform targets;
+		/// <summary>
+		/// 瞄准镜(鼠标一开始的位置)
+		/// </summary>
         public Image aim;
 		/// <summary>
 		/// 鼠标的初始所在坐标
@@ -63,14 +70,6 @@ namespace Tea.PolygonHit
 			_image = dragImage.GetComponent<Image>();
 		}
 
-		/// <summary>
-		/// 初始化
-		/// </summary>
-		public void Awake()
-        {
-            AddEvent();
-        }
-
         private void OnDestroy()
         {
             RemoveEvent();
@@ -84,10 +83,16 @@ namespace Tea.PolygonHit
 				_image.transform.localPosition = PlayerBase.Player.localPosition - new Vector3(0, 0, -1);
 		}
 
-        #endregion
+		#endregion
 
-        #region Event
-        void AddEvent()
+		protected override void AwakeSet()
+		{
+			base.AwakeSet();
+			AddEvent();
+		}
+
+		#region Event
+		void AddEvent()
         {
             EventController.AddListener(EventType.PlayerDestory, TouthOver);
         }
@@ -131,11 +136,11 @@ namespace Tea.PolygonHit
         }
         public override void OnDrag(PointerEventData eventData)
         {
-            base.OnDrag(eventData);
-            // 拖拽开始 记录初始鼠标位置
-            if (StartPoint == Vector3.zero)
+			base.OnDrag(eventData);
+			// 拖拽开始 记录初始鼠标位置
+			if (StartPoint == Vector3.zero)
             {
-                StartPoint = movePosition;
+                StartPoint = _movePosition(eventData);
 
 				if (reverseDrag)
 					SetDragLine();
@@ -143,7 +148,7 @@ namespace Tea.PolygonHit
 					SetDragImage();
 
                 aim.enabled = true;
-                aim.transform.localPosition = movePosition;
+                aim.transform.localPosition = _movePosition(eventData);
 
                 backValve = false;
             }
@@ -154,6 +159,7 @@ namespace Tea.PolygonHit
 			target = movePosition - StartPoint;
 
 			Debug.Log("Drag2+1");
+
 			if (reverseDrag)
 				SetDragLine();
 			else
@@ -166,7 +172,7 @@ namespace Tea.PolygonHit
             if (targets)
                 targets.position = target;
 			Debug.Log("Drag3");
-
+			Debug.Log($"{movePosition} - {StartPoint}");
 		}
 
 		public override void OnEndDrag(PointerEventData eventData)
@@ -203,6 +209,10 @@ namespace Tea.PolygonHit
             aim.enabled = false;
         }
 
+		/// <summary>
+		/// 设置拖拽线
+		/// </summary>
+		/// <param name="open"></param>
 		void SetDragLine(bool open = true)
 		{
 			LR.enabled = open;
