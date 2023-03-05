@@ -142,7 +142,7 @@ namespace ECM.Controllers
 		#region PROPERTIES 属性
 
 		/// <summary>
-		/// 缓存的CharacterMovement组件。
+		/// 缓存的 CharacterMovement 组件。
 		/// Cached CharacterMovement component.
 		/// </summary>
 
@@ -177,31 +177,34 @@ namespace ECM.Controllers
             }
         }
 
-        /// <summary>
-        /// Maximum movement speed (in m/s).
-        /// </summary>
+		/// <summary>
+		/// 最大移动速度(m/s)
+		/// Maximum movement speed (in m/s).
+		/// </summary>
 
-        public float speed
+		public float speed
         {
             get { return _speed; }
             set { _speed = Mathf.Max(0.0f, value); }
         }
 
-        /// <summary>
-        /// Maximum turning speed (in deg/s).
-        /// </summary>
+		/// <summary>
+		/// 最大角速度(单位:deg/s)。
+		/// Maximum turning speed (in deg/s).
+		/// </summary>
 
-        public float angularSpeed
+		public float angularSpeed
         {
             get { return _angularSpeed; }
             set { _angularSpeed = Mathf.Max(0.0f, value); }
         }
 
-        /// <summary>
-        /// The rate of change of velocity.
-        /// </summary>
+		/// <summary>
+		/// 速度变化率
+		/// The rate of change of velocity.
+		/// </summary>
 
-        public float acceleration
+		public float acceleration
         {
             get { return movement.isGrounded ? _acceleration : _acceleration * airControl; }
             set { _acceleration = Mathf.Max(0.0f, value); }

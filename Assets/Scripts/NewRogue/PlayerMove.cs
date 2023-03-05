@@ -34,7 +34,7 @@ namespace Tea.NewRouge
 				z = Input.GetAxisRaw("Horizontal") * -Mathf.Sin(virRotate * Mathf.Deg2Rad) +
 					Input.GetAxisRaw("Vertical") * Mathf.Cos(virRotate * Mathf.Deg2Rad)
 			};
-			var x = new Vector3();
+			jump = Input.GetButton("Jump");
 
 		}
 		public override void Update()
@@ -43,11 +43,11 @@ namespace Tea.NewRouge
 
 			if (Input.GetKey(KeyCode.Q))
 			{
-				VirRotate(1);
+				VirRotate(-1);
 			}
 			if (Input.GetKey(KeyCode.E))
 			{
-				VirRotate(-1);
+				VirRotate(1);
 			}
 
 		}

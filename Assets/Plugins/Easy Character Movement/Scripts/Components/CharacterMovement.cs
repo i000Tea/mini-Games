@@ -443,6 +443,9 @@ namespace ECM.Components
 		public bool platformUpdatesRotation { get; set; }
 
 		/// <summary>
+		/// 角色的速度矢量。
+		/// 注意:当在一个平台上，这是不同的刚体的速度
+		/// 只反映角色的速度。
 		/// Character's velocity vector.
 		/// NOTE: When on a platform, this is different of rigidbody's velocity as this
 		/// reflects only the character's velocity.
