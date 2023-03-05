@@ -1,5 +1,9 @@
 using UnityEngine;
 
+/// <summary>
+/// 当刚体固定移动时启用一个行为
+/// 否则禁用该行为
+/// </summary>
 // Enables a behaviour when a rigidbody settles movement
 // otherwise disables the behaviour
 public class EnableIffSleeping : MonoBehaviour
