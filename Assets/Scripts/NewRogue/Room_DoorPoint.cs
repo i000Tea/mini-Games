@@ -3,9 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Tea.NewRouge
 {
-	public class RoomPoint : MonoBehaviour
+	/// <summary>
+	/// 开门的点
+	/// </summary>
+	public class Room_DoorPoint : MonoBehaviour
 	{
-		public RoomControl nextRoom;
+		/// <summary>
+		/// 此点是否已被使用
+		/// </summary>
+		public bool unUse;
+		public Room_Control nextRoom;
 		Collider trggerColl;
 		private void Awake()
 		{

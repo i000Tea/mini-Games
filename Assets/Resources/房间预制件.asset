@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f1b6e0d643e8f64fb8b696ee4e95343, type: 3}
+  m_Name: "\u623F\u95F4\u9884\u5236\u4EF6"
+  m_EditorClassIdentifier: Assembly-CSharp:Tea.NewRouge:RoomList
+  RoomPrefabs:
+  - {fileID: 3350782989597292325, guid: b66ec5c26c1168f4f94bb27e14e370d9, type: 3}
+  - {fileID: 3350782989597292325, guid: 4200af4f5ba342d438efebe446810bf5, type: 3}
+  - {fileID: 3350782989597292325, guid: 264d88dcb67d1c34e848014f546cd563, type: 3}
+  - {fileID: 3350782989597292325, guid: 248c75ee9f3f198459e36bc9426c397b, type: 3}
+  - {fileID: 3350782989597292325, guid: 2f7865e7f9830d543a8c80cb46c6e893, type: 3}
+  - {fileID: 3350782989597292325, guid: b2d9996ec2493f84eb78143317c7fcf9, type: 3}

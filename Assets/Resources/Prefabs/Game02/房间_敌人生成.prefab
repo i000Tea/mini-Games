@@ -7,15 +7,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 697036030882593965, guid: 6d3ff6cf835d6004a955c367174c65ff,
+        type: 3}
+      propertyPath: m_NavMesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2104654762153812603, guid: 6d3ff6cf835d6004a955c367174c65ff,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 32
+      value: 48
       objectReference: {fileID: 0}
     - target: {fileID: 2104654762153812603, guid: 6d3ff6cf835d6004a955c367174c65ff,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3043658690610024806, guid: 6d3ff6cf835d6004a955c367174c65ff,
         type: 3}
@@ -76,6 +81,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: "\u623F\u95F4-\u654C\u4EBA\u751F\u6210"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373420806048382661, guid: 6d3ff6cf835d6004a955c367174c65ff,
+        type: 3}
+      propertyPath: m_FollowTransform
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d3ff6cf835d6004a955c367174c65ff, type: 3}

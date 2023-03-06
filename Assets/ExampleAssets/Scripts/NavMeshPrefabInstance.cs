@@ -2,10 +2,16 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.AI;
 
+/// <summary>
+/// 导航网格预制实例
+/// </summary>
 [ExecuteInEditMode]
 [DefaultExecutionOrder(-102)]
 public class NavMeshPrefabInstance : MonoBehaviour
 {
+	/// <summary>
+	/// 导航网格
+	/// </summary>
     [SerializeField]
     NavMeshData m_NavMesh;
     public NavMeshData navMeshData
@@ -13,7 +19,9 @@ public class NavMeshPrefabInstance : MonoBehaviour
         get { return m_NavMesh; }
         set { m_NavMesh = value; }
     }
-
+	/// <summary>
+	/// 跟随Transform 
+	/// </summary>
     [SerializeField]
     bool m_FollowTransform;
     public bool followTransform
@@ -23,9 +31,11 @@ public class NavMeshPrefabInstance : MonoBehaviour
     }
 
     NavMeshDataInstance m_Instance;
-
-    // Position Tracking
-    static readonly List<NavMeshPrefabInstance> s_TrackedInstances = new List<NavMeshPrefabInstance>();
+	/// <summary>
+	/// 位置跟踪
+	/// Position Tracking
+	/// </summary>
+	static readonly List<NavMeshPrefabInstance> s_TrackedInstances = new List<NavMeshPrefabInstance>();
     public static List<NavMeshPrefabInstance> trackedInstances {get {return s_TrackedInstances; }}
     Vector3 m_Position;
     Quaternion m_Rotation;
@@ -69,8 +79,9 @@ public class NavMeshPrefabInstance : MonoBehaviour
     void AddTracking()
     {
 #if UNITY_EDITOR
-        // At runtime we don't want linear lookup
-        if (s_TrackedInstances.Contains(this))
+		// 在运行时我们不需要线性查找
+		// At runtime we don't want linear lookup
+		if (s_TrackedInstances.Contains(this))
         {
             Debug.LogError("Double registration of " + this);
             return;
@@ -116,12 +127,15 @@ public class NavMeshPrefabInstance : MonoBehaviour
 #if UNITY_EDITOR
     void OnValidate()
     {
-        // Only when the instance is valid (OnEnable is called) - we react to changes caused by serialization
-        if (!m_Instance.valid)
+		// 只有当实例有效时(OnEnable被调用)-我们才会对由序列化引起的更改做出反应
+		// Only when the instance is valid (OnEnable is called) - we react to changes caused by serialization
+		if (!m_Instance.valid)
             return;
-        // OnValidate can be called several times - avoid double registration
-        // We afford this linear lookup in the editor only
-        if (!m_FollowTransform)
+		// OnValidate可以多次调用，避免重复注册
+		// 我们只在编辑器中提供线性查找
+		// OnValidate can be called several times - avoid double registration
+		// We afford this linear lookup in the editor only
+		if (!m_FollowTransform)
         {
             RemoveTracking();
         }

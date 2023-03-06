@@ -13,7 +13,8 @@ namespace Tea.NewRouge
 		protected override void UpdateRotation()
 		{
 			//base.UpdateRotation();
-			movement.Rotate((a.position - transform.position).normalized, angularSpeed);
+			if (a)
+				movement.Rotate((a.position - transform.position).normalized, angularSpeed);
 		}
 		protected override void HandleInput()
 		{

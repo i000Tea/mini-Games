@@ -6,14 +6,20 @@ using UnityEditor.SceneManagement;
 
 namespace UnityEngine.AI
 {
-    public enum CollectObjects
+	/// <summary>
+	/// 收集对象
+	/// </summary>
+	public enum CollectObjects
     {
         All = 0,
         Volume = 1,
         Children = 2,
     }
 
-    [ExecuteAlways]
+	/// <summary>
+	/// 导航网格面
+	/// </summary>
+	[ExecuteAlways]
     [DefaultExecutionOrder(-102)]
     [AddComponentMenu("Navigation/NavMeshSurface", 30)]
     [HelpURL("https://github.com/Unity-Technologies/NavMeshComponents#documentation-draft")]
@@ -68,19 +74,28 @@ namespace UnityEngine.AI
         float m_VoxelSize;
         public float voxelSize { get { return m_VoxelSize; } set { m_VoxelSize = value; } }
 
-        // Currently not supported advanced options
-        [SerializeField]
+		/// <summary>
+		/// 目前不支持高级选项
+		/// Currently not supported advanced options
+		/// </summary>
+		[SerializeField]
         bool m_BuildHeightMesh;
         public bool buildHeightMesh { get { return m_BuildHeightMesh; } set { m_BuildHeightMesh = value; } }
-
-        // Reference to whole scene navmesh data asset.
-        [UnityEngine.Serialization.FormerlySerializedAs("m_BakedNavMeshData")]
+		
+		/// <summary>
+		/// 引用整个场景navmesh数据资产。
+		/// Reference to whole scene navmesh data asset.
+		/// </summary>
+		[UnityEngine.Serialization.FormerlySerializedAs("m_BakedNavMeshData")]
         [SerializeField]
         NavMeshData m_NavMeshData;
         public NavMeshData navMeshData { get { return m_NavMeshData; } set { m_NavMeshData = value; } }
-
-        // Do not serialize - runtime only state.
-        NavMeshDataInstance m_NavMeshDataInstance;
+		
+		/// <summary>
+		/// 不要序列化—只有运行时状态。
+		/// Do not serialize - runtime only state.
+		/// </summary>
+		NavMeshDataInstance m_NavMeshDataInstance;
         Vector3 m_LastPosition = Vector3.zero;
         Quaternion m_LastRotation = Quaternion.identity;
 

@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/1 PolygunHit.unity
     guid: 15721d511c2395245a7432502c2a402d
   - enabled: 1
-    path: Assets/Scenes/2 rouge.unity
+    path: Assets/Scenes/2_rouge.unity
     guid: e46d900501153c54c964efc37da6e4d9
   m_configObjects: {}

@@ -3,7 +3,8 @@ using UnityEngine.AI;
 using System.Collections.Generic;
 
 /// <summary>
-/// 标记组件用于 LocalNavMeshBuilder 本地导航网格生成器
+/// 导航 网格源 标签
+/// 标记组件用于 本地导航网格生成器(LocalNavMeshBuilder)
 /// 支持网格过滤器和地形-可以扩展到物理和/或原语
 /// </summary>
 // Tagging component for use with the LocalNavMeshBuilder
