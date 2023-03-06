@@ -34,46 +34,64 @@ namespace Tea.NewRouge
 		public int mainRoadLength = 4;
 		private void Start()
 		{
-			CreateWholeFloor();
+			StartCoroutine(iCreateWholeFloor());
+			//CreateWholeFloor();
 		}
 		/// <summary>
-		/// 创建整层楼
+		/// 生成楼层
 		/// </summary>
-		void CreateWholeFloor()
+		/// <returns></returns>
+		IEnumerator iCreateWholeFloor()
 		{
 			// 房间列表重置
 			rEntityList = new List<Room_Control>();
-			// 初始房间作为第一个
+			// 初始的房间作为第一个
 			rEntityList.Add(startRoom);
 
-			startRoom.RoomState = true;
-
 			var mainRoom = startRoom;
-			for (int i = 0; i < mainRoadLength; i++)
+			var createRoom = mainRoom;
+			for (int i = 0; i < mainRoadLength - 1; i++)
 			{
-
-				mainRoom = CreateRoom(mainRoom.SomeDoor());
-				rEntityList.Add(mainRoom);
+				createRoom = CreateRoom(createRoom);
+				yield return new WaitForFixedUpdate();
+			}
+			for (int i = 1; i < rEntityList.Count; i++)
+			{
+				rEntityList[i].AwakeRoomSet();
 			}
 		}
 		/// <summary>
 		/// 创造房间
 		/// </summary>
-		Room_Control CreateRoom(Room_DoorPoint rPoint = null)
+		Room_Control CreateRoom(Room_Control beforeRoom = null)
 		{
-			// 查询可用门
-			if (!rPoint)
-			{
-
-			}
-
-			// 选择随机房间进行创建
+			var rPoint = beforeRoom.SomeDoor();
+			// 随机房间
 			var selectRoom = rItem.RoomPrefabs[0];
-			var room = Instantiate(selectRoom).GetComponent<Room_Control>();
-			room.RoomLink(rPoint);
+			// 创建房间
+			var CreateRoom = Instantiate(selectRoom).GetComponent<Room_Control>();
+			CreateRoom.name = "a" + Time.time;
 
+			// 获取创建的房间的任意一扇门
+			var newPoint = CreateRoom.SomeDoor();
+
+			// 设置旋转
+			float rotateY = rPoint.transform.eulerAngles.y - newPoint.transform.eulerAngles.y - 180;
+			if (rotateY > 360)
+				rotateY %= 360;
+			CreateRoom.transform.rotation = Quaternion.Euler(0, rotateY, 0);
+
+			//设置位置
+			CreateRoom.transform.position = rPoint.transform.position - newPoint.transform.position;
+
+			rEntityList.Add(CreateRoom);
+			rPoint.UnUse = true;
+			rPoint.nextRoom = CreateRoom;
+			newPoint.UnUse = true;
+			newPoint.UnUse = true;
+			newPoint.gameObject.SetActive(false);
 			// 返回数据
-			return null;
+			return CreateRoom;
 		}
 	}
 }

@@ -10,6 +10,9 @@ namespace Tea.NewRouge
 		public Transform a;
 		float virRotate;
 		public CinemachineVirtualCamera virCamera;
+		[SerializeField]
+		JoyStick joyStick;
+
 		protected override void UpdateRotation()
 		{
 			//base.UpdateRotation();
@@ -27,13 +30,20 @@ namespace Tea.NewRouge
 			//	z = Input.GetAxisRaw("Vertical")
 			//};
 			//Debug.Log($" {Mathf.Cos(0)} {Mathf.Cos(0.5f)} {Mathf.Cos(1)} \n {Mathf.Cos(virRotate)}");
+			Vector2 move = new Vector2
+			{
+				x = Input.GetAxisRaw("Horizontal") + joyStick.inputContent.x,
+				y = Input.GetAxisRaw("Vertical") + joyStick.inputContent.y
+			};
+
+			Debug.Log(joyStick.inputContent);
 			moveDirection = new Vector3
 			{
-				x = Input.GetAxisRaw("Horizontal") * Mathf.Cos(virRotate * Mathf.Deg2Rad) +
-					Input.GetAxisRaw("Vertical") * Mathf.Sin(virRotate * Mathf.Deg2Rad),
+				x = move.x * Mathf.Cos(virRotate * Mathf.Deg2Rad) +
+					move.y * Mathf.Sin(virRotate * Mathf.Deg2Rad),
 				y = 0.0f,
-				z = Input.GetAxisRaw("Horizontal") * -Mathf.Sin(virRotate * Mathf.Deg2Rad) +
-					Input.GetAxisRaw("Vertical") * Mathf.Cos(virRotate * Mathf.Deg2Rad)
+				z = move.x * -Mathf.Sin(virRotate * Mathf.Deg2Rad) +
+					move.y * Mathf.Cos(virRotate * Mathf.Deg2Rad)
 			};
 			jump = Input.GetButton("Jump");
 

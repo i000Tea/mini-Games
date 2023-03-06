@@ -9,31 +9,6 @@ namespace Tea.NewRouge
 	/// </summary>
 	public class Room_Control : MonoBehaviour
 	{
-		public bool RoomState
-		{
-			get
-			{
-				return (bool)roomState;
-			}
-			set
-			{
-				//Debug.Log(value + " " + roomState);
-				//Debug.Log(8844);
-				if (roomState != value)
-				{
-					roomState = value;
-					if (roomState == true)
-					{
-						transform.DOScale(1, 0.7f).SetEase(Ease.OutCirc);
-					}
-					else
-					{
-						//transform.localScale = Vector3.zero;
-					}
-				}
-			}
-		}
-		private bool? roomState = null;
 		/// <summary>
 		/// 门已耗尽
 		/// </summary>
@@ -43,7 +18,7 @@ namespace Tea.NewRouge
 			{
 				// 有任意一个点未被使用 则标记为否
 				for (int i = 0; i < rPoints.Count; i++)
-					if (!rPoints[i].unUse)
+					if (!rPoints[i].UnUse)
 						return false;
 				// 所有点都标记为使用 则更新为是
 				return true;
@@ -79,21 +54,48 @@ namespace Tea.NewRouge
 		{
 
 		}
-
+	
+		/// <summary>
+		/// 初始化设置
+		/// </summary>
+		public void AwakeRoomSet()
+		{
+			gameObject.SetActive(false);
+			transform.localScale = Vector3.zero;
+			gameObject.SetActive(true);
+		}
+		public void ShowRoom()
+		{
+			gameObject.SetActive(true);
+			transform.localScale = Vector3.zero;
+			transform.DOScale(1, 0.7f).SetEase(Ease.OutCirc);
+		}
 		/// <summary>
 		/// 房间链接
 		/// </summary>
 		/// <param name="rPoint">目标门</param>
 		public void RoomLink(Room_DoorPoint rPoint)
 		{
-			rPoint.nextRoom = this;
 			var myPoint = SomeDoor();
-			transform.position = rPoint.transform.position - myPoint.transform.position;
-			transform.eulerAngles = new Vector3
-				(0, rPoint.transform.localEulerAngles.y + myPoint.transform.eulerAngles.y, 0);
-			rPoint.unUse = true;
-		}
+			myPoint.name = "aa";
 
+			// 旋转
+			float rotateY = 180 + myPoint.transform.localEulerAngles.y + rPoint.transform.eulerAngles.y;
+			if (rotateY > 360)
+				rotateY %= 360;
+			Debug.Log(rotateY);
+			transform.eulerAngles = new Vector3(0, rotateY, 0);
+
+			// 位移
+			transform.position = rPoint.transform.position - myPoint.transform.position;
+
+			// 目标点标记为已使用 目标点的下一房间设为自身
+			rPoint.UnUse = true;
+			rPoint.nextRoom = this;
+			// 自身对应门标记为已使用 并将其关闭
+			myPoint.UnUse = true;
+			myPoint.gameObject.SetActive(false);
+		}
 		/// <summary>
 		/// 返回此房间的某一个未使用过的门
 		/// </summary>
@@ -101,18 +103,18 @@ namespace Tea.NewRouge
 		/// <returns></returns>
 		public Room_DoorPoint SomeDoor(int num = -1)
 		{
-			Debug.Log(num);
+			//Debug.Log(num);
 			// 当传入-1 视为随机
 			if (num < 0)
 			{
 				num = Random.Range(0, rPoints.Count - 1);
 			}
-			Debug.Log(num);
+			//Debug.Log(num);
 			// 查找门点
 			for (int i = 0; i < rPoints.Count; i++)
 			{
 				// 若门点已被使用 +1 若超出数组 返回 0
-				if (rPoints[num].unUse)
+				if (rPoints[num].UnUse)
 				{
 					num++;
 					if (num >= rPoints.Count)

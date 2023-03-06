@@ -11,35 +11,31 @@ namespace Tea.NewRouge
 		/// <summary>
 		/// 此点是否已被使用
 		/// </summary>
-		public bool unUse;
+		public bool UnUse;
 		public Room_Control nextRoom;
-		Collider trggerColl;
-		private void Awake()
-		{
-			if (TryGetComponent(out Collider coll))
-			{
-				trggerColl = coll;
-			}
-			else
-				trggerColl = gameObject.AddComponent<BoxCollider>();
 
-			if (nextRoom)
+		private void OnCollisionEnter(Collision collision)
+		{
+			if (collision.gameObject.tag == "Player" && nextRoom)
 			{
-				nextRoom.RoomState = false;
-				trggerColl.isTrigger = true;
-			}
-			else
-			{
-				trggerColl.isTrigger = false;
+				ShowRoom();
 			}
 		}
-
 		private void OnTriggerEnter(Collider other)
 		{
 			if (other.tag == "Player" && nextRoom)
 			{
-				nextRoom.RoomState = true;
+				ShowRoom();
 			}
+		}
+		void ShowRoom()
+		{
+			if (TryGetComponent(out Collider collider))
+			{
+				collider.isTrigger = true;
+			}
+			nextRoom.ShowRoom();
+			nextRoom = null;
 		}
 	}
 }
