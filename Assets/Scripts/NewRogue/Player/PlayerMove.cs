@@ -7,7 +7,21 @@ namespace Tea.NewRouge
 {
 	public class PlayerMove : BaseCharacterController
 	{
-		public Transform a;
+		Transform targetEnemy
+		{
+			get
+			{
+				try
+				{
+					return Player_Control.inst.targetEnemy.transform;
+
+				}
+				catch (System.Exception)
+				{
+					return null;
+				}
+			}
+		}
 		float virRotate;
 		public CinemachineVirtualCamera virCamera;
 		[SerializeField]
@@ -16,8 +30,8 @@ namespace Tea.NewRouge
 		protected override void UpdateRotation()
 		{
 			//base.UpdateRotation();
-			if (a)
-				movement.Rotate((a.position - transform.position).normalized, angularSpeed);
+			if(targetEnemy)
+				movement.Rotate((targetEnemy.position - transform.position).normalized, angularSpeed);
 		}
 		protected override void HandleInput()
 		{
@@ -36,7 +50,7 @@ namespace Tea.NewRouge
 				y = Input.GetAxisRaw("Vertical") + joyStick.inputContent.y
 			};
 
-			Debug.Log(joyStick.inputContent);
+			//Debug.Log(joyStick.inputContent);
 			moveDirection = new Vector3
 			{
 				x = move.x * Mathf.Cos(virRotate * Mathf.Deg2Rad) +
@@ -60,7 +74,6 @@ namespace Tea.NewRouge
 			{
 				VirRotate(1);
 			}
-
 		}
 		void VirRotate(float rotate)
 		{

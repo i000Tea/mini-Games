@@ -167,12 +167,12 @@ GameObject:
   - component: {fileID: 2662292506299374540}
   - component: {fileID: 7060527913843524629}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Cost Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1668158453206633300
 RectTransform:
   m_ObjectHideFlags: 0
@@ -191,7 +191,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: -0.5}
+  m_AnchoredPosition: {x: 0, y: -0.25}
   m_SizeDelta: {x: 500, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &1942637869329468917
@@ -266,6 +266,7 @@ GameObject:
   - component: {fileID: 6842747443679462329}
   - component: {fileID: 6485139085343971125}
   - component: {fileID: 28061916089306711}
+  - component: {fileID: 106632505657111364}
   m_Layer: 0
   m_Name: Base Point
   m_TagString: Untagged
@@ -336,6 +337,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &106632505657111364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3007157069997606021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e038bf700cfa444fb16c6ef963be9f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5549748597948959502
 GameObject:
   m_ObjectHideFlags: 0
@@ -348,7 +361,7 @@ GameObject:
   - component: {fileID: 8785089807462402506}
   - component: {fileID: 6368500904674735476}
   m_Layer: 0
-  m_Name: Base Point
+  m_Name: Door Point_Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -395,5 +408,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ffb6365a00f1f644975112914f50968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnUse: 0
+  unUse: 0
   nextRoom: {fileID: 0}
+  nextCost: {fileID: 1668158453206633300}

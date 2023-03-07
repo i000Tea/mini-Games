@@ -18,7 +18,7 @@ namespace Tea.NewRouge
 			{
 				// 有任意一个点未被使用 则标记为否
 				for (int i = 0; i < rPoints.Count; i++)
-					if (!rPoints[i].UnUse)
+					if (!rPoints[i].unUse)
 						return false;
 				// 所有点都标记为使用 则更新为是
 				return true;
@@ -62,7 +62,6 @@ namespace Tea.NewRouge
 		{
 			gameObject.SetActive(false);
 			transform.localScale = Vector3.zero;
-			gameObject.SetActive(true);
 		}
 		public void ShowRoom()
 		{
@@ -90,10 +89,10 @@ namespace Tea.NewRouge
 			transform.position = rPoint.transform.position - myPoint.transform.position;
 
 			// 目标点标记为已使用 目标点的下一房间设为自身
-			rPoint.UnUse = true;
+			rPoint.unUse = true;
 			rPoint.nextRoom = this;
 			// 自身对应门标记为已使用 并将其关闭
-			myPoint.UnUse = true;
+			myPoint.unUse = true;
 			myPoint.gameObject.SetActive(false);
 		}
 		/// <summary>
@@ -114,7 +113,7 @@ namespace Tea.NewRouge
 			for (int i = 0; i < rPoints.Count; i++)
 			{
 				// 若门点已被使用 +1 若超出数组 返回 0
-				if (rPoints[num].UnUse)
+				if (rPoints[num].unUse)
 				{
 					num++;
 					if (num >= rPoints.Count)

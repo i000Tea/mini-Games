@@ -11,7 +11,7 @@ namespace Tea.NewRouge
 		{
 			base.HandleInput();
 
-			agent.SetDestination(Player_Manager.PlayerPoint);
+			agent.SetDestination(Player_Control.PlayerPoint);
 		}
 	}
 }

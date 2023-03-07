@@ -111,9 +111,10 @@ GameObject:
   - component: {fileID: 7102982630973320693}
   - component: {fileID: 7102982630973320692}
   - component: {fileID: 7102982630973320691}
+  - component: {fileID: 459854430919442512}
   m_Layer: 0
-  m_Name: ECM_Agent Enemy
-  m_TagString: Untagged
+  m_Name: ECM_Enemy
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -164,12 +165,12 @@ Rigidbody:
   m_GameObject: {fileID: 7102982630973320690}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 1
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!136 &7102982630973320694
 CapsuleCollider:
@@ -178,7 +179,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7102982630973320690}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: a671ca7f8c75eba46a241d9a952e63fd, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
@@ -239,7 +240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 943b83595770225478438a1d9884ee10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 5
+  _speed: 2.5
   _angularSpeed: 540
   _acceleration: 50
   _deceleration: 20
@@ -265,3 +266,16 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 1
+--- !u!114 &459854430919442512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7102982630973320690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a030254114533a42aaba6ae26e2ba3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 10

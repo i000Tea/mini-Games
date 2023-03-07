@@ -52,7 +52,7 @@ namespace Tea.NewRouge
 			var createRoom = mainRoom;
 			for (int i = 0; i < mainRoadLength - 1; i++)
 			{
-				createRoom = CreateRoom(createRoom);
+				createRoom = CreateRoom(createRoom, Floor);
 				yield return new WaitForFixedUpdate();
 			}
 			for (int i = 1; i < rEntityList.Count; i++)
@@ -63,14 +63,16 @@ namespace Tea.NewRouge
 		/// <summary>
 		/// 创造房间
 		/// </summary>
-		Room_Control CreateRoom(Room_Control beforeRoom = null)
+		Room_Control CreateRoom(Room_Control beforeRoom = null,Transform parent = null)
 		{
 			var rPoint = beforeRoom.SomeDoor();
 			// 随机房间
 			var selectRoom = rItem.RoomPrefabs[0];
 			// 创建房间
 			var CreateRoom = Instantiate(selectRoom).GetComponent<Room_Control>();
-			CreateRoom.name = "a" + Time.time;
+			if (parent)
+				CreateRoom.transform.SetParent(parent);
+			//CreateRoom.name = "a" + Time.time;
 
 			// 获取创建的房间的任意一扇门
 			var newPoint = CreateRoom.SomeDoor();
@@ -85,11 +87,8 @@ namespace Tea.NewRouge
 			CreateRoom.transform.position = rPoint.transform.position - newPoint.transform.position;
 
 			rEntityList.Add(CreateRoom);
-			rPoint.UnUse = true;
-			rPoint.nextRoom = CreateRoom;
-			newPoint.UnUse = true;
-			newPoint.UnUse = true;
-			newPoint.gameObject.SetActive(false);
+			rPoint.SetRoomLink(CreateRoom);
+			newPoint.SetRoomLink();
 			// 返回数据
 			return CreateRoom;
 		}
