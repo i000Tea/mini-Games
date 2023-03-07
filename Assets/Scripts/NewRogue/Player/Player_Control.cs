@@ -23,21 +23,16 @@ namespace Tea.NewRouge
 		private void Awake()
 		{
 			inst = this;
-			StartCoroutine(IntervalFindEnemy());
 		}
 
 		private void Update()
 		{
-		}
-		IEnumerator IntervalFindEnemy()
-		{
-			yield return new WaitForFixedUpdate();
-			while (true)
+			if (!targetEnemy)
 			{
 				targetEnemy = EnemyManager.inst.FindEnemy();
-				yield return new WaitForSeconds(2);
 			}
+			else if (targetEnemy.health <= 0)
+				targetEnemy = EnemyManager.inst.FindEnemy();
 		}
-
 	}
 }

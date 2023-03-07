@@ -46,12 +46,16 @@ namespace Tea.NewRouge
 		}
 		public Enemy_Control FindEnemy()
 		{
+			if (enemys.Count <= 0)
+				return null;
+
 			Enemy_Control target = null;
 			float _long = 9999;
 
 			for (int i = 0; i < enemys.Count; i++)
 			{
-				if (Vector3.Distance(enemys[i].transform.position, Player_Control.PlayerPoint) < _long)
+				if (enemys[i].health > 0 &&
+					Vector3.Distance(enemys[i].transform.position, Player_Control.PlayerPoint) < _long)
 				{
 					target = enemys[i];
 					_long = Vector3.Distance(enemys[i].transform.position, Player_Control.PlayerPoint);

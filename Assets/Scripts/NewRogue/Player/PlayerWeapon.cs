@@ -17,7 +17,7 @@ namespace Tea.NewRouge
 
 		private void Update()
 		{
-			
+			WeaponUpdate();
 		}
 		#region Weapon
 		void WeaponUpdate()
@@ -52,7 +52,9 @@ namespace Tea.NewRouge
 			var a = Instantiate(bullet);
 			a.transform.position = weapon.transform.position;
 			a.transform.rotation = weapon.transform.rotation;
-			a.GetComponent<Rigidbody>().velocity = weapon.transform.forward * 16;
+			a.GetComponent<Rigidbody>().velocity =
+				(weapon.transform.forward + new Vector3(Random.Range(-0.1f, 0.1f), 0, Random.Range(-0.1f, 0.1f)))
+				* 16;
 			Destroy(a, 3);
 			return true;
 		}
