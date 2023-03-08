@@ -50,9 +50,15 @@ namespace Tea.NewRouge
 			}
 			nextRoom.ShowRoom();
 			nextRoom = null;
-			transform.GetChild(0).DOScale(0, 0.5f).SetEase(Ease.InBack);
+			if(TryGetComponent(out Animator anim))
+			{
+				anim.SetTrigger("Open");
+			}
+			else
+			{
+				transform.GetChild(0).DOScale(0, 0.5f).SetEase(Ease.InBack);
+			}
 			nextCost.DOScale(0, 0.5f).SetEase(Ease.InBack);
 		}
-		
 	}
 }

@@ -27,12 +27,15 @@ namespace Tea.NewRouge
 
 		private void Update()
 		{
-			if (!targetEnemy)
+			if (EnemyManager.inst)
 			{
-				targetEnemy = EnemyManager.inst.FindEnemy();
+				if (!targetEnemy)
+				{
+					targetEnemy = EnemyManager.inst.FindEnemy();
+				}
+				else if (targetEnemy.health <= 0)
+					targetEnemy = EnemyManager.inst.FindEnemy();
 			}
-			else if (targetEnemy.health <= 0)
-				targetEnemy = EnemyManager.inst.FindEnemy();
 		}
 	}
 }

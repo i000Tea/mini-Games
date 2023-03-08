@@ -39,6 +39,7 @@ namespace Tea.NewRouge
 		GameObject CreateEnemy()
 		{
 			var obj = Instantiate(prefab);
+			obj.transform.position = transform.position;
 			obj.transform.SetParent(transform);
 			obj.GetComponent<Enemy_Control>().Startsetting();
 			enemys.Add(obj.GetComponent<Enemy_Control>());

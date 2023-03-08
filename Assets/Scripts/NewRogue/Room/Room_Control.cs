@@ -54,7 +54,7 @@ namespace Tea.NewRouge
 		{
 
 		}
-	
+
 		/// <summary>
 		/// 初始化设置
 		/// </summary>
@@ -62,6 +62,11 @@ namespace Tea.NewRouge
 		{
 			gameObject.SetActive(false);
 			transform.localScale = Vector3.zero;
+			for (int i = 0; i < rPoints.Count; i++)
+			{
+				if (!rPoints[i].nextRoom)
+					rPoints[i].nextCost.gameObject.SetActive(false);
+			}
 		}
 		public void ShowRoom()
 		{
@@ -113,8 +118,10 @@ namespace Tea.NewRouge
 			for (int i = 0; i < rPoints.Count; i++)
 			{
 				// 若门点已被使用 +1 若超出数组 返回 0
-				if (rPoints[num].unUse)
+				// 检测门是否可用 
+				if (!DetectionDoor(rPoints[num]))
 				{
+					//若不能使用 序号加1 再次检索
 					num++;
 					if (num >= rPoints.Count)
 					{
@@ -128,6 +135,23 @@ namespace Tea.NewRouge
 				}
 			}
 			return null;
+		}
+		/// <summary>
+		/// 检测此门是否可使用
+		/// </summary>
+		bool DetectionDoor(Room_DoorPoint dPoint)
+		{
+			Vector3 targetPosi = (dPoint.transform.position + dPoint.transform.forward * 12);
+			Vector3 targetScale = new Vector3(8, 1, 8);
+			int layer = 1 << 6;
+			var _list = Physics.OverlapBox(targetPosi, targetScale, Quaternion.Euler(Vector3.zero), layer);
+
+			
+			if (dPoint.unUse || _list.Length > 0)
+			{
+				return false;
+			}
+			return true;
 		}
 	}
 }

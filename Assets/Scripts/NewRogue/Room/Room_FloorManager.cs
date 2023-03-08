@@ -63,6 +63,9 @@ namespace Tea.NewRouge
 		/// <summary>
 		/// 创造房间
 		/// </summary>
+		/// <param name="beforeRoom"> 上一个房间 </param>
+		/// <param name="parent"> 父集节点 </param>
+		/// <returns></returns>
 		Room_Control CreateRoom(Room_Control beforeRoom = null,Transform parent = null)
 		{
 			var rPoint = beforeRoom.SomeDoor();
@@ -77,6 +80,7 @@ namespace Tea.NewRouge
 			// 获取创建的房间的任意一扇门
 			var newPoint = CreateRoom.SomeDoor();
 
+			//Debug.Log(rPoint + " " + newPoint);
 			// 设置旋转
 			float rotateY = rPoint.transform.eulerAngles.y - newPoint.transform.eulerAngles.y - 180;
 			if (rotateY > 360)

@@ -29,9 +29,10 @@ namespace Tea.NewRouge
 
 		protected override void UpdateRotation()
 		{
-			//base.UpdateRotation();
-			if(targetEnemy)
+			if (targetEnemy)
 				movement.Rotate((targetEnemy.position - transform.position).normalized, angularSpeed);
+			else
+			  base.UpdateRotation();
 		}
 		protected override void HandleInput()
 		{
@@ -44,11 +45,19 @@ namespace Tea.NewRouge
 			//	z = Input.GetAxisRaw("Vertical")
 			//};
 			//Debug.Log($" {Mathf.Cos(0)} {Mathf.Cos(0.5f)} {Mathf.Cos(1)} \n {Mathf.Cos(virRotate)}");
-			Vector2 move = new Vector2
-			{
-				x = Input.GetAxisRaw("Horizontal") + joyStick.inputContent.x,
-				y = Input.GetAxisRaw("Vertical") + joyStick.inputContent.y
-			};
+			Vector2 move;
+			if (joyStick)
+				move = new Vector2
+				{
+					x = Input.GetAxisRaw("Horizontal") + joyStick.inputContent.x,
+					y = Input.GetAxisRaw("Vertical") + joyStick.inputContent.y
+				};
+			else
+				move = new Vector2
+				{
+					x = Input.GetAxisRaw("Horizontal"),
+					y = Input.GetAxisRaw("Vertical")
+				};
 
 			//Debug.Log(joyStick.inputContent);
 			moveDirection = new Vector3
