@@ -8960,6 +8960,16 @@
             For production diagnostics, use <see cref="P:SixLabors.ImageSharp.Diagnostics.MemoryDiagnostics.TotalUndisposedAllocationCount"/>.
             </summary>
         </member>
+        <member name="E:SixLabors.ImageSharp.Diagnostics.MemoryDiagnostics.MemoryAllocated">
+            <summary>
+            Fires when ImageSharp allocates memory from a MemoryAllocator
+            </summary>
+        </member>
+        <member name="E:SixLabors.ImageSharp.Diagnostics.MemoryDiagnostics.MemoryReleased">
+            <summary>
+            Fires when ImageSharp releases memory allocated from a MemoryAllocator
+            </summary>
+        </member>
         <member name="P:SixLabors.ImageSharp.Diagnostics.MemoryDiagnostics.TotalUndisposedAllocationCount">
             <summary>
             Gets a value indicating the total number of memory resource objects leaked to the finalizer.
@@ -14326,6 +14336,11 @@
         <member name="F:SixLabors.ImageSharp.Formats.Jpeg.JpegDecoderCore.jFif">
             <summary>
             Contains information about the JFIF marker.
+            </summary>
+        </member>
+        <member name="F:SixLabors.ImageSharp.Formats.Jpeg.JpegDecoderCore.hasJFif">
+            <summary>
+            Whether the image has a JFIF marker. This is needed to determine, if the colorspace is YCbCr.
             </summary>
         </member>
         <member name="F:SixLabors.ImageSharp.Formats.Jpeg.JpegDecoderCore.adobe">
@@ -25117,6 +25132,21 @@
             </summary>
             <param name="features">The webp features.</param>
         </member>
+        <member name="M:SixLabors.ImageSharp.Formats.Webp.WebpDecoderCore.ReadExifProfile">
+            <summary>
+            Reads the EXIF profile from the stream.
+            </summary>
+        </member>
+        <member name="M:SixLabors.ImageSharp.Formats.Webp.WebpDecoderCore.ReadXmpProfile">
+            <summary>
+            Reads the XMP profile the stream.
+            </summary>
+        </member>
+        <member name="M:SixLabors.ImageSharp.Formats.Webp.WebpDecoderCore.ReadIccProfile">
+            <summary>
+            Reads the ICCP chunk from the stream.
+            </summary>
+        </member>
         <member name="M:SixLabors.ImageSharp.Formats.Webp.WebpDecoderCore.ReadChunkType">
             <summary>
             Identifies the chunk type from the chunk.
@@ -25503,6 +25533,12 @@
         </member>
         <member name="M:SixLabors.ImageSharp.Formats.Webp.WebpMetadata.DeepClone">
             <inheritdoc/>
+        </member>
+        <member name="M:SixLabors.ImageSharp.Formats.Webp.WebpThrowHelper.ThrowInvalidImageContentException(System.String)">
+            <summary>
+            Cold path optimization for throwing <see cref="T:SixLabors.ImageSharp.InvalidImageContentException"/>'s.
+            </summary>
+            <param name="errorMessage">The error message for the exception.</param>
         </member>
         <member name="M:SixLabors.ImageSharp.Formats.Webp.WebpThrowHelper.ThrowImageFormatException(System.String)">
             <summary>
@@ -29509,6 +29545,11 @@
         </member>
         <member name="P:SixLabors.ImageSharp.IO.BufferedReadStream.CanWrite">
             <inheritdoc/>
+        </member>
+        <member name="P:SixLabors.ImageSharp.IO.BufferedReadStream.RemainingBytes">
+            <summary>
+            Gets remaining byte count available to read.
+            </summary>
         </member>
         <member name="P:SixLabors.ImageSharp.IO.BufferedReadStream.BaseStream">
             <summary>

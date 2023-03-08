@@ -148,6 +148,14 @@ namespace WeChatWASM
         /// 自定义生成目录路径
         /// </summary>
         public string dstMinDir;
+        /// <summary>
+        /// 是否开启调试模式（仅生成ASTC）
+        /// </summary>
+        public bool debugMode = false;
+        /// <summary>
+        /// 强制（不遵循增量逻辑）
+        /// </summary>
+        public bool force = false;
     }
 
     [Serializable]
@@ -191,6 +199,14 @@ namespace WeChatWASM
         /// </summary>
         public bool Webgl2 = false;
         /// <summary>
+        /// Color Space - Gamma
+        /// </summary>
+        //public bool Gamma = true;
+        /// <summary>
+        /// Color Space - Linear
+        /// </summary>
+        //public bool Linear = false;
+        /// <summary>
         /// DeleteStreamingAssets
         /// </summary>
         public bool DeleteStreamingAssets = true;
@@ -198,6 +214,14 @@ namespace WeChatWASM
         /// ProfilingMemory
         /// </summary>
         public bool ProfilingMemory = false;
+        /// <summary>
+        /// CleanBuild
+        /// </summary>
+        public bool CleanBuild = false;
+        /// <summary>
+        /// CustomNodePath
+        /// </summary>
+        public string CustomNodePath = "";
     }
 
 

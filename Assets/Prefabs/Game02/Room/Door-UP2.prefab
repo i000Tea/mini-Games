@@ -180,18 +180,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7854428250994684798}
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0.7071068, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 4}
+  m_LocalRotation: {x: 2.3270277e-13, y: -1, z: 0.000000029802326, w: -3.410605e-13}
+  m_LocalPosition: {x: 0, y: 0, z: -0.00000071525574}
   m_LocalScale: {x: 0.005, y: 0.005, z: 0.005}
   m_Children:
   - {fileID: 882243490793802088}
   - {fileID: 6870079133920802475}
   m_Father: {fileID: 2597929923996013697}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 90, y: -180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.25}
+  m_AnchoredPosition: {x: 1.1084467e-12, y: 5.2499995}
   m_SizeDelta: {x: 500, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &5618132580582496339
@@ -303,6 +303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ffb6365a00f1f644975112914f50968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dType: 1
   unUse: 0
   nextRoom: {fileID: 0}
   nextCost: {fileID: 7397908776580898346}
@@ -402,7 +403,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4431950373480288, guid: ab94f4534e23ba141a10b1ca23fa05ce, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.68
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: 4431950373480288, guid: ab94f4534e23ba141a10b1ca23fa05ce, type: 3}
       propertyPath: m_LocalRotation.y
@@ -446,9 +447,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab94f4534e23ba141a10b1ca23fa05ce, type: 3}
+--- !u!1 &6659616005965203726 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1725943820791880, guid: ab94f4534e23ba141a10b1ca23fa05ce,
+    type: 3}
+  m_PrefabInstance: {fileID: 6660143000806029638}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6656991615541473382 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4493012822559008, guid: ab94f4534e23ba141a10b1ca23fa05ce,
     type: 3}
   m_PrefabInstance: {fileID: 6660143000806029638}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4146041342734894171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6659616005965203726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e038bf700cfa444fb16c6ef963be9f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

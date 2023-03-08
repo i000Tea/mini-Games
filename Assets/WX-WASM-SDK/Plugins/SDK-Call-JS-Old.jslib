@@ -24,281 +24,69 @@ mergeInto(LibraryManager.library, {
         window._lastBoundTexture = texture;
         GLctx.bindTexture(target, texture ? GL.textures[texture] : null)
     },
-    glCompressedTexImage2D: function (target, level, internalFormat, width, height, border, imageSize, data) {
-        var lastTid = window._lastTextureId;
-
-        function getMatchId() {
-            if(GameGlobal.USED_TEXTURE_COMPRESSION && internalFormat == 36196){
-                var length = HEAPU8.subarray(data, data + 1)[0];
-                var d = HEAPU8.subarray(data+1, data + 1 + length);
-                var res = [];
-                d.forEach(function(v){
-                    res.push(String.fromCharCode(v));
-                });
-                var matchId = res.join('');
-                var start0 = res.length - 8;
-                var start1 = res.length - 5;
-                if(res[start0] == '_'){
-                    start0++;
-                    var header = ['a', 's', 't', 'c'];
-                    for (var i = 0;i < header.length;i++){
-                        if(res[start0 + i] != header[i]){
-                            return [ matchId, '8x8' ];
-                        }
-                    }
-                    start0--;
-                    var astcBlockSize = matchId.substring(start0 + 5);
-                    return [ matchId.substr(0,start0) , astcBlockSize ];
-                }else if(res[start1] == '_'){
-                    start1++;
-                    var size = res[start1];
-                    if(size != '4' && size != '5' && size != '8'){
-                        return [ matchId, '8x8' ];
-                    }
-                    var astcBlockSize = size + 'x' + size;
-                    start1--;
-                    return [ matchId.substr(0,start1) , astcBlockSize ];
-                }else{
-                    return [ matchId, '8x8'];
-                }
-            }
-            return [-1 ,'8x8'];
-        }
-
-        var matchIdInfo = getMatchId();
-        var matchId = matchIdInfo[0];
-        var astcBlockSize = matchIdInfo[1];
-
-        function compressedImage2D(rawData) {
-            var format = 0;
-            var dataOffset = 16;
-            var compressFormat = GameGlobal.TextureCompressedFormat;
-            switch (compressFormat) {
-                case "astc":
-                    if(astcBlockSize == '4x4'){
-                        format = GLctx.getExtension("WEBGL_compressed_texture_astc").COMPRESSED_RGBA_ASTC_4x4_KHR;
-                        break;
-                    }
-                    if(astcBlockSize == '5x5'){
-                        format = GLctx.getExtension("WEBGL_compressed_texture_astc").COMPRESSED_RGBA_ASTC_5x5_KHR;
-                        break;
-                    }
-                    format = GLctx.getExtension("WEBGL_compressed_texture_astc").COMPRESSED_RGBA_ASTC_8x8_KHR;
-                    break;
-                case "etc2":
-                    format = GLctx.getExtension("WEBGL_compressed_texture_etc").COMPRESSED_RGBA8_ETC2_EAC;
-                    break;
-                case "dds":
-                    format = GLctx.getExtension("WEBGL_compressed_texture_s3tc").COMPRESSED_RGBA_S3TC_DXT5_EXT;
-                    dataOffset = 128;
-                    break;
-                case "pvr":
-                    format = GLctx.getExtension("WEBGL_compressed_texture_pvrtc").COMPRESSED_RGBA_PVRTC_4BPPV1_IMG;
-                    var PVR_HEADER_METADATA = 12;
-                    var PVR_HEADER_LENGTH = 13; // The header length in 32 bit ints.
-                    var header = new Int32Array(rawData, 0, PVR_HEADER_LENGTH);
-                    dataOffset = header[PVR_HEADER_METADATA] + 52;
-                    break;
-                case "etc1":
-                    format = GLctx.getExtension("WEBGL_compressed_texture_etc1").COMPRESSED_RGB_ETC1_WEBGL;
-                    break
-            }
-            GLctx["compressedTexImage2D"](target, level, format, width, height, border, new Uint8Array(rawData, dataOffset))
-        }
-
-        function texImage2D(image) {
-            GLctx.texImage2D(GLctx.TEXTURE_2D, 0, GLctx.RGBA, GLctx.RGBA, GLctx.UNSIGNED_BYTE, image)
-        }
-
-        function renderTexture(id) {
-            if(!GL.textures[lastTid]){
-                return;
-            }
-            var PotList = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096];
-            var _data = GameGlobal.DownloadedTextures[id].data;
-            var tid = lastTid;
-              if(!GL.textures[tid]){
-                return;
-              }
-            GLctx.bindTexture(GLctx.TEXTURE_2D, GL.textures[tid]);
-            if (!GameGlobal.TextureCompressedFormat || (GameGlobal.TextureCompressedFormat == "pvr" && (width !== height || PotList.indexOf(height)==-1)) || (GameGlobal.TextureCompressedFormat == 'dds' && (height%4!==0 || width%4!==0))) {
-                texImage2D(_data)
-            }else{
-                compressedImage2D(_data);
-            }
-            GLctx.bindTexture(GLctx.TEXTURE_2D, window._lastBoundTexture ? GL.textures[window._lastBoundTexture] : null);
-
-        }
-
-        function renderTransparent() {
-            GLctx.texImage2D(GLctx.TEXTURE_2D, 0, GLctx.RGBA, 1, 1, 0, GLctx.RGBA, GLctx.UNSIGNED_SHORT_4_4_4_4, new Uint16Array([0, 0]))
-        }
-
-        if (matchId != -1) {
-            if (GameGlobal.DownloadedTextures[matchId] && GameGlobal.DownloadedTextures[matchId].data) {
-                renderTexture(matchId)
-            } else {
-                renderTransparent();
-                window.WXWASMSDK.WXDownloadTexture(matchId,width,height,(function () {
-                    renderTexture(matchId)
-                }))
-            }
-            return
-        }
-        if (GL.currentContext.supportsWebGL2EntryPoints) {
-            GLctx["compressedTexImage2D"](target, level, internalFormat, width, height, border, HEAPU8, data, imageSize);
-            return
-        }
-        GLctx["compressedTexImage2D"](target, level, internalFormat, width, height, border, data ? HEAPU8.subarray(data, data + imageSize) : null)
-    },
-    glCompressedTexSubImage2D:function(target, level, xoffset, yoffset, width, height, format, imageSize, data) {
-        var lastTid = window._lastTextureId;
-
-        function getMatchId() {
-            if(GameGlobal.USED_TEXTURE_COMPRESSION && internalFormat == 36196){
-                var length = HEAPU8.subarray(data, data + 1)[0];
-                var d = HEAPU8.subarray(data+1, data + 1 + length);
-                var res = [];
-                d.forEach(function(v){
-                    res.push(String.fromCharCode(v));
-                });
-                var matchId = res.join('');
-                var start0 = res.length - 8;
-                var start1 = res.length - 5;
-                if(res[start0] == '_'){
-                    start0++;
-                    var header = ['a', 's', 't', 'c'];
-                    for (var i = 0;i < header.length;i++){
-                        if(res[start0 + i] != header[i]){
-                            return [ matchId, '8x8' ];
-                        }
-                    }
-                    start0--;
-                    var astcBlockSize = matchId.substring(start0 + 5);
-                    return [ matchId.substr(0,start0) , astcBlockSize ];
-                }else if(res[start1] == '_'){
-                    start1++;
-                    var size = res[start1];
-                    if(size != '4' && size != '5' && size != '8'){
-                        return [ matchId, '8x8' ];
-                    }
-                    var astcBlockSize = size + 'x' + size;
-                    start1--;
-                    return [ matchId.substr(0,start1) , astcBlockSize ];
-                }else{
-                    return [ matchId, '8x8'];
-                }
-            }
-            return [-1 ,'8x8'];
-        }
-
-        var matchIdInfo = getMatchId();
-        var matchId = matchIdInfo[0];
-        var astcBlockSize = matchIdInfo[1];
-
-        function compressedImage2D(rawData) {
-            var format = 0;
-            var dataOffset = 16;
-            var compressFormat = GameGlobal.TextureCompressedFormat;
-            switch (compressFormat) {
-                case "astc":
-                    if(astcBlockSize == '4x4'){
-                        format = GLctx.getExtension("WEBGL_compressed_texture_astc").COMPRESSED_RGBA_ASTC_4x4_KHR;
-                        break;
-                    }
-                    if(astcBlockSize == '5x5'){
-                        format = GLctx.getExtension("WEBGL_compressed_texture_astc").COMPRESSED_RGBA_ASTC_5x5_KHR;
-                        break;
-                    }
-                    format = GLctx.getExtension("WEBGL_compressed_texture_astc").COMPRESSED_RGBA_ASTC_8x8_KHR;
-                    break;
-                case "etc2":
-                    format = GLctx.getExtension("WEBGL_compressed_texture_etc").COMPRESSED_RGBA8_ETC2_EAC;
-                    break;
-                case "dds":
-                    format = GLctx.getExtension("WEBGL_compressed_texture_s3tc").COMPRESSED_RGBA_S3TC_DXT5_EXT;
-                    dataOffset = 128;
-                    break;
-                case "pvr":
-                    format = GLctx.getExtension("WEBGL_compressed_texture_pvrtc").COMPRESSED_RGBA_PVRTC_4BPPV1_IMG;
-                    var PVR_HEADER_METADATA = 12;
-                    var PVR_HEADER_LENGTH = 13; // The header length in 32 bit ints.
-                    var header = new Int32Array(rawData, 0, PVR_HEADER_LENGTH);
-                    dataOffset = header[PVR_HEADER_METADATA] + 52;
-                    break;
-                case "etc1":
-                    format = GLctx.getExtension("WEBGL_compressed_texture_etc1").COMPRESSED_RGB_ETC1_WEBGL;
-                    break
-            }
-            GLctx["compressedTexSubImage2D"](target, level, xoffset, yoffset, width, height, format, new Uint8Array(rawData, dataOffset))
-        }
-
-        function texImage2D(image) {
-            GLctx.texSubImage2D(target, level, xoffset, yoffset, width, height, GLctx.RGBA, GLctx.UNSIGNED_BYTE, image)
-        }
-
-        function renderTexture(id) {
-            if(!GL.textures[lastTid]){
-                return;
-            }
-            var _data = GameGlobal.DownloadedTextures[id].data;
-            var tid = lastTid;
-            if(!GL.textures[tid]){
-                return;
-            }
-            GLctx.bindTexture(GLctx.TEXTURE_2D, GL.textures[tid]);
-            if (!GameGlobal.TextureCompressedFormat || (GameGlobal.TextureCompressedFormat == "pvr" && width !== height) || (GameGlobal.TextureCompressedFormat == 'dds' && (height%4!==0 || width!==0))) {
-                texImage2D(_data)
-            }else{
-                compressedImage2D(_data);
-            }
-            GLctx.bindTexture(GLctx.TEXTURE_2D, window._lastBoundTexture ? GL.textures[window._lastBoundTexture] : null);
-
-        }
-
-        var p = window._lastTexStorage2DParams;
-        if (matchId != -1) {
-            var f = GLctx.RGBA8;
-            switch (GameGlobal.TextureCompressedFormat) {
-                case "astc":
-                    if(astcBlockSize == '4x4'){
-                        f = GLctx.getExtension("WEBGL_compressed_texture_astc").COMPRESSED_RGBA_ASTC_4x4_KHR;
-                        break;
-                    }
-                    if(astcBlockSize == '5x5'){
-                        f = GLctx.getExtension("WEBGL_compressed_texture_astc").COMPRESSED_RGBA_ASTC_5x5_KHR;
-                        break;
-                    }
-                    f = GLctx.getExtension("WEBGL_compressed_texture_astc").COMPRESSED_RGBA_ASTC_8x8_KHR;
-                    break;
-                case "etc2":
-                    f = GLctx.getExtension("WEBGL_compressed_texture_etc").COMPRESSED_RGBA8_ETC2_EAC;
-                case "dds":
-                    f = GLctx.getExtension("WEBGL_compressed_texture_s3tc").COMPRESSED_RGBA_S3TC_DXT5_EXT;
-                    break;
-                case "pvr":
-                    f = GLctx.getExtension("WEBGL_compressed_texture_pvrtc").COMPRESSED_RGBA_PVRTC_4BPPV1_IMG;
-                    break;
-            }
-            GLctx["texStorage2D"](p[0], p[1], f, width, height);
-            if (GameGlobal.DownloadedTextures[matchId] && GameGlobal.DownloadedTextures[matchId].data) {
-                renderTexture(matchId)
-            } else {
-                window.WXWASMSDK.WXDownloadTexture(matchId, width,height,(function () {
-                    renderTexture(matchId)
-                }))
-            }
-            return
-        }
-    if (GL.currentContext.supportsWebGL2EntryPoints) {
-        GLctx["compressedTexSubImage2D"](target, level, xoffset, yoffset, width, height, format, HEAPU8, data, imageSize);
-        return
-    }
-    GLctx["compressedTexSubImage2D"](target, level, xoffset, yoffset, width, height, format, data ? HEAPU8.subarray(data, data + imageSize) : null)
-    },
-
     WXInitializeSDK: function (version) {
         window.WXWASMSDK.WXInitializeSDK(_WXPointer_stringify_adaptor(version));
+        if (typeof emscriptenMemoryProfiler !== "undefined")  {
+            GameGlobal.memprofiler = emscriptenMemoryProfiler
+            GameGlobal.memprofiler.onDump = function () {
+            var fs = wx.getFileSystemManager();
+            var allocation_used=GameGlobal.memprofiler.allocationsAtLoc; 
+            if (typeof allocation_used === "undefined") allocation_used=GameGlobal.memprofiler.allocationSiteStatistics;
+            var calls = [];
+            for (var i in allocation_used) {
+                    calls.push(i);
+            }
+            calls.sort((function (a, b) {
+                return allocation_used[b][1] - allocation_used[a][1];
+            }));
+
+            console.log('WXDumpUnityHeap begin', Object.keys(allocation_used).length, calls.length);
+            wx.getFileSystemManager().open({
+                filePath: wx.env.USER_DATA_PATH + '/alloc_used.csv',
+                flag: 'w',
+                success: function(res) {
+                    var wxfile = res.fd;
+                    fs.write({
+                        fd: wxfile,
+                        data:'callback;count;size;malloc;free\r\n',
+                        fail: function(res) {
+                            console.error(res);
+                        }
+                    })
+                    var errorCount = 0;
+                    for (var i = 0; i < 100000 && i < calls.length; ++i) {
+                        var callstack = calls[i];
+                        var item = allocation_used[callstack];
+                        if (typeof item === "undefined") {
+                            // console.error('callstack not fond', callstack);
+                            ++errorCount;
+                            continue
+                        }
+                        var posOfThisFunc = callstack.indexOf('emscripten_trace_record_') + "emscripten_trace_record_".length;
+                        if (posOfThisFunc != -1) callstack = callstack.substr(posOfThisFunc);
+                        var posOfRaf = callstack.lastIndexOf("InitWebGLPlayeriPPc ");
+                        if (posOfRaf != -1) callstack = callstack.substr(0, posOfRaf);
+                        posOfRaf = callstack.lastIndexOf("InitPlayerLoopCallbacks");
+                        if (posOfRaf != -1) callstack = callstack.substr(0, posOfRaf);
+
+                        callstack = callstack.replace(/\(.*?\)/g, '')
+                        callstack = callstack.replace(/[A-Z0-9]{40}/g, '')
+                        callstack = callstack.replace(/\n/g, "<-")
+                        callstack = callstack.replace(/_malloc <-.*?MemLabelId15AllocateOptions/g, '')
+                        callstack = callstack.replace(/<-    at dynCall.*?at invoke_/g, '')
+                        fs.write({
+                            fd: wxfile,
+                            data: callstack + ';' + item[0] + ';' + item[1] + ';' + item[2] + ';' + item[3] + '\r\n',
+                            fail: function(res) {
+                                console.error(res)
+                            }
+                        })
+                    }
+                    console.log("WXDumpUnityHeap end", errorCount)
+                }
+            })
+        }
+        }
     },
     WXStorageSetIntSync: function (key, value) {
         window.WXWASMSDK.WXStorageSetIntSync(_WXPointer_stringify_adaptor(key), value);
@@ -423,7 +211,7 @@ mergeInto(LibraryManager.library, {
         window.WXWASMSDK.WXHideAd(_WXPointer_stringify_adaptor(id), _WXPointer_stringify_adaptor(s), _WXPointer_stringify_adaptor(f));
     },
     WXADGetStyleValue: function (id, key) {
-        window.WXWASMSDK.WXADGetStyleValue(_WXPointer_stringify_adaptor(id), _WXPointer_stringify_adaptor(key));
+        return window.WXWASMSDK.WXADGetStyleValue(_WXPointer_stringify_adaptor(id), _WXPointer_stringify_adaptor(key));
     },
     WXADDestroy: function (id) {
         window.WXWASMSDK.WXADDestroy(_WXPointer_stringify_adaptor(id));
@@ -474,14 +262,8 @@ mergeInto(LibraryManager.library, {
     WXReportGameStart: function () {
         window.WXWASMSDK.WXReportGameStart();
     },
-    WXSetGameStage: function(stageType) {
-        window.WXWASMSDK.WXSetGameStage(stageType);
-    },
-    WXReportGameStageCostTime: function(totalMs, extJsonStr) {
-        window.WXWASMSDK.WXReportGameStageCostTime(totalMs, _WXPointer_stringify_adaptor(extJsonStr));
-    },
-    WXReportGameStageError: function(errorType, errStr, extJsonStr) {
-        window.WXWASMSDK.WXReportGameStageError(errorType, _WXPointer_stringify_adaptor(errStr), _WXPointer_stringify_adaptor(extJsonStr));
+    WXReportGameSceneError: function(sceneId, errorType, errStr, extJsonStr) {
+        window.WXWASMSDK.WXReportGameSceneError(sceneId, errorType, _WXPointer_stringify_adaptor(errStr), _WXPointer_stringify_adaptor(extJsonStr));
     },
     WXWriteLog: function (str) {
         window.WXWASMSDK.WXWriteLog(_WXPointer_stringify_adaptor(str))
@@ -751,12 +533,12 @@ mergeInto(LibraryManager.library, {
         if (typeof DYNAMIC_BASE !== "undefined") {
           return HEAP32[DYNAMICTOP_PTR >> 2] - DYNAMIC_BASE
         } 
-        if (typeof emscriptenMemoryProfiler !== "undefined" && typeof Module["___heap_base"] !== "undefined") {
-          var heap_base = Module["___heap_base"];
-          var heap_end = _sbrk();
-          return heap_end - heap_base
+        var heap_base = 7936880;
+        if (typeof Module["___heap_base"] !== "undefined") {
+            heap_base = Module["___heap_base"];
         }
-        return 0
+        var heap_end = _sbrk();
+        return heap_end - heap_base;
     },
     WXGetUsedMemorySize: function() {
          if (typeof emscriptenMemoryProfiler !== "undefined")  {
@@ -764,11 +546,20 @@ mergeInto(LibraryManager.library, {
         }
     },
     WXGetUnAllocatedMemorySize: function() {
-        if (typeof emscriptenMemoryProfiler !== "undefined")  {
-            var heap_end = _sbrk()
-            return HEAP8.length - heap_end
-        }
+        var heap_end = _sbrk()
+        return HEAP8.length - heap_end
         return 0
+    },
+    WXProfilingMemoryDump: function() {
+        if (typeof emscriptenMemoryProfiler !== "undefined")  {
+            GameGlobal.memprofiler.onDump();
+            wx.showModal({
+                title: 'ProfilingMemory',
+                content: 'OnDump Complete!'
+            });
+            return;
+        }
+        console.error('Please call WX.InitSDK & Select ProfilingMemory Option')  
     },
     WXLogManagerDebug:function(str){
         window.WXWASMSDK.WXLogManagerDebug(
@@ -814,12 +605,29 @@ mergeInto(LibraryManager.library, {
         stringToUTF8(returnStr, buffer, bufferSize);
         return buffer;
     },
+    WXGetCachePath: function(url) {
+        var returnStr = window.WXWASMSDK.WXGetCachePath(_WXPointer_stringify_adaptor(url));
+        var bufferSize = lengthBytesUTF8(returnStr) + 1;
+        var buffer = _malloc(bufferSize);
+        stringToUTF8(returnStr, buffer, bufferSize);
+        return buffer;
+    },
+    WXGetPluginCachePath: function() {
+        var returnStr = window.WXWASMSDK.WXGetPluginCachePath();
+        var bufferSize = lengthBytesUTF8(returnStr) + 1;
+        var buffer = _malloc(bufferSize);
+        stringToUTF8(returnStr, buffer, bufferSize);
+        return buffer;
+    },
     WXOnLaunchProgress: function() {
         var returnStr = window.WXWASMSDK.WXOnLaunchProgress();
         var bufferSize = lengthBytesUTF8(returnStr) + 1;
         var buffer = _malloc(bufferSize);
         stringToUTF8(returnStr, buffer, bufferSize);
         return buffer;
+    },
+    WXReportScene: function(conf, callbackId) {
+        window.WXWASMSDK.WXReportScene(_WXPointer_stringify_adaptor(conf), _WXPointer_stringify_adaptor(callbackId));
     },
     WXUncaughtException: function() {
        window.WXWASMSDK.WXUncaughtException(false);
@@ -841,6 +649,16 @@ mergeInto(LibraryManager.library, {
     },
     WXMkdirSync: function (dirPath, recursive) {
         var returnStr = window.WXWASMSDK.WXMkdirSync(_WXPointer_stringify_adaptor(dirPath),recursive);
+        var bufferSize = lengthBytesUTF8(returnStr) + 1;
+        var buffer = _malloc(bufferSize);
+        stringToUTF8(returnStr, buffer, bufferSize);
+        return buffer;
+    },
+    WXRmdir: function(dirPath, recursive, s, f, c) {
+        window.WXWASMSDK.WXRmdir(_WXPointer_stringify_adaptor(dirPath), recursive, _WXPointer_stringify_adaptor(s), _WXPointer_stringify_adaptor(f), _WXPointer_stringify_adaptor(c));
+    },
+    WXRmdirSync: function(dirPath, recursive) {
+        var returnStr = window.WXWASMSDK.WXRmdirSync(_WXPointer_stringify_adaptor(dirPath),recursive);
         var bufferSize = lengthBytesUTF8(returnStr) + 1;
         var buffer = _malloc(bufferSize);
         stringToUTF8(returnStr, buffer, bufferSize);
@@ -975,7 +793,48 @@ mergeInto(LibraryManager.library, {
     WXUploadTaskOnProgressUpdate:function(id){
         window.WXWASMSDK.WXUploadTaskOnProgressUpdate(_WXPointer_stringify_adaptor(id));
     },
+
     WXStat: function (conf, callbackId) {
         window.WXWASMSDK.WXStat(_WXPointer_stringify_adaptor(conf), _WXPointer_stringify_adaptor(callbackId))
+    },
+
+    WX_GetGameRecorder:function() {
+        var res = window.WXWASMSDK.WX_GetGameRecorder();
+        var bufferSize = lengthBytesUTF8(res) + 1;
+        var buffer = _malloc(bufferSize);
+        stringToUTF8(res, buffer, bufferSize);
+        return buffer;
+    },
+
+    WX_GameRecorderOff:function(id, eventType){
+        window.WXWASMSDK.WX_GameRecorderOff(_WXPointer_stringify_adaptor(id), _WXPointer_stringify_adaptor(eventType));
+    },
+
+    WX_GameRecorderOn:function(id, eventType){
+        window.WXWASMSDK.WX_GameRecorderOn(_WXPointer_stringify_adaptor(id), _WXPointer_stringify_adaptor(eventType));
+    },
+
+    WX_GameRecorderStart:function(id,option){
+        window.WXWASMSDK.WX_GameRecorderStart(_WXPointer_stringify_adaptor(id),_WXPointer_stringify_adaptor(option));
+    },
+
+    WX_GameRecorderAbort:function(id){
+        window.WXWASMSDK.WX_GameRecorderAbort(_WXPointer_stringify_adaptor(id));
+    },    
+
+    WX_GameRecorderPause:function(id){
+        window.WXWASMSDK.WX_GameRecorderPause(_WXPointer_stringify_adaptor(id));
+    },    
+
+    WX_GameRecorderResume:function(id){
+        window.WXWASMSDK.WX_GameRecorderResume(_WXPointer_stringify_adaptor(id));
+    },    
+
+    WX_GameRecorderStop:function(id){
+        window.WXWASMSDK.WX_GameRecorderStop(_WXPointer_stringify_adaptor(id));
+    },  
+
+    WX_OperateGameRecorderVideo:function(option){
+        window.WXWASMSDK.WX_OperateGameRecorderVideo(_WXPointer_stringify_adaptor(option));
     },
 });

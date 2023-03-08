@@ -6,9 +6,9 @@ namespace Tea.CyberCard
     public class MenuManager : MonoBehaviour
     {
         #region buttons
-        public void ButtonStart()
+        public void ButtonStart(int SceneNum)
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(SceneNum);
         }
         public void ButtonExit()
         {

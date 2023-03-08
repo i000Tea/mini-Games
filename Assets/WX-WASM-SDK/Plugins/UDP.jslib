@@ -67,14 +67,18 @@ var UDPSocketLibrary =
     udpSocket.onMessage(instance.OnMessage);
     udpSocket.onError(instance.OnError);
     udpSocket.onClose(instance.OnClose);
+    udpSocket.connect({
+      address:instance.server,
+      port:instance.remotePort
+    });
     udpSocketManager.instances[instanceId] = instance;
     return instanceId
   },
-  
+   
   WXSendUDPSocket: function (instanceId, bufferPtr, offset, length) {
     var instance = udpSocketManager.instances[instanceId];
     if (instance && instance.socket) {
-      instance.socket.send({
+      instance.socket.write({
         address: instance.server,
         port: instance.remotePort,
         message: buffer.slice(bufferPtr + offset, bufferPtr + length)

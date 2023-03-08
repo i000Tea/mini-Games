@@ -48,11 +48,15 @@ namespace Tea.NewRouge
 			// 初始的房间作为第一个
 			rEntityList.Add(startRoom);
 
-			var mainRoom = startRoom;
-			var createRoom = mainRoom;
+			var listRoom = startRoom;
+			var createRoom = listRoom;
+
+			yield return new WaitForFixedUpdate();
 			for (int i = 0; i < mainRoadLength - 1; i++)
 			{
-				createRoom = CreateRoom(createRoom, Floor);
+				createRoom = CreateRoom(listRoom, Floor);
+				if (createRoom)
+					listRoom = createRoom;
 				yield return new WaitForFixedUpdate();
 			}
 			for (int i = 1; i < rEntityList.Count; i++)
@@ -64,37 +68,47 @@ namespace Tea.NewRouge
 		/// 创造房间
 		/// </summary>
 		/// <param name="beforeRoom"> 上一个房间 </param>
-		/// <param name="parent"> 父集节点 </param>
+		/// <param name="newRoomParent"> 父集节点 </param>
 		/// <returns></returns>
-		Room_Control CreateRoom(Room_Control beforeRoom = null,Transform parent = null)
+		Room_Control CreateRoom(Room_Control beforeRoom = null, Transform newRoomParent = null)
 		{
-			var rPoint = beforeRoom.SomeDoor();
-			// 随机房间
-			var selectRoom = rItem.RoomPrefabs[0];
-			// 创建房间
-			var CreateRoom = Instantiate(selectRoom).GetComponent<Room_Control>();
-			if (parent)
-				CreateRoom.transform.SetParent(parent);
-			//CreateRoom.name = "a" + Time.time;
+			// 获取之前房间中的一扇门 定义为 前置门
+			var beforerDoor = beforeRoom.GetDoor();
 
-			// 获取创建的房间的任意一扇门
-			var newPoint = CreateRoom.SomeDoor();
+			//Debug.LogWarning(beforerDoor);
+			// 随机门的预制件
+			var roomObj = rItem.RandomRoom(beforerDoor.dType);
+			//Debug.LogWarning(roomObj);
+			// 若随即不到 则直接返回空
+			if (!roomObj)
+				return null;
+			// 创建随机房间 并获取脚本 定义为 新的房间
+			var newRoom = Instantiate(roomObj).GetComponent<Room_Control>();
+			// 如果输入了父集 则设置父对象
+			if (newRoomParent)
+				newRoom.transform.SetParent(newRoomParent);
 
-			//Debug.Log(rPoint + " " + newPoint);
+			// 获取 新的房间 的一扇门适合的门 定义为新的门
+			var newDoor = newRoom.GetDoor(beforerDoor.dType);
+
 			// 设置旋转
-			float rotateY = rPoint.transform.eulerAngles.y - newPoint.transform.eulerAngles.y - 180;
+			float rotateY = beforerDoor.transform.eulerAngles.y - newDoor.transform.eulerAngles.y /*- 180*/;
 			if (rotateY > 360)
 				rotateY %= 360;
-			CreateRoom.transform.rotation = Quaternion.Euler(0, rotateY, 0);
+			newRoom.transform.rotation = Quaternion.Euler(0, rotateY, 0);
 
 			//设置位置
-			CreateRoom.transform.position = rPoint.transform.position - newPoint.transform.position;
+			newRoom.transform.position = beforerDoor.transform.position - newDoor.transform.position;
 
-			rEntityList.Add(CreateRoom);
-			rPoint.SetRoomLink(CreateRoom);
-			newPoint.SetRoomLink();
+			Debug.Log("ssaa");
+
+			// 将生成好的房间加入列表
+			rEntityList.Add(newRoom);
+			beforerDoor.SetRoomLink(newRoom);
+			newDoor.CloseMe();
+			
 			// 返回数据
-			return CreateRoom;
+			return newRoom;
 		}
 	}
 }

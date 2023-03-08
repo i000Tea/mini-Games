@@ -68,6 +68,16 @@ namespace WeChatWASM
     [Preserve]
     public class EnterOptionsGame {
             /// <summary> 
+            /// 需要基础库： `2.20.0`
+            /// API 类别
+            /// 可选值：
+            /// - 'default': 默认类别;
+            /// - 'nativeFunctionalized': 原生功能化，视频号直播商品、商品橱窗等场景打开的小程序;
+            /// - 'browseOnly': 仅浏览，朋友圈快照页等场景打开的小程序;
+            /// - 'embedded': 内嵌，通过打开半屏小程序能力打开的小程序;
+            /// </summary>
+                public string apiCategory;
+            /// <summary> 
             /// 启动小游戏的 query 参数
             /// </summary>
                 public Dictionary<string,string> query;
@@ -87,7 +97,7 @@ namespace WeChatWASM
             /// - 3: 普通微信群聊;
             /// - 4: 企业微信互通群聊;
             /// </summary>
-                public double chatType;
+                public double? chatType;
             /// <summary> 
             /// shareTicket，详见[获取更多转发信息](#)
             /// </summary>
@@ -141,7 +151,7 @@ namespace WeChatWASM
             /// - 3: 普通微信群聊;
             /// - 4: 企业微信互通群聊;
             /// </summary>
-                public double chatType;
+                public double? chatType;
             /// <summary> 
             /// shareTicket，详见[获取更多转发信息](#)
             /// </summary>
@@ -301,6 +311,11 @@ namespace WeChatWASM
                 public double pixelRatio;
             /// <summary> 
             /// 客户端平台
+            /// 可选值：
+            /// - 'ios': iOS微信（包含 iPhone、iPad）;
+            /// - 'android': Android微信;
+            /// - 'windows': Windows微信;
+            /// - 'mac': macOS微信;
             /// </summary>
                 public string platform;
             /// <summary> 
@@ -429,7 +444,7 @@ namespace WeChatWASM
             /// <summary> 
             /// 字号
             /// </summary>
-                public double fontSize;
+                public double? fontSize;
             /// <summary> 
             /// 字体样式
             /// 可选值：
@@ -616,7 +631,7 @@ namespace WeChatWASM
             /// <summary> 
             /// 最多可以选择的图片张数
             /// </summary>
-                public double count;
+                public double? count;
             /// <summary> 
             /// 接口调用失败的回调函数
             /// </summary>
@@ -664,6 +679,171 @@ namespace WeChatWASM
             /// 本地临时文件大小，单位 B
             /// </summary>
                 public double size;
+    }
+    [Preserve]
+    public class ChooseMediaOption {
+            /// <summary> 
+            /// 仅在 sourceType 为 camera 时生效，使用前置或后置摄像头
+            /// 可选值：
+            /// - 'back': 使用后置摄像头;
+            /// - 'front': 使用前置摄像头;
+            /// </summary>
+                public string camera;
+            /// <summary> 
+            /// 接口调用结束的回调函数（调用成功、失败都会执行）
+            /// </summary>
+                public Action<GeneralCallbackResult> complete;
+            /// <summary> 
+            /// 最多可以选择的文件个数
+            /// </summary>
+                public double? count;
+            /// <summary> 
+            /// 接口调用失败的回调函数
+            /// </summary>
+                public Action<GeneralCallbackResult> fail;
+            /// <summary> 
+            /// 拍摄视频最长拍摄时间，单位秒。时间范围为 3s 至 60s 之间。不限制相册。
+            /// </summary>
+                public double? maxDuration;
+            /// <summary> 
+            /// 文件类型
+            /// 可选值：
+            /// - 'image': 只能拍摄图片或从相册选择图片;
+            /// - 'video': 只能拍摄视频或从相册选择视频;
+            /// - 'mix': 可同时选择图片和视频;
+            /// </summary>
+                public Array mediaType;
+            /// <summary> 
+            /// 仅对 mediaType 为 image 时有效，是否压缩所选文件
+            /// </summary>
+                public string[] sizeType;
+            /// <summary> 
+            /// 图片和视频选择的来源
+            /// 可选值：
+            /// - 'album': 从相册选择;
+            /// - 'camera': 使用相机拍摄;
+            /// </summary>
+                public Array sourceType;
+            /// <summary> 
+            /// 接口调用成功的回调函数
+            /// </summary>
+                public Action<ChooseMediaSuccessCallbackResult> success;
+    }
+    [Preserve]
+    public class ChooseMediaSuccessCallbackResult {
+            /// <summary> 
+            /// 本地临时文件列表
+            /// </summary>
+                public MediaFile[] tempFiles;
+            /// <summary> 
+            /// 文件类型，有效值有 image 、video、mix
+            /// </summary>
+                public string type;
+
+                public string errMsg;
+    }
+    [Preserve]
+    public class MediaFile {
+            /// <summary> 
+            /// 视频的时间长度
+            /// </summary>
+                public double duration;
+            /// <summary> 
+            /// 文件类型
+            /// 可选值：
+            /// - 'image': 图片;
+            /// - 'video': 视频;
+            /// </summary>
+                public string fileType;
+            /// <summary> 
+            /// 视频的高度
+            /// </summary>
+                public double height;
+            /// <summary> 
+            /// 本地临时文件大小，单位 B
+            /// </summary>
+                public double size;
+            /// <summary> 
+            /// 本地临时文件路径 (本地路径)
+            /// </summary>
+                public string tempFilePath;
+            /// <summary> 
+            /// 视频缩略图临时文件路径
+            /// </summary>
+                public string thumbTempFilePath;
+            /// <summary> 
+            /// 视频的宽度
+            /// </summary>
+                public double width;
+    }
+    [Preserve]
+    public class ChooseMessageFileOption {
+            /// <summary> 
+            /// 最多可以选择的文件个数，可以 0～100
+            /// </summary>
+                public double count;
+            /// <summary> 
+            /// 接口调用结束的回调函数（调用成功、失败都会执行）
+            /// </summary>
+                public Action<GeneralCallbackResult> complete;
+            /// <summary> 
+            /// 需要基础库： `2.6.0`
+            /// 根据文件拓展名过滤，仅 type==file 时有效。每一项都不能是空字符串。默认不过滤。
+            /// </summary>
+                public string[] extension;
+            /// <summary> 
+            /// 接口调用失败的回调函数
+            /// </summary>
+                public Action<GeneralCallbackResult> fail;
+            /// <summary> 
+            /// 接口调用成功的回调函数
+            /// </summary>
+                public Action<ChooseMessageFileSuccessCallbackResult> success;
+            /// <summary> 
+            /// 所选的文件的类型
+            /// 可选值：
+            /// - 'all': 从所有文件选择;
+            /// - 'video': 只能选择视频文件;
+            /// - 'image': 只能选择图片文件;
+            /// - 'file': 可以选择除了图片和视频之外的其它的文件;
+            /// </summary>
+                public string type;
+    }
+    [Preserve]
+    public class ChooseMessageFileSuccessCallbackResult {
+            /// <summary> 
+            /// 返回选择的文件的本地临时文件对象数组
+            /// </summary>
+                public ChooseFile[] tempFiles;
+
+                public string errMsg;
+    }
+    [Preserve]
+    public class ChooseFile {
+            /// <summary> 
+            /// 选择的文件名称
+            /// </summary>
+                public string name;
+            /// <summary> 
+            /// 本地临时文件路径 (本地路径)
+            /// </summary>
+                public string path;
+            /// <summary> 
+            /// 本地临时文件大小，单位 B
+            /// </summary>
+                public double size;
+            /// <summary> 
+            /// 选择的文件的会话发送时间，Unix时间戳，工具暂不支持此属性
+            /// </summary>
+                public double time;
+            /// <summary> 
+            /// 选择的文件类型
+            /// 可选值：
+            /// - 'video': 选择了视频文件;
+            /// - 'image': 选择了图片文件;
+            /// - 'file': 选择了除图片和视频的文件;
+            /// </summary>
+                public string type;
     }
     [Preserve]
     public class CloseBLEConnectionOption {
@@ -747,7 +927,7 @@ namespace WeChatWASM
             /// <summary> 
             /// 一个数字值表示关闭连接的状态号，表示连接被关闭的原因。
             /// </summary>
-                public double code;
+                public double? code;
             /// <summary> 
             /// 接口调用结束的回调函数（调用成功、失败都会执行）
             /// </summary>
@@ -786,7 +966,7 @@ namespace WeChatWASM
             /// <summary> 
             /// 超时时间，单位 ms，不填表示不会超时
             /// </summary>
-                public double timeout;
+                public double? timeout;
     }
     [Preserve]
     public class CreateBLEPeripheralServerOption {
@@ -973,53 +1153,53 @@ namespace WeChatWASM
             /// <summary> 
             /// 读
             /// </summary>
-                public bool read;
+                public bool? read;
             /// <summary> 
             /// 写
             /// </summary>
-                public bool write;
+                public bool? write;
     }
     [Preserve]
     public class CharacteristicPermission {
             /// <summary> 
             /// 加密读请求
             /// </summary>
-                public bool readEncryptionRequired;
+                public bool? readEncryptionRequired;
             /// <summary> 
             /// 可读
             /// </summary>
-                public bool readable;
+                public bool? readable;
             /// <summary> 
             /// 加密写请求
             /// </summary>
-                public bool writeEncryptionRequired;
+                public bool? writeEncryptionRequired;
             /// <summary> 
             /// 可写
             /// </summary>
-                public bool writeable;
+                public bool? writeable;
     }
     [Preserve]
     public class CharacteristicProperties {
             /// <summary> 
             /// 回包
             /// </summary>
-                public bool indicate;
+                public bool? indicate;
             /// <summary> 
             /// 订阅
             /// </summary>
-                public bool notify;
+                public bool? notify;
             /// <summary> 
             /// 读
             /// </summary>
-                public bool read;
+                public bool? read;
             /// <summary> 
             /// 写
             /// </summary>
-                public bool write;
+                public bool? write;
             /// <summary> 
             /// 无回复写
             /// </summary>
-                public bool writeNoResponse;
+                public bool? writeNoResponse;
     }
     [Preserve]
     public class OnCharacteristicReadRequestCallbackResult {
@@ -1122,7 +1302,7 @@ namespace WeChatWASM
             /// <summary> 
             /// 当前设备是否可连接
             /// </summary>
-                public bool connectable;
+                public bool? connectable;
             /// <summary> 
             /// 广播中 deviceName 字段，默认为空
             /// </summary>
@@ -1153,7 +1333,7 @@ namespace WeChatWASM
             /// <summary> 
             /// 用于判断距离设备 1 米时 RSSI 大小的参考值
             /// </summary>
-                public double measuredPower;
+                public double? measuredPower;
     }
     [Preserve]
     public class ManufacturerData {
@@ -1202,7 +1382,7 @@ namespace WeChatWASM
             /// <summary> 
             /// 可选，处理回包时使用
             /// </summary>
-                public double callbackId;
+                public double? callbackId;
             /// <summary> 
             /// 接口调用结束的回调函数（调用成功、失败都会执行）
             /// </summary>
@@ -1267,19 +1447,19 @@ namespace WeChatWASM
             /// <summary> 
             /// 是否返回当前图像的人脸角度信息
             /// </summary>
-                public bool enableAngle;
+                public bool? enableAngle;
             /// <summary> 
             /// 是否返回当前图像的人脸的置信度（可表示器官遮挡情况）
             /// </summary>
-                public bool enableConf;
+                public bool? enableConf;
             /// <summary> 
             /// 是否返回多张人脸的信息
             /// </summary>
-                public bool enableMultiFace;
+                public bool? enableMultiFace;
             /// <summary> 
             /// 是否返回当前图像的人脸（106 个点）
             /// </summary>
-                public bool enablePoint;
+                public bool? enablePoint;
             /// <summary> 
             /// 接口调用失败的回调函数
             /// </summary>
@@ -1300,7 +1480,7 @@ namespace WeChatWASM
             /// </summary>
                 public FaceConf confArray;
             /// <summary> 
-            /// 脸部正方框数值，对象包含 height, weight, originX, originY 四个属性
+            /// 脸部方框数值，对象包含 height, weight, originX, originY 四个属性 (origin 为方框左上角坐标)
             /// </summary>
                 public Dictionary<string,string> detectRect;
             /// <summary> 
@@ -1453,6 +1633,14 @@ namespace WeChatWASM
             /// 该特征是否支持 write 操作
             /// </summary>
                 public bool write;
+            /// <summary> 
+            /// 该特征是否支持有回复写操作
+            /// </summary>
+                public bool writeDefault;
+            /// <summary> 
+            /// 该特征是否支持无回复写操作
+            /// </summary>
+                public bool writeNoResponse;
     }
     [Preserve]
     public class GetBLEDeviceRSSIOption {
@@ -1737,6 +1925,10 @@ namespace WeChatWASM
             /// 当前蓝牙设备的广播数据段中的 ServiceUUIDs 数据段
             /// </summary>
                 public string[] advertisServiceUUIDs;
+            /// <summary> 
+            /// 当前蓝牙设备是否可连接（ Android 8.0 以下不支持返回该值 ）
+            /// </summary>
+                public bool connectable;
             /// <summary> 
             /// 蓝牙设备 id
             /// </summary>
@@ -2034,6 +2226,10 @@ namespace WeChatWASM
             /// 本机局域网IP地址
             /// </summary>
                 public string localip;
+            /// <summary> 
+            /// 本机局域网子网掩码，基础库 2.24.0 开始支持
+            /// </summary>
+                public string netmask;
     }
     [Preserve]
     public class GetLocationOption {
@@ -2041,7 +2237,7 @@ namespace WeChatWASM
             /// 需要基础库： `1.6.0`
             /// 传入 true 会返回高度信息，由于获取高度需要较高精确度，会减慢接口返回速度
             /// </summary>
-                public bool altitude;
+                public bool? altitude;
             /// <summary> 
             /// 接口调用结束的回调函数（调用成功、失败都会执行）
             /// </summary>
@@ -2054,12 +2250,12 @@ namespace WeChatWASM
             /// 需要基础库： `2.9.0`
             /// 高精度定位超时时间(ms)，指定时间内返回最高精度，该值3000ms以上高精度定位才有效果
             /// </summary>
-                public double highAccuracyExpireTime;
+                public double? highAccuracyExpireTime;
             /// <summary> 
             /// 需要基础库： `2.9.0`
             /// 开启高精度定位
             /// </summary>
-                public bool isHighAccuracy;
+                public bool? isHighAccuracy;
             /// <summary> 
             /// 接口调用成功的回调函数
             /// </summary>
@@ -2123,6 +2319,11 @@ namespace WeChatWASM
     [Preserve]
     public class GetNetworkTypeSuccessCallbackResult {
             /// <summary> 
+            /// 需要基础库： `2.22.1`
+            /// 设备是否使用了网络代理
+            /// </summary>
+                public bool hasSystemProxy;
+            /// <summary> 
             /// 网络类型
             /// 可选值：
             /// - 'wifi': wifi 网络;
@@ -2162,6 +2363,8 @@ namespace WeChatWASM
             /// 屏幕亮度值，范围 0 ~ 1，0 最暗，1 最亮
             /// </summary>
                 public double value;
+
+                public string errMsg;
     }
     [Preserve]
     public class GetSettingOption {
@@ -2181,7 +2384,7 @@ namespace WeChatWASM
             /// 需要基础库： `2.10.1`
             /// 是否同时获取用户订阅消息的订阅状态，默认不获取。注意：withSubscriptions 只返回用户勾选过订阅面板中的“总是保持以上选择，不再询问”的订阅消息。
             /// </summary>
-                public bool withSubscriptions;
+                public bool? withSubscriptions;
     }
     [Preserve]
     public class GetSettingSuccessCallbackResult {
@@ -2262,7 +2465,7 @@ namespace WeChatWASM
             /// 需要基础库： `1.9.90`
             /// 超时时间，单位 ms
             /// </summary>
-                public double timeout;
+                public double? timeout;
     }
     [Preserve]
     public class GetStorageInfoOption {
@@ -2349,7 +2552,7 @@ namespace WeChatWASM
             /// <summary> 
             /// 是否带上登录态信息。当 withCredentials 为 true 时，要求此前有调用过 wx.login 且登录态尚未过期，此时返回的数据会包含 encryptedData, iv 等敏感信息；当 withCredentials 为 false 时，不要求有登录态，返回的数据不包含 encryptedData, iv 等敏感信息。
             /// </summary>
-                public bool withCredentials;
+                public bool? withCredentials;
     }
     [Preserve]
     public class GetUserInfoSuccessCallbackResult {
@@ -2463,12 +2666,12 @@ namespace WeChatWASM
             /// 加密数据，包含互动型托管数据的值。解密后的结果为一个 `KVDataList`，每一项为一个 `KVData`。 [用户数据的签名验证和加解密](https://developers.weixin.qq.com/minigame/dev/guide/open-ability/signature.html#加密数据解密算法)
             /// </summary>
                 public string encryptedData;
-
-                public string errMsg;
             /// <summary> 
             /// 加密算法的初始向量，详见 [用户数据的签名验证和加解密](https://developers.weixin.qq.com/minigame/dev/guide/open-ability/signature.html#加密数据解密算法)
             /// </summary>
                 public string iv;
+
+                public string errMsg;
     }
     [Preserve]
     public class GetWeRunDataOption {
@@ -2529,6 +2732,11 @@ namespace WeChatWASM
             /// </summary>
                 public Action<GeneralCallbackResult> fail;
             /// <summary> 
+            /// 需要基础库： `2.22.1`
+            /// 目前 toast 和 loading 相关接口可以相互混用，此参数可用于取消混用特性
+            /// </summary>
+                public bool? noConflict;
+            /// <summary> 
             /// 接口调用成功的回调函数
             /// </summary>
                 public Action<GeneralCallbackResult> success;
@@ -2563,6 +2771,11 @@ namespace WeChatWASM
             /// 接口调用失败的回调函数
             /// </summary>
                 public Action<GeneralCallbackResult> fail;
+            /// <summary> 
+            /// 需要基础库： `2.22.1`
+            /// 目前 toast 和 loading 相关接口可以相互混用，此参数可用于取消混用特性
+            /// </summary>
+                public double? noConflict;
             /// <summary> 
             /// 接口调用成功的回调函数
             /// </summary>
@@ -2672,11 +2885,11 @@ namespace WeChatWASM
             /// <summary> 
             /// 是否静音耳机
             /// </summary>
-                public bool muteEarphone;
+                public bool? muteEarphone;
             /// <summary> 
             /// 是否静音麦克风
             /// </summary>
-                public bool muteMicrophone;
+                public bool? muteMicrophone;
     }
     [Preserve]
     public class JoinVoIPChatSuccessCallbackResult {
@@ -2711,7 +2924,7 @@ namespace WeChatWASM
             /// 需要基础库： `1.9.90`
             /// 超时时间，单位ms
             /// </summary>
-                public double timeout;
+                public double? timeout;
     }
     [Preserve]
     public class LoginSuccessCallbackResult {
@@ -2747,7 +2960,7 @@ namespace WeChatWASM
             /// <summary> 
             /// 超时时间，单位 ms
             /// </summary>
-                public double timeout;
+                public double? timeout;
     }
     [Preserve]
     public class NavigateToMiniProgramOption {
@@ -2988,9 +3201,8 @@ namespace WeChatWASM
     [Preserve]
     public class OnDeviceOrientationChangeCallbackResult {
             /// <summary> 
-            /// 表示切换后的屏幕是横屏还是竖屏
+            /// 变化后的屏幕方向。只监听左横屏和右横屏之间切换的事件。仅在 game.json 中配置 deviceOrientation 的值为 landscape 时生效。
             /// 可选值：
-            /// - 'portrait': 竖屏;
             /// - 'landscape': 横屏正方向，以 HOME 键在屏幕右侧为正方向;
             /// - 'landscapeReverse': 横屏反方向，以 HOME 键在屏幕左侧为反方向;
             /// </summary>
@@ -3082,6 +3294,7 @@ namespace WeChatWASM
             /// - '2g': 2g 网络;
             /// - '3g': 3g 网络;
             /// - '4g': 4g 网络;
+            /// - '5g': 5g 网络;
             /// - 'unknown': Android 下不常见的网络类型;
             /// - 'none': 无网络;
             /// </summary>
@@ -3493,11 +3706,24 @@ namespace WeChatWASM
             /// <summary> 
             /// 是否显示会话内消息卡片，设置此参数为 true，用户进入客服会话会在右下角显示"可能要发送的小程序"提示，用户点击后可以快速发送小程序消息
             /// </summary>
-                public bool showMessageCard;
+                public bool? showMessageCard;
             /// <summary> 
             /// 接口调用成功的回调函数
             /// </summary>
-                public Action<GeneralCallbackResult> success;
+                public Action<OpenCustomerServiceConversationSuccessCallbackResult> success;
+    }
+    [Preserve]
+    public class OpenCustomerServiceConversationSuccessCallbackResult {
+            /// <summary> 
+            /// 在客服会话内点击小程序消息卡片进入小程序时，所带的小程序打开路径
+            /// </summary>
+                public string path;
+            /// <summary> 
+            /// 在客服会话内点击小程序消息卡片进入小程序时，所带的小程序打开参数
+            /// </summary>
+                public Dictionary<string,string> query;
+
+                public string errMsg;
     }
     [Preserve]
     public class OpenSettingOption {
@@ -3517,7 +3743,7 @@ namespace WeChatWASM
             /// 需要基础库： `2.10.3`
             /// 是否同时获取用户订阅消息的订阅状态，默认不获取。注意：withSubscriptions 只返回用户勾选过订阅面板中的“总是保持以上选择，不再询问”的订阅消息。
             /// </summary>
-                public bool withSubscriptions;
+                public bool? withSubscriptions;
     }
     [Preserve]
     public class OpenSettingSuccessCallbackResult {
@@ -3561,10 +3787,8 @@ namespace WeChatWASM
             /// <summary> 
             /// 需要基础库： `2.13.0`
             /// 是否显示长按菜单。
-            /// 支持识别的码：小程序码
-            /// 仅小程序支持识别的码：微信个人码、微信群码、企业微信个人码、 企业微信群码与企业微信互通群码；
             /// </summary>
-                public bool showmenu;
+                public bool? showmenu;
             /// <summary> 
             /// 接口调用成功的回调函数
             /// </summary>
@@ -3583,7 +3807,7 @@ namespace WeChatWASM
             /// <summary> 
             /// 当前显示的资源序号
             /// </summary>
-                public double current;
+                public double? current;
             /// <summary> 
             /// 接口调用失败的回调函数
             /// </summary>
@@ -3596,10 +3820,8 @@ namespace WeChatWASM
             /// <summary> 
             /// 需要基础库： `2.13.0`
             /// 是否显示长按菜单。
-            /// 支持识别的码：小程序码
-            /// 仅小程序支持识别的码：微信个人码、微信群码、企业微信个人码、 企业微信群码与企业微信互通群码；
             /// </summary>
-                public bool showmenu;
+                public bool? showmenu;
             /// <summary> 
             /// 接口调用成功的回调函数
             /// </summary>
@@ -3842,7 +4064,7 @@ namespace WeChatWASM
             /// <summary> 
             /// 购买数量。mode=game 时必填。购买数量。详见 [buyQuantity 限制说明](#buyquantity-限制说明)。
             /// </summary>
-                public double buyQuantity;
+                public double? buyQuantity;
             /// <summary> 
             /// 接口调用结束的回调函数（调用成功、失败都会执行）
             /// </summary>
@@ -3853,7 +4075,7 @@ namespace WeChatWASM
             /// - 0: 米大师正式环境;
             /// - 1: 米大师沙箱环境;
             /// </summary>
-                public double env;
+                public double? env;
             /// <summary> 
             /// 接口调用失败的回调函数
             /// </summary>
@@ -4052,7 +4274,7 @@ namespace WeChatWASM
             /// 需要基础库： `1.2.0`
             /// 是否只能从相机扫码，不允许从相册选择图片
             /// </summary>
-                public bool onlyFromCamera;
+                public bool? onlyFromCamera;
             /// <summary> 
             /// 需要基础库： `1.7.0`
             /// 扫码类型
@@ -4222,15 +4444,15 @@ namespace WeChatWASM
             /// <summary> 
             /// 是否与其他音频混播，设置为 true 之后，不会终止其他应用或微信内的音乐
             /// </summary>
-                public bool mixWithOther;
+                public bool? mixWithOther;
             /// <summary> 
             /// （仅在 iOS 生效）是否遵循静音开关，设置为 false 之后，即使是在静音模式下，也能播放声音
             /// </summary>
-                public bool obeyMuteSwitch;
+                public bool? obeyMuteSwitch;
             /// <summary> 
             /// true 代表用扬声器播放，false 代表听筒播放，默认值为 true。
             /// </summary>
-                public bool speakerOn;
+                public bool? speakerOn;
             /// <summary> 
             /// 接口调用成功的回调函数
             /// </summary>
@@ -4280,7 +4502,7 @@ namespace WeChatWASM
     [Preserve]
     public class SetScreenBrightnessOption {
             /// <summary> 
-            /// 屏幕亮度值，范围 0 ~ 1。0 最暗，1 最亮
+            /// 屏幕亮度值，范围 0 ~ 1，0 最暗，1 最亮。在安卓端支持传入特殊值 -1，表示屏幕亮度跟随系统变化
             /// </summary>
                 public double value;
             /// <summary> 
@@ -4376,7 +4598,7 @@ namespace WeChatWASM
             /// 需要基础库： `2.12.2`
             /// 是否转发到当前群。该参数只对从群工具栏打开的场景下生效，默认转发到当前群，填入false时可转发到其他会话。
             /// </summary>
-                public bool toCurrentGroup;
+                public bool? toCurrentGroup;
     }
     [Preserve]
     public class ShowActionSheetOption {
@@ -4473,7 +4695,7 @@ namespace WeChatWASM
             /// <summary> 
             /// 是否显示透明蒙层，防止触摸穿透
             /// </summary>
-                public bool mask;
+                public bool? mask;
             /// <summary> 
             /// 接口调用成功的回调函数
             /// </summary>
@@ -4509,7 +4731,7 @@ namespace WeChatWASM
             /// 需要基础库： `2.17.1`
             /// 是否显示输入框
             /// </summary>
-                public bool editable;
+                public bool? editable;
             /// <summary> 
             /// 接口调用失败的回调函数
             /// </summary>
@@ -4522,7 +4744,7 @@ namespace WeChatWASM
             /// <summary> 
             /// 是否显示取消按钮
             /// </summary>
-                public bool showCancel;
+                public bool? showCancel;
             /// <summary> 
             /// 接口调用成功的回调函数
             /// </summary>
@@ -4591,7 +4813,7 @@ namespace WeChatWASM
             /// <summary> 
             /// 是否使用带 shareTicket 的转发[详情](#)
             /// </summary>
-                public bool withShareTicket;
+                public bool? withShareTicket;
     }
     [Preserve]
     public class ShowToastOption {
@@ -4606,7 +4828,7 @@ namespace WeChatWASM
             /// <summary> 
             /// 提示的延迟时间
             /// </summary>
-                public double duration;
+                public double? duration;
             /// <summary> 
             /// 接口调用失败的回调函数
             /// </summary>
@@ -4628,7 +4850,7 @@ namespace WeChatWASM
             /// <summary> 
             /// 是否显示透明蒙层，防止触摸穿透
             /// </summary>
-                public bool mask;
+                public bool? mask;
             /// <summary> 
             /// 接口调用成功的回调函数
             /// </summary>
@@ -4675,7 +4897,7 @@ namespace WeChatWASM
             /// <summary> 
             /// 是否校验蓝牙开关，仅在 iOS 下有效。iOS 11 起，控制面板里关掉蓝牙，还是能继续使用 Beacon 服务。
             /// </summary>
-                public bool ignoreBluetoothAvailable;
+                public bool? ignoreBluetoothAvailable;
             /// <summary> 
             /// 接口调用成功的回调函数
             /// </summary>
@@ -4686,7 +4908,7 @@ namespace WeChatWASM
             /// <summary> 
             /// 是否允许重复上报同一设备。如果允许重复上报，则 [wx.onBlueToothDeviceFound](#) 方法会多次上报同一设备，但是 RSSI 值会有不同。
             /// </summary>
-                public bool allowDuplicatesKey;
+                public bool? allowDuplicatesKey;
             /// <summary> 
             /// 接口调用结束的回调函数（调用成功、失败都会执行）
             /// </summary>
@@ -4698,7 +4920,7 @@ namespace WeChatWASM
             /// <summary> 
             /// 上报设备的间隔，单位 ms。0 表示找到新设备立即上报，其他数值根据传入的间隔上报。
             /// </summary>
-                public double interval;
+                public double? interval;
             /// <summary> 
             /// 扫描模式，越高扫描越快，也越耗电。仅安卓微信客户端 7.0.12 及以上支持。
             /// 可选值：
@@ -4920,12 +5142,12 @@ namespace WeChatWASM
             /// 需要基础库： `2.13.0`
             /// 是否是私密消息。详见 [小程序私密消息](https://developers.weixin.qq.com/minigame/dev/guide/open-ability/share/private-message.html)
             /// </summary>
-                public bool isPrivateMessage;
+                public bool? isPrivateMessage;
             /// <summary> 
             /// 需要基础库： `2.4.0`
             /// 是否是动态消息，详见[动态消息](https://developers.weixin.qq.com/minigame/dev/guide/open-ability/share/updatable-message.html)
             /// </summary>
-                public bool isUpdatableMessage;
+                public bool? isUpdatableMessage;
             /// <summary> 
             /// 接口调用成功的回调函数
             /// </summary>
@@ -4943,7 +5165,7 @@ namespace WeChatWASM
             /// <summary> 
             /// 是否使用带 shareTicket 的转发[详情](#)
             /// </summary>
-                public bool withShareTicket;
+                public bool? withShareTicket;
     }
     [Preserve]
     public class UpdatableMessageFrontEndTemplateInfo {
@@ -5026,11 +5248,20 @@ namespace WeChatWASM
             /// <summary> 
             /// 接口调用失败的回调函数
             /// </summary>
-                public Action<GeneralCallbackResult> fail;
+                public Action<VibrateShortFailCallbackResult> fail;
             /// <summary> 
             /// 接口调用成功的回调函数
             /// </summary>
                 public Action<GeneralCallbackResult> success;
+    }
+    [Preserve]
+    public class VibrateShortFailCallbackResult {
+            /// <summary> 
+            /// 错误信息
+            /// 可选值：
+            /// - 'style is not support': 当前设备不支持设置震动等级;
+            /// </summary>
+                public string errMsg;
     }
     [Preserve]
     public class WriteBLECharacteristicValueOption {
@@ -5062,6 +5293,13 @@ namespace WeChatWASM
             /// 接口调用成功的回调函数
             /// </summary>
                 public Action<BluetoothError> success;
+            /// <summary> 
+            /// 蓝牙特征值的写模式设置，有两种模式，iOS 优先 write，安卓优先 writeNoResponse 。
+            /// 可选值：
+            /// - 'write': 强制回复写，不支持时报错;
+            /// - 'writeNoResponse': 强制无回复写，不支持时报错;
+            /// </summary>
+                public string writeType;
     }
     [Preserve]
     public class StartGameLiveOption {
@@ -5330,7 +5568,7 @@ namespace WeChatWASM
         }
         /// <summary>
         /// [UpdateManager.onCheckForUpdate(function callback)](https://developers.weixin.qq.com/minigame/dev/api/base/update/UpdateManager.onCheckForUpdate.html)
-        /// 监听向微信后台请求检查更新结果事件。微信在小程序冷启动时自动检查更新，不需由开发者主动触发。
+        /// 监听向微信后台请求检查更新结果事件。微信在小程序每次启动（包括热启动）时自动检查更新，不需由开发者主动触发。
         /// **示例代码**
         /// [示例代码](https://developers.weixin.qq.com/minigame/dev/api/base/update/UpdateManager.html#示例代码)
         /// </summary>

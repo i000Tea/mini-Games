@@ -1,4 +1,5 @@
 import moduleHelper from './module-helper';
+import { formatJsonStr } from './sdk';
 
 const tempCacheObj = {};
 
@@ -142,7 +143,8 @@ export default {
   WX_RecorderStart(id, option) {
     const obj = this.RecorderManagerList[id];
     if (obj) {
-      obj.start(JSON.parse(option));
+      const conf = formatJsonStr(option);
+      obj.start(conf);
     }
   },
   WX_RecorderStop(id) {

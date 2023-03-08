@@ -239,11 +239,11 @@ namespace WeChatWASM
             /// <summary> 
             /// 录音的时长，单位 ms，最大值 600000（10 分钟）
             /// </summary>
-                public double duration;
+                public double? duration;
             /// <summary> 
             /// 编码码率，有效值见下表格
             /// </summary>
-                public double encodeBitRate;
+                public double? encodeBitRate;
             /// <summary> 
             /// 音频格式
             /// 可选值：
@@ -256,14 +256,14 @@ namespace WeChatWASM
             /// <summary> 
             /// 指定帧大小，单位 KB。传入 frameSize 后，每录制指定帧大小的内容后，会回调录制的文件内容，不指定则不会回调。暂仅支持 mp3、pcm 格式。
             /// </summary>
-                public double frameSize;
+                public double? frameSize;
             /// <summary> 
             /// 录音通道数
             /// 可选值：
             /// - 1: 1 个通道;
             /// - 2: 2 个通道;
             /// </summary>
-                public double numberOfChannels;
+                public double? numberOfChannels;
             /// <summary> 
             /// 采样率（pc不支持）
             /// 可选值：
@@ -277,6 +277,6 @@ namespace WeChatWASM
             /// - 44100: 44100 采样率;
             /// - 48000: 48000 采样率;
             /// </summary>
-                public double sampleRate;
+                public double? sampleRate;
     }
 }

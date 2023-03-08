@@ -17,26 +17,29 @@ namespace Tea.NewRouge
 			get
 			{
 				// 有任意一个点未被使用 则标记为否
-				for (int i = 0; i < rPoints.Count; i++)
-					if (!rPoints[i].unUse)
+				for (int i = 0; i < myDoors.Count; i++)
+					if (!myDoors[i].unUse)
 						return false;
 				// 所有点都标记为使用 则更新为是
 				return true;
 			}
 		}
+		/// <summary>
+		/// 自己身上门的列表
+		/// </summary>
 		[SerializeField]
-		public List<Room_DoorPoint> rPoints;
+		public List<Room_DoorPoint> myDoors;
 		[SerializeField]
 		private Transform roomParent;
-
+		private GameObject EnvParent;
 		private void OnValidate()
 		{
-			if (rPoints == null || rPoints.Count != transform.GetChild(0).childCount)
+			if (myDoors == null || myDoors.Count != transform.GetChild(0).childCount)
 			{
-				rPoints = new List<Room_DoorPoint>();
+				myDoors = new List<Room_DoorPoint>();
 				for (int i = 0; i < transform.GetChild(0).childCount; i++)
 				{
-					rPoints.Add(transform.GetChild(0).GetChild(i).GetComponent<Room_DoorPoint>());
+					myDoors.Add(transform.GetChild(0).GetChild(i).GetComponent<Room_DoorPoint>());
 				}
 			}
 			if (!roomParent)
@@ -62,10 +65,10 @@ namespace Tea.NewRouge
 		{
 			gameObject.SetActive(false);
 			transform.localScale = Vector3.zero;
-			for (int i = 0; i < rPoints.Count; i++)
+			for (int i = 0; i < myDoors.Count; i++)
 			{
-				if (!rPoints[i].nextRoom)
-					rPoints[i].nextCost.gameObject.SetActive(false);
+				if (!myDoors[i].nextRoom)
+					myDoors[i].nextCost.gameObject.SetActive(false);
 			}
 		}
 		public void ShowRoom()
@@ -74,56 +77,50 @@ namespace Tea.NewRouge
 			transform.localScale = Vector3.zero;
 			transform.DOScale(1, 0.7f).SetEase(Ease.OutCirc);
 		}
+
 		/// <summary>
-		/// 房间链接
+		/// 查找房间
 		/// </summary>
-		/// <param name="rPoint">目标门</param>
-		public void RoomLink(Room_DoorPoint rPoint)
+		/// <param name="dType"></param>
+		/// <returns> 是否有类型一致的房间 </returns>
+		public bool FindDoorType(DoorType dType)
 		{
-			var myPoint = SomeDoor();
-			myPoint.name = "aa";
-
-			// 旋转
-			float rotateY = 180 + myPoint.transform.localEulerAngles.y + rPoint.transform.eulerAngles.y;
-			if (rotateY > 360)
-				rotateY %= 360;
-			Debug.Log(rotateY);
-			transform.eulerAngles = new Vector3(0, rotateY, 0);
-
-			// 位移
-			transform.position = rPoint.transform.position - myPoint.transform.position;
-
-			// 目标点标记为已使用 目标点的下一房间设为自身
-			rPoint.unUse = true;
-			rPoint.nextRoom = this;
-			// 自身对应门标记为已使用 并将其关闭
-			myPoint.unUse = true;
-			myPoint.gameObject.SetActive(false);
+			for (int i = 0; i < myDoors.Count; i++)
+			{
+				if (myDoors[i].dType == dType)
+					return true;
+			}
+			return false;
 		}
+
 		/// <summary>
-		/// 返回此房间的某一个未使用过的门
+		/// 获取一扇门 
 		/// </summary>
-		/// <param name="num"></param>
-		/// <returns></returns>
-		public Room_DoorPoint SomeDoor(int num = -1)
+		/// <param name="num"> 随机门的序号 </param>
+		/// <param name="dType"> (检测新门匹配时使用) 门的类型 </param>
+		/// <returns>返回随机好的一扇门</returns>
+		public Room_DoorPoint GetDoor(DoorType? dType = null, int num = -1)
 		{
-			//Debug.Log(num);
 			// 当传入-1 视为随机
 			if (num < 0)
 			{
-				num = Random.Range(0, rPoints.Count - 1);
+				num = Random.Range(0, myDoors.Count - 1);
 			}
-			//Debug.Log(num);
 			// 查找门点
-			for (int i = 0; i < rPoints.Count; i++)
+			for (int i = 0; i < myDoors.Count; i++)
 			{
-				// 若门点已被使用 +1 若超出数组 返回 0
-				// 检测门是否可用 
-				if (!DetectionDoor(rPoints[num]))
+				//Debug.Log($"{name} \n 此门是否被使用 {myDoors[num].unUse} " +
+				//	$"\n  门类型存在时  (新门) 类型与自身一致 {dType != null && dType != myDoors[num].dType} " +
+				//	$"\n 门类型不存在时(原门) 碰撞检测 {dType == null && !DetectionDoor(myDoors[num])}");
+				// 检测门是否可用
+				if (
+					myDoors[num].unUse ||								// 此门是否被使用
+					(dType != null && dType != myDoors[num].dType) ||	// 门类型存在时  (新门) 类型与自身一致
+					(dType == null && DetectionDoor(myDoors[num])))		// 门类型不存在时(原门) 碰撞检测
 				{
-					//若不能使用 序号加1 再次检索
+					// 若不可用 序号加1 再次检索
 					num++;
-					if (num >= rPoints.Count)
+					if (num >= myDoors.Count)
 					{
 						num = 0;
 					}
@@ -131,14 +128,17 @@ namespace Tea.NewRouge
 				// 若没有被使用 返回该门点
 				else
 				{
-					return rPoints[num];
+					return myDoors[num];
 				}
 			}
 			return null;
 		}
+
 		/// <summary>
-		/// 检测此门是否可使用
+		/// 检测此门后碰撞体
 		/// </summary>
+		/// <param name="dPoint"></param>
+		/// <returns> 碰撞体是否存在 </returns>
 		bool DetectionDoor(Room_DoorPoint dPoint)
 		{
 			Vector3 targetPosi = (dPoint.transform.position + dPoint.transform.forward * 12);
@@ -146,12 +146,9 @@ namespace Tea.NewRouge
 			int layer = 1 << 6;
 			var _list = Physics.OverlapBox(targetPosi, targetScale, Quaternion.Euler(Vector3.zero), layer);
 
-			
-			if (dPoint.unUse || _list.Length > 0)
-			{
-				return false;
-			}
-			return true;
+			if (_list.Length > 0)
+				return true;
+			return false;
 		}
 	}
 }

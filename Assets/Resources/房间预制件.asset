@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f1b6e0d643e8f64fb8b696ee4e95343, type: 3}
   m_Name: "\u623F\u95F4\u9884\u5236\u4EF6"
   m_EditorClassIdentifier: Assembly-CSharp:Tea.NewRouge:RoomList
-  RoomPrefabs:
+  DoorPrefabs:
   - {fileID: 8857717480738582960, guid: c35d00ac14c186442aacbc7936e5eb7d, type: 3}

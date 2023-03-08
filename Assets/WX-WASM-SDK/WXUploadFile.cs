@@ -128,7 +128,7 @@ namespace WeChatWASM
             /// 需要基础库： `2.10.0`
             /// 超时时间，单位为毫秒
             /// </summary>
-                public double timeout;
+                public double? timeout;
     }
     [Preserve]
     public class UploadFileSuccessCallbackResult {

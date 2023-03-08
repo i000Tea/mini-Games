@@ -149,7 +149,7 @@ namespace WeChatWASM
         /// <summary> 
         /// 摄像头朝向，值为 front, back
         /// </summary>
-        public string devicePosition = "back";
+        public string devicePosition;
         /// <summary> 
         /// 接口调用失败的回调函数
         /// </summary>
@@ -157,15 +157,15 @@ namespace WeChatWASM
         /// <summary> 
         /// 闪光灯，值为 auto, on, off
         /// </summary>
-        public string flash = "auto";
+        public string flash;
         /// <summary> 
         /// 相机的高度
         /// </summary>
-        public double height = 150f;
+        public double? height;
         /// <summary> 
         /// 帧数据图像尺寸，值为 small, medium, large
         /// </summary>
-        public string size = "small";
+        public string size;
         /// <summary> 
         /// 接口调用成功的回调函数
         /// </summary>
@@ -173,14 +173,14 @@ namespace WeChatWASM
         /// <summary> 
         /// 相机的宽度
         /// </summary>
-        public double width = 300f;
+        public double? width;
         /// <summary> 
         /// 相机的左上角横坐标
         /// </summary>
-        public double x = 0f;
+        public double? x;
         /// <summary> 
         /// 相机的左上角纵坐标
         /// </summary>
-        public double y = 0f;
+        public double? y;
     }
 }

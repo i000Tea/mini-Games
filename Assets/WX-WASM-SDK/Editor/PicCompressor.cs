@@ -40,28 +40,29 @@ namespace WeChatWASM
         {
             if (Application.platform == RuntimePlatform.WindowsEditor)
             {
-                return Path.Combine(Application.dataPath, "WX-WASM-SDK/Editor/astcenc-sse4.1.exe");
+                return Path.Combine(Application.dataPath, "WX-WASM-SDK/Editor/TextureEditor/Node/astcenc-sse4.1.exe");
             }
-            if (UnityEngine.SystemInfo.processorType.ToLower().Contains("apple")) {
-                return Path.Combine(Application.dataPath, "WX-WASM-SDK/Editor/astcenc-neon");
+            if (UnityEngine.SystemInfo.processorType.ToLower().Contains("apple"))
+            {
+                return Path.Combine(Application.dataPath, "WX-WASM-SDK/Editor/TextureEditor/Node/astcenc-neon");
             }
-            return Path.Combine(Application.dataPath, "WX-WASM-SDK/Editor/astcenc-avx2");
+            return Path.Combine(Application.dataPath, "WX-WASM-SDK/Editor/TextureEditor/Node/astcenc-avx2");
         }
 
         public static string GetPVRTCPath()
         {
-            return Path.Combine(Application.dataPath, "WX-WASM-SDK/Editor/PVRTexToolCLI" + (Application.platform == RuntimePlatform.WindowsEditor ? ".exe" : ""));
+            return Path.Combine(Application.dataPath, "WX-WASM-SDK/Editor/TextureEditor/Node/PVRTexToolCLI" + (Application.platform == RuntimePlatform.WindowsEditor ? ".exe" : ""));
         }
 
 
         public static string GetDXT5Path()
         {
-            return Path.Combine(Application.dataPath, "WX-WASM-SDK/Editor/PVRTexToolCLI" + (Application.platform == RuntimePlatform.WindowsEditor ? ".exe" : ""));
+            return Path.Combine(Application.dataPath, "WX-WASM-SDK/Editor/TextureEditor/Node/PVRTexToolCLI" + (Application.platform == RuntimePlatform.WindowsEditor ? ".exe" : ""));
         }
 
         public static string GetPNGPath()
         {
-            return Path.Combine(Application.dataPath, "WX-WASM-SDK/Editor/pngquant" + (Application.platform == RuntimePlatform.WindowsEditor ? ".exe" : ""));
+            return Path.Combine(Application.dataPath, "WX-WASM-SDK/Editor/TextureEditor/Node/pngquant" + (Application.platform == RuntimePlatform.WindowsEditor ? ".exe" : ""));
         }
 
 

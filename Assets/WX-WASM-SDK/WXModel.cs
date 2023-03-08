@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 using UnityEngine.Scripting;
 
 namespace WeChatWASM
@@ -45,23 +47,6 @@ namespace WeChatWASM
         public string cloudID; //敏感数据对应的云 ID，开通云开发的小程序才会返回，可通过云调用直接获取开放数据，详细见云调用直接获取开放数据 https://developers.weixin.qq.com/minigame/dev/guide/open-ability/signature.html#method-cloud
         public WXUserInfo userInfo; //用户信息对象，不包含 openid 等敏感信息
         public string userInfoRaw; //userinfo的序列化
-
-    }
-
-    public class WXShareInfoResponse : WXBaseResponse
-    {
-        // 具体说明可以参考 https://developers.weixin.qq.com/minigame/dev/api/share/wx.getShareInfo.html
-        public string encryptedData;
-        public string iv;
-        public string cloudID;
-    }
-
-    public class WXAuthPrivateMessageResponse : WXBaseResponse
-    {
-
-        public string encryptedData;
-        public string iv;
-        public bool valid;
     }
 
     public class WXADErrorResponse : WXBaseResponse
@@ -105,24 +90,6 @@ namespace WeChatWASM
     public class WXRewardedVideoAdReportShareBehaviorResponse : WXBaseResponse {
         public string success;
         public string message;
-    }
-
-    /// <summary>
-    /// 小游戏回到前台的事件的回调函数里返回的数据,详见 https://developers.weixin.qq.com/minigame/dev/api/base/app/life-cycle/wx.onShow.html
-    /// </summary>
-    public class WXOnShowResponse
-    {
-        public string scene;
-        /// <summary>
-        /// JS版里的query对象序列化成的JSON字符串
-        /// </summary>
-        public string queryRaw;
-        public string shareTicket;
-        public ReferrerInfo referrerInfo;
-        /// <summary>
-        /// 该字段没用
-        /// </summary>
-        public string referrerInfoRaw;
     }
 
     /// <summary>
@@ -193,24 +160,6 @@ namespace WeChatWASM
         public string version;
     }
 
-        /// <summary>
-        /// 各字段说明详见这里，https://developers.weixin.qq.com/minigame/dev/api/share/wx.updateShareMenu.html
-        /// </summary>
-    public class WXUpdateShareMenuParam : WXBaseActionParam<WXTextResponse>
-    {
-
-        public bool withShareTicket;
-        public bool isUpdatableMessage;
-        public string activityId;
-        public string toDoActivityId;
-        public bool isPrivateMessage;
-        public TemplateInfo templateInfo;
-        /// <summary>
-        ///  // 该字段不需要传
-        /// </summary>
-        public string[] templateInfoRaw;
-    }
-
 
     public class TemplateInfo
     {
@@ -223,20 +172,6 @@ namespace WeChatWASM
         public string value;
     }
 
-
-    public class WXShowShareMenuParam : WXBaseActionParam<WXTextResponse>
-    {
-        // 各字段说明详见这里，https://developers.weixin.qq.com/minigame/dev/api/share/wx.showShareMenu.html
-        public bool withShareTicket;
-        public string[] menus;
-    }
-
-    public class WXHideShareMenuParam : WXBaseActionParam<WXTextResponse>
-    {
-        // 各字段说明详见这里，https://developers.weixin.qq.com/minigame/dev/api/share/wx.hideShareMenu.html
-        public string[] menus;
-    }
-
     public class WXShareAppMessageParam
     {
         // 各字段说明详见这里，https://developers.weixin.qq.com/minigame/dev/api/share/wx.shareAppMessage.html
@@ -246,38 +181,6 @@ namespace WeChatWASM
         public string imageUrlId;
         public bool toCurrentGroup;
         public string path;
-    }
-
-    public class WXShareTimelineParam
-    {
-        // 各字段说明详见这里，https://developers.weixin.qq.com/minigame/dev/api/share/wx.onShareTimeline.html
-        public string title;
-        public string imageUrl;
-        public string query;
-        public string path;
-    }
-
-    public class WXAddToFavoritesParam
-    {
-        // 各字段说明详见这里，https://developers.weixin.qq.com/minigame/dev/api/share/wx.onAddToFavorites.html
-        public string title;
-        public string imageUrl;
-        public string query;
-        public bool disableForward;
-    }
-
-
-    public class WXGetShareInfoParam : WXBaseActionParam<WXShareInfoResponse>
-    {
-        // 各字段说明详见这里，https://developers.weixin.qq.com/minigame/dev/api/share/wx.getShareInfo.html
-        public string shareTicket;
-        public int timeout;
-    }
-
-    public class WXAuthPrivateMessageParam : WXBaseActionParam<WXShareInfoResponse>
-    {
-        // 各字段说明详见这里，https://developers.weixin.qq.com/minigame/dev/api/share/wx.authPrivateMessage.html
-        public string shareTicket;
     }
 
     /// <summary>
@@ -403,45 +306,6 @@ namespace WeChatWASM
     }
 
     /// <summary>
-    /// 各字段说明详见这里，https://developers.weixin.qq.com/minigame/dev/api/ui/keyboard/wx.updateKeyboard.html
-    /// </summary>
-    public class WXUpdateKeyboardParam : WXBaseActionParam<WXTextResponse>
-    {
-        public string value;
-    }
-
-    /// <summary>
-    /// 各字段说明详见这里，https://developers.weixin.qq.com/minigame/dev/api/ui/keyboard/wx.showKeyboard.html
-    /// </summary>
-    public class WXShowKeyboardParam : WXBaseActionParam<WXTextResponse>
-    {
-        public string defaultValue;
-        public int maxLength;
-        public bool multiple;
-        public bool confirmHold;
-        public string confirmType;
-
-    }
-
-    /// <summary>
-    /// 对用户托管数据进行写数据操作。允许同时写多组 KV 数据。详见 https://developers.weixin.qq.com/minigame/dev/api/open-api/data/wx.setUserCloudStorage.html
-    /// </summary>
-    public class SetUserCloudStorageParam : WXBaseActionParam<WXTextResponse>
-    {
-        public KVData[] KVDataList;
-    }
-
-
-    /// <summary>
-    /// 删除用户托管数据当中对应 key 的数据。详见 https://developers.weixin.qq.com/minigame/dev/api/open-api/data/wx.removeUserCloudStorage.html
-    /// </summary>
-    public class RemoveUserCloudStorageParam : WXBaseActionParam<WXTextResponse>
-    {
-
-        public string[] keyList;
-    }
-
-    /// <summary>
     /// https://developers.weixin.qq.com/minigame/dev/api/file/FileSystemManager.access.html
     /// </summary>
     public class AccessParam : WXBaseActionParam<WXTextResponse>
@@ -468,6 +332,21 @@ namespace WeChatWASM
         public string dirPath;
         /// <summary>
         /// 是否在递归创建该目录的上级目录后再创建该目录。如果对应的上级目录已经存在，则不创建该上级目录。如 dirPath 为 a/b/c/d 且 recursive 为 true，将创建 a 目录，再在 a 目录下创建 b 目录，以此类推直至创建 a/b/c 目录下的 d 目录。
+        /// </summary>
+        public bool recursive = false;
+    }
+
+    /// <summary>
+    /// https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.rmdir.html
+    /// </summary>
+    public class RmdirParam : WXBaseActionParam<WXTextResponse>
+    {
+        /// <summary>
+        /// 要删除的目录路径 (本地路径)
+        /// </summary>
+        public string dirPath;
+        /// <summary>
+        /// 是否递归删除目录。如果为 true，则删除该目录和该目录下的所有子目录以及文件。
         /// </summary>
         public bool recursive = false;
     }
@@ -565,93 +444,6 @@ namespace WeChatWASM
     }
 
     /// <summary>
-    /// 发起米大师支付参数，详见 https://developers.weixin.qq.com/minigame/dev/api/midas-payment/wx.requestMidasPayment.html 
-    /// </summary>
-    public class RequestMidasPaymentParam : WXBaseActionParam<WXTextResponse>
-    {
-        /// <summary>
-        /// 支付的类型，不同的支付类型有各自额外要传的附加参数。
-        /// </summary>
-        public string mode = "";
-        /// <summary>
-        /// 环境配置
-        /// </summary>
-        public int env = 0;
-        /// <summary>
-        /// 在米大师侧申请的应用 id
-        /// </summary>
-        public string offerId = "";
-        /// <summary>
-        /// 币种
-        /// </summary>
-        public string currencyType = "";
-        /// <summary>
-        /// 申请接入时的平台，platform 与应用id有关
-        /// </summary>
-        public string platform = "";
-        /// <summary>
-        /// 购买数量。mode=game 时必填。购买数量。
-        /// </summary>
-        public int buyQuantity = 0;
-        /// <summary>
-        /// 分区 ID
-        /// </summary>
-        public string zoneId = "1";
-    }
-
-    /// <summary>
-    /// 发起米大师朋友礼物索要参数，详见 https://developers.weixin.qq.com/minigame/dev/api/midas-payment/wx.requestMidasFriendPayment.html
-    /// </summary>
-    public class RequestMidasFriendPaymentParam : WXBaseActionParam<WXTextResponse>
-    {
-        /// <summary>
-        /// 支付的类型，不同的支付类型有各自额外要传的附加参数。
-        /// </summary>
-        public string mode = "";
-        /// <summary>
-        /// 环境配置
-        /// </summary>
-        public int env = 0;
-        /// <summary>
-        /// 在米大师侧申请的应用 id
-        /// </summary>
-        public string offerId = "";
-        /// <summary>
-        /// 币种
-        /// </summary>
-        public string currencyType = "";
-        /// <summary>
-        /// 申请接入时的平台，platform 与应用id有关
-        /// </summary>
-        public string platform = "";
-        /// <summary>
-        /// 购买数量。mode=game 时必填。购买数量。
-        /// </summary>
-        public int buyQuantity = 0;
-        /// <summary>
-        /// 分区 ID
-        /// </summary>
-        public string zoneId = "1";
-        /// <summary>
-        /// 开发者业务订单号，每个订单号只能使用一次，重复使用会失败。要求32个字符内，只能是数字、大小写字母、符号 _-|*@
-        /// </summary>
-        public string outTradeNo = "";
-        /// <summary>
-        /// 随机字符串，长度应小于 128
-        /// </summary>
-        public string nonceStr = "";
-        /// <summary>
-        /// 生成这个随机字符串的 UNIX 时间戳（精确到秒）
-        /// </summary>
-        public int timeStamp;
-        /// <summary>
-        /// 签名
-        /// </summary>
-        public string signature = "";
-
-    }
-
-    /// <summary>
     /// 网络状态变化事件的回调参数，详见 https://developers.weixin.qq.com/minigame/dev/api/device/network/wx.onNetworkStatusChange.html
     /// </summary>
     public class NetworkStatus {
@@ -664,32 +456,7 @@ namespace WeChatWASM
         /// </summary>
         public string networkType;
     }
-
-    public class GetNetworkTypeResponse : WXBaseResponse
-    {
-        /// <summary>
-        /// 网络类型
-        /// </summary>
-        public string networkType;
-        /// <summary>
-        /// 信号强弱，单位 dbm
-        /// </summary>
-        public int signalStrength;
-    }
-
-    public class GetNetworkTypeParam : WXBaseActionParam<GetNetworkTypeResponse> {
-
-    }
-
-
-    public class SetKeepScreenOnParam : WXBaseActionParam<WXTextResponse>
-    {
-        /// <summary>
-        /// 是否保持屏幕常亮
-        /// </summary>
-        public bool keepScreenOn;
-    }
-
+    
     public class WriteFileParam : WXBaseActionParam<WXTextResponse>
     {
         /// <summary>
@@ -704,7 +471,6 @@ namespace WeChatWASM
         /// 指定写入文件的字符编码
         /// </summary>
         public string encoding = "utf8";
-
     }
 
     public class WriteFileStringParam : WXBaseActionParam<WXTextResponse>
@@ -721,10 +487,7 @@ namespace WeChatWASM
         /// 指定写入文件的字符编码
         /// </summary>
         public string encoding = "utf8";
-
     }
-
-
 
     public class ReadFileParam : WXBaseActionParam<WXReadFileResponse>
     {
@@ -790,32 +553,6 @@ namespace WeChatWASM
         /// </summary>
         public bool recursive = true; 
     }
-
-
-    public class CustomerServiceConversationParam : WXBaseActionParam<WXTextResponse>
-    {
-        /// <summary>
-        /// 会话来源
-        /// </summary>
-        public string sessionFrom;
-        /// <summary>
-        /// 是否显示会话内消息卡片，设置此参数为 true，用户进入客服会话会在右下角显示"可能要发送的小程序"提示，用户点击后可以快速发送小程序消息
-        /// </summary>
-        public bool showMessageCard;
-        /// <summary>
-        /// 会话内消息卡片标题
-        /// </summary>
-        public string sendMessageTitle;
-        /// <summary>
-        /// 会话内消息卡片路径
-        /// </summary>
-        public string sendMessagePath;
-        /// <summary>
-        /// 会话内消息卡片图片路径
-        /// </summary>
-        public string sendMessageImg;
-    }
-
 
     public class WXVideoCallback : WXTextResponse
     {
@@ -951,126 +688,6 @@ namespace WeChatWASM
         public bool underGameView;
     }
 
-
-    public class WXClipboardParam : WXBaseActionParam<WXTextResponse>
-    {
-        public string data;
-    }
-
-    public class WXClipboardResponse : WXTextResponse
-    {
-        public string data;
-    }
-
-    public enum WXToastIcon {
-        /// <summary>
-        /// 显示成功图标，此时 title 文本最多显示 7 个汉字长度
-        /// </summary>
-        success,
-        /// <summary>
-        /// 显示失败图标，此时 title 文本最多显示 7 个汉字长度
-        /// </summary>
-        error,
-        /// <summary>
-        /// 显示加载图标，此时 title 文本最多显示 7 个汉字长度
-        /// </summary>
-        loading,
-        /// <summary>
-        /// 不显示图标，此时 title 文本最多可显示两行
-        /// </summary>
-        none
-    }
-
-    public class WXShowToastParam : WXBaseActionParam<WXTextResponse>
-    {
-        /// <summary>
-        /// 提示的内容
-        /// </summary>
-        public string title;
-        /// <summary>
-        /// 图标
-        /// </summary>
-        public WXToastIcon icon = WXToastIcon.success;
-        /// <summary>
-        /// 提示的延迟时间
-        /// </summary>
-        public int duration = 1500;
-        /// <summary>
-        /// 是否显示透明蒙层，防止触摸穿透
-        /// </summary>
-        public bool mask = false;
-
-    }
-
-    public class WXModalResponse : WXTextResponse
-    {
-        /// <summary>
-        /// editable 为 true 时，用户输入的文本
-        /// </summary>
-        public string content;
-        /// <summary>
-        /// 为 true 时，表示用户点击了确定按钮
-        /// </summary>
-        public bool confirm;
-        /// <summary>
-        /// 为 true 时，表示用户点击了取消（用于 Android 系统区分点击蒙层关闭还是点击取消按钮关闭）
-        /// </summary>
-        public bool cancel;
-    }
-
-    public class WXShowModalParam : WXBaseActionParam<WXModalResponse>
-    {
-        /// <summary>
-        /// 提示的内容
-        /// </summary>
-        public string title;
-        /// <summary>
-        /// 提示的内容
-        /// </summary>
-        public string content;
-        /// <summary>
-        /// 是否显示取消按钮
-        /// </summary>
-        public bool showCancel = true;
-        /// <summary>
-        /// 取消按钮的文字，最多 4 个字符	
-        /// </summary>
-        public string cancelText = "取消";
-        /// <summary>
-        /// 	取消按钮的文字颜色，必须是 16 进制格式的颜色字符串
-        /// </summary>
-        public string cancelColor = "#000000";
-        /// <summary>
-        /// 确认按钮的文字，最多 4 个字符
-        /// </summary>
-        public string confirmText = "确定";
-        /// <summary>
-        /// 确认按钮的文字颜色，必须是 16 进制格式的颜色字符串
-        /// </summary>
-        public string confirmColor = "#576B95";
-        /// <summary>
-        /// 是否显示输入框
-        /// </summary>
-        public bool editable = false;
-        /// <summary>
-        /// 显示输入框时的提示文本
-        /// </summary>
-        public string placeholderText;
-    }
-
-    public class WXShowLoadingParam : WXBaseActionParam<WXTextResponse>
-    {
-        /// <summary>
-        /// 提示的内容
-        /// </summary>
-        public string title;
-        /// <summary>
-        /// 是否显示透明蒙层，防止触摸穿透
-        /// </summary>
-        public bool mask = false;
-
-    }
-
     public enum EnvVersion {
         /// <summary>
         /// 开发版
@@ -1084,34 +701,6 @@ namespace WeChatWASM
         /// 正式版
         /// </summary>
         release
-    }
-
-    /// <summary>
-    /// 跳转小程序参数，https://developers.weixin.qq.com/minigame/dev/api/navigate/wx.navigateToMiniProgram.html
-    /// </summary>
-    public class WXNavigateToMiniProgramParam : WXBaseActionParam<WXTextResponse>
-    {
-        /// <summary>
-        /// 必填，要打开的小程序 appId
-        /// </summary>
-        public string appId;
-        /// <summary>
-        /// 打开的页面路径，如果为空则打开首页。
-        /// </summary>
-        public string path;
-        /// <summary>
-        /// 需要传递给目标小程序的数据
-        /// </summary>
-        public object extraData;
-        public string extraDataRaw; // 该字段不需要传值
-        /// <summary>
-        /// 要打开的小程序版本，默认release
-        /// </summary>
-        public EnvVersion envVersion = EnvVersion.release;
-        /// <summary>
-        /// 小程序链接，当传递该参数后，可以不传 appId 和 path。链接可以通过【小程序菜单】->【复制链接】获取。
-        /// </summary>
-        public string shortLink;
     }
 
     public enum GameClubButtonType
@@ -1190,36 +779,6 @@ namespace WeChatWASM
         public GameClubButtonIcon icon;
     }
 
-    public class WXRequestSubscribeSystemMessageResponse : WXTextResponse
-    {
-        /// <summary>
-        /// 系统订阅消息类型，值为"accept"、"reject"、"ban"，"accept", "" 表示用户同意订阅该类型对应的模板消息，"reject"表示用户拒绝订阅该类型对应的模板消息，"ban"表示已被后台封禁, ""表示没有调用该类型请求。例如 { errMsg: "requestSubscribeSystemMessage:ok", SYS_MSG_TYPE_INTERACTIVE: "accept" } 表示用户同意订阅'SYS_MSG_TYPE_INTERACTIVE'这条消息
-        /// </summary>
-        public string SYS_MSG_TYPE_INTERACTIVE;
-        public string SYS_MSG_TYPE_RANK;
-    }
-
-    /// <summary>
-    /// state 值包括'accept'、'reject'、'ban'、'filter'。'accept'表示用户同意订阅该条id对应的模板消息，'reject'表示用户拒绝订阅该条id对应的模板消息，'ban'表示已被后台封禁，'filter'表示该模板因为模板标题同名被后台过滤。例如 {  TemplateId: "zun-LzcQyW-edafCVvzPkK4de2Rllr1fFpw2A_x0oXE", state : "accept"} 表示用户同意订阅zun-LzcQyW-edafCVvzPkK4de2Rllr1fFpw2A_x0oXE这条消息
-    /// </summary>
-    public class WXSubscribeMessageItem {
-        public string TemplateId;
-        public string state;
-    }
-
-    public class WXRequestSubscribeMessageResponse : WXTextResponse
-    {
-        /// <summary>
-        /// 跟官网返回格式不一样，以这里为准
-        /// </summary>
-        public WXSubscribeMessageItem[] resItems;
-    }
-
-    public class WXRequestSubscribeSystemMessageParam : WXBaseActionParam<WXRequestSubscribeSystemMessageResponse>
-    {
-        public string[] msgTypeList;
-
-    }
     /// <summary>
     /// 清理文件缓存的结果
     /// </summary>
@@ -1300,5 +859,28 @@ namespace WeChatWASM
         /// 引擎初始化(callmain)
         /// </summary>
         prepareGame,
+    }
+
+    /// <summary>
+    /// reportScene接口参数
+    /// </summary>
+    public class ReportSceneParams : WXBaseActionParam<GeneralCallbackResult>
+    {
+        /// <summary>
+        /// 场景ID，在「小程序管理后台」获取
+        /// </summary>
+        public int sceneId;
+        /// <summary>
+        /// 此场景耗时，单位 ms
+        /// </summary>
+        public int costTime;
+        /// <summary>
+        /// 自定义维度数据，key在「小程序管理后台」获取。只支持能够通过JSON.stringify序列化的对象，且序列化后长度不超过1024个字符
+        /// </summary>
+        public Dictionary<string, string> dimension;
+        /// <summary>
+        /// 自定义指标数据，key在「小程序管理后台」获取。只支持能够通过JSON.stringify序列化的对象，且序列化后长度不超过1024个字符
+        /// </summary>
+        public Dictionary<string, string> metric;
     }
 }

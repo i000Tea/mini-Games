@@ -1,4 +1,4 @@
-import moduleHelper from "./module-helper";
+import moduleHelper from './module-helper';
 const gameClubs = {};
 const msg = 'GameClubButton不存在';
 function printErrMsg(id) {
@@ -7,13 +7,13 @@ function printErrMsg(id) {
 const typeEnum = {
   0: 'text',
   1: 'image',
-}
+};
 const iconEnum = {
   0: 'green',
   1: 'white',
   2: 'dark',
-  3: 'light'
-}
+  3: 'light',
+};
 export default {
   WXCreateGameClubButton(conf) {
     const config = JSON.parse(conf);
@@ -23,7 +23,8 @@ export default {
     }
     config.type = typeEnum[config.type];
     config.icon = iconEnum[config.icon];
-    const id = new Date().getTime().toString(32)+Math.random().toString(32);
+    const id = new Date().getTime()
+      .toString(32) + Math.random().toString(32);
     gameClubs[id] = wx.createGameClubButton(config);
     return id;
   },
@@ -51,12 +52,15 @@ export default {
   },
   WXGameClubButtonAddListener(id, key) {
     if (gameClubs[id]) {
-      gameClubs[id][key](function(e) {
-        moduleHelper.send('OnGameClubButtonCallback', JSON.stringify({
-          callbackId: id,
-          errMsg: key
-        }));
-      })
+      gameClubs[id][key](() => {
+        moduleHelper.send(
+          'OnGameClubButtonCallback',
+          JSON.stringify({
+            callbackId: id,
+            errMsg: key,
+          }),
+        );
+      });
     } else {
       printErrMsg(id);
     }
@@ -75,12 +79,12 @@ export default {
   },
   WXGameClubStyleChangeInt(id, key, value) {
     if (gameClubs[id]) {
-      gameClubs[id]["style"][key] = value;
+      gameClubs[id].style[key] = value;
     }
   },
   WXGameClubStyleChangeStr(id, key, value) {
     if (gameClubs[id]) {
-      gameClubs[id]["style"][key] = value;
+      gameClubs[id].style[key] = value;
     }
-  }
-}
+  },
+};

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 namespace WeChatWASM
@@ -11,7 +11,7 @@ namespace WeChatWASM
 
     public class ReplaceRules
     {
-       public static Rule[] rules = {
+        public static Rule[] rules = {
        new Rule()
        {
            old=@"function *doRun\(\) *{",
@@ -20,12 +20,12 @@ namespace WeChatWASM
        new Rule()
        {
            old=@"calledMain *= *true",
-           newStr="if(ABORT===true)return;calledMain = true;if(Module.calledMainCb){Module.calledMainCb()}"
+           newStr="if(ABORT===true)return;calledMain = true;if(Module.calledMainCb){Module.calledMainCb()};if (GameGlobal.unityNamespace.enableProfileStats) {setTimeout(() => {SendMessage('WXSDKManagerHandler', 'OpenProfileStats');}, 10000);}"
        },
        new Rule()
        {
            old="self\\[\"performance\"\\]\\[\"now\"\\]",
-           newStr="wx.getPerformance().now"
+           newStr="performance.now"
        }
        ,new Rule()
        {
@@ -48,42 +48,62 @@ namespace WeChatWASM
        },
        new Rule()
        {
-            old="new *\\(window.AudioContext*\\|*\\|window.webkitAudioContext\\)",
+            old="new *\\(window.AudioContext *\\|\\| *window.webkitAudioContext\\)",
             newStr="createWebAudio()"
        },
        new Rule()
        {
-            old="context.createScriptProcessor*\\(*\\$1,0",
+            old="context.createScriptProcessor *\\( *\\$1, *0",
             newStr="context.createScriptProcessor($1,1"
        },
        new Rule()
        {
-            old="eval*\\(UTF8ToString*\\(ptr*\\)*\\)",
+            old="eval *\\(UTF8ToString *\\(ptr *\\) *\\)",
             newStr="/*eval(UTF8ToString(ptr))*/"
        },
        new Rule()
        {
-            old="window.addEventListener*\\(\"touchend\",OutputWebAudio_resumeAudio,false*\\);window.addEventListener*\\(\"click\",OutputWebAudio_resumeAudio,false*\\)",
-            newStr="/*window.addEventListener(\"touchend\",OutputWebAudio_resumeAudio,false);window.addEventListener(\"click\",OutputWebAudio_resumeAudio,false)*/",
+            old="window.addEventListener\\(\"touchend\", *OutputWebAudio_resumeAudio, *false*\\);",
+            newStr="/*window.addEventListener(\"touchend\",OutputWebAudio_resumeAudio,false);*/",
        },
        new Rule()
        {
-            old="window.removeEventListener*\\(\"click\",OutputWebAudio_resumeAudio,false*\\);window.removeEventListener*\\(\"touchend\",OutputWebAudio_resumeAudio,false*\\)",
-            newStr="/*window.removeEventListener(\"click\",OutputWebAudio_resumeAudio,false);window.removeEventListener(\"touchend\",OutputWebAudio_resumeAudio,false)*/",
+            old="window.addEventListener*\\(\"click\", *OutputWebAudio_resumeAudio, *false*\\)",
+            newStr="/*window.addEventListener(\"click\",OutputWebAudio_resumeAudio,false)*/",
        },
        new Rule()
        {
-            old="window.removeEventListener*\\(\"click\",OutputAudioWorklet_resumeAudio,false*\\);window.removeEventListener*\\(\"touchend\",OutputAudioWorklet_resumeAudio,false*\\)",
-            newStr="/*window.removeEventListener(\"click\",OutputAudioWorklet_resumeAudio,false);window.removeEventListener(\"touchend\",OutputAudioWorklet_resumeAudio,false)*/",
+            old="window.removeEventListener\\(\"click\", *OutputWebAudio_resumeAudio, *false*\\);",
+            newStr="/*window.removeEventListener(\"click\",OutputWebAudio_resumeAudio,false);*/",
        },
        new Rule()
        {
-            old="window.addEventListener*\\(\"touchend\",OutputAudioWorklet_resumeAudio,false*\\);window.addEventListener*\\(\"click\",OutputAudioWorklet_resumeAudio,false*\\)",
-            newStr="/*window.addEventListener(\"touchend\",OutputAudioWorklet_resumeAudio,false);window.addEventListener(\"click\",OutputAudioWorklet_resumeAudio,false)*/",
+            old="window.removeEventListener*\\(\"touchend\", *OutputWebAudio_resumeAudio, *false*\\)",
+            newStr="/*window.removeEventListener(\"touchend\",OutputWebAudio_resumeAudio,false)*/",
        },
        new Rule()
        {
-            old="scriptDirectory=self.location.href",
+            old="window.removeEventListener\\(\"click\", *OutputAudioWorklet_resumeAudio, *false*\\);",
+            newStr="/*window.removeEventListener(\"click\",OutputAudioWorklet_resumeAudio,false);*/",
+       },
+       new Rule()
+       {
+            old="window.removeEventListener*\\(\"touchend\", *OutputAudioWorklet_resumeAudio, *false*\\)",
+            newStr="/*window.removeEventListener(\"touchend\",OutputAudioWorklet_resumeAudio,false)*/",
+       },
+       new Rule()
+       {
+            old="window.addEventListener\\(\"touchend\", *OutputAudioWorklet_resumeAudio, *false*\\);",
+            newStr="/*window.addEventListener(\"touchend\",OutputAudioWorklet_resumeAudio,false);*/",
+       },
+       new Rule()
+       {
+            old="window.addEventListener*\\(\"click\", *OutputAudioWorklet_resumeAudio, *false*\\)",
+            newStr="/*window.addEventListener(\"click\",OutputAudioWorklet_resumeAudio,false)*/",
+       },
+       new Rule()
+       {
+            old="scriptDirectory *= *self.location.href",
             newStr="scriptDirectory=this.location.href",
        },
        new Rule()
@@ -117,26 +137,22 @@ namespace WeChatWASM
            old="if *\\(this.hookStackAlloc",
            newStr="return;if(this.hookStackAlloc"
        },
-       // ----MemoryProfiler End-----//
-#if !UNITY_2021
        new Rule()
        {
-           old=@"t\.clientX *- *canvasRect\.left",
-           newStr="(t.clientX - canvasRect.left) * window._ScaleRate * (canvas.width / window.innerWidth / devicePixelRatio)"
-       },new Rule()
-       {
-           old=@"t\.clientY *- *canvasRect\.top",
-           newStr="(t.clientY - canvasRect.top) * window._ScaleRate * (canvas.height / window.innerHeight / devicePixelRatio)"
-       },new Rule()
-       {
-           old=@"t\.clientX *- *targetRect\.left",
-           newStr="(t.clientX - targetRect.left) * window._ScaleRate * (canvas.width / window.innerWidth / devicePixelRatio)"
-       },new Rule()
-       {
-           old=@"t\.clientY *- *targetRect\.top",
-           newStr="(t.clientY - targetRect.top) * window._ScaleRate * (canvas.height / window.innerHeight / devicePixelRatio)"
+           old="allocateStatistics: *false",
+           newStr="allocateStatistics: true"
        },
-#endif
+       new Rule()
+       {
+           old="this.allocationSiteStatistics\\[str\\] *= *\\[0, *0\\]",
+           newStr="this.allocationSiteStatistics[str] = [0, 0, 0, 0];this.allocationSiteStatistics[str][2] += 1;"
+       },
+       new Rule()
+       {
+           old="this.allocationSiteStatistics\\[str\\]\\[1\\] *-= *sz",
+           newStr="this.allocationSiteStatistics[str][1] -= sz;this.allocationSiteStatistics[str][3] += 1;"
+       },
+       // ----MemoryProfiler End-----//
        new Rule()
        {
            old=@"document\.URL",
@@ -199,6 +215,10 @@ namespace WeChatWASM
        {
            old=": *_JS_Sound_Init",
            newStr=":window.WXWASMSDK._JS_Sound_Init"
+       },new Rule()
+       {
+           old=": *_JS_Sound_IsStopped",
+           newStr=":window.WXWASMSDK._JS_Sound_IsStopped"
        },new Rule()
        {
            old=": *_JS_Sound_Load",
@@ -278,10 +298,10 @@ namespace WeChatWASM
            newStr="_emscripten_set_main_loop_timing(1, 1);if (!GameGlobal.unityNamespace.isLoopRunnerEnable) return;"
        },new Rule(){
            old="\"parent\": *Module\\b",
-           newStr="\"parent\": Module,wx:{ignore_opt_glue_apis:[\"_glGenTextures\",\"_glBindTexture\",\"_glDeleteTextures\",\"_glFramebufferTexture2D\",\"_glIsTexture\",\"_glCompressedTexImage2D\",\"_glGetString\"]}"
+           newStr="\"parent\": Module,wx:{ignore_opt_glue_apis:[\"_glGenTextures\",\"_glBindTexture\",\"_glDeleteTextures\",\"_glFramebufferTexture2D\",\"_glIsTexture\",\"_glCompressedTexImage2D\",\"_glGetString\"],wx_disable_wasm_opt:wx.getSystemInfoSync().platform=='ios'?(GameGlobal.managerConfig.contextConfig.contextType==2?1:0):1}"
        },new Rule(){
            old="info={\"a\":asmLibraryArg}",
-           newStr="info={\"a\":asmLibraryArg,\"wx\":{ignore_opt_glue_apis:[\"glGenTextures\",\"glBindTexture\",\"glDeleteTextures\",\"glFramebufferTexture2D\",\"glIsTexture\",\"glCompressedTexImage2D\",\"glGetString\"]}}"
+           newStr="info={\"a\":asmLibraryArg,\"wx\":{ignore_opt_glue_apis:[\"glGenTextures\",\"glBindTexture\",\"glDeleteTextures\",\"glFramebufferTexture2D\",\"glIsTexture\",\"glCompressedTexImage2D\",\"glGetString\"],wx_disable_wasm_opt:wx.getSystemInfoSync().platform=='ios'?(GameGlobal.managerConfig.contextConfig.contextType==2?1:0):1}}"
        },new Rule(){
           old = "GL.createContext\\(([^)]+)\\);",
           newStr="GL.createContext($1);WXWASMSDK.canvasContext && WXWASMSDK.canvasContext._triggerCallback();"
@@ -307,7 +327,7 @@ namespace WeChatWASM
       },
       new Rule(){
           old = "var exts *= *GLctx\\.getSupportedExtensions\\(\\)( *\\|\\| *\\[\\])?;",
-          newStr = "var exts = GLctx.getSupportedExtensions() || [];GameGlobal.USED_TEXTURE_COMPRESSION && exts.push('WEBGL_compressed_texture_etc1');"
+          newStr = "var exts = GLctx.getSupportedExtensions() || [];if(GameGlobal.USED_TEXTURE_COMPRESSION) { exts.push('WEBGL_compressed_texture_etc1'); exts.push('WEBGL_compressed_texture_etc');}"
       },
       new Rule(){
           old = "Browser.mainLoop.runIter",
@@ -315,7 +335,19 @@ namespace WeChatWASM
       },
       new Rule(){
           old = "function _glTexStorage2D\\(x0, *x1, *x2, *x3, *x4\\) *{",
-          newStr = "function _glTexStorage2D(x0, x1, x2, x3, x4) {window._lastTexStorage2DParams = [x0, x1, x2, x3, x4];if(x2 == 36196){return;}"
+          newStr = "function _glTexStorage2D(x0, x1, x2, x3, x4) {window._lastTexStorage2DParams = [x0, x1, x2, x3, x4];if(x2 == 36196 || x2 == 37492 || x2 == 37493){return;}"
+      },
+      new Rule(){
+          old = "emscriptenWebGLGetHeapForType\\(type\\), *pixels *>> *emscriptenWebGLGetShiftForType\\(type\\)",
+          newStr = "emscriptenWebGLGetTexPixelData(type, format, width, height, pixels, 0)"
+      },
+      new Rule(){
+          old = "heap, *pixels *>> *heapAccessShiftForWebGLHeap\\(heap\\)",
+          newStr = "emscriptenWebGLGetTexPixelData(type, format, width, height, pixels, 0)"
+      },
+      new Rule(){
+          old = "GLctx.clientWaitSync",
+          newStr = "GameGlobal.unityNamespace.isAndroid?0x911A:GLctx.clientWaitSync"
       },
 #if UNITY_2020
        new Rule()
@@ -443,12 +475,51 @@ namespace WeChatWASM
           old="what=\"abort",
           newStr="if(Module.IsWxGame)window.WXWASMSDK.WXUncaughtException(true);what=\"abort"
        },
+       new Rule()
+       {
+          old="self.allocationsAtLoc\\[loc\\] *= *\\[ *0, *0, *self.filterCallstackForMalloc\\(loc\\)\\]",
+          newStr="self.allocationsAtLoc[loc] = [0, 0, 0, 0];"
+       },
+       new Rule()
+       {
+          old="self.allocationSitePtrs\\[ptr\\] *=",
+          newStr="self.allocationsAtLoc[loc][2] += 1;self.allocationSitePtrs[ptr]="
+       },
+       new Rule()
+       {
+          old="allocsAtThisLoc\\[1\\] *-= *sz",
+          newStr="allocsAtThisLoc[1] -= sz; allocsAtThisLoc[3] += 1;" 
+       },
+#endif
+#if !UNITY_2021
+       new Rule()
+       {
+           old=@"t\.clientX *- *canvasRect\.left",
+           newStr="(t.clientX - canvasRect.left) * window._ScaleRate * (canvas.width / window.innerWidth / devicePixelRatio)"
+       },new Rule()
+       {
+           old=@"t\.clientY *- *canvasRect\.top",
+           newStr="(t.clientY - canvasRect.top) * window._ScaleRate * (canvas.height / window.innerHeight / devicePixelRatio)"
+       },new Rule()
+       {
+           old=@"t\.clientX *- *targetRect\.left",
+           newStr="(t.clientX - targetRect.left) * window._ScaleRate * (canvas.width / window.innerWidth / devicePixelRatio)"
+       },new Rule()
+       {
+           old=@"t\.clientY *- *targetRect\.top",
+           newStr="(t.clientY - targetRect.top) * window._ScaleRate * (canvas.height / window.innerHeight / devicePixelRatio)"
+       },
 #endif
 #if UNITY_2021_3_OR_NEWER
         new Rule()
         {
             old="new AbortController(\\(\\)|\\b);?",
             newStr="new GameGlobal.unityNamespace.UnityLoader.UnityCache.XMLHttpRequest();if(GameGlobal.TEXTURE_PARALLEL_BUNDLE){GameGlobal.ParalleLDownloadTexture(_url)}"
+        },
+        new Rule()
+        {
+            old="enableStreamingDownload: *true",
+            newStr="enableStreamingDownload: false"
         },
         new Rule()
         {
