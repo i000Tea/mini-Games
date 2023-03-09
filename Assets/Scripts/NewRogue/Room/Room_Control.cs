@@ -99,7 +99,7 @@ namespace Tea.NewRouge
 		/// <param name="num"> 随机门的序号 </param>
 		/// <param name="dType"> (检测新门匹配时使用) 门的类型 </param>
 		/// <returns>返回随机好的一扇门</returns>
-		public Room_DoorPoint GetDoor(DoorType? dType = null, int num = -1)
+		public Room_DoorPoint GetDoor(DoorType dType, int num = -1,Vector3? size = null)
 		{
 			// 当传入-1 视为随机
 			if (num < 0)
@@ -109,14 +109,14 @@ namespace Tea.NewRouge
 			// 查找门点
 			for (int i = 0; i < myDoors.Count; i++)
 			{
-				Debug.Log($"{name} \n 此门是否被使用 {myDoors[num].unUse} " +
-					$"\n  门类型存在时  (新门) 类型与自身一致 {dType != null && dType != myDoors[num].dType} " +
-					$"\n 门类型不存在时(原门) 碰撞检测 {dType == null && DetectionDoor(myDoors[num])}");
+				//Debug.Log($"{name} \n 此门是否被使用 {myDoors[num].unUse} " +
+				//	$"\n  门类型存在时  (新门) 类型与自身一致 {dType != null && dType != myDoors[num].dType} " +
+				//	$"\n 门类型不存在时(原门) 碰撞检测 {dType == null && DetectionDoor(myDoors[num])}");
 				// 检测门是否可用
 				if (
-					myDoors[num].unUse ||                               // 此门是否被使用
-					(dType != null && dType != myDoors[num].dType) ||   // 门类型存在时  (新门) 类型与自身一致
-					(dType == null && DetectionDoor(myDoors[num])))     // 门类型不存在时(原门) 碰撞检测
+					myDoors[num].unUse ||							// 此门是否被使用
+					dType != myDoors[num].dType ||					// 门类型存在时  (新门) 类型与自身一致
+					(size != null && DetectionDoor(myDoors[num])))	// 门类型不存在时(原门) 碰撞检测
 				{
 					Debug.Log("跳过");
 					// 若不可用 序号加1 再次检索
@@ -129,7 +129,7 @@ namespace Tea.NewRouge
 				// 若没有被使用 返回该门点
 				else
 				{
-					Debug.Log(myDoors[num]);
+					//Debug.Log(myDoors[num]);
 					return myDoors[num];
 				}
 			}
@@ -142,6 +142,15 @@ namespace Tea.NewRouge
 		//	y=1,
 		//	z=1,
 		//}
+
+
+		/// <param name="beforeDoor">旧的门</param>
+		/// <param name="newDoor">新的门的偏移量</param>
+		bool CheckDoorRoom(Transform beforeDoor,Transform newDoor)
+		{
+			Vector3 targetPosi = (beforeDoor.position +  newDoor.localPosition);
+			return false;
+		}
 
 		/// <summary>
 		/// 检测此门后碰撞体

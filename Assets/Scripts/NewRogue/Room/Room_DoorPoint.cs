@@ -46,7 +46,6 @@ namespace Tea.NewRouge
 		{
 			nextRoom = nR;
 			nextCost.gameObject.SetActive(true);
-
 		}
 		/// <summary>
 		/// 本门作为被开启方向 关闭自身

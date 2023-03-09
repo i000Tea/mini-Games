@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -117,6 +118,18 @@ namespace Tea
 			data.Power = Power;
 			data.Target = Target;
 			return data;
+		}
+
+		/// <summary>
+		/// 随机获取枚举值
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <returns></returns>
+		public static T RandomEnum<T>()
+		{
+			T[] results = Enum.GetValues(typeof(T)) as T[];
+			T result = results[UnityEngine.Random.Range(0, results.Length)];
+			return result;
 		}
 	}
 }

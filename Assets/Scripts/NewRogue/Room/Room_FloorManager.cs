@@ -52,13 +52,15 @@ namespace Tea.NewRouge
 			var createRoom = listRoom;
 
 			yield return new WaitForFixedUpdate();
+			// 第一次 创造主路线
 			for (int i = 0; i < mainRoadLength - 1; i++)
 			{
-				createRoom = CreateRoom(listRoom, Floor);
+				createRoom = CreateRoom(listRoom, Floor, DoorType._2Door);
 				if (createRoom)
 					listRoom = createRoom;
 				yield return new WaitForFixedUpdate();
 			}
+
 			for (int i = 1; i < rEntityList.Count; i++)
 			{
 				rEntityList[i].AwakeRoomSet();
@@ -67,32 +69,54 @@ namespace Tea.NewRouge
 		/// <summary>
 		/// 创造房间
 		/// </summary>
+		/// <param name="dType"> 门的类型 </param>
 		/// <param name="beforeRoom"> 上一个房间 </param>
 		/// <param name="newRoomParent"> 父集节点 </param>
 		/// <returns></returns>
-		Room_Control CreateRoom(Room_Control beforeRoom = null, Transform newRoomParent = null)
+		Room_Control CreateRoom(Room_Control beforeRoom, Transform newRoomParent = null, DoorType? dType = null)
 		{
-			// 获取之前房间中的一扇门 定义为 前置门
-			var beforerDoor = beforeRoom.GetDoor();
-
-			//Debug.LogWarning(beforerDoor);
-			// 随机门的预制件
-			var roomObj = rItem.RandomRoom(beforerDoor.dType);
-			//Debug.LogWarning(roomObj);
-			// 若随即不到 则直接返回空
-			if (!roomObj)
+			// 若输入类型为空 则随机一个
+			if (dType == null)
+			{
+				dType = AddVoids.RandomEnum<DoorType>();
+				Debug.Log(dType);
+			}
+			if (!beforeRoom)
+			{
+				Debug.Log("前一房间为空");
 				return null;
-			// 创建随机房间 并获取脚本 定义为 新的房间
-			var newRoom = Instantiate(roomObj).GetComponent<Room_Control>();
-			// 如果输入了父集 则设置父对象
-			if (newRoomParent)
-				newRoom.transform.SetParent(newRoomParent);
+			}
 
-			// 获取 新的房间 的一扇门适合的门 定义为新的门
-			var newDoor = newRoom.GetDoor(beforerDoor.dType);
+			// 创建随机房间(确保此房间有可用的门) 并获取脚本 定义为 新的房间
+			Room_Control newRoom = null;
+			try
+			{
+				newRoom = Instantiate(rItem.RandomRoom((DoorType)dType)).GetComponent<Room_Control>();
+				// 如果输入了父集 则设置父对象
+				if (newRoomParent)
+					newRoom.transform.SetParent(newRoomParent);
+			}
+			catch (Exception)
+			{
+				Debug.LogError($"新的房间为{newRoom}");
+			}
+
+
+			Room_DoorPoint beforerDoor = null, newDoor = null;
+			try
+			{
+				// 获取 新的房间 的一扇门适合的门 定义为新的门
+				newDoor = newRoom.GetDoor((DoorType)dType);
+				// 获取之前房间中的一扇门 定义为 前置门
+				beforerDoor = beforeRoom.GetDoor((DoorType)dType);
+			}
+			catch (Exception)
+			{
+				Debug.Log($"原房间的门 {beforerDoor} \n 新房间的门 {newDoor}");
+			}
 
 			// 设置旋转
-			float rotateY = beforerDoor.transform.eulerAngles.y - newDoor.transform.eulerAngles.y - 180;
+			float rotateY = beforerDoor.transform.eulerAngles.y - newDoor.transform.localEulerAngles.y - 180;
 			if (rotateY > 360)
 				rotateY %= 360;
 			newRoom.transform.rotation = Quaternion.Euler(0, rotateY, 0);
