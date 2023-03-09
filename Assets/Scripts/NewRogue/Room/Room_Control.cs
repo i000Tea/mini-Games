@@ -109,15 +109,16 @@ namespace Tea.NewRouge
 			// 查找门点
 			for (int i = 0; i < myDoors.Count; i++)
 			{
-				//Debug.Log($"{name} \n 此门是否被使用 {myDoors[num].unUse} " +
-				//	$"\n  门类型存在时  (新门) 类型与自身一致 {dType != null && dType != myDoors[num].dType} " +
-				//	$"\n 门类型不存在时(原门) 碰撞检测 {dType == null && !DetectionDoor(myDoors[num])}");
+				Debug.Log($"{name} \n 此门是否被使用 {myDoors[num].unUse} " +
+					$"\n  门类型存在时  (新门) 类型与自身一致 {dType != null && dType != myDoors[num].dType} " +
+					$"\n 门类型不存在时(原门) 碰撞检测 {dType == null && DetectionDoor(myDoors[num])}");
 				// 检测门是否可用
 				if (
-					myDoors[num].unUse ||								// 此门是否被使用
-					(dType != null && dType != myDoors[num].dType) ||	// 门类型存在时  (新门) 类型与自身一致
-					(dType == null && DetectionDoor(myDoors[num])))		// 门类型不存在时(原门) 碰撞检测
+					myDoors[num].unUse ||                               // 此门是否被使用
+					(dType != null && dType != myDoors[num].dType) ||   // 门类型存在时  (新门) 类型与自身一致
+					(dType == null && DetectionDoor(myDoors[num])))     // 门类型不存在时(原门) 碰撞检测
 				{
+					Debug.Log("跳过");
 					// 若不可用 序号加1 再次检索
 					num++;
 					if (num >= myDoors.Count)
@@ -128,26 +129,44 @@ namespace Tea.NewRouge
 				// 若没有被使用 返回该门点
 				else
 				{
+					Debug.Log(myDoors[num]);
 					return myDoors[num];
 				}
 			}
 			return null;
 		}
 
+		//const Vector3 targetScale = new Vector3
+		//{
+		//	x=1,
+		//	y=1,
+		//	z=1,
+		//}
+
 		/// <summary>
 		/// 检测此门后碰撞体
 		/// </summary>
 		/// <param name="dPoint"></param>
 		/// <returns> 碰撞体是否存在 </returns>
-		bool DetectionDoor(Room_DoorPoint dPoint)
+		bool DetectionDoor(Room_DoorPoint dPoint, Vector3? targetScale = null)
 		{
 			Vector3 targetPosi = (dPoint.transform.position + dPoint.transform.forward * 12);
-			Vector3 targetScale = new Vector3(8, 1, 8);
-			int layer = 1 << 6;
-			var _list = Physics.OverlapBox(targetPosi, targetScale, Quaternion.Euler(Vector3.zero), layer);
+			if (targetScale == null)
+				targetScale = new Vector3(8, 4, 8);
 
+			int layer = 1 << 6;
+			var _list = Physics.OverlapBox(targetPosi, (Vector3)targetScale, dPoint.transform.rotation, layer);
+
+			
 			if (_list.Length > 0)
 				return true;
+
+			//Transform obj1 = GameObject.CreatePrimitive(PrimitiveType.Cube).transform;
+			//obj1.position = targetPosi;
+			//obj1.rotation = dPoint.transform.rotation;
+			//obj1.localScale = (Vector3)targetScale * 2;
+
+
 			return false;
 		}
 	}

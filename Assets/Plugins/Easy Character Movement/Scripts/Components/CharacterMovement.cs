@@ -21,10 +21,10 @@ namespace ECM.Components
 	/// 
 	/// /// 'CharacterMovement'是ECM系统的核心，负责执行
 
-	///所有移动角色的繁重工作(又名角色马达)，例如施加力、脉冲、约束、平台交互等。
-	///这是类似于Unity的字符控制器，但不像Unity字符控制器，这是使用刚体物理。
-	///控制器(例如:'BaseCharacterController')决定字符应该如何移动，例如在响应用户输入，AI，动画等。
-	///并将此信息提供给'CharacterMovement'组件，该组件执行移动。
+	/// 所有移动角色的繁重工作(又名角色马达)，例如施加力、脉冲、约束、平台交互等。
+	/// 这是类似于Unity的字符控制器，但不像Unity字符控制器，这是使用刚体物理。
+	/// 控制器(例如:'BaseCharacterController')决定字符应该如何移动，例如在响应用户输入，AI，动画等。
+	/// 并将此信息提供给'CharacterMovement'组件，该组件执行移动。
 	/// </summary>
 
 	public sealed class CharacterMovement : MonoBehaviour

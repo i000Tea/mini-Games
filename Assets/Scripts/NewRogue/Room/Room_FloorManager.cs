@@ -92,7 +92,7 @@ namespace Tea.NewRouge
 			var newDoor = newRoom.GetDoor(beforerDoor.dType);
 
 			// 设置旋转
-			float rotateY = beforerDoor.transform.eulerAngles.y - newDoor.transform.eulerAngles.y /*- 180*/;
+			float rotateY = beforerDoor.transform.eulerAngles.y - newDoor.transform.eulerAngles.y - 180;
 			if (rotateY > 360)
 				rotateY %= 360;
 			newRoom.transform.rotation = Quaternion.Euler(0, rotateY, 0);
@@ -100,13 +100,13 @@ namespace Tea.NewRouge
 			//设置位置
 			newRoom.transform.position = beforerDoor.transform.position - newDoor.transform.position;
 
-			Debug.Log("ssaa");
+			//Debug.Log("ssaa");
 
 			// 将生成好的房间加入列表
 			rEntityList.Add(newRoom);
 			beforerDoor.SetRoomLink(newRoom);
 			newDoor.CloseMe();
-			
+
 			// 返回数据
 			return newRoom;
 		}
