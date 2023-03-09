@@ -8,15 +8,20 @@ namespace Tea.NewRouge
 	{
 		public GameObject muzzleParticle;
 		public GameObject hitParticle;
+		private float damage = 1;
 		private void Start()
 		{
 			ParticleManager.InstParticle(muzzleParticle,
 				transform.position, null, dieTime: 1f);
 		}
+		public void SetDamage(float dmg)
+		{
+			damage = dmg;
+		}
 		private void OnCollisionEnter(Collision collision)
 		{
 			int targetMask = (1 << 0) | (1 << 6);
-			// 生成一条从起始点o, 以方向d为延展的射线
+			// xun'h生成一条从起始点o, 以方向d为延展的射线
 			Ray ray = new Ray(transform.position, transform.forward);
 			// hit用于从光线投射中, 获取信息的结构
 			RaycastHit hit;

@@ -7,12 +7,12 @@ namespace Tea.NewRouge
 {
 	public class Enemy_Control : MonoBehaviour
 	{
-		public int health = 3;
+		public float health = 10;
 		public void Startsetting()
 		{
 
 		}
-		public void UnHit(int damage = 1)
+		public void UnHit(float damage = 1)
 		{
 			health -= damage;
 			if (health <= 0)
