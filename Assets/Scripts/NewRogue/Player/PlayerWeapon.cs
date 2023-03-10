@@ -15,6 +15,8 @@ namespace Tea.NewRouge
 		float bulletCD = 0.5f;
 		float bulletCDNow;
 
+		Transform muzzle;
+
 		private void Update()
 		{
 			WeaponUpdate();
@@ -45,11 +47,11 @@ namespace Tea.NewRouge
 		/// 射击
 		/// </summary>
 		/// <returns></returns>
-		public bool IsShoot()
+		protected virtual bool IsShoot(float damage = 1)
 		{
 			//Debug.Log("射击");
-
-			var a = Instantiate(bullet);
+			var a = bullet.InstantiateBullet(muzzle, damage);
+			//var a = Instantiate(bullet);
 			a.transform.position = weapon.transform.position;
 			a.transform.rotation = weapon.transform.rotation;
 			a.GetComponent<Rigidbody>().velocity =

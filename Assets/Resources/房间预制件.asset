@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f1b6e0d643e8f64fb8b696ee4e95343, type: 3}
   m_Name: "\u623F\u95F4\u9884\u5236\u4EF6"
   m_EditorClassIdentifier: Assembly-CSharp:Tea.NewRouge:RoomList
-  DoorPrefabs:
+  EnemyPrefabs:
+  - {fileID: 4126465574598252017, guid: 4296bd105118ab94d9fecd8299ac7a43, type: 3}
+  BasePrefabs:
+  - {fileID: 6940469010013303976, guid: 65c94871e30e5dc4bb18d3da4ff242b2, type: 3}
   - {fileID: 8857717480738582960, guid: c35d00ac14c186442aacbc7936e5eb7d, type: 3}
+  - {fileID: 8857717480738582960, guid: c35d00ac14c186442aacbc7936e5eb7d, type: 3}
+  - {fileID: 8857717480738582960, guid: 75bf46f83f91dc44fa8519e860fe6137, type: 3}
   - {fileID: 8857717480738582960, guid: 75bf46f83f91dc44fa8519e860fe6137, type: 3}

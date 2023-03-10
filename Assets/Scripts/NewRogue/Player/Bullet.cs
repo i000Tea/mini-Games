@@ -43,7 +43,7 @@ namespace Tea.NewRouge
 
 			if (collision.gameObject.tag == "Enemy")
 			{
-				collision.gameObject.GetComponent<Enemy_Control>().UnHit();
+				collision.gameObject.GetComponent<Enemy_Control>().UnHit(damage);
 			}
 			//collision.gameObject.GetComponent<EnemyBase>().UnHit(4);
 			GetComponent<Collider>().enabled = false;

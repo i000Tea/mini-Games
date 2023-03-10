@@ -70,7 +70,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4126465574598252016}
-  - component: {fileID: 955109159364741840}
+  - component: {fileID: 8479222307518534916}
   m_Layer: 6
   m_Name: Room_0_EnemyCreate
   m_TagString: Untagged
@@ -97,7 +97,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &955109159364741840
+--- !u!114 &8479222307518534916
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -106,13 +106,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4126465574598252017}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abefef81e00a09d4c804eb675c5797e1, type: 3}
+  m_Script: {fileID: 11500000, guid: 6d14c6d53a61ce74291bebd9ada99c0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   myDoors:
   - {fileID: 7534626078839067495}
   roomParent: {fileID: 43262425992353714}
-  RoomColl: {x: 22, y: 22, z: 34}
   roomColl: {fileID: 518717934034021049}
 --- !u!1 &4135982065316404480
 GameObject:

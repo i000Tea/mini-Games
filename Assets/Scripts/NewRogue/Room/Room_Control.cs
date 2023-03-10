@@ -33,12 +33,7 @@ namespace Tea.NewRouge
 		private Transform roomParent;
 		private GameObject EnvParent;
 
-		public Vector3 RoomColl
-		{
-			get { return roomColl.lossyScale; }
-		}
-		[SerializeField]
-		private Transform roomColl;
+		public Transform roomColl;
 
 		private void OnValidate()
 		{
@@ -72,12 +67,14 @@ namespace Tea.NewRouge
 		/// </summary>
 		public void AwakeRoomSet()
 		{
-			gameObject.SetActive(false);
-			transform.localScale = Vector3.zero;
+			//gameObject.SetActive(false);
+			//transform.localScale = Vector3.zero;
 			for (int i = 0; i < myDoors.Count; i++)
 			{
 				if (!myDoors[i].nextRoom)
+				{
 					myDoors[i].nextCost.gameObject.SetActive(false);
+				}
 			}
 		}
 		public void ShowRoom()

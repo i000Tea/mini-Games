@@ -5,23 +5,25 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using Tea.PolygonHit;
+using Tea.NewRouge;
 
 namespace Tea
 {
-    public static class AddVoids
-    {
-        /// <summary>
-        /// 图像在一段时间内闪烁一次
-        /// </summary>
-        /// <param name="targetImage"></param>
-        /// <param name="Start"></param>
-        /// <param name="End"></param>
-        public static void ColorFlicker(this Image targetImage, Color Start, Color End,
-            float flickerTime = 0.3f)
-        {
-            targetImage.DOColor(Start, flickerTime / 2).OnComplete(() => targetImage.DOColor(End, flickerTime / 2));
-        }
+	public static class AddVoids
+	{
+		/// <summary>
+		/// 图像在一段时间内闪烁一次
+		/// </summary>
+		/// <param name="targetImage"></param>
+		/// <param name="Start"></param>
+		/// <param name="End"></param>
+		public static void ColorFlicker(this Image targetImage, Color Start, Color End,
+			float flickerTime = 0.3f)
+		{
+			targetImage.DOColor(Start, flickerTime / 2).OnComplete(() => targetImage.DOColor(End, flickerTime / 2));
+		}
 
+		#region List
 		/// <summary>
 		/// 提取列表与目标点距离最小的一个物体
 		/// </summary>
@@ -48,7 +50,6 @@ namespace Tea
 			return targetObj;
 		}
 
-
 		/// <summary>
 		/// 提取列表中与目标小于一定距离的所有物体
 		/// </summary>
@@ -56,24 +57,27 @@ namespace Tea
 		/// <param name="traget"></param>
 		/// <param name="_long"></param>
 		/// <returns></returns>
-		public static GameObject[] ListDistance(List<GameObject> _List,Vector3 target, float _long)
-        {
+		public static GameObject[] ListDistance(List<GameObject> _List, Vector3 target, float _long)
+		{
 			// 新建数列
-            var newList = new List<GameObject>();
+			var newList = new List<GameObject>();
 			// 循环添加
-            for (int i = 0; i < _List.Count; i++)
-                if (Vector3.Distance(_List[i].transform.position, target) < _long)
-                    newList.Add(_List[i]);
+			for (int i = 0; i < _List.Count; i++)
+				if (Vector3.Distance(_List[i].transform.position, target) < _long)
+					newList.Add(_List[i]);
 			// 返回数组
-            return newList.ToArray();
-        }
+			return newList.ToArray();
+		}
 
+		#endregion
+
+		#region Game1
 		/// <summary>
 		/// 仅传入了撞击
 		/// </summary>
 		/// <param name="enemys"></param>
 		/// <param name="unC"></param>
-		public static void AtkEnemys(this GameObject[] enemys,UnCollision unC)
+		public static void AtkEnemys(this GameObject[] enemys, UnCollision unC)
 		{
 			AtkEnemys(enemys, 0, unC);
 		}
@@ -85,7 +89,7 @@ namespace Tea
 		public static void AtkEnemys(this GameObject[] enemys, float Hit)
 		{
 			UnCollision unC = new UnCollision();
-			AtkEnemys(enemys, Hit,unC);
+			AtkEnemys(enemys, Hit, unC);
 		}
 
 		/// <summary>
@@ -96,9 +100,7 @@ namespace Tea
 		/// <param name="Power"></param>
 		/// <param name="Point"></param>
 		/// <param name="dizzTime"></param>
-		public static void AtkEnemys(this GameObject[] enemys, 
-			float Hit, 
-			UnCollision UnC)
+		public static void AtkEnemys(this GameObject[] enemys, float Hit, UnCollision UnC)
 		{
 			EnemyBase a;
 			for (int i = 0; i < enemys.Length; i++)
@@ -120,6 +122,37 @@ namespace Tea
 			return data;
 		}
 
+
+		#endregion
+
+		#region Game2
+		/// <summary>
+		/// 实例化子弹
+		/// </summary>
+		/// <param name="prefab">子弹预制件</param>
+		/// <param name="muzzle">枪口位置</param>
+		/// <param name="Damage">伤害值</param>
+		/// <param name="HorizOffset">横向偏移</param>
+		/// <param name="vertiOffset">纵向偏移</param>
+		/// <param name="lifeTime">最大生命时间</param>
+		/// <returns></returns>
+		public static GameObject InstantiateBullet(this GameObject prefab, Transform muzzle, float Damage = 1,
+			float HorizOffset = 0.05f, float vertiOffset = 0.05f, float lifeTime = 3)
+		{
+			var entity = GameObject.Instantiate(prefab, muzzle.position, muzzle.rotation);
+			var bullet = entity.GetComponent<Bullet>();
+			bullet.SetDamage(Damage);
+
+			entity.GetComponent<Rigidbody>().velocity = (muzzle.transform.forward + new Vector3(
+				UnityEngine.Random.Range(-HorizOffset, HorizOffset), 0,
+				UnityEngine.Random.Range(-vertiOffset, vertiOffset))) * 16;
+
+			GameObject.Destroy(entity, 0.05f);
+			return entity;
+		}
+
+
+		#endregion
 		/// <summary>
 		/// 随机获取枚举值
 		/// </summary>

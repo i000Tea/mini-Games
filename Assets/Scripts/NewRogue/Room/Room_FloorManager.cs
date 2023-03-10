@@ -51,16 +51,23 @@ namespace Tea.NewRouge
 			// 生成基准房间设置为初始房间
 			Room_Control BaseRoom = startRoom;
 			Room_Control createRoom = null;
+
+			var a = TryCreateRoom(RoomPrefabs.EnemyCreate, BaseRoom, Floor, DoorType._2Door);
+			//Debug.Log(a);
 			yield return new WaitForFixedUpdate();
 			// 第一循环 创造主路线
 			for (int i = 0; i < mainRoadLength - 1; i++)
 			{
 				// 当基准房间存在时 使用基准房间 尝试生成新房间
 				if (BaseRoom)
-					createRoom = TryCreateRoom(BaseRoom, Floor, DoorType._2Door);
+					createRoom = TryCreateRoom(RoomPrefabs.BaseRoom, BaseRoom, Floor, DoorType._2Door);
 				// 生成房间成功后 更新基准房间
 				if (createRoom)
+				{
+					// 将生成好的房间加入列表
+					rEntityList.Add(createRoom);
 					BaseRoom = createRoom;
+				}
 				yield return new WaitForFixedUpdate();
 			}
 			// 所有房间初始化
@@ -76,7 +83,7 @@ namespace Tea.NewRouge
 		/// <param name="beforeRoom"> 上一个房间 </param>
 		/// <param name="newRoomParent"> 父集节点 </param>
 		/// <returns></returns>
-		Room_Control TryCreateRoom(Room_Control beforeRoom, Transform newRoomParent = null, DoorType? dType = null, int attempts = 3)
+		Room_Control TryCreateRoom(RoomPrefabs roomPrefab, Room_Control beforeRoom, Transform newRoomParent = null, DoorType? dType = null, int attempts = 3)
 		{
 			// 若类型为空 则返回空
 			if (!beforeRoom)
@@ -101,7 +108,7 @@ namespace Tea.NewRouge
 			Debug.Log("开始尝试构建");
 			for (int i = 0; i < attempts; i++)
 			{
-				var a = rItem.RandomRoom((DoorType)dType);
+				var a = rItem.RandomRoom(roomPrefab, (DoorType)dType);
 				//Debug.Log(a);
 				//Debug.Log((DoorType)dType);
 				newRoom = a.GetComponent<Room_Control>();
@@ -112,16 +119,17 @@ namespace Tea.NewRouge
 				rotateY = beforerDoor.transform.eulerAngles.y - newDoor.transform.localEulerAngles.y + 180;
 				if (Mathf.Abs(rotateY) > 360)
 					rotateY %= 360;
-				string log = $"构建次数{i+1}";
-				if (!DetectionDoor(beforerDoor.transform, newDoor.transform, rotateY, newRoom.RoomColl))
+				string log = $"构建次数{i + 1}";
+				if (!DetectionDoor(beforerDoor.transform, (newDoor.transform.localPosition - newRoom.roomColl.localPosition),
+					rotateY, newRoom.roomColl.lossyScale))
 				{
-					//Debug.Log(log + $"成功 房间为{ newRoom.RoomColl}");
+					Debug.Log(log + $"成功 房间为{ newRoom.roomColl}");
 					//创建成功 跳出循环
 					break;
 				}
-				if (i >= attempts-1)
+				if (i >= attempts - 1)
 				{
-					//Debug.Log(log + $"失败");
+					Debug.Log(log + $"失败");
 					return null;
 				}
 				//Debug.Log(log + ",继续");
@@ -141,8 +149,6 @@ namespace Tea.NewRouge
 				beforerDoor.transform.position - AddVoids.AngleTransfor(newDoor.transform.position, rotateY);
 			newRoom.transform.rotation = Quaternion.Euler(0, rotateY, 0);
 
-			// 将生成好的房间加入列表
-			rEntityList.Add(newRoom);
 			beforerDoor.SetRoomLink(newRoom);
 			newDoor.CloseMe();
 
@@ -157,11 +163,11 @@ namespace Tea.NewRouge
 		/// <param name="rotateY"> 两点之间Y值的旋转 </param>
 		/// <param name="collScale"> 来自 B点父集的碰撞体大小(原始大小) </param>
 		/// <returns> 碰撞体是否存在 </returns>
-		bool DetectionDoor(Transform beforeWorldPoint, Transform createChildPoint, float rotateY, Vector3 collScale)
+		bool DetectionDoor(Transform beforeWorldPoint, Vector3 createChildPoint, float rotateY, Vector3 collScale)
 		{
 			/// 碰撞体区域
 			Vector3 CollPosition = beforeWorldPoint.position + beforeWorldPoint.forward * 4 -
-								   AddVoids.AngleTransfor(createChildPoint.localPosition, rotateY);
+								   AddVoids.AngleTransfor(createChildPoint, rotateY);
 
 			int layer = 1 << 6;
 			var _list = Physics.OverlapBox(CollPosition, collScale / 2, Quaternion.Euler(0, rotateY, 0), layer);
