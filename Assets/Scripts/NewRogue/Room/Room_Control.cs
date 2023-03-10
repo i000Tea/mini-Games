@@ -32,8 +32,17 @@ namespace Tea.NewRouge
 		[SerializeField]
 		private Transform roomParent;
 		private GameObject EnvParent;
+
+		public Vector3 RoomColl
+		{
+			get { return roomColl.lossyScale; }
+		}
+		[SerializeField]
+		private Transform roomColl;
+
 		private void OnValidate()
 		{
+			//Debug.Log(roomColl.lossyScale);
 			if (myDoors == null || myDoors.Count != transform.GetChild(0).childCount)
 			{
 				myDoors = new List<Room_DoorPoint>();
@@ -79,7 +88,7 @@ namespace Tea.NewRouge
 		}
 
 		/// <summary>
-		/// 查找房间
+		/// 查找 空置门类型
 		/// </summary>
 		/// <param name="dType"></param>
 		/// <returns> 是否有类型一致的房间 </returns>
@@ -87,19 +96,22 @@ namespace Tea.NewRouge
 		{
 			for (int i = 0; i < myDoors.Count; i++)
 			{
-				if (myDoors[i].dType == dType)
+				//Debug.Log($"房间名{name}检测门类型{dType} 当前门名称{myDoors[i].gameObject.name} 当前门类型{myDoors[i].dType}  是否使用{myDoors[i].unUse}");
+				if (myDoors[i].dType == dType && !myDoors[i].unUse)
+				{
 					return true;
+				}
 			}
 			return false;
 		}
 
 		/// <summary>
-		/// 获取一扇门 
+		/// 获取一扇未使用过的门 
 		/// </summary>
 		/// <param name="num"> 随机门的序号 </param>
 		/// <param name="dType"> (检测新门匹配时使用) 门的类型 </param>
 		/// <returns>返回随机好的一扇门</returns>
-		public Room_DoorPoint GetDoor(DoorType dType, int num = -1,Vector3? size = null)
+		public Room_DoorPoint GetDoor(DoorType dType, int num = -1)
 		{
 			// 当传入-1 视为随机
 			if (num < 0)
@@ -113,12 +125,10 @@ namespace Tea.NewRouge
 				//	$"\n  门类型存在时  (新门) 类型与自身一致 {dType != null && dType != myDoors[num].dType} " +
 				//	$"\n 门类型不存在时(原门) 碰撞检测 {dType == null && DetectionDoor(myDoors[num])}");
 				// 检测门是否可用
-				if (
-					myDoors[num].unUse ||							// 此门是否被使用
-					dType != myDoors[num].dType ||					// 门类型存在时  (新门) 类型与自身一致
-					(size != null && DetectionDoor(myDoors[num])))	// 门类型不存在时(原门) 碰撞检测
+				if (myDoors[num].unUse ||                           // 此门是否被使用
+					dType != myDoors[num].dType)                  // 门类型存在时  (新门) 类型与自身一致
 				{
-					Debug.Log("跳过");
+					Debug.Log("序号加1 再次检索");
 					// 若不可用 序号加1 再次检索
 					num++;
 					if (num >= myDoors.Count)
@@ -136,47 +146,16 @@ namespace Tea.NewRouge
 			return null;
 		}
 
-		//const Vector3 targetScale = new Vector3
-		//{
-		//	x=1,
-		//	y=1,
-		//	z=1,
-		//}
-
-
-		/// <param name="beforeDoor">旧的门</param>
-		/// <param name="newDoor">新的门的偏移量</param>
-		bool CheckDoorRoom(Transform beforeDoor,Transform newDoor)
+		public int GetDoorNum(Room_DoorPoint door)
 		{
-			Vector3 targetPosi = (beforeDoor.position +  newDoor.localPosition);
-			return false;
-		}
-
-		/// <summary>
-		/// 检测此门后碰撞体
-		/// </summary>
-		/// <param name="dPoint"></param>
-		/// <returns> 碰撞体是否存在 </returns>
-		bool DetectionDoor(Room_DoorPoint dPoint, Vector3? targetScale = null)
-		{
-			Vector3 targetPosi = (dPoint.transform.position + dPoint.transform.forward * 12);
-			if (targetScale == null)
-				targetScale = new Vector3(8, 4, 8);
-
-			int layer = 1 << 6;
-			var _list = Physics.OverlapBox(targetPosi, (Vector3)targetScale, dPoint.transform.rotation, layer);
-
-			
-			if (_list.Length > 0)
-				return true;
-
-			//Transform obj1 = GameObject.CreatePrimitive(PrimitiveType.Cube).transform;
-			//obj1.position = targetPosi;
-			//obj1.rotation = dPoint.transform.rotation;
-			//obj1.localScale = (Vector3)targetScale * 2;
-
-
-			return false;
+			for (int i = 0; i < myDoors.Count; i++)
+			{
+				if (myDoors[i] == door)
+				{
+					return i;
+				}
+			}
+			return -1;
 		}
 	}
 }

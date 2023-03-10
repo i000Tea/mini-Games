@@ -266,6 +266,7 @@ MonoBehaviour:
   - {fileID: 3114406209875940399}
   - {fileID: 772054093322566494}
   roomParent: {fileID: 903090719698261718}
+  roomColl: {fileID: 6020650182333240894}
 --- !u!1001 &2844283387806282151
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -131,6 +131,26 @@ namespace Tea
 			T result = results[UnityEngine.Random.Range(0, results.Length)];
 			return result;
 		}
+
+
+		/// <summary>
+		/// 经过角度转换后的V3
+		/// </summary>
+		/// <param name="beforePoint"></param>
+		/// <param name="angle"></param>
+		/// <returns></returns>
+		public static Vector3 AngleTransfor(Vector3 beforePoint, float angle)
+		{
+			Vector3 a = new Vector3(
+				beforePoint.x * Mathf.Cos(angle * Mathf.Deg2Rad) +
+				beforePoint.z * Mathf.Sin(angle * Mathf.Deg2Rad),
+				0,
+				beforePoint.x * -Mathf.Sin(angle * Mathf.Deg2Rad) +
+				beforePoint.z * Mathf.Cos(angle * Mathf.Deg2Rad)
+				);
+
+			return a;
+		}
 	}
 }
 /// <summary>

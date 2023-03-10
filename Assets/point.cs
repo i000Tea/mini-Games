@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Tea;
 
 public class point : MonoBehaviour
 {
@@ -12,19 +13,8 @@ public class point : MonoBehaviour
 	void Update()
 	{
 		rotateY = myPoint.eulerAngles.y - targetPoint.localEulerAngles.y + 180;
+		
+		targetTran.position = myPoint.position - AddVoids.AngleTransfor(targetPoint.localPosition, rotateY);
 		targetTran.eulerAngles = new Vector3(0, rotateY, 0);
-		targetTran.position = myPoint.position - JiaoDu(myPoint.eulerAngles.y, targetPoint.localPosition);
-	}
-	Vector3 JiaoDu(float jiaoDu, Vector3 point)
-	{
-		Vector3 a = new Vector3(
-			point.x * Mathf.Cos(jiaoDu * Mathf.Deg2Rad) +
-			point.z * Mathf.Sin(jiaoDu * Mathf.Deg2Rad),
-			0,
-			point.x * -Mathf.Sin(jiaoDu * Mathf.Deg2Rad) +
-			point.z * Mathf.Cos(jiaoDu * Mathf.Deg2Rad)
-			);
-
-		return a;
 	}
 }

@@ -12,7 +12,7 @@ namespace Tea.NewRouge
 	{
 		public List<GameObject> DoorPrefabs;
 		/// <summary>
-		/// 从列表中 随机一间 有相同门型的 房间
+		/// 从列表中 随机一间 有相同空置门的 房间
 		/// </summary>
 		/// <param name="dt"></param>
 		/// <param name="Seed"></param>
@@ -26,12 +26,16 @@ namespace Tea.NewRouge
 			// 查询是否有类型一致的房间
 			for (int i = 0; i < DoorPrefabs.Count; i++)
 			{
+				if (Seed >= DoorPrefabs.Count)
+					Seed = 0;
 				if (DoorPrefabs[Seed].GetComponent<Room_Control>().FindDoorType(dt))
+				{
+					Debug.Log($"seed为{Seed}时可以使用");
 					return DoorPrefabs[Seed];
+				}
 				else
 					Seed++;
-				if (Seed >= DoorPrefabs.Count - 1)
-					Seed = 0;
+				Debug.Log($"seed为{Seed-1}时不行");
 			}
 			return null;
 		}
