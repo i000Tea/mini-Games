@@ -29,8 +29,12 @@ namespace Tea.NewRouge
 		/// </summary>
 		[SerializeField]
 		public List<Room_DoorPoint> myDoors;
+
 		[SerializeField]
-		private Transform roomParent;
+		private Transform wallParent, floorParent;
+		[SerializeField]
+		private List<GameObject> walls, floors;
+
 		private GameObject EnvParent;
 
 		public Transform roomColl;
@@ -46,16 +50,30 @@ namespace Tea.NewRouge
 					myDoors.Add(transform.GetChild(0).GetChild(i).GetComponent<Room_DoorPoint>());
 				}
 			}
-			if (!roomParent)
-				roomParent = transform.GetChild(1);
-			if (roomParent)
+			
+			if (wallParent)
 			{
-				for (int i = 0; i < roomParent.childCount; i++)
+
+				wallParent.CreateChildList(ref walls);
+
+				for (int i = 0; i < walls.Count; i++)	
 				{
-					if (!roomParent.GetChild(i).GetComponent<NavMeshSourceTag>())
-						roomParent.GetChild(i).gameObject.AddComponent<NavMeshSourceTag>();
+					if (!walls[i].TryGetComponent(out NavMeshSourceTag _))
+						walls[i].gameObject.AddComponent<NavMeshSourceTag>();
+				}
+
+			}
+			if (floorParent)
+			{
+				floorParent.CreateChildList(ref floors);
+
+				for (int i = 0; i < floors.Count; i++)
+				{
+					if (!floors[i].TryGetComponent(out NavMeshSourceTag _))
+						floors[i].gameObject.AddComponent<NavMeshSourceTag>();
 				}
 			}
+
 		}
 		private void Awake()
 		{

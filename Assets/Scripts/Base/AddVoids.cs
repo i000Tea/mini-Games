@@ -69,6 +69,22 @@ namespace Tea
 			return newList.ToArray();
 		}
 
+		/// <summary>
+		/// 生成子物体集
+		/// </summary>
+		/// <returns></returns>
+		public static void CreateChildList(this Transform parent, ref List<GameObject> _list)
+		{
+			if(_list==null||_list.Count!= parent.childCount)
+			{
+				_list = new List<GameObject>();
+
+				for (int i = 0; i < parent.childCount; i++)
+				{
+					_list.Add(parent.GetChild(i).gameObject);
+				}
+			}
+		}
 		#endregion
 
 		#region Game1
