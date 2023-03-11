@@ -2454,7 +2454,19 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2049907759}
+        m_TargetAssemblyTypeName: Tea.NewRouge.Player_Control, Assembly-CSharp
+        m_MethodName: CameraDistance
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 879947183}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Slider, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &905881314 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4057359497517872, guid: 14eab3179517a954c87faf31cd4331f8,
@@ -5488,6 +5500,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1034302582}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1824247828 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4741311913928226332, guid: 761e53020a3e41a4fa6da7adc0c8423b,
+    type: 3}
+  m_PrefabInstance: {fileID: 4741311914770207554}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1837196223 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2337235818202522520, guid: 761e53020a3e41a4fa6da7adc0c8423b,
@@ -5981,6 +6005,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2049907759 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4741311913483498277, guid: 761e53020a3e41a4fa6da7adc0c8423b,
+    type: 3}
+  m_PrefabInstance: {fileID: 4741311914770207554}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eabdaec1069dba647adbd1382c8c7568, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &2069387702 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4107550410573822, guid: 3a8bae83b26eb2a479fbb58c55745ee0,
@@ -6670,6 +6706,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 5.32
       objectReference: {fileID: 0}
+    - target: {fileID: 4741311913483498277, guid: 761e53020a3e41a4fa6da7adc0c8423b,
+        type: 3}
+      propertyPath: MainCine
+      value: 
+      objectReference: {fileID: 1824247828}
     - target: {fileID: 4741311913483498278, guid: 761e53020a3e41a4fa6da7adc0c8423b,
         type: 3}
       propertyPath: m_Material
