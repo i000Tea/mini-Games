@@ -15,7 +15,12 @@ namespace Tea.NewRouge
 		public static Player_Control inst;
 
 		[SerializeField]
-		private CinemachineVirtualCamera MainCine;
+		int minDist = 5, maxDist = 20;
+		[SerializeField]
+		int minRotate = 30, maxRotate = 45;
+		[SerializeField]
+		CinemachineVirtualCamera cine;
+
 		public Enemy_Control targetEnemy;
 
 		#region weapon
@@ -27,7 +32,6 @@ namespace Tea.NewRouge
 		{
 			inst = this;
 		}
-
 		private void Update()
 		{
 			if (EnemyManager.inst)
@@ -41,10 +45,15 @@ namespace Tea.NewRouge
 			}
 		}
 
-		public void CameraDistance(Slider slider)
+		public void UpdateDistance(Slider slider)
 		{
-			//MainCine.
-			//slider.value
+			var a = (CinemachineFramingTransposer)cine.GetCinemachineComponent(CinemachineCore.Stage.Body);
+			Debug.Log(a);
+			a.m_CameraDistance = slider.value * (maxDist - minDist) + minDist;
+			cine.transform.localEulerAngles = new Vector3(
+				slider.value * (maxRotate - minRotate) + minRotate,
+				cine.transform.localEulerAngles.y,
+				0);
 		}
 	}
 }

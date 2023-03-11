@@ -140,8 +140,8 @@ namespace Tea
 			float HorizOffset = 0.05f, float vertiOffset = 0.05f, float lifeTime = 3)
 		{
 			var entity = GameObject.Instantiate(prefab, muzzle.position, muzzle.rotation);
-			Debug.Log(muzzle.position);
-			Debug.Log(entity.transform.position);
+			//Debug.Log(muzzle.position);
+			//Debug.Log(entity.transform.position);
 			var bullet = entity.GetComponent<Bullet>();
 			bullet.SetDamage(Damage);
 

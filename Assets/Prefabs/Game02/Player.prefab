@@ -209,6 +209,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eabdaec1069dba647adbd1382c8c7568, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minDist: 5
+  maxDist: 20
+  minRotate: 30
+  maxRotate: 45
+  cine: {fileID: 4741311913928226332}
   targetEnemy: {fileID: 0}
   nowWeapon: {fileID: 0}
 --- !u!114 &4741311913483498275

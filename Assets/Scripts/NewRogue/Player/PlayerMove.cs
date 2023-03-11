@@ -25,14 +25,14 @@ namespace Tea.NewRouge
 		float virRotate;
 		public CinemachineVirtualCamera virCamera;
 		[SerializeField]
-		JoyStick joyStick;
+		Tea_JoyStick joyStick;
 
 		protected override void UpdateRotation()
 		{
 			if (targetEnemy)
 				movement.Rotate((targetEnemy.position - transform.position).normalized, angularSpeed);
 			else
-			  base.UpdateRotation();
+				base.UpdateRotation();
 		}
 		protected override void HandleInput()
 		{
@@ -88,6 +88,18 @@ namespace Tea.NewRouge
 		{
 			virCamera.transform.eulerAngles += new Vector3(0, rotate, 0);
 			virRotate = virCamera.transform.eulerAngles.y;
+		}
+		float beforeRotate;
+		public void VirRotateAdd(RectTransform rect)
+		{
+			var addRotate = rect.anchoredPosition.x;
+			Debug.Log(addRotate);
+			if (Mathf.Abs(beforeRotate - addRotate) < 100)
+			{
+				virCamera.transform.eulerAngles += new Vector3(0, (addRotate - beforeRotate) * Mathf.Deg2Rad*10, 0);
+				virRotate = virCamera.transform.eulerAngles.y;
+			}
+			beforeRotate = addRotate;
 		}
 	}
 }

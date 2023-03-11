@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class JoyStick : ScrollRect
+public class Tea_JoyStick : ScrollRect
 {
 	public Vector2 inputContent
 	{
