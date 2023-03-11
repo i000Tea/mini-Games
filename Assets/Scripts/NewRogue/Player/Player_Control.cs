@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using ECM.Controllers;
 using Cinemachine;
 namespace Tea.NewRouge
@@ -13,11 +14,13 @@ namespace Tea.NewRouge
 		}
 		public static Player_Control inst;
 
+		[SerializeField]
+		private CinemachineVirtualCamera MainCine;
 		public Enemy_Control targetEnemy;
 
 		#region weapon
 		[SerializeField]
-		private PlayerWeapon nowWeapon;
+		private WeaponsManager nowWeapon;
 		#endregion
 
 		private void Awake()
@@ -36,6 +39,12 @@ namespace Tea.NewRouge
 				else if (targetEnemy.health <= 0)
 					targetEnemy = EnemyManager.inst.FindEnemy();
 			}
+		}
+
+		public void CameraDistance(Slider slider)
+		{
+			//MainCine.
+			//slider.value
 		}
 	}
 }

@@ -9,6 +9,13 @@ namespace Tea.NewRouge
 	/// </summary>
 	public class Room_Control_EnemyCreate : Room_Control
 	{
-		
+		public Transform enemyCreatePoint;
+
+		public override void RoomAwakeSet(bool roomState = false)
+		{
+			base.RoomAwakeSet(roomState);
+			//Debug.Log("敌人房间");
+			EnemyManager.createPoints.Add(enemyCreatePoint);
+		}
 	}
 }

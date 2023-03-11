@@ -19,6 +19,8 @@ namespace Tea.NewRouge
 		public bool unUse;
 		public Room_Control nextRoom;
 		public Transform nextCost;
+		[SerializeField]
+		List<GameObject> NavMesh;
 		private void Update()
 		{
 			nextCost.transform.rotation = Camera.main.transform.rotation;
@@ -27,14 +29,14 @@ namespace Tea.NewRouge
 		{
 			if (collision.gameObject.tag == "Player" && nextRoom)
 			{
-				ShowRoom();
+				OpenDoor();
 			}
 		}
 		private void OnTriggerEnter(Collider other)
 		{
 			if (other.tag == "Player" && nextRoom)
 			{
-				ShowRoom();
+				OpenDoor();
 			}
 		}
 
@@ -44,6 +46,7 @@ namespace Tea.NewRouge
 		/// <param name="nR"></param>
 		public void SetRoomLink(Room_Control nR)
 		{
+			unUse = true;
 			nextRoom = nR;
 			nextCost.gameObject.SetActive(true);
 		}
@@ -52,11 +55,21 @@ namespace Tea.NewRouge
 		/// </summary>
 		public void CloseMe()
 		{
-			gameObject.SetActive(false);
 			unUse = true;
+			gameObject.SetActive(false);
 		}
-		void ShowRoom()
+		public void OpenDoor()
 		{
+			if (!nextRoom)
+				return;
+			if (NavMesh!=null)
+			{
+				for (int i = 0; i < NavMesh.Count; i++)
+				{
+					NavMesh[i].GetComponent<NavMeshSourceTag>().enabled = false;
+					NavMesh[i].GetComponent<Collider>().enabled = false;
+				}
+			}
 			if (TryGetComponent(out Collider collider))
 			{
 				collider.isTrigger = true;
@@ -72,6 +85,7 @@ namespace Tea.NewRouge
 				transform.GetChild(0).DOScale(0, 0.5f).SetEase(Ease.InBack);
 			}
 			nextCost.DOScale(0, 0.5f).SetEase(Ease.InBack);
+			LocalNavMeshBuilder_Change.inst.UpdateTime(1f);
 		}
 	}
 }

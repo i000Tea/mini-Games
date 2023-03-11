@@ -307,6 +307,8 @@ MonoBehaviour:
   unUse: 0
   nextRoom: {fileID: 0}
   nextCost: {fileID: 7397908776580898346}
+  NavMesh:
+  - {fileID: 6659012341708710084}
 --- !u!95 &1361536412180494922
 Animator:
   serializedVersion: 3
@@ -377,6 +379,16 @@ PrefabInstance:
     - target: {fileID: 4872491695211040, guid: 7049251ad0cb1b14195f88b54d3847a1, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 23637948358090808, guid: 7049251ad0cb1b14195f88b54d3847a1,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 64472715041659968, guid: 7049251ad0cb1b14195f88b54d3847a1,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7049251ad0cb1b14195f88b54d3847a1, type: 3}
@@ -456,6 +468,12 @@ GameObject:
 --- !u!4 &6656991615541473382 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4493012822559008, guid: ab94f4534e23ba141a10b1ca23fa05ce,
+    type: 3}
+  m_PrefabInstance: {fileID: 6660143000806029638}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6659012341708710084 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1131071754574210, guid: ab94f4534e23ba141a10b1ca23fa05ce,
     type: 3}
   m_PrefabInstance: {fileID: 6660143000806029638}
   m_PrefabAsset: {fileID: 0}

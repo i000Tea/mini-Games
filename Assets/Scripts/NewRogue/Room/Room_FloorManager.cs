@@ -23,6 +23,7 @@ namespace Tea.NewRouge
 		/// 已经生成的房间的列表
 		/// </summary>
 		List<Room_Control> rEntityList;
+		List<Room_Control_EnemyCreate> rEnemyList;
 		/// <summary>
 		/// 数据
 		/// </summary>
@@ -34,25 +35,27 @@ namespace Tea.NewRouge
 		public int mainRoadLength = 4;
 		private void Start()
 		{
-			StartCoroutine(iCreateWholeFloor());
+			StartCoroutine(ICreateWholeFloor());
 			//CreateWholeFloor();
 		}
 		/// <summary>
 		/// 生成楼层
 		/// </summary>
 		/// <returns></returns>
-		IEnumerator iCreateWholeFloor()
+		IEnumerator ICreateWholeFloor()
 		{
 			// 房间列表重置
+			rEnemyList = new List<Room_Control_EnemyCreate>();
 			rEntityList = new List<Room_Control>();
-			// 初始的房间作为第一个
-			rEntityList.Add(startRoom);
 
 			// 生成基准房间设置为初始房间
 			Room_Control BaseRoom = startRoom;
 			Room_Control createRoom = null;
 
-			var a = TryCreateRoom(RoomPrefabs.EnemyCreate, BaseRoom, Floor, DoorType._2Door);
+			// 创建敌人房间
+			var a = (Room_Control_EnemyCreate)TryCreateRoom(RoomPrefabs.EnemyCreate, BaseRoom, Floor, DoorType._2Door);
+			if (a)
+				rEnemyList.Add(a);
 			//Debug.Log(a);
 			yield return new WaitForFixedUpdate();
 			// 第一循环 创造主路线
@@ -70,11 +73,23 @@ namespace Tea.NewRouge
 				}
 				yield return new WaitForFixedUpdate();
 			}
+
+			startRoom.RoomAwakeSet(true);
 			// 所有房间初始化
-			for (int i = 1; i < rEntityList.Count; i++)
+			for (int i = 0; i < rEnemyList.Count; i++)
 			{
-				rEntityList[i].AwakeRoomSet();
+				rEnemyList[i].RoomAwakeSet();
 			}
+			for (int i = 0; i < rEntityList.Count; i++)
+			{
+				rEntityList[i].RoomAwakeSet();
+			}
+			for (int i = 0; i < startRoom.myDoors.Count; i++)
+			{
+				startRoom.myDoors[i].OpenDoor();
+			}
+
+			StartCoroutine(EnemyManager.inst.StartCreate());
 		}
 		/// <summary>
 		/// 创造房间
@@ -105,7 +120,7 @@ namespace Tea.NewRouge
 			int newDoorNum = -1;
 			Room_DoorPoint beforerDoor = null;
 			float rotateY = 0;
-			Debug.Log("开始尝试构建");
+			//Debug.Log("开始尝试构建");
 			for (int i = 0; i < attempts; i++)
 			{
 				var a = rItem.RandomRoom(roomPrefab, (DoorType)dType);
@@ -120,21 +135,24 @@ namespace Tea.NewRouge
 				if (Mathf.Abs(rotateY) > 360)
 					rotateY %= 360;
 				string log = $"构建次数{i + 1}";
-				if (!DetectionDoor(beforerDoor.transform, (newDoor.transform.localPosition - newRoom.roomColl.localPosition),
-					rotateY, newRoom.roomColl.lossyScale))
+				if (!DetectionDoor(
+					beforerDoor.transform, 
+					(newDoor.transform.localPosition - newRoom.roomColl.localPosition),
+					rotateY, 
+					newRoom.roomColl.lossyScale))
 				{
-					Debug.Log(log + $"成功 房间为{ newRoom.roomColl}");
+					//Debug.Log(log + $"成功 房间为{ newRoom.roomColl}");
 					//创建成功 跳出循环
 					break;
 				}
 				if (i >= attempts - 1)
 				{
-					Debug.Log(log + $"失败");
+					//Debug.Log(log + $"失败");
 					return null;
 				}
 				//Debug.Log(log + ",继续");
 			}
-			Debug.Log("构建成功");
+			//Debug.Log("构建成功");
 			//创建成功 开始构造
 			newRoom = Instantiate(newRoom.gameObject).GetComponent<Room_Control>();
 			if (newDoorNum != -1)
@@ -181,7 +199,9 @@ namespace Tea.NewRouge
 				obj1.localScale = collScale;
 				//Debug.Log(obj1);
 			}
-
+				//Debug.Log(_list.Length);
+			
+			//打印碰撞体列表
 			if (_list.Length > 0)
 			{
 				string log = "碰撞列表：";

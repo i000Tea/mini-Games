@@ -20,6 +20,7 @@ namespace Tea.NewRouge
 		}
 		private void OnCollisionEnter(Collision collision)
 		{
+			//Debug.Log(collision.gameObject.name);
 			int targetMask = (1 << 0) | (1 << 6);
 			// xun'h生成一条从起始点o, 以方向d为延展的射线
 			Ray ray = new Ray(transform.position, transform.forward);

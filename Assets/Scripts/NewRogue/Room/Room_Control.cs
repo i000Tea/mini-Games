@@ -65,10 +65,13 @@ namespace Tea.NewRouge
 		/// <summary>
 		/// 初始化设置
 		/// </summary>
-		public void AwakeRoomSet()
+		public virtual void RoomAwakeSet(bool roomState = false)
 		{
-			//gameObject.SetActive(false);
-			//transform.localScale = Vector3.zero;
+			if (!roomState)
+			{
+				gameObject.SetActive(false);
+				transform.localScale = Vector3.zero;
+			}
 			for (int i = 0; i < myDoors.Count; i++)
 			{
 				if (!myDoors[i].nextRoom)
@@ -125,7 +128,7 @@ namespace Tea.NewRouge
 				if (myDoors[num].unUse ||                           // 此门是否被使用
 					dType != myDoors[num].dType)                  // 门类型存在时  (新门) 类型与自身一致
 				{
-					Debug.Log("序号加1 再次检索");
+					//Debug.Log("序号加1 再次检索");
 					// 若不可用 序号加1 再次检索
 					num++;
 					if (num >= myDoors.Count)

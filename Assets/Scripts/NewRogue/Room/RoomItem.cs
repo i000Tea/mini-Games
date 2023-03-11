@@ -43,12 +43,12 @@ namespace Tea.NewRouge
 					Seed = 0;
 				if (roomList[Seed].GetComponent<Room_Control>().FindDoorType(dt))
 				{
-					Debug.Log($"seed为{Seed}时可以使用");
+					//Debug.Log($"seed为{Seed}时可以使用");
 					return roomList[Seed];
 				}
 				else
 					Seed++;
-				Debug.Log($"seed为{Seed-1}时不行");
+				//Debug.Log($"seed为{Seed-1}时不行");
 			}
 			return null;
 		}

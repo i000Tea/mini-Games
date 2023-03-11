@@ -8,6 +8,43 @@ namespace Tea.NewRouge
 	{
 		public static EnemyManager inst;
 		public static List<Enemy_Control> enemys;
+		public static List<Transform> createPoints;
+
+		/// <summary>
+		/// 本层需要生成的总数
+		/// </summary>
+		public int createNum = 50;
+
+		/// <summary>
+		/// 基础等待时间
+		/// </summary>
+		public float baseWait = 0.25f;
+		/// <summary>
+		/// 减速后的等待时间
+		/// </summary>
+		public float slowWait = 2;
+
+		/// <summary>
+		/// 减速阈值
+		/// </summary>
+		public int eSlowNum = 30;
+		/// <summary>
+		/// 总上限
+		/// </summary>
+		public int eMax = 50;
+
+		float waitTime
+		{
+			get
+			{
+				if (enemys.Count > eMax)
+					return -1;
+				else if (enemys.Count > eSlowNum)
+					return slowWait;
+				else
+					return baseWait;
+			}
+		}
 		public bool createing;
 		public GameObject prefab;
 
@@ -15,34 +52,42 @@ namespace Tea.NewRouge
 		{
 			inst = this;
 			enemys = new List<Enemy_Control>();
+			createPoints = new List<Transform>();
 		}
-		IEnumerator Start()
+		public IEnumerator StartCreate()
 		{
 			createing = true;
-			for (int i = 0; i < 20; i++)
+
+			float cd = 0;
+
+			yield return new WaitForSeconds(1f);
+
+			// 循环生成总数
+			for (int i = 0; i < createNum; i++)
 			{
-				yield return new WaitForFixedUpdate();
+				// 生成
 				CreateEnemy();
+				while (cd < waitTime)
+				{
+					cd += Time.deltaTime;
+					yield return new WaitForFixedUpdate();
+				}
+				cd = 0;
 			}
 
-			for (int i = 0; i < 3; i++)
-			{
-				yield return new WaitForSeconds(10);
-				for (int n = 0; n < 10; n++)
-				{
-					yield return new WaitForFixedUpdate();
-					CreateEnemy();
-				}
-			}
 			createing = false;
 		}
 		GameObject CreateEnemy()
 		{
-			var obj = Instantiate(prefab);
-			obj.transform.position = transform.position;
-			obj.transform.SetParent(transform);
-			obj.GetComponent<Enemy_Control>().Startsetting();
-			enemys.Add(obj.GetComponent<Enemy_Control>());
+			if (createPoints.Count > 0)
+			{
+				var obj = Instantiate(prefab);
+				obj.transform.position = createPoints[0].position + new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
+				obj.transform.SetParent(transform);
+				obj.GetComponent<Enemy_Control>().Startsetting();
+				enemys.Add(obj.GetComponent<Enemy_Control>());
+				return obj;
+			}
 			return null;
 		}
 		public Enemy_Control FindEnemy()
