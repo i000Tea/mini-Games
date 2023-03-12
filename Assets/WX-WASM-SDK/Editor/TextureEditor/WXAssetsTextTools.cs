@@ -73,7 +73,7 @@ namespace WeChatWASM
                     {
                         outDir = miniGameConf.CompressTexture.dstMinDir;
                     }
-                    string options = $"-option=text -do=true -sourceDir={sourceDir}{DS}webgl -outDir={outDir} -classDataPath={classDataPath} -dataDir={dataDir} -force={forceStr} -ignoreConfPath={ignoreFile} -colorSpace={colorSpace}";
+                    string options = $"-option=text -do=true -sourceDir=\"{sourceDir}{DS}webgl\" -outDir=\"{outDir}\" -classDataPath=\"{classDataPath}\" -dataDir=\"{dataDir}\" -force={forceStr} -ignoreConfPath=\"{ignoreFile}\" -colorSpace={colorSpace}";
                     if (!string.IsNullOrEmpty(bundleDir))
                     {
                         DirectoryInfo info = new DirectoryInfo(bundleDir);
@@ -82,7 +82,7 @@ namespace WeChatWASM
                         {
                             outBundleDirDef = outBundleDir;
                         }
-                        options += $" -assetsBundleDir={bundleDir} -assetsBundleOutDir={outBundleDirDef}";
+                        options += $" -assetsBundleDir=\"{bundleDir}\" -assetsBundleOutDir=\"{outBundleDirDef}\"";
                         if (!Directory.Exists(outBundleDirDef))
                         {
                             Directory.CreateDirectory(outBundleDirDef);
@@ -93,7 +93,7 @@ namespace WeChatWASM
                     ExceWXAssetTextTools(options, (res1) =>
                     {
                         string typeStr = debug ? "ASTC" : "ALL";
-                        string options2 = $"-config={dataDir}{DS}DEALSFILERECORD.json -outDir={outDir}{DS}Assets{DS}Textures -type={typeStr} -dataDir={dataDir} -force={forceStr} -colorSpace={colorSpace}";
+                        string options2 = $"-config=\"{dataDir}{DS}DEALSFILERECORD.json\" -outDir=\"{outDir}{DS}Assets{DS}Textures\" -type={typeStr} -dataDir=\"{dataDir}\" -force={forceStr} -colorSpace={colorSpace}";
                         ExecWXTextureConvertTools(options2, (res2) =>
                         {
                             OnReplaced(debug, outDir);
@@ -129,10 +129,10 @@ namespace WeChatWASM
             }
 
             string dataDir = GetTextMinDataDir();
-            string options = $"-option=text -do=assetListInfo -sourceDir={sourceDir}{DS}webgl -dataDir={dataDir}";
+            string options = $"-option=text -do=assetListInfo -sourceDir=\"{sourceDir}{DS}webgl\" -dataDir=\"{dataDir}\"";
             if (!string.IsNullOrEmpty(bundleDir))
             {
-                options += $" -assetsBundleDir={bundleDir}";
+                options += $" -assetsBundleDir=\"{bundleDir}\"";
             }
             ExceWXAssetTextTools(options, (res) =>
             {
@@ -145,6 +145,52 @@ namespace WeChatWASM
                     callback(new string[0]);
                 }
             });
+        }
+
+        /// <summary>
+        /// 首包资源瘦身
+        /// </summary>
+        public static void FirstBundleSlim(string dataFilePath, Action<bool,string> callback = null)
+        {
+            if (!File.Exists(dataFilePath))
+            {
+                string errmsg = $"首包资源原始文件[{dataFilePath}]不存在，首包资源瘦身优化失败。";
+                Debug.LogError("[WXAssetsTextTools - FirstBundleSlim]:" + errmsg);
+                callback?.Invoke(false, errmsg);
+                return;
+            }
+
+            string dataDir = GetTextMinDataDir();
+            string tempOutDir = $"{dataDir}{DS}fbslimtTemp";
+            if (!Directory.Exists(tempOutDir))
+            {
+                Directory.CreateDirectory(tempOutDir);
+            }
+            string classDataPath = Path.Combine(Application.dataPath, "WX-WASM-SDK/Editor/TextureEditor/classdata.tpk");
+            string confPath = Path.Combine(Application.dataPath, "WX-WASM-SDK/Editor/TextureEditor/slim.conf");
+            string options = $"-option=fb -dataDir=\"{dataDir}\" -classDataPath=\"{classDataPath}\" -sourcePath=\"{dataFilePath}\" -do=slim -outDir=\"{tempOutDir}\" -slimConfPath=\"{confPath}\"";
+            ExceWXAssetTextTools(options, (res) => {
+                if (string.IsNullOrEmpty(res))
+                {
+                    callback?.Invoke(false, "执行失败.");
+                    return;
+                }
+                string[] resArray = res.Split('\n');
+                File.Delete(dataFilePath);
+                File.Move(resArray[0], dataFilePath);
+                double oldSize = sizeFormatToMB(long.Parse(resArray[1]));
+                double newSize = sizeFormatToMB(long.Parse(resArray[2]));
+                Debug.Log($"首包资源优化完成，本次瘦身 {(oldSize - newSize).ToString("f2")}MB ，原资源包体积 {oldSize}MB ，优化后体积 {newSize}MB");
+                callback?.Invoke(true, "Done");
+            });
+        }
+
+        /// <summary>
+        /// 转换为MB并保留两位小数
+        /// </summary>
+        private static double sizeFormatToMB(long size)
+        {
+            return (double) ((long) (size / 10000) / 100.00);
         }
 
 
@@ -170,6 +216,7 @@ namespace WeChatWASM
             });
 #endif
         }
+
 
         private static void ExecWXTextureConvertTools(string options, Action<string> callback, Action<int, int, string> progress = null)
         {

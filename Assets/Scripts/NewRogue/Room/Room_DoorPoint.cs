@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using DG.Tweening;
 namespace Tea.NewRouge
 {
@@ -18,37 +19,65 @@ namespace Tea.NewRouge
 		/// </summary>
 		public bool unUse;
 		public Room_Control nextRoom;
+
+		#region cost
 		public Transform nextCost;
+		private Image costLoading;
+		private bool LoadingAdd;
+		private int CostNeedNum;
+		#endregion
+
+
 		[SerializeField]
 		List<GameObject> NavMesh;
-		private void Update()
+
+		private void Awake()
 		{
-			nextCost.transform.rotation = Camera.main.transform.rotation;
-		}
-		private void OnCollisionEnter(Collision collision)
-		{
-			if (collision.gameObject.tag == "Player" && nextRoom)
+			if (nextCost)
 			{
-				OpenDoor();
+				costLoading = nextCost.GetChild(1).GetComponent<Image>();
 			}
 		}
-		private void OnTriggerEnter(Collider other)
+		private void Update()
 		{
-			if (other.tag == "Player" && nextRoom)
+			if (costLoading.LoadingRim(LoadingAdd))
 			{
+				this.enabled = false;
 				OpenDoor();
+			}
+			else
+			{
+				nextCost.transform.rotation = Camera.main.transform.rotation;
+			}
+		}
+		private void OnTriggerStay(Collider other)
+		{
+			if (other.gameObject.tag == "Player" && nextRoom)
+			{
+				LoadingAdd = true;
+			}
+		}
+		private void OnTriggerExit(Collider other)
+		{
+			if (other.gameObject.tag == "Player" && nextRoom)
+			{
+				LoadingAdd = false;
 			}
 		}
 
 		/// <summary>
-		/// 设置房间链接
+		/// 链接下一个房间
 		/// </summary>
 		/// <param name="nR"></param>
-		public void SetRoomLink(Room_Control nR)
+		public void LinkNextRoom(Room_Control nR, int Cost)
 		{
 			unUse = true;
 			nextRoom = nR;
 			nextCost.gameObject.SetActive(true);
+
+			CostNeedNum = Cost;
+			if (nextCost)
+				nextCost.GetChild(2).GetComponent<Text>().text = Cost.ToString();
 		}
 		/// <summary>
 		/// 本门作为被开启方向 关闭自身
@@ -62,7 +91,7 @@ namespace Tea.NewRouge
 		{
 			if (!nextRoom)
 				return;
-			if (NavMesh!=null)
+			if (NavMesh != null)
 			{
 				for (int i = 0; i < NavMesh.Count; i++)
 				{

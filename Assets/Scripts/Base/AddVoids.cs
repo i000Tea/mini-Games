@@ -75,7 +75,7 @@ namespace Tea
 		/// <returns></returns>
 		public static void CreateChildList(this Transform parent, ref List<GameObject> _list)
 		{
-			if(_list==null||_list.Count!= parent.childCount)
+			if (_list == null || _list.Count != parent.childCount)
 			{
 				_list = new List<GameObject>();
 
@@ -153,9 +153,10 @@ namespace Tea
 		/// <param name="lifeTime">最大生命时间</param>
 		/// <returns></returns>
 		public static GameObject InstantiateBullet(this GameObject prefab, Transform muzzle, float Damage = 1,
-			float HorizOffset = 0.05f, float vertiOffset = 0.05f, float lifeTime = 3)
+			float HorizOffset = 0.05f, float vertiOffset = 0.05f, float Scale = 1, float lifeTime = 3)
 		{
 			var entity = GameObject.Instantiate(prefab, muzzle.position, muzzle.rotation);
+			entity.transform.localScale = Vector3.one * Scale;
 			//Debug.Log(muzzle.position);
 			//Debug.Log(entity.transform.position);
 			var bullet = entity.GetComponent<Bullet>();
@@ -171,6 +172,25 @@ namespace Tea
 
 
 		#endregion
+
+		/// <summary>
+		/// 加载环
+		/// </summary>
+		/// <param name="targetImage">图片</param>
+		/// <param name="isAdd">是否加载</param>
+		/// <returns>加载完成</returns>
+		public static bool LoadingRim(this Image targetImage,bool isAdd)
+		{
+			if (targetImage.fillAmount == 1)
+				return true;
+			if (isAdd)
+				targetImage.fillAmount += Time.deltaTime;
+			else
+				targetImage.fillAmount -= Time.deltaTime;
+
+			return false;
+		}
+
 		/// <summary>
 		/// 随机获取枚举值
 		/// </summary>

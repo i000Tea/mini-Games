@@ -681,6 +681,7 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
+  - component: {fileID: 963194229}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -753,6 +754,39 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0.344, y: 0, z: 0}
+--- !u!114 &963194229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &970077290
 GameObject:
   m_ObjectHideFlags: 0
@@ -823,9 +857,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.2
-  m_Text: 'v0.06
+  m_Text: 'v0.07
 
-    22.10.29'
+    23.03.12'
 --- !u!222 &970077293
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1077,13 +1111,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 173
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u672C\u6B21\u66F4\u65B0\u5185\u5BB9\uFF1A\n\u90E8\u5206\u7279\u6548,\u6280\u80FD\u589E\u52A0\u81F34\u4E2A,\n\u65B0\u4EBA\u7269\u67AA\u624B,\n\u81EA\u5E26\u6D6E\u6E38\u70AE\u548C\u5B50\u5F39\u7CFB\u7EDF"
+  m_Text: "\u76EE\u524D\u5F00\u59CB\u66F4\u65B0\u7B2C\u4E8C\u4E2A\u6E38\u620F\n\u672C\u6B21\u8FDB\u5EA6\uFF1A\n\u66F4\u65B0\u6B66\u5668\u7CFB\u7EDF\uFF0C\u6D4B\u8BD5\u5171\u52A0\u51654\u79CD\u6B66\u5668(\u4F46\u8FD8\u6CA1\u505A\u83B7\u53D6)\n\u66F4\u65B0\u8D27\u5E01\u7CFB\u7EDF\uFF0C\u51FB\u6740\u654C\u4EBA\u83B7\u53D6\u8D27\u5E01\uFF0C\u5F00\u95E8\u9700\u8981\u8D27\u5E01(\u4E0D\u8FC7\u6CA1\u505A\u6263\u9664)"
 --- !u!222 &1616821281
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1556,7 +1590,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Polygon Hit
+  m_Text: "\u5C0F\u6E38\u620F\u5408\u96C6"
 --- !u!222 &2046314652
 CanvasRenderer:
   m_ObjectHideFlags: 0

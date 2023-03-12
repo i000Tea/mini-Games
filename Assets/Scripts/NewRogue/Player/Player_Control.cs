@@ -14,23 +14,47 @@ namespace Tea.NewRouge
 		}
 		public static Player_Control inst;
 
+		#region Camera
+		[Header("Camera")]
 		[SerializeField]
-		int minDist = 5, maxDist = 20;
+		private int minDist = 5;
 		[SerializeField]
-		int minRotate = 30, maxRotate = 45;
+		private int maxDist = 20;
+		[SerializeField]
+		private int minRotate = 30;
+		[SerializeField]
+		private int maxRotate = 45;
 		[SerializeField]
 		CinemachineVirtualCamera cine;
+		#endregion
 
 		public Enemy_Control targetEnemy;
 
-		#region weapon
+		public int Keycord
+		{
+			get { return (int)(originalKeycord / 1); }
+			set
+			{
+				if (value == 0)
+					originalKeycord = 0;
+				else
+					originalKeycord = value + originalKeycord % 1;
+
+				gui.UpdateKeycord((int)originalKeycord);
+			}
+		}
+
+		float originalKeycord;
 		[SerializeField]
-		private WeaponsManager nowWeapon;
-		#endregion
+		GUI_Control gui;
 
 		private void Awake()
 		{
 			inst = this;
+		}
+		private void Start()
+		{
+			Keycord = 0;
 		}
 		private void Update()
 		{
@@ -44,8 +68,11 @@ namespace Tea.NewRouge
 					targetEnemy = EnemyManager.inst.FindEnemy();
 			}
 		}
-
-		public void UpdateDistance(Slider slider)
+		/// <summary>
+		/// 更新相机旋转
+		/// </summary>
+		/// <param name="slider"></param>
+		public void UpdateCameraDistance(Slider slider)
 		{
 			var a = (CinemachineFramingTransposer)cine.GetCinemachineComponent(CinemachineCore.Stage.Body);
 			Debug.Log(a);
@@ -55,5 +82,7 @@ namespace Tea.NewRouge
 				cine.transform.localEulerAngles.y,
 				0);
 		}
+
+
 	}
 }

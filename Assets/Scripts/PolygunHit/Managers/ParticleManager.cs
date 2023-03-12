@@ -28,24 +28,25 @@ namespace Tea
 		/// <summary>
 		/// 新建粒子效果
 		/// </summary>
-		/// <param name="obj"></param>
+		/// <param name="partObj"></param>
 		/// <param name="target"></param>
 		/// <param name="parent"></param>
-		public static void InstParticle(GameObject obj, Vector3 target,
-			Transform parent = null, float Scale = 0, float dieTime = 10)
+		public static GameObject InstParticle(GameObject partObj, Vector3 target,
+			Transform parent = null, float Scale = -1, float dieTime = 10)
 		{
-			if (!obj)
+			if (!partObj)
 			{
 				Debug.Log("空粒子");
-				return;
+				return null;
 			}
-			var newParticle = Instantiate(obj);
+			var newParticle = Instantiate(partObj);
 			newParticle.transform.position = target;
 			if (parent)
 				newParticle.transform.SetParent(parent);
-			if (Scale != 0)
+			if (Scale > 0)
 				newParticle.transform.localScale = Vector3.one * Scale;
 			Destroy(newParticle, dieTime);
+			return newParticle;
 		}
 
 	}

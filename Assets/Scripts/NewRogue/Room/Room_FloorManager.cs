@@ -9,6 +9,12 @@ namespace Tea.NewRouge
 	/// </summary>
 	public class Room_FloorManager : MonoBehaviour
 	{
+		#region 变量
+		/// <summary>
+		/// 数据
+		/// </summary>
+		[SerializeField]
+		RoomItem rItem;
 		/// <summary>
 		/// 楼层
 		/// </summary>
@@ -19,20 +25,19 @@ namespace Tea.NewRouge
 		/// </summary>
 		[SerializeField]
 		Room_Control startRoom;
+
 		/// <summary>
 		/// 已经生成的房间的列表
 		/// </summary>
 		List<Room_Control> rEntityList;
 		List<Room_Control_EnemyCreate> rEnemyList;
-		/// <summary>
-		/// 数据
-		/// </summary>
-		[SerializeField]
-		RoomItem rItem;
+		
 		/// <summary>
 		/// 主干道的长度
 		/// </summary>
 		public int mainRoadLength = 4;
+		public int OpenDoorCost = 10;
+		#endregion
 		private void Start()
 		{
 			StartCoroutine(ICreateWholeFloor());
@@ -94,11 +99,14 @@ namespace Tea.NewRouge
 		/// <summary>
 		/// 创造房间
 		/// </summary>
-		/// <param name="dType"> 门的类型 </param>
+		/// <param name="roomPrefab"> 门的预制件 </param>
 		/// <param name="beforeRoom"> 上一个房间 </param>
 		/// <param name="newRoomParent"> 父集节点 </param>
+		/// <param name="dType">门类型</param>
+		/// <param name="attempts">尝试次数</param>
 		/// <returns></returns>
-		Room_Control TryCreateRoom(RoomPrefabs roomPrefab, Room_Control beforeRoom, Transform newRoomParent = null, DoorType? dType = null, int attempts = 3)
+		Room_Control TryCreateRoom(RoomPrefabs roomPrefab, Room_Control beforeRoom, 
+			Transform newRoomParent = null, DoorType? dType = null, int attempts = 3)
 		{
 			// 若类型为空 则返回空
 			if (!beforeRoom)
@@ -167,7 +175,7 @@ namespace Tea.NewRouge
 				beforerDoor.transform.position - AddVoids.AngleTransfor(newDoor.transform.position, rotateY);
 			newRoom.transform.rotation = Quaternion.Euler(0, rotateY, 0);
 
-			beforerDoor.SetRoomLink(newRoom);
+			beforerDoor.LinkNextRoom(newRoom,OpenDoorCost);
 			newDoor.CloseMe();
 
 			// 返回数据

@@ -6,6 +6,7 @@ namespace Tea.NewRouge
 {
 	public class WeaponsManager : MonoBehaviour
 	{
+		public static WeaponsManager inst;
 		[SerializeField]
 		Player_Control control;
 
@@ -18,8 +19,14 @@ namespace Tea.NewRouge
 
 		public GameObject bullet;
 		[SerializeField]
-		float bulletCD = 0.5f;
-		float bulletCDNow;
+		float shootNeedCD
+		{
+			get
+			{
+				return 1 / weapons[nowWep].item.RatePerS;
+			}
+		}
+		float shootCDNow;
 
 		private void OnValidate()
 		{
@@ -46,7 +53,10 @@ namespace Tea.NewRouge
 
 			}
 		}
-
+		private void Awake()
+		{
+			inst = this;
+		}
 		private void Update()
 		{
 			WeaponUpdate();
@@ -73,6 +83,7 @@ namespace Tea.NewRouge
 		#region Weapon
 		void WeaponUpdate()
 		{
+			//Debug.Log(shootCDNow + " " + shootNeedCD);
 			if (control.targetEnemy)
 			{
 				transform.LookAt(new Vector3()
@@ -81,18 +92,22 @@ namespace Tea.NewRouge
 					y = transform.position.y,
 					z = control.targetEnemy.transform.position.z
 				});
-				if (bulletCDNow <= 0)
+				if (shootCDNow >= shootNeedCD)
 				{
-					bulletCDNow = bulletCD;
-					IsShoot(weapons[nowWep].muzzle);
-				}
-				else
-				{
-					bulletCDNow -= Time.deltaTime;
+					shootCDNow = 0;
+					IsShoot(weapons[nowWep].muzzle, weapons[nowWep].item);
 				}
 			}
+			if (shootCDNow < shootNeedCD)
+			{
+				shootCDNow += Time.deltaTime;
+			}
 		}
-		void SwitchWeapon(int weaponNum)
+		public void GetWeapon(int WeaponSN)
+		{
+			SwitchWeapon(WeaponSN);
+		}
+		public void SwitchWeapon(int weaponNum)
 		{
 			if (nowWep != weaponNum && weaponNum < weapons.Count)
 			{
@@ -108,10 +123,11 @@ namespace Tea.NewRouge
 		/// 射击
 		/// </summary>
 		/// <returns></returns>
-		bool IsShoot(Transform muzzle, float damage = 1)
+		bool IsShoot(Transform muzzle, WapeonItem item)
 		{
 			//Debug.Log("射击");
-			var a = bullet.InstantiateBullet(muzzle, damage);
+			var a = bullet.InstantiateBullet
+				(muzzle, item.damage, HorizOffset: item.Offset, vertiOffset: item.Offset, Scale: item.scale);
 			return true;
 		}
 		#endregion

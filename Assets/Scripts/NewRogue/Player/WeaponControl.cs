@@ -40,6 +40,11 @@ namespace Tea.NewRouge
 		/// </summary>
 		public float RatePerS = 4;
 		/// <summary>
+		/// 子弹偏移
+		/// </summary>
+		[Range(0,0.5f)]
+		public float Offset = 0.01f;
+		/// <summary>
 		/// 弹速
 		/// </summary>
 		public float velocity = 1;
