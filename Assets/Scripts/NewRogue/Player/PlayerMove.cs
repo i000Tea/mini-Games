@@ -26,7 +26,7 @@ namespace Tea.NewRouge
 		public CinemachineVirtualCamera virCamera;
 		[SerializeField]
 		Tea_JoyStick joyStick;
-
+		float nowSpeed;
 		protected override void UpdateRotation()
 		{
 			if (targetEnemy)
@@ -69,7 +69,7 @@ namespace Tea.NewRouge
 					move.y * Mathf.Cos(virRotate * Mathf.Deg2Rad)
 			};
 			jump = Input.GetButton("Jump");
-
+			nowSpeed = moveDirection.magnitude;
 		}
 		public override void Update()
 		{
