@@ -79,8 +79,10 @@ namespace Tea.NewRouge
 				yield return new WaitForFixedUpdate();
 			}
 
-			startRoom.RoomAwakeSet(true);
+
+
 			// 所有房间初始化
+			startRoom.RoomAwakeSet(true);
 			for (int i = 0; i < rEnemyList.Count; i++)
 			{
 				rEnemyList[i].RoomAwakeSet();

@@ -24,7 +24,7 @@ MonoBehaviour:
     min: 0
   scatter:
     m_OverrideState: 1
-    m_Value: 0.6
+    m_Value: 0.5
     min: 0
     max: 1
   clamp:
@@ -67,7 +67,7 @@ MonoBehaviour:
   active: 1
   m_AdvancedMode: 0
   master:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value:
       <length>k__BackingField: 3
       m_Loop: 0
