@@ -57,6 +57,10 @@ namespace Tea.NewRouge
 		{
 			inst = this;
 		}
+		private void Start()
+		{
+			GetWeapon(0);
+		}
 		private void Update()
 		{
 			WeaponUpdate();
@@ -105,6 +109,7 @@ namespace Tea.NewRouge
 		}
 		public void GetWeapon(int WeaponSN)
 		{
+			weapons[WeaponSN].GetMy();
 			SwitchWeapon(WeaponSN);
 		}
 		public void SwitchWeapon(int weaponNum)

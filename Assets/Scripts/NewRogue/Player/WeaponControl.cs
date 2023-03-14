@@ -9,6 +9,11 @@ namespace Tea.NewRouge
 		public Transform muzzle;
 		public WapeonItem item;
 
+		/// <summary>
+		/// 当前持有数量
+		/// </summary>
+		int holding = 0;
+		
 		private void OnValidate()
 		{
 			if (!muzzle)
@@ -22,6 +27,14 @@ namespace Tea.NewRouge
 					}
 				}
 			}
+		}
+
+		/// <summary>
+		/// 获得自身
+		/// </summary>
+		public void GetMy()
+		{
+			holding++;
 		}
 	}
 	[System.Serializable]

@@ -19,7 +19,7 @@ namespace Tea.NewRouge
 		private void OnValidate()
 		{
 			Transform parent = transform.GetChild(0);
-			if (Weapons == null|| Weapons.Count!= parent.childCount)
+			if (Weapons == null || Weapons.Count != parent.childCount)
 			{
 				Weapons = new List<GameObject>();
 				for (int i = 0; i < parent.childCount; i++)
@@ -34,7 +34,7 @@ namespace Tea.NewRouge
 		}
 		private void Update()
 		{
-			if(loading.LoadingRim(LoadingAdd))
+			if (loading.LoadingRim(LoadingAdd))
 			{
 				WeaponsManager.inst.GetWeapon(mySN);
 				this.enabled = false;
@@ -51,7 +51,7 @@ namespace Tea.NewRouge
 			{
 				Weapons[i].SetActive(false);
 			}
-			if (SN == -1)
+			if (SN == -1 || SN >= Weapons.Count)
 			{
 				SN = Random.Range(0, Weapons.Count);
 			}
@@ -61,14 +61,14 @@ namespace Tea.NewRouge
 
 		private void OnTriggerStay(Collider other)
 		{
-			if (other.gameObject.tag == "Player" )
+			if (other.gameObject.tag == "Player")
 			{
 				LoadingAdd = true;
 			}
 		}
 		private void OnTriggerExit(Collider other)
 		{
-			if (other.gameObject.tag == "Player" )
+			if (other.gameObject.tag == "Player")
 			{
 				LoadingAdd = false;
 			}

@@ -184,7 +184,7 @@ namespace Tea
 			if (targetImage.fillAmount == 1)
 				return true;
 			if (isAdd)
-				targetImage.fillAmount += Time.deltaTime;
+				targetImage.fillAmount += Time.deltaTime*PlayerMove.inst.RimRate;
 			else
 				targetImage.fillAmount -= Time.deltaTime;
 

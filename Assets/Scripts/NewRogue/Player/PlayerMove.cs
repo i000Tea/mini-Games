@@ -7,6 +7,14 @@ namespace Tea.NewRouge
 {
 	public class PlayerMove : BaseCharacterController
 	{
+		public static PlayerMove inst;
+		public float RimRate
+		{
+			get
+			{
+				return 1 - moveDirection.magnitude;
+			}
+		}
 		Transform targetEnemy
 		{
 			get
@@ -27,10 +35,19 @@ namespace Tea.NewRouge
 		[SerializeField]
 		Tea_JoyStick joyStick;
 
+		public override void Awake()
+		{
+			base.Awake();
+			inst = this;
+		}
 		protected override void UpdateRotation()
 		{
+
 			if (targetEnemy)
+			{
+				Debug.Log(movement);
 				movement.Rotate((targetEnemy.position - transform.position).normalized, angularSpeed);
+			}
 			else
 				base.UpdateRotation();
 		}
@@ -68,6 +85,7 @@ namespace Tea.NewRouge
 				z = move.x * -Mathf.Sin(virRotate * Mathf.Deg2Rad) +
 					move.y * Mathf.Cos(virRotate * Mathf.Deg2Rad)
 			};
+
 			jump = Input.GetButton("Jump");
 
 		}
@@ -96,7 +114,7 @@ namespace Tea.NewRouge
 			Debug.Log(addRotate);
 			if (Mathf.Abs(beforeRotate - addRotate) < 100)
 			{
-				virCamera.transform.eulerAngles += new Vector3(0, (addRotate - beforeRotate) * Mathf.Deg2Rad*10, 0);
+				virCamera.transform.eulerAngles += new Vector3(0, (addRotate - beforeRotate) * Mathf.Deg2Rad * 10, 0);
 				virRotate = virCamera.transform.eulerAngles.y;
 			}
 			beforeRotate = addRotate;
