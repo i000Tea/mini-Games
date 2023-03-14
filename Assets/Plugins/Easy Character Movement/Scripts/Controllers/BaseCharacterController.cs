@@ -148,24 +148,28 @@ namespace ECM.Controllers
 
 		public CharacterMovement movement { get; private set; }
 
-        /// <summary>
-        /// Cached animator component (if any).
-        /// </summary>
+		/// <summary>
+		/// 缓存的动画组件(如果有的话)。
+		/// Cached animator component (if any).
+		/// </summary>
 
-        public Animator animator { get; set; }
+		public Animator animator { get; set; }
 
-        /// <summary>
-        /// Cached root motion controller component (if any).
-        /// </summary>
+		/// <summary>
+		/// 缓存的根运动控制器组件(如果有)。
+		/// Cached root motion controller component (if any).
+		/// </summary>
 
-        public RootMotionController rootMotionController { get; set; }
+		public RootMotionController rootMotionController { get; set; }
 
-        /// <summary>
-        /// Allow movement along y-axis and disable gravity force.
-        /// Eg: Flaying, Ladder climb, etc.
-        /// </summary>
+		/// <summary>
+		/// 允许沿着y轴移动，禁用重力。
+		/// 例如:Flaying, Ladder climb，等等。
+		/// Allow movement along y-axis and disable gravity force.
+		/// Eg: Flaying, Ladder climb, etc.
+		/// </summary>
 
-        public bool allowVerticalMovement
+		public bool allowVerticalMovement
         {
             get { return _allowVerticalMovement; }
             set
@@ -210,33 +214,38 @@ namespace ECM.Controllers
             set { _acceleration = Mathf.Max(0.0f, value); }
         }
 
-        /// <summary>
-        /// The rate at which the character's slows down.
-        /// </summary>
+		/// <summary>
+		/// 角色减速的速率。
+		/// The rate at which the character's slows down.
+		/// </summary>
 
-        public float deceleration
+		public float deceleration
         {
             get { return movement.isGrounded ? _deceleration : _deceleration * airControl; }
             set { _deceleration = Mathf.Max(0.0f, value); }
         }
 
-        /// <summary>
-        /// Setting that affects movement control. Higher values allow faster changes in direction.
-        /// If useBrakingFriction is false, this also affects the ability to stop more quickly when braking.
-        /// </summary>
+		/// <summary>
+		/// 影响移动控制的设置数值越高，方向变化越快。
+		/// 如果usebraking摩擦力为false，这也会影响制动时更快停止的能力。
+		/// Setting that affects movement control. Higher values allow faster changes in direction.
+		/// If useBrakingFriction is false, this also affects the ability to stop more quickly when braking.
+		/// </summary>
 
-        public float groundFriction
+		public float groundFriction
         {
             get { return _groundFriction; }
             set { _groundFriction = Mathf.Max(0.0f, value); }
         }
 
-        /// <summary>
-        /// Should brakingFriction be used to slow the character?
-        /// If false, groundFriction will be used.
-        /// </summary>
+		/// <summary>
+		/// 是否应该使用brakingFriction来减慢角色的速度?
+		/// 如果为false，将使用groundFriction。
+		/// Should brakingFriction be used to slow the character?
+		/// If false, groundFriction will be used.
+		/// </summary>
 
-        public bool useBrakingFriction
+		public bool useBrakingFriction
         {
             get { return _useBrakingFriction; }
             set { _useBrakingFriction = value; }

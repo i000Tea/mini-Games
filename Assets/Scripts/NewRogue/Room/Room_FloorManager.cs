@@ -31,11 +31,19 @@ namespace Tea.NewRouge
 		/// </summary>
 		List<Room_Control> rEntityList;
 		List<Room_Control_EnemyCreate> rEnemyList;
-		
+
 		/// <summary>
 		/// 主干道的长度
 		/// </summary>
-		public int mainRoadLength = 4;
+		public int mainRoadLength = 5;
+		/// <summary>
+		/// 分支路线最大数量
+		/// </summary>
+		public int branchRoadMaxNum = 4;
+		/// <summary>
+		/// 分支路线最长长度
+		/// </summary>
+		public int branchRoadMaxLength = 4;
 		public int OpenDoorCost = 10;
 		#endregion
 		private void Start()
@@ -78,8 +86,33 @@ namespace Tea.NewRouge
 				}
 				yield return new WaitForFixedUpdate();
 			}
+			// 获取主路线的最后一个房间
+			var baseLastRoom = rEntityList[rEntityList.Count - 1];
 
-
+			// 分支岔道1 从初始房间开始(剩余两间)
+			for (int i = 0; i < 2; i++)
+			{
+				if (!startRoom.doorUsedUp)
+				{
+					BaseRoom = startRoom;
+					var branchLength = UnityEngine.Random.Range(3, branchRoadMaxLength);
+					for (int n = 0; n < branchLength; n++)
+					{
+						// 当基准房间存在时 使用基准房间 尝试生成新房间
+						if (BaseRoom)
+							createRoom = TryCreateRoom(RoomPrefabs.BaseRoom, BaseRoom, Floor, DoorType._2Door);
+						// 生成房间成功后 更新基准房间
+						if (createRoom)
+						{
+							// 将生成好的房间加入列表
+							rEntityList.Add(createRoom);
+							BaseRoom = createRoom;
+						}
+						yield return new WaitForFixedUpdate();
+					}
+				}
+			}
+			var branchNum = UnityEngine.Random.Range(1, branchRoadMaxNum);
 
 			// 所有房间初始化
 			startRoom.RoomAwakeSet(true);
@@ -107,8 +140,8 @@ namespace Tea.NewRouge
 		/// <param name="dType">门类型</param>
 		/// <param name="attempts">尝试次数</param>
 		/// <returns></returns>
-		Room_Control TryCreateRoom(RoomPrefabs roomPrefab, Room_Control beforeRoom, 
-			Transform newRoomParent = null, DoorType? dType = null, int attempts = 3)
+		Room_Control TryCreateRoom(RoomPrefabs roomPrefab, Room_Control beforeRoom,
+			Transform newRoomParent = null, DoorType? dType = null, int attempts = 6)
 		{
 			// 若类型为空 则返回空
 			if (!beforeRoom)
@@ -146,9 +179,9 @@ namespace Tea.NewRouge
 					rotateY %= 360;
 				string log = $"构建次数{i + 1}";
 				if (!DetectionDoor(
-					beforerDoor.transform, 
+					beforerDoor.transform,
 					(newDoor.transform.localPosition - newRoom.roomColl.localPosition),
-					rotateY, 
+					rotateY,
 					newRoom.roomColl.lossyScale))
 				{
 					//Debug.Log(log + $"成功 房间为{ newRoom.roomColl}");
@@ -177,7 +210,7 @@ namespace Tea.NewRouge
 				beforerDoor.transform.position - AddVoids.AngleTransfor(newDoor.transform.position, rotateY);
 			newRoom.transform.rotation = Quaternion.Euler(0, rotateY, 0);
 
-			beforerDoor.LinkNextRoom(newRoom,OpenDoorCost);
+			beforerDoor.LinkNextRoom(newRoom, OpenDoorCost);
 			newDoor.CloseMe();
 
 			// 返回数据
@@ -209,8 +242,8 @@ namespace Tea.NewRouge
 				obj1.localScale = collScale;
 				//Debug.Log(obj1);
 			}
-				//Debug.Log(_list.Length);
-			
+			//Debug.Log(_list.Length);
+
 			//打印碰撞体列表
 			if (_list.Length > 0)
 			{
