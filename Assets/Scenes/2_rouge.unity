@@ -3670,7 +3670,9 @@ MonoBehaviour:
   rItem: {fileID: 11400000, guid: aac19a8119bd3974f9ee26371c5d3ceb, type: 2}
   Floor: {fileID: 1680486112}
   startRoom: {fileID: 602109678}
-  mainRoadLength: 20
+  mainRoadLength: 8
+  branchRoadMaxNum: 8
+  branchRoadMaxLength: 8
   OpenDoorCost: 10
 --- !u!114 &879409262
 MonoBehaviour:
@@ -3855,6 +3857,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5578985776532227657, guid: 9a46134d34be121479d7d9c8b80c5fa0,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a46134d34be121479d7d9c8b80c5fa0, type: 3}

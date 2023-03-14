@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1560877539882021629}
   m_Layer: 6
-  m_Name: Room_CrewQuarters
+  m_Name: Room_4CrewQuarters
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
