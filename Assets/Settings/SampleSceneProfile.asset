@@ -20,11 +20,11 @@ MonoBehaviour:
     min: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 4
+    m_Value: 2.5
     min: 0
   scatter:
     m_OverrideState: 1
-    m_Value: 0.5
+    m_Value: 0.3
     min: 0
     max: 1
   clamp:
@@ -86,10 +86,10 @@ MonoBehaviour:
           inWeight: 0
           outWeight: 0
         - serializedVersion: 3
-          time: 0.5129412
-          value: 0.49504948
-          inSlope: 2.1039603
-          outSlope: 2.1039603
+          time: 0.5215947
+          value: 0.56428576
+          inSlope: 1.4512498
+          outSlope: 1.4512498
           tangentMode: 0
           weightedMode: 0
           inWeight: 0
@@ -276,12 +276,12 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.25
+    m_Value: 0.2
     min: 0
     max: 1
   smoothness:
     m_OverrideState: 1
-    m_Value: 0.4
+    m_Value: 0.5
     min: 0.01
     max: 1
   rounded:
@@ -420,6 +420,6 @@ MonoBehaviour:
     showEyeDropper: 1
   balance:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: -23
     min: -100
     max: 100

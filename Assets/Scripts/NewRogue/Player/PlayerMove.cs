@@ -34,22 +34,19 @@ namespace Tea.NewRouge
 		public CinemachineVirtualCamera virCamera;
 		[SerializeField]
 		Tea_JoyStick joyStick;
-<<<<<<< HEAD
 
 		public override void Awake()
 		{
 			base.Awake();
 			inst = this;
 		}
-=======
 		float nowSpeed;
->>>>>>> 27c696dae4e72d928927e0fab6cd4ebea4cfc150
 		protected override void UpdateRotation()
 		{
 
 			if (targetEnemy)
 			{
-				Debug.Log(movement);
+				//Debug.Log(movement);
 				movement.Rotate((targetEnemy.position - transform.position).normalized, angularSpeed);
 			}
 			else

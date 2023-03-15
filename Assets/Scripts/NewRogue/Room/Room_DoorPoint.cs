@@ -18,6 +18,9 @@ namespace Tea.NewRouge
 		/// 此点是否已被使用
 		/// </summary>
 		public bool unUse;
+		/// <summary>
+		/// 门后下一个房间
+		/// </summary>
 		public Room_Control nextRoom;
 
 		#region cost
@@ -95,7 +98,11 @@ namespace Tea.NewRouge
 			{
 				for (int i = 0; i < NavMesh.Count; i++)
 				{
-					NavMesh[i].GetComponent<NavMeshSourceTag>().enabled = false;
+					if (NavMesh[i].TryGetComponent(out NavMeshSourceTag tag))
+						tag.enabled = false;
+					if (NavMesh[i].TryGetComponent(out Room_FloorAndWall faw))
+						faw.enabled = false;
+					//NavMesh[i].GetComponent<Room_FloorAndWall>().enabled = false;
 					NavMesh[i].GetComponent<Collider>().enabled = false;
 				}
 			}

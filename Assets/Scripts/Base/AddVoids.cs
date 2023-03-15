@@ -153,6 +153,7 @@ namespace Tea
 		/// <param name="lifeTime">最大生命时间</param>
 		/// <returns></returns>
 		public static GameObject InstantiateBullet(this GameObject prefab, Transform muzzle, float Damage = 1,
+			float velocity = 1,
 			float HorizOffset = 0.05f, float vertiOffset = 0.05f, float Scale = 1, float lifeTime = 3)
 		{
 			var entity = GameObject.Instantiate(prefab, muzzle.position, muzzle.rotation);
@@ -164,7 +165,7 @@ namespace Tea
 
 			entity.GetComponent<Rigidbody>().velocity = (muzzle.transform.forward + new Vector3(
 				UnityEngine.Random.Range(-HorizOffset, HorizOffset), 0,
-				UnityEngine.Random.Range(-vertiOffset, vertiOffset))) * 16;
+				UnityEngine.Random.Range(-vertiOffset, vertiOffset))) * 16* velocity;
 
 			GameObject.Destroy(entity, lifeTime);
 			return entity;

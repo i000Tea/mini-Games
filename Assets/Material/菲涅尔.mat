@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: "\u83F2\u6D85\u5C14"
-  m_Shader: {fileID: -6465566751694194690, guid: ffa05afbb79c05441a35006bca343ef5,
+  m_Shader: {fileID: -6465566751694194690, guid: 2b15736454400f9488c8ae751fd10aae,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 2
@@ -44,6 +44,18 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _TextureSample0:
+        m_Texture: {fileID: 2800000, guid: cccc116a6334dc1428687697c5a11d58, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord3:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -57,14 +69,26 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_0724c0db47de4f2cb0b6a37b6bd03b32: 3
+    - Vector1_9041472657484699ba144eae7717f221: 0.5
+    - _AlphaCutoff: 0.5
     - _DetailAmount: 0.99
     - _DirtAmount: 0
+    - _EnvironmentReflections: 1
     - _FallOff: 0
     - _InvFade: 1
+    - _QueueControl: -1
+    - _QueueOffset: 0
+    - _ReceiveShadows: 1
     - _RimPower: 1
     - _Smoothness: 0
+    - _SpecularHighlights: 1
     - _Tiling: 0
+    - __dirty: 0
     m_Colors:
+    - Color_ecbd879eec2c401a9903c59393bd97af: {r: 4.237095, g: 0.7061825, b: 0, a: 1}
+    - Vector4_c911b7b49b35459ca861d7b193666a83: {r: 1, g: 1, b: 1, a: 1}
+    - _Color0: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 0}
     - _RimColor: {r: 0.7636528, g: 0, b: 1, a: 0}

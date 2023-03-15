@@ -132,7 +132,7 @@ namespace Tea.NewRouge
 		{
 			//Debug.Log("射击");
 			var a = bullet.InstantiateBullet
-				(muzzle, item.damage, HorizOffset: item.Offset, vertiOffset: item.Offset, Scale: item.scale);
+				(muzzle, item.damage, HorizOffset: item.Offset,velocity: item.velocity, vertiOffset: item.Offset, Scale: item.scale);
 			return true;
 		}
 		#endregion

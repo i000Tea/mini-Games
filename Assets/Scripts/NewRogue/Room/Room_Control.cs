@@ -58,8 +58,8 @@ namespace Tea.NewRouge
 
 				for (int i = 0; i < walls.Count; i++)	
 				{
-					if (!walls[i].TryGetComponent(out NavMeshSourceTag _))
-						walls[i].gameObject.AddComponent<NavMeshSourceTag>();
+					if (!walls[i].TryGetComponent(out Room_FloorAndWall _))
+						walls[i].gameObject.AddComponent<Room_FloorAndWall>();
 				}
 
 			}
@@ -69,8 +69,8 @@ namespace Tea.NewRouge
 
 				for (int i = 0; i < floors.Count; i++)
 				{
-					if (!floors[i].TryGetComponent(out NavMeshSourceTag _))
-						floors[i].gameObject.AddComponent<NavMeshSourceTag>();
+					if (!floors[i].TryGetComponent(out Room_FloorAndWall _))
+						floors[i].gameObject.AddComponent<Room_FloorAndWall>();
 				}
 			}
 

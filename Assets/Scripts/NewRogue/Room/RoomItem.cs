@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 namespace Tea.NewRouge
 {
 
@@ -12,6 +14,7 @@ namespace Tea.NewRouge
 	{
 		public List<GameObject> EnemyPrefabs;
 		public List<GameObject> BasePrefabs;
+		public List<WeightRoom> BasePrefabssss;
 		/// <summary>
 		/// 从列表中 随机一间 有相同空置门的 房间
 		/// </summary>
@@ -58,9 +61,42 @@ namespace Tea.NewRouge
 		_1Door,
 		_2Door,
 	}
-	public enum RoomPrefabs 
+	public enum RoomPrefabs
 	{
 		BaseRoom,
 		EnemyCreate,
 	}
+	[Serializable]
+	public class WeightRoom
+	{
+		public int Weight;
+		public GameObject Prefab;
+	}
+
+#if UNITY_EDITOR
+
+	[CustomPropertyDrawer(typeof(WeightRoom))]
+	public class Drawer_WeightRoom : PropertyDrawer
+	{
+		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+		{
+			var WeightRect = new Rect(position)
+			{
+				height = position.height * 0.95f,
+				width = 60,
+				x = position.x
+			};
+			var PrefabRect = new Rect(WeightRect)
+			{
+				width = position.width - 70,
+				x = position.width / 3 + 60,
+			};
+
+			//设置属性名宽度
+			EditorGUIUtility.labelWidth = 30;
+			EditorGUI.PropertyField(WeightRect, property.FindPropertyRelative("Weight"));
+			EditorGUI.PropertyField(PrefabRect, property.FindPropertyRelative("Prefab"), new GUIContent("ID"));
+		}
+	}
+#endif
 }

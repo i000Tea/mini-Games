@@ -16,7 +16,15 @@ MonoBehaviour:
   - {fileID: 4126465574598252017, guid: 4296bd105118ab94d9fecd8299ac7a43, type: 3}
   BasePrefabs:
   - {fileID: 6940469010013303976, guid: 65c94871e30e5dc4bb18d3da4ff242b2, type: 3}
+  - {fileID: 5074668836953696244, guid: 18a879971ebeb714e92bb9e096c0ed75, type: 3}
   - {fileID: 8857717480738582960, guid: c35d00ac14c186442aacbc7936e5eb7d, type: 3}
   - {fileID: 8857717480738582960, guid: c35d00ac14c186442aacbc7936e5eb7d, type: 3}
   - {fileID: 8857717480738582960, guid: 75bf46f83f91dc44fa8519e860fe6137, type: 3}
   - {fileID: 8857717480738582960, guid: 75bf46f83f91dc44fa8519e860fe6137, type: 3}
+  - {fileID: 8857717480738582960, guid: 7961cc5b51b6feb439db2de1253c9152, type: 3}
+  - {fileID: 8857717480738582960, guid: 7961cc5b51b6feb439db2de1253c9152, type: 3}
+  BasePrefabssss:
+  - Weight: 0
+    Prefab: {fileID: 0}
+  - Weight: 0
+    Prefab: {fileID: 0}

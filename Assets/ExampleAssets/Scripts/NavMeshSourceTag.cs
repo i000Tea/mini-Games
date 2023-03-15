@@ -19,7 +19,7 @@ public class NavMeshSourceTag : MonoBehaviour
 	public static List<MeshFilter> m_Meshes = new List<MeshFilter>();
 	public static List<Terrain> m_Terrains = new List<Terrain>();
 
-	void OnEnable()
+	protected virtual void OnEnable()
 	{
 		//var m = GetComponent<MeshFilter>();
 		//if (m != null)
@@ -28,6 +28,7 @@ public class NavMeshSourceTag : MonoBehaviour
 		//}
 		if (TryGetComponent(out MeshFilter mesh))
 		{
+			Debug.Log($"{transform.parent.name}{gameObject.name}{mesh}");
 			m_Meshes.Add(mesh);
 		}
 
@@ -42,7 +43,7 @@ public class NavMeshSourceTag : MonoBehaviour
 		}
 	}
 
-	void OnDisable()
+	protected virtual void OnDisable()
 	{
 		//var m = GetComponent<MeshFilter>();
 		//if (m != null)

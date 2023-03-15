@@ -32,6 +32,8 @@ namespace Tea.NewRouge
 		List<Room_Control> rEntityList;
 		List<Room_Control_EnemyCreate> rEnemyList;
 
+		[SerializeField]
+		bool createCollider;
 		/// <summary>
 		/// 主干道的长度
 		/// </summary>
@@ -113,7 +115,41 @@ namespace Tea.NewRouge
 				}
 			}
 			var branchNum = UnityEngine.Random.Range(1, branchRoadMaxNum);
+			// 分支岔道2 从随机房间开始
+			for (int i = 0; i < branchNum; i++)
+			{
+				var rNum = UnityEngine.Random.Range(0, rEntityList.Count);
+				for (int set = 0; set < rEntityList.Count; set++)
+				{
+					if (!rEntityList[rNum].doorUsedUp)
+					{
+						BaseRoom = rEntityList[rNum];
+						break;
+					}
+					else
+					{
+						rNum++;
+						if (rNum >= rEntityList.Count)
+							rNum = 0;
+					}
+				}
+				var branchLength = UnityEngine.Random.Range(3, branchRoadMaxLength);
+				for (int n = 0; n < branchLength; n++)
+				{
+					// 当基准房间存在时 使用基准房间 尝试生成新房间
+					if (BaseRoom)
+						createRoom = TryCreateRoom(RoomPrefabs.BaseRoom, BaseRoom, Floor, DoorType._2Door);
+					// 生成房间成功后 更新基准房间
+					if (createRoom)
+					{
+						// 将生成好的房间加入列表
+						rEntityList.Add(createRoom);
+						BaseRoom = createRoom;
+					}
+					yield return new WaitForFixedUpdate();
+				}
 
+			}
 			// 所有房间初始化
 			startRoom.RoomAwakeSet(true);
 			for (int i = 0; i < rEnemyList.Count; i++)
@@ -234,7 +270,7 @@ namespace Tea.NewRouge
 			var _list = Physics.OverlapBox(CollPosition, collScale / 2, Quaternion.Euler(0, rotateY, 0), layer);
 
 			/// 生成碰撞区域
-			if (false)
+			if (createCollider)
 			{
 				Transform obj1 = GameObject.CreatePrimitive(PrimitiveType.Cube).transform;
 				obj1.position = CollPosition + Vector3.down * 1;

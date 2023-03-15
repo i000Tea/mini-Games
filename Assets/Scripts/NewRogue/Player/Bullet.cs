@@ -25,14 +25,14 @@ namespace Tea.NewRouge
 		public void SetDamage(float dmg)
 		{
 			damage = dmg;
-			Debug.Log(transform.localScale);
+			//Debug.Log(transform.localScale);
 
 		}
 		private void OnCollisionEnter(Collision collision)
 		{
 			//Debug.Log(collision.gameObject.name);
 			int targetMask = (1 << 0) | (1 << 6);
-			// xun'h生成一条从起始点o, 以方向d为延展的射线
+			// 循环生成一条从起始点o, 以方向d为延展的射线
 			Ray ray = new Ray(transform.position, transform.forward);
 			// hit用于从光线投射中, 获取信息的结构
 			RaycastHit hit;

@@ -415,7 +415,7 @@ GameObject:
   - component: {fileID: 6940469010013303983}
   - component: {fileID: 1665469999816903576}
   m_Layer: 0
-  m_Name: Room_2parkingApron
+  m_Name: Room_2 miniDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -462,10 +462,7 @@ MonoBehaviour:
   myDoors:
   - {fileID: 5374880027887851006}
   - {fileID: 2255006252730428661}
-  wallParent: {fileID: 0}
-  floorParent: {fileID: 0}
-  walls: []
-  floors: []
+  roomParent: {fileID: 5147139642093730794}
   roomColl: {fileID: 4229203197987608233}
 --- !u!1 &6940469010117385483
 GameObject:
