@@ -54,6 +54,10 @@ namespace Tea.NewRouge
 			enemys = new List<Enemy_Control>();
 			createPoints = new List<Transform>();
 		}
+		/// <summary>
+		/// 开始生成敌人
+		/// </summary>
+		/// <returns></returns>
 		public IEnumerator StartCreate()
 		{
 			createing = true;

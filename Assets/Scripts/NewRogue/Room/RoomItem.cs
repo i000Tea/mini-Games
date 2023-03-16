@@ -83,13 +83,13 @@ namespace Tea.NewRouge
 			var WeightRect = new Rect(position)
 			{
 				height = position.height * 0.95f,
-				width = 60,
+				width = 75,
 				x = position.x
 			};
 			var PrefabRect = new Rect(WeightRect)
 			{
-				width = position.width - 70,
-				x = position.width / 3 + 60,
+				width = position.width - 80,
+				x = 125,
 			};
 
 			//设置属性名宽度

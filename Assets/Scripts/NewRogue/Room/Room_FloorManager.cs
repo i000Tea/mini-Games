@@ -150,6 +150,10 @@ namespace Tea.NewRouge
 				}
 
 			}
+
+			// 生成道具
+
+
 			// 所有房间初始化
 			startRoom.RoomAwakeSet(true);
 			for (int i = 0; i < rEnemyList.Count; i++)
@@ -162,9 +166,11 @@ namespace Tea.NewRouge
 			}
 			for (int i = 0; i < startRoom.myDoors.Count; i++)
 			{
-				startRoom.myDoors[i].OpenDoor();
+				startRoom.myDoors[i].OpenDoor(false);
 			}
-
+		}
+		void StartGame()
+		{
 			StartCoroutine(EnemyManager.inst.StartCreate());
 		}
 		/// <summary>

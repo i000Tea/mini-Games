@@ -6,6 +6,7 @@ namespace Tea.NewRouge
 {
 	public class WeaponControl : MonoBehaviour
 	{
+		public bool IsUse;
 		public Transform muzzle;
 		public WapeonItem item;
 

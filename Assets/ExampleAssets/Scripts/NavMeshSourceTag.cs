@@ -28,7 +28,7 @@ public class NavMeshSourceTag : MonoBehaviour
 		//}
 		if (TryGetComponent(out MeshFilter mesh))
 		{
-			Debug.Log($"{transform.parent.name}{gameObject.name}{mesh}");
+			//Debug.Log($"{transform.parent.name}{gameObject.name}{mesh}");
 			m_Meshes.Add(mesh);
 		}
 

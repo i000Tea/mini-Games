@@ -30,7 +30,6 @@ namespace Tea.NewRouge
 		private int CostNeedNum;
 		#endregion
 
-
 		[SerializeField]
 		List<GameObject> NavMesh;
 
@@ -90,7 +89,7 @@ namespace Tea.NewRouge
 			unUse = true;
 			gameObject.SetActive(false);
 		}
-		public void OpenDoor()
+		public void OpenDoor(bool playAnim = true)
 		{
 			if (!nextRoom)
 				return;
@@ -110,17 +109,36 @@ namespace Tea.NewRouge
 			{
 				collider.isTrigger = true;
 			}
-			nextRoom.ShowRoom();
+
+			nextRoom.ShowRoom(playAnim);
 			nextRoom = null;
-			if (TryGetComponent(out Animator anim))
+
+			if (playAnim)
 			{
-				anim.SetTrigger("Open");
+				if (TryGetComponent(out Animator anim))
+				{
+					anim.SetTrigger("Open");
+				}
+				else
+				{
+					transform.GetChild(0).DOScale(0, 0.5f).SetEase(Ease.InBack);
+				}
+				nextCost.DOScale(0, 0.5f).SetEase(Ease.InBack);
 			}
 			else
 			{
-				transform.GetChild(0).DOScale(0, 0.5f).SetEase(Ease.InBack);
+				if (TryGetComponent(out Animator anim))
+				{
+					anim.SetTrigger("Open");
+					anim.speed = 9999;
+				}
+				else
+				{
+					transform.GetChild(0).localScale = Vector3.zero;
+				}
+				nextCost.transform.localScale = Vector3.zero;
 			}
-			nextCost.DOScale(0, 0.5f).SetEase(Ease.InBack);
+			
 			LocalNavMeshBuilder_Change.inst.UpdateTime(1f);
 		}
 	}

@@ -70,6 +70,21 @@ namespace Tea
 		}
 
 		/// <summary>
+		/// 列表随机
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="list"></param>
+		/// <param name="Seed"></param>
+		/// <returns></returns>
+		public static T RandomListValue<T>(this List<T> list,float Seed = -1)
+		{
+			int num = -1;
+			if (Seed == -1)
+				num = UnityEngine.Random.Range(0,list.Count);
+			return list[num];
+		}
+
+		/// <summary>
 		/// 生成子物体集
 		/// </summary>
 		/// <returns></returns>

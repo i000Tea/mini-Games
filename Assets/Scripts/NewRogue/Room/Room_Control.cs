@@ -9,6 +9,7 @@ namespace Tea.NewRouge
 	/// </summary>
 	public class Room_Control : MonoBehaviour
 	{
+		#region 变量
 		/// <summary>
 		/// 门已耗尽
 		/// </summary>
@@ -39,6 +40,8 @@ namespace Tea.NewRouge
 
 		public Transform roomColl;
 
+		#endregion
+
 		private void OnValidate()
 		{
 			//Debug.Log(roomColl.lossyScale);
@@ -50,13 +53,13 @@ namespace Tea.NewRouge
 					myDoors.Add(transform.GetChild(0).GetChild(i).GetComponent<Room_DoorPoint>());
 				}
 			}
-			
+
 			if (wallParent)
 			{
 
 				wallParent.CreateChildList(ref walls);
 
-				for (int i = 0; i < walls.Count; i++)	
+				for (int i = 0; i < walls.Count; i++)
 				{
 					if (!walls[i].TryGetComponent(out Room_FloorAndWall _))
 						walls[i].gameObject.AddComponent<Room_FloorAndWall>();
@@ -81,6 +84,17 @@ namespace Tea.NewRouge
 		}
 
 		/// <summary>
+		/// 生成道具
+		/// </summary>
+		/// <param name="propPrefab"></param>
+		/// <returns></returns>
+		public GameObject CreateProp(GameObject propPrefab)
+		{
+			var target = floors.RandomListValue().transform;
+			return Instantiate(propPrefab, target.position, target.rotation, transform);
+		}
+
+		/// <summary>
 		/// 初始化设置
 		/// </summary>
 		public virtual void RoomAwakeSet(bool roomState = false)
@@ -98,11 +112,19 @@ namespace Tea.NewRouge
 				}
 			}
 		}
-		public void ShowRoom()
+		public void ShowRoom(bool playAnim = true)
 		{
-			gameObject.SetActive(true);
 			transform.localScale = Vector3.zero;
-			transform.DOScale(1, 0.7f).SetEase(Ease.OutCirc);
+			gameObject.SetActive(true);
+			if (playAnim)
+			{
+				transform.DOScale(1, 0.7f).SetEase(Ease.OutCirc);
+			}
+			else
+			{
+				transform.localScale = Vector3.one;
+			}
+
 		}
 
 		/// <summary>
