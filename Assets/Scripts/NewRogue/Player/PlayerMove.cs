@@ -112,7 +112,7 @@ namespace Tea.NewRouge
 		public void VirRotateAdd(RectTransform rect)
 		{
 			var addRotate = rect.anchoredPosition.x;
-			Debug.Log(addRotate);
+			//Debug.Log(addRotate);
 			if (Mathf.Abs(beforeRotate - addRotate) < 100)
 			{
 				virCamera.transform.eulerAngles += new Vector3(0, (addRotate - beforeRotate) * Mathf.Deg2Rad * 10, 0);

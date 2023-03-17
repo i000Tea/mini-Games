@@ -76,11 +76,14 @@ namespace Tea
 		/// <param name="list"></param>
 		/// <param name="Seed"></param>
 		/// <returns></returns>
-		public static T RandomListValue<T>(this List<T> list,float Seed = -1)
+		public static T RandomListValue<T>(this List<T> list, float Seed = -1)
 		{
+			if (list == null | list.Count <= 0)
+				return default(T);
 			int num = -1;
 			if (Seed == -1)
-				num = UnityEngine.Random.Range(0,list.Count);
+				num = UnityEngine.Random.Range(0, list.Count);
+			//Debug.Log($"{list.Count} + {num}");
 			return list[num];
 		}
 
@@ -180,7 +183,7 @@ namespace Tea
 
 			entity.GetComponent<Rigidbody>().velocity = (muzzle.transform.forward + new Vector3(
 				UnityEngine.Random.Range(-HorizOffset, HorizOffset), 0,
-				UnityEngine.Random.Range(-vertiOffset, vertiOffset))) * 16* velocity;
+				UnityEngine.Random.Range(-vertiOffset, vertiOffset))) * 16 * velocity;
 
 			GameObject.Destroy(entity, lifeTime);
 			return entity;
@@ -195,12 +198,12 @@ namespace Tea
 		/// <param name="targetImage">图片</param>
 		/// <param name="isAdd">是否加载</param>
 		/// <returns>加载完成</returns>
-		public static bool LoadingRim(this Image targetImage,bool isAdd)
+		public static bool LoadingRim(this Image targetImage, bool isAdd)
 		{
 			if (targetImage.fillAmount == 1)
 				return true;
 			if (isAdd)
-				targetImage.fillAmount += Time.deltaTime*PlayerMove.inst.RimRate;
+				targetImage.fillAmount += Time.deltaTime * PlayerMove.inst.RimRate;
 			else
 				targetImage.fillAmount -= Time.deltaTime;
 
@@ -226,7 +229,7 @@ namespace Tea
 		/// <param name="beforePoint"></param>
 		/// <param name="angle"></param>
 		/// <returns></returns>
-		public static Vector3 AngleTransfor(Vector3 beforePoint, float angle)
+		public static Vector3 AngleTransfor(this Vector3 beforePoint, float angle)
 		{
 			Vector3 a = new Vector3(
 				beforePoint.x * Mathf.Cos(angle * Mathf.Deg2Rad) +

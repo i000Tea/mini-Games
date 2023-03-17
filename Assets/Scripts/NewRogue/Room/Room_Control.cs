@@ -26,6 +26,11 @@ namespace Tea.NewRouge
 			}
 		}
 		/// <summary>
+		/// 已经生成过道具
+		/// </summary>
+		public bool propUseUp;
+		public int roomDepth;
+		/// <summary>
 		/// 自己身上门的列表
 		/// </summary>
 		[SerializeField]
@@ -73,7 +78,7 @@ namespace Tea.NewRouge
 				for (int i = 0; i < floors.Count; i++)
 				{
 					if (!floors[i].TryGetComponent(out Room_FloorAndWall _))
-						floors[i].gameObject.AddComponent<Room_FloorAndWall>();
+						floors[i].AddComponent<Room_FloorAndWall>();
 				}
 			}
 
@@ -88,10 +93,16 @@ namespace Tea.NewRouge
 		/// </summary>
 		/// <param name="propPrefab"></param>
 		/// <returns></returns>
-		public GameObject CreateProp(GameObject propPrefab)
+		public virtual GameObject CreateProp(GameObject propPrefab)
 		{
+			if (propUseUp || roomDepth <= 1)
+				return null;
 			var target = floors.RandomListValue().transform;
-			return Instantiate(propPrefab, target.position, target.rotation, transform);
+			var prop = Instantiate(propPrefab,
+				target.position + new Vector3(-2.5f, 0, 2.5f).AngleTransfor(target.eulerAngles.y),
+				Quaternion.Euler(0, 0, 0), transform);
+			propUseUp = true;
+			return prop;
 		}
 
 		/// <summary>

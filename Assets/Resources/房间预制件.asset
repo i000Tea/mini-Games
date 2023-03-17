@@ -30,3 +30,5 @@ MonoBehaviour:
   - Weight: 0
     Prefab: {fileID: 8857717480738582960, guid: 75bf46f83f91dc44fa8519e860fe6137,
       type: 3}
+  weaponPrefab: {fileID: 5106220929241827765, guid: 9a46134d34be121479d7d9c8b80c5fa0,
+    type: 3}

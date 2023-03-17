@@ -46,6 +46,15 @@ namespace Tea.NewRouge
 		/// 分支路线最长长度
 		/// </summary>
 		public int branchRoadMaxLength = 4;
+
+		/// <summary>
+		/// 刷新武器数量
+		/// </summary>
+		public int WeaponNum = 3;
+		public int propNum = 6;
+		/// <summary>
+		/// 开门需要的花费
+		/// </summary>
 		public int OpenDoorCost = 10;
 		#endregion
 		private void Start()
@@ -152,7 +161,27 @@ namespace Tea.NewRouge
 			}
 
 			// 生成道具
+			for (int i = 0; i < WeaponNum; i++)
+			{
+				var num = UnityEngine.Random.Range(2, rEntityList.Count);
+				GameObject prop;
+				for (int n = 0; n < rEntityList.Count; n++)
+				{
+					if (num >= rEntityList.Count)
+						num = 1;
 
+					prop = rEntityList[num].CreateProp(rItem.weaponPrefab);
+					if (prop)
+					{
+						Debug.Log(num);
+						break;
+					}
+					else
+					{
+						num++;
+					}
+				}
+			}
 
 			// 所有房间初始化
 			startRoom.RoomAwakeSet(true);
@@ -238,7 +267,8 @@ namespace Tea.NewRouge
 				//Debug.Log(log + ",继续");
 			}
 			//Debug.Log("构建成功");
-			//创建成功 开始构造
+
+			//====== 创建成功 开始构造 ======
 			newRoom = Instantiate(newRoom.gameObject).GetComponent<Room_Control>();
 			if (newDoorNum != -1)
 				newDoor = newRoom.myDoors[newDoorNum];
@@ -248,10 +278,10 @@ namespace Tea.NewRouge
 			if (newRoomParent)
 				newRoom.transform.SetParent(newRoomParent);
 			// 设置位置 和 旋转
-			newRoom.transform.position =
-				beforerDoor.transform.position - AddVoids.AngleTransfor(newDoor.transform.position, rotateY);
-			newRoom.transform.rotation = Quaternion.Euler(0, rotateY, 0);
-
+			newRoom.transform.SetPositionAndRotation(
+				beforerDoor.transform.position - AddVoids.AngleTransfor(newDoor.transform.position, rotateY),
+				Quaternion.Euler(0, rotateY, 0));
+			newRoom.roomDepth = beforeRoom.roomDepth + 1;
 			beforerDoor.LinkNextRoom(newRoom, OpenDoorCost);
 			newDoor.CloseMe();
 

@@ -15,6 +15,7 @@ namespace Tea.NewRouge
 		public List<GameObject> EnemyPrefabs;
 		public List<GameObject> BasePrefabs;
 		public List<WeightRoom> BasePrefabssss;
+		public GameObject weaponPrefab;
 		/// <summary>
 		/// 从列表中 随机一间 有相同空置门的 房间
 		/// </summary>

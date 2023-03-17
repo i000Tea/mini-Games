@@ -39,7 +39,7 @@ public class Tea_CrossSlip : ScrollRect
 	void ReturnPoint()
 	{
 		var aP = (content.transform as RectTransform).anchoredPosition;
-		Debug.Log(aP);
+		//Debug.Log(aP);
 		if (Mathf.Abs(aP.x) > 100)
 		{
 			(content.transform as RectTransform).anchoredPosition = new Vector3(aP.x % 160, aP.y);

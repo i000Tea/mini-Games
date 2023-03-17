@@ -662,7 +662,7 @@ GameObject:
   - component: {fileID: 152645338}
   - component: {fileID: 152645339}
   m_Layer: 0
-  m_Name: -----Enemy-----
+  m_Name: --- Enemy-----
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -676,7 +676,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 152645337}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.025, y: 4.46, z: 25.115}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2164,56 +2164,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 529379207}
   m_CullTransparentMesh: 1
---- !u!1 &531211700
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 531211702}
-  - component: {fileID: 531211701}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!320 &531211701
-PlayableDirector:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 531211700}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 7c0dbe3e37bf2a74a8aae5ca41c33bdd, type: 2}
-  m_InitialState: 1
-  m_WrapMode: 2
-  m_DirectorUpdateMode: 1
-  m_InitialTime: 0
-  m_SceneBindings:
-  - key: {fileID: 864546678550078433, guid: 7c0dbe3e37bf2a74a8aae5ca41c33bdd, type: 2}
-    value: {fileID: 1784140442}
-  m_ExposedReferences:
-    m_References: []
---- !u!4 &531211702
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 531211700}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.2373304, y: -3.023686, z: 2.9596403}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 15
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &548259949
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2888,7 +2838,7 @@ GameObject:
   m_Component:
   - component: {fileID: 620969134}
   m_Layer: 0
-  m_Name: -----anther---
+  m_Name: --- anther---
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3723,6 +3673,8 @@ MonoBehaviour:
   mainRoadLength: 7
   branchRoadMaxNum: 7
   branchRoadMaxLength: 7
+  WeaponNum: 3
+  propNum: 6
   OpenDoorCost: 10
 --- !u!114 &879409262
 MonoBehaviour:
@@ -8676,7 +8628,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1680486112}
   m_Layer: 0
-  m_Name: -----Floor ---
+  m_Name: --- Floor ---
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9397,12 +9349,6 @@ CanvasRenderer:
 --- !u!4 &1777502136 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4741311914840673893, guid: 761e53020a3e41a4fa6da7adc0c8423b,
-    type: 3}
-  m_PrefabInstance: {fileID: 4741311914770207554}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &1784140442 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 3639961215934808179, guid: 761e53020a3e41a4fa6da7adc0c8423b,
     type: 3}
   m_PrefabInstance: {fileID: 4741311914770207554}
   m_PrefabAsset: {fileID: 0}
@@ -10846,10 +10792,7 @@ PrefabInstance:
     - target: {fileID: 3639961215934808179, guid: 761e53020a3e41a4fa6da7adc0c8423b,
         type: 3}
       propertyPath: m_WarningMessage
-      value: "\nBinding warning: Some generic clip(s) animate transforms that are
-        already bound by a Humanoid avatar. These transforms can only be changed
-        by Humanoid clips.\n\tTransform 'Neck'\n\tTransform 'Head'\n\tFrom animation
-        clip 'Player Test \u6CDB\u578B\u70B9\u5934'"
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3729684859857212571, guid: 761e53020a3e41a4fa6da7adc0c8423b,
         type: 3}
