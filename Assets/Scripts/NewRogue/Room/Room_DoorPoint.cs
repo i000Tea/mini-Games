@@ -25,11 +25,23 @@ namespace Tea.NewRouge
 
 		#region cost
 		public Transform nextCost;
+		/// <summary>
+		/// 加载环图片
+		/// </summary>
 		private Image costLoading;
+		/// <summary>
+		/// 是否加载
+		/// </summary>
 		private bool LoadingAdd;
+		/// <summary>
+		/// 加载数量
+		/// </summary>
 		private int CostNeedNum;
 		#endregion
 
+		/// <summary>
+		/// 寻路网格
+		/// </summary>
 		[SerializeField]
 		List<GameObject> NavMesh;
 
@@ -49,7 +61,8 @@ namespace Tea.NewRouge
 			}
 			else
 			{
-				nextCost.transform.rotation = Camera.main.transform.rotation;
+				if (Camera.main)
+					nextCost.transform.rotation = Camera.main.transform.rotation;
 			}
 		}
 		private void OnTriggerStay(Collider other)
@@ -89,10 +102,16 @@ namespace Tea.NewRouge
 			unUse = true;
 			gameObject.SetActive(false);
 		}
+		/// <summary>
+		/// 是否使用开门动画
+		/// </summary>
+		/// <param name="playAnim"></param>
 		public void OpenDoor(bool playAnim = true)
 		{
+			// 当没有与下一房间链接时 直接返回
 			if (!nextRoom)
 				return;
+			// 当寻路网格存在时
 			if (NavMesh != null)
 			{
 				for (int i = 0; i < NavMesh.Count; i++)
@@ -105,9 +124,11 @@ namespace Tea.NewRouge
 					NavMesh[i].GetComponent<Collider>().enabled = false;
 				}
 			}
+			
+			// 当碰撞体存在时 直接关闭碰撞
 			if (TryGetComponent(out Collider collider))
 			{
-				collider.isTrigger = true;
+				collider.enabled = false;
 			}
 
 			nextRoom.ShowRoom(playAnim);
@@ -138,7 +159,7 @@ namespace Tea.NewRouge
 				}
 				nextCost.transform.localScale = Vector3.zero;
 			}
-			
+
 			LocalNavMeshBuilder_Change.inst.UpdateTime(1f);
 		}
 	}

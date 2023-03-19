@@ -1117,18 +1117,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 68347417112845212}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36b3cb8815acf8c4083e66a89a07aca2, type: 3}
+  m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsUse: 1
+  IsUse: 0
   muzzle: {fileID: 7902208751906211441}
-  item:
-    BaseBullet: {fileID: 144206, guid: 8126e9572a5573b4aab3eca9a6304664, type: 3}
-    damage: 1
-    RatePerS: 7
-    Offset: 0.1
-    velocity: 1.5
-    scale: 0.5
+  BaseBullet: {fileID: 0}
+  damage: 1
+  RatePerS: 4
+  Offset: 0.01
+  velocity: 1
+  scale: 1
 --- !u!1001 &418267313103540339
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1216,18 +1215,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 417028735760535081}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36b3cb8815acf8c4083e66a89a07aca2, type: 3}
+  m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 1638709304}
-  item:
-    BaseBullet: {fileID: 0}
-    damage: 1
-    RatePerS: 4
-    Offset: 0.01
-    velocity: 1
-    scale: 1
+  BaseBullet: {fileID: 0}
+  damage: 1
+  RatePerS: 4
+  Offset: 0.01
+  velocity: 1
+  scale: 1
 --- !u!1001 &571248698061672595
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1315,18 +1313,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 569745281607981521}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36b3cb8815acf8c4083e66a89a07aca2, type: 3}
+  m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 707634686}
-  item:
-    BaseBullet: {fileID: 0}
-    damage: 1
-    RatePerS: 4
-    Offset: 0.01
-    velocity: 1
-    scale: 1
+  BaseBullet: {fileID: 0}
+  damage: 1
+  RatePerS: 4
+  Offset: 0.01
+  velocity: 1
+  scale: 1
 --- !u!1001 &616967048990295036
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1414,18 +1411,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 615917182027404900}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36b3cb8815acf8c4083e66a89a07aca2, type: 3}
+  m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 1086979221}
-  item:
-    BaseBullet: {fileID: 0}
-    damage: 1
-    RatePerS: 4
-    Offset: 0.01
-    velocity: 1
-    scale: 1
+  BaseBullet: {fileID: 0}
+  damage: 1
+  RatePerS: 4
+  Offset: 0.01
+  velocity: 1
+  scale: 1
 --- !u!1001 &1561866001745740889
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1439,7 +1435,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1924490103925104, guid: 49ede2abd454d6541969f5ed82f28081, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4888476691437928, guid: 49ede2abd454d6541969f5ed82f28081, type: 3}
       propertyPath: m_RootOrder
@@ -1513,18 +1509,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1561071809629269289}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36b3cb8815acf8c4083e66a89a07aca2, type: 3}
+  m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 651526812}
-  item:
-    BaseBullet: {fileID: 0}
-    damage: 1
-    RatePerS: 4
-    Offset: 0.01
-    velocity: 1
-    scale: 1
+  BaseBullet: {fileID: 144206, guid: 8126e9572a5573b4aab3eca9a6304664, type: 3}
+  damage: 1
+  RatePerS: 4
+  Offset: 0.01
+  velocity: 1
+  scale: 1
 --- !u!1001 &1712945426670729939
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1612,18 +1607,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1711865118698606775}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36b3cb8815acf8c4083e66a89a07aca2, type: 3}
+  m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 617025915}
-  item:
-    BaseBullet: {fileID: 0}
-    damage: 1
-    RatePerS: 4
-    Offset: 0.01
-    velocity: 1
-    scale: 1
+  BaseBullet: {fileID: 0}
+  damage: 1
+  RatePerS: 4
+  Offset: 0.01
+  velocity: 1
+  scale: 1
 --- !u!1001 &1986025183782759354
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1711,18 +1705,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1984837887038572318}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36b3cb8815acf8c4083e66a89a07aca2, type: 3}
+  m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 2147149819}
-  item:
-    BaseBullet: {fileID: 0}
-    damage: 1
-    RatePerS: 4
-    Offset: 0.01
-    velocity: 1
-    scale: 1
+  BaseBullet: {fileID: 0}
+  damage: 1
+  RatePerS: 4
+  Offset: 0.01
+  velocity: 1
+  scale: 1
 --- !u!1001 &2822992281765771155
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1810,18 +1803,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 2821749985917875725}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36b3cb8815acf8c4083e66a89a07aca2, type: 3}
+  m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 438264118}
-  item:
-    BaseBullet: {fileID: 0}
-    damage: 1
-    RatePerS: 4
-    Offset: 0.01
-    velocity: 1
-    scale: 1
+  BaseBullet: {fileID: 0}
+  damage: 1
+  RatePerS: 4
+  Offset: 0.01
+  velocity: 1
+  scale: 1
 --- !u!1001 &3738042089357907151
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1909,18 +1901,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 3739124031631952047}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36b3cb8815acf8c4083e66a89a07aca2, type: 3}
+  m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 797169131}
-  item:
-    BaseBullet: {fileID: 0}
-    damage: 1
-    RatePerS: 4
-    Offset: 0.01
-    velocity: 1
-    scale: 1
+  BaseBullet: {fileID: 0}
+  damage: 1
+  RatePerS: 4
+  Offset: 0.01
+  velocity: 1
+  scale: 1
 --- !u!1001 &3770660580624665209
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2008,18 +1999,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 3769882141641105203}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36b3cb8815acf8c4083e66a89a07aca2, type: 3}
+  m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 1615984904}
-  item:
-    BaseBullet: {fileID: 0}
-    damage: 1
-    RatePerS: 4
-    Offset: 0.01
-    velocity: 1
-    scale: 1
+  BaseBullet: {fileID: 0}
+  damage: 1
+  RatePerS: 4
+  Offset: 0.01
+  velocity: 1
+  scale: 1
 --- !u!1001 &4474204391709321362
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2107,18 +2097,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 4473001121574410550}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36b3cb8815acf8c4083e66a89a07aca2, type: 3}
+  m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 143215994}
-  item:
-    BaseBullet: {fileID: 0}
-    damage: 1
-    RatePerS: 4
-    Offset: 0.01
-    velocity: 1
-    scale: 1
+  BaseBullet: {fileID: 0}
+  damage: 1
+  RatePerS: 4
+  Offset: 0.01
+  velocity: 1
+  scale: 1
 --- !u!1001 &4706632329026568760
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2206,18 +2195,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 4708401828422797566}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36b3cb8815acf8c4083e66a89a07aca2, type: 3}
+  m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 370755951}
-  item:
-    BaseBullet: {fileID: 0}
-    damage: 1
-    RatePerS: 4
-    Offset: 0.01
-    velocity: 1
-    scale: 1
+  BaseBullet: {fileID: 0}
+  damage: 1
+  RatePerS: 4
+  Offset: 0.01
+  velocity: 1
+  scale: 1
 --- !u!1001 &5123773593902311165
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2305,18 +2293,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 5124315058764864999}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36b3cb8815acf8c4083e66a89a07aca2, type: 3}
+  m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 109729955}
-  item:
-    BaseBullet: {fileID: 0}
-    damage: 1
-    RatePerS: 4
-    Offset: 0.01
-    velocity: 1
-    scale: 1
+  BaseBullet: {fileID: 0}
+  damage: 1
+  RatePerS: 4
+  Offset: 0.01
+  velocity: 1
+  scale: 1
 --- !u!1001 &5452073807373095659
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2404,18 +2391,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 5453701958532727137}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36b3cb8815acf8c4083e66a89a07aca2, type: 3}
+  m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 5555598401361878538}
-  item:
-    BaseBullet: {fileID: 0}
-    damage: 1
-    RatePerS: 4
-    Offset: 0.01
-    velocity: 1
-    scale: 1
+  BaseBullet: {fileID: 0}
+  damage: 1
+  RatePerS: 4
+  Offset: 0.01
+  velocity: 1
+  scale: 1
 --- !u!1001 &5792121833274289784
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2503,18 +2489,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 5793059438582239206}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36b3cb8815acf8c4083e66a89a07aca2, type: 3}
+  m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 221267330}
-  item:
-    BaseBullet: {fileID: 0}
-    damage: 1
-    RatePerS: 4
-    Offset: 0.01
-    velocity: 1
-    scale: 1
+  BaseBullet: {fileID: 0}
+  damage: 1
+  RatePerS: 4
+  Offset: 0.01
+  velocity: 1
+  scale: 1
 --- !u!1001 &6145014967085690914
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2602,18 +2587,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 6143050527008804082}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36b3cb8815acf8c4083e66a89a07aca2, type: 3}
+  m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 1617508392}
-  item:
-    BaseBullet: {fileID: 0}
-    damage: 1
-    RatePerS: 4
-    Offset: 0.01
-    velocity: 1
-    scale: 1
+  BaseBullet: {fileID: 0}
+  damage: 1
+  RatePerS: 4
+  Offset: 0.01
+  velocity: 1
+  scale: 1
 --- !u!1001 &6209272206953488530
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2701,18 +2685,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 6209711297347317914}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36b3cb8815acf8c4083e66a89a07aca2, type: 3}
+  m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 1791609200}
-  item:
-    BaseBullet: {fileID: 0}
-    damage: 1
-    RatePerS: 4
-    Offset: 0.01
-    velocity: 1
-    scale: 1
+  BaseBullet: {fileID: 0}
+  damage: 1
+  RatePerS: 4
+  Offset: 0.01
+  velocity: 1
+  scale: 1
 --- !u!1001 &6222735132294615061
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2800,18 +2783,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 6223636064164760029}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36b3cb8815acf8c4083e66a89a07aca2, type: 3}
+  m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 370796392}
-  item:
-    BaseBullet: {fileID: 0}
-    damage: 1
-    RatePerS: 4
-    Offset: 0.01
-    velocity: 1
-    scale: 1
+  BaseBullet: {fileID: 0}
+  damage: 1
+  RatePerS: 4
+  Offset: 0.01
+  velocity: 1
+  scale: 1
 --- !u!1001 &6348465160894607995
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2899,18 +2881,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 6350056284752461995}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36b3cb8815acf8c4083e66a89a07aca2, type: 3}
+  m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 1847886386}
-  item:
-    BaseBullet: {fileID: 0}
-    damage: 1
-    RatePerS: 4
-    Offset: 0.01
-    velocity: 1
-    scale: 1
+  BaseBullet: {fileID: 0}
+  damage: 1
+  RatePerS: 4
+  Offset: 0.01
+  velocity: 1
+  scale: 1
 --- !u!1001 &6506767380164380423
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2998,18 +2979,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 6505704096210848049}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36b3cb8815acf8c4083e66a89a07aca2, type: 3}
+  m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 1272525696}
-  item:
-    BaseBullet: {fileID: 0}
-    damage: 1
-    RatePerS: 4
-    Offset: 0.01
-    velocity: 1
-    scale: 1
+  BaseBullet: {fileID: 0}
+  damage: 1
+  RatePerS: 4
+  Offset: 0.01
+  velocity: 1
+  scale: 1
 --- !u!1001 &6841949437840922091
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3113,18 +3093,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 6841177910407449987}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36b3cb8815acf8c4083e66a89a07aca2, type: 3}
+  m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsUse: 1
+  IsUse: 0
   muzzle: {fileID: 9134585913782212086}
-  item:
-    BaseBullet: {fileID: 144206, guid: 8126e9572a5573b4aab3eca9a6304664, type: 3}
-    damage: 1
-    RatePerS: 4
-    Offset: 0.01
-    velocity: 1
-    scale: 1
+  BaseBullet: {fileID: 0}
+  damage: 1
+  RatePerS: 4
+  Offset: 0.01
+  velocity: 1
+  scale: 1
 --- !u!1001 &6963489561317522442
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3212,18 +3191,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 6964325469865804946}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36b3cb8815acf8c4083e66a89a07aca2, type: 3}
+  m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 1247085662}
-  item:
-    BaseBullet: {fileID: 0}
-    damage: 1
-    RatePerS: 4
-    Offset: 0.01
-    velocity: 1
-    scale: 1
+  BaseBullet: {fileID: 0}
+  damage: 1
+  RatePerS: 4
+  Offset: 0.01
+  velocity: 1
+  scale: 1
 --- !u!1001 &7377747206216521705
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3317,18 +3295,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 7377165672742264889}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36b3cb8815acf8c4083e66a89a07aca2, type: 3}
+  m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 0}
-  item:
-    BaseBullet: {fileID: 0}
-    damage: 1
-    RatePerS: 4
-    Offset: 0.01
-    velocity: 1
-    scale: 1
+  BaseBullet: {fileID: 0}
+  damage: 1
+  RatePerS: 4
+  Offset: 0.01
+  velocity: 1
+  scale: 1
 --- !u!1001 &7516592741390347318
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3416,18 +3393,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 7517495095502791446}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36b3cb8815acf8c4083e66a89a07aca2, type: 3}
+  m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 1428575259}
-  item:
-    BaseBullet: {fileID: 0}
-    damage: 1
-    RatePerS: 4
-    Offset: 0.01
-    velocity: 1
-    scale: 1
+  BaseBullet: {fileID: 0}
+  damage: 1
+  RatePerS: 4
+  Offset: 0.01
+  velocity: 1
+  scale: 1
 --- !u!1001 &7720724687620453591
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3515,18 +3491,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 7719410328064443153}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36b3cb8815acf8c4083e66a89a07aca2, type: 3}
+  m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 1580933349}
-  item:
-    BaseBullet: {fileID: 0}
-    damage: 1
-    RatePerS: 4
-    Offset: 0.01
-    velocity: 1
-    scale: 1
+  BaseBullet: {fileID: 0}
+  damage: 1
+  RatePerS: 4
+  Offset: 0.01
+  velocity: 1
+  scale: 1
 --- !u!1001 &8110236254163212912
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3631,18 +3606,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 8109591837872357382}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36b3cb8815acf8c4083e66a89a07aca2, type: 3}
+  m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsUse: 1
+  IsUse: 0
   muzzle: {fileID: 8496644273320942730}
-  item:
-    BaseBullet: {fileID: 144206, guid: 8126e9572a5573b4aab3eca9a6304664, type: 3}
-    damage: 3
-    RatePerS: 3
-    Offset: 0.01
-    velocity: 1
-    scale: 1
+  BaseBullet: {fileID: 0}
+  damage: 1
+  RatePerS: 4
+  Offset: 0.01
+  velocity: 1
+  scale: 1
 --- !u!1001 &8112301675647453972
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3742,18 +3716,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 8111146519883953990}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36b3cb8815acf8c4083e66a89a07aca2, type: 3}
+  m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsUse: 1
+  IsUse: 0
   muzzle: {fileID: 6521145399182203370}
-  item:
-    BaseBullet: {fileID: 144206, guid: 8126e9572a5573b4aab3eca9a6304664, type: 3}
-    damage: 1
-    RatePerS: 5
-    Offset: 0.01
-    velocity: 1
-    scale: 1
+  BaseBullet: {fileID: 0}
+  damage: 1
+  RatePerS: 4
+  Offset: 0.01
+  velocity: 1
+  scale: 1
 --- !u!1001 &8854619335954913400
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3841,15 +3814,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 8855489962972566420}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36b3cb8815acf8c4083e66a89a07aca2, type: 3}
+  m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 937800796}
-  item:
-    BaseBullet: {fileID: 0}
-    damage: 1
-    RatePerS: 4
-    Offset: 0.01
-    velocity: 1
-    scale: 1
+  BaseBullet: {fileID: 0}
+  damage: 1
+  RatePerS: 4
+  Offset: 0.01
+  velocity: 1
+  scale: 1

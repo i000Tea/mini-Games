@@ -6,13 +6,12 @@ using ECM.Controllers;
 using Cinemachine;
 namespace Tea.NewRouge
 {
-	public class Player_Control : MonoBehaviour
+	public class Player_Control : Singleton<Player_Control>
 	{
-		public static Vector3 PlayerPoint
+		public Vector3 PlayerPoint
 		{
-			get { return inst.transform.position; }
+			get { return transform.position; }
 		}
-		public static Player_Control inst;
 
 		#region Camera
 		[Header("Camera")]
@@ -46,12 +45,8 @@ namespace Tea.NewRouge
 
 		float originalKeycord;
 		[SerializeField]
-		GUI_Control gui;
+		GUIManager gui;
 
-		private void Awake()
-		{
-			inst = this;
-		}
 		private void Start()
 		{
 			Keycord = 0;

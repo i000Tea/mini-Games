@@ -105,10 +105,10 @@ namespace Tea.NewRouge
 			for (int i = 0; i < enemys.Count; i++)
 			{
 				if (enemys[i].health > 0 &&
-					Vector3.Distance(enemys[i].transform.position, Player_Control.PlayerPoint) < _long)
+					Vector3.Distance(enemys[i].transform.position, Player_Control.I.PlayerPoint) < _long)
 				{
 					target = enemys[i];
-					_long = Vector3.Distance(enemys[i].transform.position, Player_Control.PlayerPoint);
+					_long = Vector3.Distance(enemys[i].transform.position, Player_Control.I.PlayerPoint);
 				}
 			}
 			return target;

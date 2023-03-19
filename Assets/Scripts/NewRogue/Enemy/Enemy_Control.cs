@@ -28,7 +28,7 @@ namespace Tea.NewRouge
 		}
 		IEnumerator Die()
 		{
-			Player_Control.inst.Keycord += valueKeyCard;
+			Player_Control.I.Keycord += valueKeyCard;
 			transform.DOScale(0, 1);
 			ParticleManager.InstParticle(dieParticle, transform.position,dieTime:5);
 			yield return new WaitForSeconds(1);

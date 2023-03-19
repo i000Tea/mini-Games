@@ -122,6 +122,7 @@ namespace Tea.NewRouge
 					myDoors[i].nextCost.gameObject.SetActive(false);
 				}
 			}
+			roomColl.GetComponent<Collider>().enabled = false;
 		}
 		public void ShowRoom(bool playAnim = true)
 		{

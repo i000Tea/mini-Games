@@ -4,29 +4,40 @@ using UnityEngine;
 
 namespace Tea.NewRouge
 {
-	public class WeaponsManager : MonoBehaviour
+	public class HoldWeapons_Control : Singleton<HoldWeapons_Control>
 	{
-		public static WeaponsManager inst;
+		#region 变量
+		/// <summary>
+		/// 玩家控制器
+		/// </summary>
 		[SerializeField]
 		Player_Control control;
 
-		public Transform weapon;
+		/// <summary>
+		/// 存放武器的父对象
+		/// </summary>
 		public Transform weaponsParent;
-
+		/// <summary>
+		/// 当前使用的武器序号
+		/// </summary>
 		int nowWep;
-		public List<WeaponControl> weapons;
+		/// <summary>
+		/// 库存武器列表
+		/// </summary>
+		public List<HoldWeaponItem> weapons;
 
-
-		public GameObject bullet;
+		public GameObject baseBullet;
 		[SerializeField]
 		float shootNeedCD
 		{
 			get
 			{
-				return 1 / weapons[nowWep].item.RatePerS;
+				return 1 / weapons[nowWep].RatePerS;
 			}
 		}
 		float shootCDNow;
+
+		#endregion
 
 		private void OnValidate()
 		{
@@ -34,18 +45,18 @@ namespace Tea.NewRouge
 			{
 				if (weapons.Count != weaponsParent.childCount)
 				{
-					weapons = new List<WeaponControl>();
+					weapons = new List<HoldWeaponItem>();
 
 					for (int i = 0; i < weaponsParent.childCount; i++)
 					{
-						WeaponControl A;
-						if (weaponsParent.GetChild(i).TryGetComponent(out WeaponControl wCtrl))
+						HoldWeaponItem A;
+						if (weaponsParent.GetChild(i).TryGetComponent(out HoldWeaponItem wCtrl))
 						{
 							A = wCtrl;
 						}
 						else
 						{
-							A = weaponsParent.GetChild(i).gameObject.AddComponent<WeaponControl>();
+							A = weaponsParent.GetChild(i).gameObject.AddComponent<HoldWeaponItem>();
 						}
 						weapons.Add(A);
 					}
@@ -53,13 +64,9 @@ namespace Tea.NewRouge
 
 			}
 		}
-		private void Awake()
-		{
-			inst = this;
-		}
 		private void Start()
 		{
-			GetWeapon(0);
+			GetWeapon(20);
 		}
 		private void Update()
 		{
@@ -99,7 +106,7 @@ namespace Tea.NewRouge
 				if (shootCDNow >= shootNeedCD)
 				{
 					shootCDNow = 0;
-					IsShoot(weapons[nowWep].muzzle, weapons[nowWep].item);
+					IsShoot(weapons[nowWep]);
 				}
 			}
 			if (shootCDNow < shootNeedCD)
@@ -128,12 +135,26 @@ namespace Tea.NewRouge
 		/// 射击
 		/// </summary>
 		/// <returns></returns>
-		bool IsShoot(Transform muzzle, WapeonItem item)
+		bool IsShoot(HoldWeaponItem item)
 		{
+			// 获取子弹 若武器信息中没有子弹 则使用基础子弹
+			var bullet = baseBullet;
+			if (item.weaponBullet)
+				bullet = item.weaponBullet;
+
 			//Debug.Log("射击");
-			var a = bullet.InstantiateBullet
-				(muzzle, item.damage, HorizOffset: item.Offset,velocity: item.velocity, vertiOffset: item.Offset, Scale: item.scale);
-			return true;
+
+			// 实例化子弹
+			try
+			{
+				var a = bullet.InstantiateBullet(item.muzzle, item.damage, HorizOffset: item.Offset,
+						velocity: item.velocity, vertiOffset: item.Offset, Scale: item.scale);
+				return true;
+			}
+			catch (System.Exception)
+			{
+				return false;
+			}
 		}
 		#endregion
 	}

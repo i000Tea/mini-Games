@@ -21,7 +21,7 @@ namespace Tea.NewRouge
 			{
 				try
 				{
-					return Player_Control.inst.targetEnemy.transform;
+					return Player_Control.I.targetEnemy.transform;
 
 				}
 				catch (System.Exception)

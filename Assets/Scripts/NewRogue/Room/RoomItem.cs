@@ -67,6 +67,7 @@ namespace Tea.NewRouge
 		BaseRoom,
 		EnemyCreate,
 	}
+	
 	[Serializable]
 	public class WeightRoom
 	{

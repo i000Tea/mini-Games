@@ -36,7 +36,7 @@ namespace Tea.NewRouge
 		{
 			if (loading.LoadingRim(LoadingAdd))
 			{
-				WeaponsManager.inst.GetWeapon(mySN);
+				HoldWeapons_Control.I.GetWeapon(mySN);
 				this.enabled = false;
 				gameObject.SetActive(false);
 			}

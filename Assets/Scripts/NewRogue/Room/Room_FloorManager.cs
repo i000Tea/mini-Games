@@ -7,7 +7,7 @@ namespace Tea.NewRouge
 	/// <summary>
 	/// 楼层管理器
 	/// </summary>
-	public class Room_FloorManager : MonoBehaviour
+	public class Room_FloorManager : Singleton<Room_FloorManager>
 	{
 		#region 变量
 		/// <summary>
@@ -197,6 +197,8 @@ namespace Tea.NewRouge
 			{
 				startRoom.myDoors[i].OpenDoor(false);
 			}
+
+			StartGame();
 		}
 		void StartGame()
 		{
