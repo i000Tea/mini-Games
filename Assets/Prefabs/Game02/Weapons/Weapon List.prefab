@@ -1122,7 +1122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 7902208751906211441}
-  BaseBullet: {fileID: 0}
+  weaponBullet: {fileID: 0}
   damage: 1
   RatePerS: 4
   Offset: 0.01
@@ -1220,7 +1220,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 1638709304}
-  BaseBullet: {fileID: 0}
+  weaponBullet: {fileID: 0}
   damage: 1
   RatePerS: 4
   Offset: 0.01
@@ -1318,7 +1318,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 707634686}
-  BaseBullet: {fileID: 0}
+  weaponBullet: {fileID: 0}
   damage: 1
   RatePerS: 4
   Offset: 0.01
@@ -1416,7 +1416,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 1086979221}
-  BaseBullet: {fileID: 0}
+  weaponBullet: {fileID: 0}
   damage: 1
   RatePerS: 4
   Offset: 0.01
@@ -1514,7 +1514,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 651526812}
-  BaseBullet: {fileID: 144206, guid: 8126e9572a5573b4aab3eca9a6304664, type: 3}
+  weaponBullet: {fileID: 0}
   damage: 1
   RatePerS: 4
   Offset: 0.01
@@ -1612,7 +1612,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 617025915}
-  BaseBullet: {fileID: 0}
+  weaponBullet: {fileID: 0}
   damage: 1
   RatePerS: 4
   Offset: 0.01
@@ -1710,7 +1710,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 2147149819}
-  BaseBullet: {fileID: 0}
+  weaponBullet: {fileID: 0}
   damage: 1
   RatePerS: 4
   Offset: 0.01
@@ -1808,7 +1808,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 438264118}
-  BaseBullet: {fileID: 0}
+  weaponBullet: {fileID: 0}
   damage: 1
   RatePerS: 4
   Offset: 0.01
@@ -1906,7 +1906,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 797169131}
-  BaseBullet: {fileID: 0}
+  weaponBullet: {fileID: 0}
   damage: 1
   RatePerS: 4
   Offset: 0.01
@@ -2004,7 +2004,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 1615984904}
-  BaseBullet: {fileID: 0}
+  weaponBullet: {fileID: 0}
   damage: 1
   RatePerS: 4
   Offset: 0.01
@@ -2102,7 +2102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 143215994}
-  BaseBullet: {fileID: 0}
+  weaponBullet: {fileID: 0}
   damage: 1
   RatePerS: 4
   Offset: 0.01
@@ -2200,7 +2200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 370755951}
-  BaseBullet: {fileID: 0}
+  weaponBullet: {fileID: 0}
   damage: 1
   RatePerS: 4
   Offset: 0.01
@@ -2298,7 +2298,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 109729955}
-  BaseBullet: {fileID: 0}
+  weaponBullet: {fileID: 0}
   damage: 1
   RatePerS: 4
   Offset: 0.01
@@ -2396,7 +2396,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 5555598401361878538}
-  BaseBullet: {fileID: 0}
+  weaponBullet: {fileID: 0}
   damage: 1
   RatePerS: 4
   Offset: 0.01
@@ -2494,7 +2494,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 221267330}
-  BaseBullet: {fileID: 0}
+  weaponBullet: {fileID: 0}
   damage: 1
   RatePerS: 4
   Offset: 0.01
@@ -2592,7 +2592,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 1617508392}
-  BaseBullet: {fileID: 0}
+  weaponBullet: {fileID: 0}
   damage: 1
   RatePerS: 4
   Offset: 0.01
@@ -2690,7 +2690,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 1791609200}
-  BaseBullet: {fileID: 0}
+  weaponBullet: {fileID: 0}
   damage: 1
   RatePerS: 4
   Offset: 0.01
@@ -2788,7 +2788,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 370796392}
-  BaseBullet: {fileID: 0}
+  weaponBullet: {fileID: 0}
   damage: 1
   RatePerS: 4
   Offset: 0.01
@@ -2886,7 +2886,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 1847886386}
-  BaseBullet: {fileID: 0}
+  weaponBullet: {fileID: 0}
   damage: 1
   RatePerS: 4
   Offset: 0.01
@@ -2984,7 +2984,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 1272525696}
-  BaseBullet: {fileID: 0}
+  weaponBullet: {fileID: 0}
   damage: 1
   RatePerS: 4
   Offset: 0.01
@@ -3098,7 +3098,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 9134585913782212086}
-  BaseBullet: {fileID: 0}
+  weaponBullet: {fileID: 0}
   damage: 1
   RatePerS: 4
   Offset: 0.01
@@ -3196,7 +3196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 1247085662}
-  BaseBullet: {fileID: 0}
+  weaponBullet: {fileID: 0}
   damage: 1
   RatePerS: 4
   Offset: 0.01
@@ -3300,7 +3300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 0}
-  BaseBullet: {fileID: 0}
+  weaponBullet: {fileID: 0}
   damage: 1
   RatePerS: 4
   Offset: 0.01
@@ -3398,7 +3398,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 1428575259}
-  BaseBullet: {fileID: 0}
+  weaponBullet: {fileID: 0}
   damage: 1
   RatePerS: 4
   Offset: 0.01
@@ -3496,7 +3496,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 1580933349}
-  BaseBullet: {fileID: 0}
+  weaponBullet: {fileID: 0}
   damage: 1
   RatePerS: 4
   Offset: 0.01
@@ -3611,7 +3611,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 8496644273320942730}
-  BaseBullet: {fileID: 0}
+  weaponBullet: {fileID: 0}
   damage: 1
   RatePerS: 4
   Offset: 0.01
@@ -3721,7 +3721,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 6521145399182203370}
-  BaseBullet: {fileID: 0}
+  weaponBullet: {fileID: 0}
   damage: 1
   RatePerS: 4
   Offset: 0.01
@@ -3819,7 +3819,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUse: 0
   muzzle: {fileID: 937800796}
-  BaseBullet: {fileID: 0}
+  weaponBullet: {fileID: 0}
   damage: 1
   RatePerS: 4
   Offset: 0.01

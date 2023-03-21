@@ -10,6 +10,7 @@ namespace Tea.NewRouge
 	/// </summary>
 	public class Room_DoorPoint : MonoBehaviour
 	{
+		#region 变量
 		/// <summary>
 		/// 此门的类型
 		/// </summary>
@@ -44,6 +45,7 @@ namespace Tea.NewRouge
 		/// </summary>
 		[SerializeField]
 		List<GameObject> NavMesh;
+		#endregion
 
 		private void Awake()
 		{
@@ -54,16 +56,9 @@ namespace Tea.NewRouge
 		}
 		private void Update()
 		{
-			if (costLoading.LoadingRim(LoadingAdd))
-			{
-				this.enabled = false;
-				OpenDoor();
-			}
-			else
-			{
-				if (Camera.main)
-					nextCost.transform.rotation = Camera.main.transform.rotation;
-			}
+			if (Camera.main)
+				nextCost.transform.rotation = Camera.main.transform.rotation;
+			Loading();
 		}
 		private void OnTriggerStay(Collider other)
 		{
@@ -78,6 +73,19 @@ namespace Tea.NewRouge
 			{
 				LoadingAdd = false;
 			}
+		}
+
+		void Loading()
+		{
+			if(Player_Control.I.Keycord>= CostNeedNum)
+			{
+				if (costLoading.LoadingRim(LoadingAdd))
+				{
+					Player_Control.I.Keycord -= CostNeedNum;
+					OpenDoor();
+				}
+			}
+			
 		}
 
 		/// <summary>
@@ -108,6 +116,13 @@ namespace Tea.NewRouge
 		/// <param name="playAnim"></param>
 		public void OpenDoor(bool playAnim = true)
 		{
+			enabled = false;
+			// 当碰撞体存在时 直接关闭碰撞
+			if (TryGetComponent(out Collider collider))
+			{
+				collider.enabled = false;
+			}
+
 			// 当没有与下一房间链接时 直接返回
 			if (!nextRoom)
 				return;
@@ -123,12 +138,6 @@ namespace Tea.NewRouge
 					//NavMesh[i].GetComponent<Room_FloorAndWall>().enabled = false;
 					NavMesh[i].GetComponent<Collider>().enabled = false;
 				}
-			}
-			
-			// 当碰撞体存在时 直接关闭碰撞
-			if (TryGetComponent(out Collider collider))
-			{
-				collider.enabled = false;
 			}
 
 			nextRoom.ShowRoom(playAnim);
@@ -159,7 +168,6 @@ namespace Tea.NewRouge
 				}
 				nextCost.transform.localScale = Vector3.zero;
 			}
-
 			LocalNavMeshBuilder_Change.inst.UpdateTime(1f);
 		}
 	}

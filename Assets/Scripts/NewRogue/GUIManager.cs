@@ -8,12 +8,21 @@ namespace Tea.NewRouge
 	public class GUIManager : Singleton<GUIManager>
 	{
 		[SerializeField]
-		private GameObject pauseCanvas;
+		private Text KeycardText;
 		[SerializeField]
-		private Text GetKeycard;
-		public void UpdateKeycord(int num)
+		private Text playerHealthText;
+		[SerializeField]
+		private GameObject pauseCanvas;
+		public void SetKeycord(int num)
 		{
-			GetKeycard.text = num.ToString();
+			KeycardText.text = num.ToString();
+		}
+		public void SetHealth(int num, int? maxNum = null)
+		{
+			string nText = num.ToString();
+			if (maxNum != null)
+				nText += "/" + maxNum;
+			playerHealthText.text = nText;
 		}
 		/// <summary>
 		/// 设置暂停状态

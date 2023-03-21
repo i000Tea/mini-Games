@@ -31,21 +31,32 @@ namespace Tea.NewRouge
 
 		public int Keycord
 		{
-			get { return (int)(originalKeycord / 1); }
+			get { return (int)(keycord / 1); }
 			set
 			{
 				if (value == 0)
-					originalKeycord = 0;
+					keycord = 0;
 				else
-					originalKeycord = value + originalKeycord % 1;
+					keycord = value + keycord % 1;
 
-				gui.UpdateKeycord((int)originalKeycord);
+				GUIManager.I.SetKeycord((int)keycord);
 			}
 		}
+		float keycord;
 
-		float originalKeycord;
-		[SerializeField]
-		GUIManager gui;
+		public int Health
+		{
+			get { return health; }
+			set
+			{
+				if (value < 0)
+					health = 0;
+				else
+					health = value;
+				GUIManager.I.SetHealth(health);
+			}
+		}
+		int health;
 
 		private void Start()
 		{
@@ -77,7 +88,5 @@ namespace Tea.NewRouge
 				cine.transform.localEulerAngles.y,
 				0);
 		}
-
-
 	}
 }

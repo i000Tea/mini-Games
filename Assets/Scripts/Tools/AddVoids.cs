@@ -197,7 +197,7 @@ namespace Tea
 		/// </summary>
 		/// <param name="targetImage">图片</param>
 		/// <param name="isAdd">是否加载</param>
-		/// <returns>加载完成</returns>
+		/// <returns>加载是否完成</returns>
 		public static bool LoadingRim(this Image targetImage, bool isAdd)
 		{
 			if (targetImage.fillAmount == 1)
