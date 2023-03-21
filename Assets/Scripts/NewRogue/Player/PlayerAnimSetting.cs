@@ -16,5 +16,7 @@ public class PlayerAnimSetting : MonoBehaviour
 	void SetWeaponParent()
 	{
 		Weapons.SetParent(RHand);
+		Weapons.localPosition = Vector3.zero;
+		Weapons.localEulerAngles = Vector3.zero;
 	}
 }

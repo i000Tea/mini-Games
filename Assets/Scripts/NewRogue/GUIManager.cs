@@ -15,7 +15,8 @@ namespace Tea.NewRouge
 		private GameObject pauseCanvas;
 		public void SetKeycord(int num)
 		{
-			KeycardText.text = num.ToString();
+			if (KeycardText)
+				KeycardText.text = num.ToString();
 		}
 		public void SetHealth(int num, int? maxNum = null)
 		{
