@@ -21,7 +21,7 @@ namespace Tea.NewRouge
 			{
 				try
 				{
-					return Player_Control.I.targetEnemy.transform;
+					return Player_Control.I.TargetEnemy.transform;
 
 				}
 				catch (System.Exception)
@@ -86,7 +86,6 @@ namespace Tea.NewRouge
 				z = move.x * -Mathf.Sin(virRotate * Mathf.Deg2Rad) +
 					move.y * Mathf.Cos(virRotate * Mathf.Deg2Rad)
 			};
-
 			jump = Input.GetButton("Jump");
 			nowSpeed = moveDirection.magnitude;
 		}

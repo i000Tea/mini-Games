@@ -202,7 +202,7 @@ namespace Tea.NewRouge
 		}
 		void StartGame()
 		{
-			StartCoroutine(EnemyManager.inst.StartCreate());
+			StartCoroutine(EnemyManager.I.StartCreate());
 		}
 		/// <summary>
 		/// 创造房间

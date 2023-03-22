@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Serialization;
@@ -183,16 +183,21 @@ namespace RootMotion.FinalIK {
 		/// <summary>
 		/// Starts the interaction between an effector and an interaction object.
 		/// </summary>
-		public bool StartInteraction(FullBodyBipedEffector effectorType, InteractionObject interactionObject, bool interrupt) {
+		public bool StartInteraction(FullBodyBipedEffector effectorType, InteractionObject interactionObject, bool interrupt) 
+		{
+			//Debug.Log("1");
 			if (!IsValid(true)) return false;
+			//Debug.Log("2");
 
 			if (interactionObject == null) return false;
+			//Debug.Log("3");
 
 			for (int i = 0; i < interactionEffectors.Length; i++) {
 				if (interactionEffectors[i].effectorType == effectorType) {
 					return interactionEffectors[i].Start(interactionObject, targetTag, fadeInTime, interrupt);
 				}
 			}
+			//Debug.Log("4");
 
 			return false;
 		}

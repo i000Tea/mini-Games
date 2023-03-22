@@ -4,28 +4,44 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class Tea_JoyStick : ScrollRect
+namespace Tea
 {
-	public Vector2 inputContent
+	public class Tea_JoyStick : ScrollRect
 	{
-		get { return this.content.anchoredPosition / m_Radius; }
-	}
-	float m_Radius;
-	protected override void Start()
-	{
-		base.Start();
-		m_Radius = (transform as RectTransform).sizeDelta.x * 0.45f;
-	}
-	public override void OnDrag(PointerEventData eventData)
-	{
-		base.OnDrag(eventData);
-
-		var contentPosition = this.content.anchoredPosition * 2.4f;
-
-		if (contentPosition.magnitude > m_Radius)
+		public Vector2 inputContent
 		{
-			contentPosition = contentPosition.normalized * m_Radius;
-			SetContentAnchoredPosition(contentPosition);
+			get { return this.content.anchoredPosition / m_Radius; }
+		}
+		/// <summary>
+		/// 半径
+		/// </summary>
+		float m_Radius;
+		protected override void Start()
+		{
+			base.Start();
+			m_Radius = (transform as RectTransform).sizeDelta.x * 0.45f;
+		}
+		public override void OnDrag(PointerEventData eventData)
+		{
+			base.OnDrag(eventData);
+
+			//新建v2
+			Vector2 pos;
+			// 如果点击 RectTransform 平面，则无论点是否在矩形内，都返回 true。
+			if (RectTransformUtility.ScreenPointToLocalPointInRectangle(transform as RectTransform,
+				eventData.position,
+				eventData.pressEventCamera,
+				out pos))
+			{
+				content.anchoredPosition = pos;
+				// 当前移动位置为移动后的值
+			}
+
+			if (content.anchoredPosition.magnitude > m_Radius)
+			{
+				var contentPosition = content.anchoredPosition.normalized * m_Radius;
+				SetContentAnchoredPosition(contentPosition);
+			}
 		}
 	}
 }

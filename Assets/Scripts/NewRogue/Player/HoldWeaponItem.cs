@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using RootMotion.FinalIK;
 namespace Tea.NewRouge
 {
 	/// <summary>
@@ -46,7 +46,7 @@ namespace Tea.NewRouge
 		/// 当前持有数量
 		/// </summary>
 		int holding = 0;
-		
+
 		private void OnValidate()
 		{
 			if (!muzzle)
@@ -68,6 +68,24 @@ namespace Tea.NewRouge
 		public void GetMy()
 		{
 			holding++;
+		}
+		/// <summary>
+		/// 掏出自身
+		/// </summary>
+		public void ShowMy()
+		{
+			Debug.Log("?");
+			gameObject.SetActive(true);
+			StartCoroutine(WaitTake());
+		}
+		IEnumerator WaitTake()
+		{
+			yield return new WaitForFixedUpdate();
+			if (TryGetComponent(out InteractionObject interObj))
+			{
+				var a = Player_Control.I.interSystem.StartInteraction(FullBodyBipedEffector.LeftHand, interObj, true);
+				//Debug.Log(a + "??");
+			}
 		}
 	}
 }

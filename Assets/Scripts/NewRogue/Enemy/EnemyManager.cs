@@ -4,11 +4,10 @@ using UnityEngine;
 
 namespace Tea.NewRouge
 {
-	public class EnemyManager : MonoBehaviour
+	public class EnemyManager : Singleton<EnemyManager>
 	{
-		public static EnemyManager inst;
-		public static List<Enemy_Control> enemys;
-		public static List<Transform> createPoints;
+		public List<Enemy_Control> enemys;
+		public List<Transform> createPoints;
 
 		/// <summary>
 		/// 本层需要生成的总数
@@ -48,9 +47,9 @@ namespace Tea.NewRouge
 		public bool createing;
 		public GameObject prefab;
 
-		private void Awake()
+		protected override void Awake()
 		{
-			inst = this;
+			base.Awake();
 			enemys = new List<Enemy_Control>();
 			createPoints = new List<Transform>();
 		}
@@ -105,15 +104,14 @@ namespace Tea.NewRouge
 			for (int i = 0; i < enemys.Count; i++)
 			{
 				if (enemys[i].health > 0 &&
-					Vector3.Distance(enemys[i].transform.position, Player_Control.I.PlayerPoint) < _long)
+					Vector3.Distance(enemys[i].transform.position, Player_Control.I.transform.position) < _long)
 				{
 					target = enemys[i];
-					_long = Vector3.Distance(enemys[i].transform.position, Player_Control.I.PlayerPoint);
+					_long = Vector3.Distance(enemys[i].transform.position, Player_Control.I.transform.position);
 				}
 			}
 			return target;
 		}
-
 		public void EnemyOver(Enemy_Control over)
 		{
 			enemys.Remove(over);

@@ -15,7 +15,7 @@ namespace Tea.NewRouge
 		{
 			base.RoomAwakeSet(roomState);
 			//Debug.Log("敌人房间");
-			EnemyManager.createPoints.Add(enemyCreatePoint);
+			EnemyManager.I.createPoints.Add(enemyCreatePoint);
 		}
 	}
 }

@@ -64,8 +64,9 @@ namespace Tea.NewRouge
 
 			}
 		}
-		private void Start()
+		private IEnumerator Start()
 		{
+			yield return new WaitForSeconds(0.1f);
 			GetWeapon(20);
 		}
 		private void Update()
@@ -95,18 +96,14 @@ namespace Tea.NewRouge
 		void WeaponUpdate()
 		{
 			//Debug.Log(shootCDNow + " " + shootNeedCD);
-			if (control.targetEnemy)
+			if (control.TargetEnemy)
 			{
-				transform.LookAt(new Vector3()
-				{
-					x = control.targetEnemy.transform.position.x,
-					y = transform.position.y,
-					z = control.targetEnemy.transform.position.z
-				});
+				//transform.LookAt(Player_Control.I.TargetEnemy.GetUnHitPoint());
 				if (shootCDNow >= shootNeedCD)
 				{
 					shootCDNow = 0;
 					IsShoot(weapons[nowWep]);
+					Player_Control.I.FindTargetEnemy();
 				}
 			}
 			if (shootCDNow < shootNeedCD)
@@ -121,13 +118,15 @@ namespace Tea.NewRouge
 		}
 		public void SwitchWeapon(int weaponNum)
 		{
+			Player_Control.I.interSystem.ResumeAll();
 			if (nowWep != weaponNum && weaponNum < weapons.Count)
 			{
 				for (int i = 0; i < weapons.Count; i++)
 				{
-					weapons[i].gameObject.SetActive(false);
+					if (i != weaponNum)
+						weapons[i].gameObject.SetActive(false);
 				}
-				weapons[weaponNum].gameObject.SetActive(true);
+				weapons[weaponNum].ShowMy();
 				nowWep = weaponNum;
 			}
 		}
