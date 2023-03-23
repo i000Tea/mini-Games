@@ -63,28 +63,22 @@ namespace Tea.NewRouge
 		}
 
 		/// <summary>
-		/// 获得自身
+		/// 获得自身(当前只有增加数量)
 		/// </summary>
 		public void GetMy()
 		{
 			holding++;
 		}
 		/// <summary>
-		/// 掏出自身
+		/// 掏出自身 有ik的时候把手绑定上去
 		/// </summary>
 		public void ShowMy()
 		{
 			//Debug.Log("?");
 			gameObject.SetActive(true);
-			StartCoroutine(WaitTake());
-		}
-		IEnumerator WaitTake()
-		{
-			yield return new WaitForFixedUpdate();
 			if (TryGetComponent(out InteractionObject interObj))
 			{
-				var a = Player_Control.I.interSystem.StartInteraction(FullBodyBipedEffector.LeftHand, interObj, true);
-				//Debug.Log(a + "??");
+				StartCoroutine(PlayerAnim_Control.I.ReturnLinkWeaponIK(interObj));
 			}
 		}
 	}

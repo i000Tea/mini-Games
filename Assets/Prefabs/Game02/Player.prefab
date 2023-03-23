@@ -372,15 +372,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eabdaec1069dba647adbd1382c8c7568, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetEnemy: {fileID: 0}
   minDist: 5
   maxDist: 20
   minRotate: 30
   maxRotate: 45
   cine: {fileID: 4741311913928226332}
   animControl: {fileID: 3639961215934808179}
-  interSystem: {fileID: 6745795217858359952}
-  aimIK: {fileID: 9047756496097628921}
+  targetEnemy: {fileID: 0}
   MaxHealth: 10
 --- !u!114 &4741311913483498275
 MonoBehaviour:
@@ -428,6 +426,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d42253bf6d0217746a94307b3f2cc23d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 3639961215934808179}
+  interSystem: {fileID: 6745795217858359952}
+  aimIK: {fileID: 9047756496097628921}
   RHand: {fileID: 2451736619820839804}
   Weapons: {fileID: 4741311913323837384}
 --- !u!1 &4741311913928226335

@@ -5,19 +5,32 @@ using RootMotion.FinalIK;
 
 namespace Tea.NewRouge
 {
+	/// <summary>
+	/// 角色动画的处理
+	/// </summary>
 	public class PlayerAnim_Control : Singleton<PlayerAnim_Control>
 	{
 		[SerializeField]
 		Animator anim;
 		[SerializeField]
-		private InteractionSystem interSystem;
-		private AimIK aimIK;
+		public InteractionSystem interSystem;
+
+		public AimIK aimIK;
+
+		Transform aimIKTarget;
+
+		/// <summary>
+		/// 已锁定敌人
+		/// </summary>
+		public bool aimOver;
 
 		[SerializeField]
 		Transform RHand;
 		[SerializeField]
 		Transform Weapons;
+
 		PlayerMove move;
+
 		private void OnValidate()
 		{
 			if (!interSystem)
@@ -49,6 +62,8 @@ namespace Tea.NewRouge
 		private void Start()
 		{
 			SetWeaponParent();
+			aimIK.solver.IKPositionWeight = 0;
+			aimIKTarget = aimIK.solver.target;
 		}
 
 		private void Update()
@@ -57,6 +72,12 @@ namespace Tea.NewRouge
 			//Debug.Log(a);
 			anim.SetFloat("move", a.z * 0.5f);
 		}
+
+		public void AnimTakeWeapon(bool isTake)
+		{
+			anim.SetBool("TakeWeapon", isTake);
+		}
+
 		/// <summary>
 		/// 设置武器父集(到手中)
 		/// </summary>
@@ -67,18 +88,41 @@ namespace Tea.NewRouge
 			Weapons.localEulerAngles = Vector3.zero;
 		}
 
-		public void ReturnLinkWeapon()
+		/// <summary>
+		/// 脱离所有ik
+		/// </summary>
+		public void InterResumeAll()
 		{
-
+			interSystem.ResumeAll();
 		}
-		public void FindTargetEnemy()
+		/// <summary>
+		/// 重新链接武器IK
+		/// </summary>
+		public IEnumerator ReturnLinkWeaponIK(InteractionObject interObj)
 		{
-			if (EnemyManager.I)
+			interSystem.ResumeAll();
+			yield return new WaitForFixedUpdate();
+			interSystem.StartInteraction(FullBodyBipedEffector.LeftHand, interObj, true);
+		}
+		/// <summary>
+		/// 链接目标
+		/// </summary>
+		/// <param name="target"></param>
+		/// <returns></returns>
+		public IEnumerator TargetLink(Transform target)
+		{
+			var nowTarget = aimIK.solver.target;
+			nowTarget.position = Vector3.Lerp(Player_Control.I.transform.position, target.position, 0.5f);
+
+			while (Vector3.Distance(nowTarget.position, target.position) > 0.2f)
 			{
-				TargetEnemy = EnemyManager.I.FindEnemy();
-				if (TargetEnemy)
-					aimIK.solver.target = TargetEnemy.GetUnHitPoint();
+				nowTarget.position = Vector3.Lerp(nowTarget.position, target.position, 0.5f);
+				aimIK.solver.poleWeight += Time.deltaTime * 4;
+				yield return new WaitForFixedUpdate();
 			}
+			aimIK.solver.target = target;
+			aimIK.solver.poleWeight = 1;
+			aimOver = true;
 		}
 	}
 }

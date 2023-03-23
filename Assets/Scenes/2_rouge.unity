@@ -14412,32 +14412,37 @@ PrefabInstance:
     - target: {fileID: 9047756496097628921, guid: 761e53020a3e41a4fa6da7adc0c8423b,
         type: 3}
       propertyPath: solver.IKPosition.x
-      value: 3.4281533
+      value: 3.4281526
       objectReference: {fileID: 0}
     - target: {fileID: 9047756496097628921, guid: 761e53020a3e41a4fa6da7adc0c8423b,
         type: 3}
       propertyPath: solver.IKPosition.y
-      value: 1.2821214
+      value: 1.2821207
       objectReference: {fileID: 0}
     - target: {fileID: 9047756496097628921, guid: 761e53020a3e41a4fa6da7adc0c8423b,
         type: 3}
       propertyPath: solver.IKPosition.z
-      value: 0.4965421
+      value: 0.49654257
       objectReference: {fileID: 0}
     - target: {fileID: 9047756496097628921, guid: 761e53020a3e41a4fa6da7adc0c8423b,
         type: 3}
       propertyPath: solver.polePosition.x
-      value: -2.5056999
+      value: -2.5056992
       objectReference: {fileID: 0}
     - target: {fileID: 9047756496097628921, guid: 761e53020a3e41a4fa6da7adc0c8423b,
         type: 3}
       propertyPath: solver.polePosition.y
-      value: 1.3839436
+      value: 1.3839445
       objectReference: {fileID: 0}
     - target: {fileID: 9047756496097628921, guid: 761e53020a3e41a4fa6da7adc0c8423b,
         type: 3}
       propertyPath: solver.polePosition.z
-      value: -0.3861028
+      value: -0.38610327
+      objectReference: {fileID: 0}
+    - target: {fileID: 9047756496097628921, guid: 761e53020a3e41a4fa6da7adc0c8423b,
+        type: 3}
+      propertyPath: solver.IKPositionWeight
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 761e53020a3e41a4fa6da7adc0c8423b, type: 3}

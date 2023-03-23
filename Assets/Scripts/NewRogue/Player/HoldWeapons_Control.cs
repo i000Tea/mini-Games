@@ -14,6 +14,10 @@ namespace Tea.NewRouge
 		Player_Control control;
 
 		/// <summary>
+		/// 拿起武器
+		/// </summary>
+		public bool TakeWep;
+		/// <summary>
 		/// 存放武器的父对象
 		/// </summary>
 		public Transform weaponsParent;
@@ -26,7 +30,13 @@ namespace Tea.NewRouge
 		/// </summary>
 		public List<HoldWeaponItem> weapons;
 
+		/// <summary>
+		/// 基础子弹预制件
+		/// </summary>
 		public GameObject baseBullet;
+		/// <summary>
+		/// 射击-冷却需求
+		/// </summary>
 		[SerializeField]
 		float shootNeedCD
 		{
@@ -35,6 +45,9 @@ namespace Tea.NewRouge
 				return 1 / weapons[nowWep].RatePerS;
 			}
 		}
+		/// <summary>
+		/// 射击-当前冷却
+		/// </summary>
 		float shootCDNow;
 
 		#endregion
@@ -96,22 +109,29 @@ namespace Tea.NewRouge
 		#endregion
 
 		#region Weapon
+		/// <summary>
+		/// 武器的每帧计算
+		/// </summary>
 		void WeaponUpdate()
 		{
-			//Debug.Log(shootCDNow + " " + shootNeedCD);
-			if (control.TargetEnemy)
-			{
-				//transform.LookAt(Player_Control.I.TargetEnemy.GetUnHitPoint());
-				if (shootCDNow >= shootNeedCD)
-				{
-					shootCDNow = 0;
-					IsShoot(weapons[nowWep]);
-					Player_Control.I.FindTargetEnemy();
-				}
-			}
 			if (shootCDNow < shootNeedCD)
 			{
 				shootCDNow += Time.deltaTime;
+			}
+			if (PlayerAnim_Control.I)
+			{
+				if (!PlayerAnim_Control.I.aimOver)
+					return;
+			}
+			//Debug.Log(shootCDNow + " " + shootNeedCD);
+			if (control.selectEnemy && shootCDNow >= shootNeedCD)
+			{
+				//transform.LookAt(Player_Control.I.TargetEnemy.GetUnHitPoint());
+
+				shootCDNow = 0;
+				IsShoot(weapons[nowWep]);
+				Player_Control.I.FindTargetEnemy();
+
 			}
 		}
 		/// <summary>
@@ -120,26 +140,35 @@ namespace Tea.NewRouge
 		/// <param name="WeaponSN"></param>
 		public void GetWeapon(int WeaponSN)
 		{
+			// 获取武器
+			// 只有数据
 			weapons[WeaponSN].GetMy();
+			// 切换武器
+			// 包含动画
 			SwitchWeapon(WeaponSN);
 		}
 
 		/// <summary>
 		/// 切换武器
 		/// </summary>
-		/// <param name="weaponNum"></param>
+		/// <param name="weaponNum">切换出的武器序号</param>
 		public void SwitchWeapon(int weaponNum)
 		{
-			PlayerAnim_Control.I.
-			Player_Control.I.interSystem.ResumeAll();
+			TakeWep = true;
+			// 当切换出的武器不是当前武器且在列表内 
 			if (nowWep != weaponNum && weaponNum < weapons.Count)
 			{
+				// 将其他武器隐藏
 				for (int i = 0; i < weapons.Count; i++)
 				{
 					if (i != weaponNum)
 						weapons[i].gameObject.SetActive(false);
 				}
+				// 动画更换为拿起武器
+				PlayerAnim_Control.I.AnimTakeWeapon(true);
+				// 激活该武器且链接ik
 				weapons[weaponNum].ShowMy();
+				// 更新当前武器标记
 				nowWep = weaponNum;
 			}
 		}
@@ -148,7 +177,7 @@ namespace Tea.NewRouge
 		/// </summary>
 		public void TakeBackWeapon()
 		{
-			Player_Control.I.interSystem.ResumeAll();
+			PlayerAnim_Control.I.interSystem.ResumeAll();
 			for (int i = 0; i < weapons.Count; i++)
 			{
 				weapons[i].gameObject.SetActive(false);

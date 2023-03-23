@@ -96,20 +96,20 @@ namespace Tea.NewRouge
 				Transform obj = pList.item[i].transform;
 				for (int n = 0; n < 10; n++)
 				{
-					Debug.Log(obj);
+					//Debug.Log(obj);
 					childLengthl.Add(obj.GetSiblingIndex());
 					obj = obj.parent;
 					if (obj == showParent)
 						break;
 				}
-				Debug.Log(childLengthl.Count);
+				//Debug.Log(childLengthl.Count);
 				var target = playerParent;
 				for (int n = childLengthl.Count - 1; n >= 0; n--)
 				{
 					target = target.GetChild(childLengthl[n]);
 				}
 				target.gameObject.SetActive(true);
-				Debug.Log(target + " " + target.parent);
+				//Debug.Log(target + " " + target.parent);
 			}
 
 			// 关闭自身

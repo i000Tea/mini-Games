@@ -5,6 +5,9 @@ using ECM.Controllers;
 using Cinemachine;
 namespace Tea.NewRouge
 {
+	/// <summary>
+	/// 继承自插件的角色移动控制
+	/// </summary>
 	public class PlayerMove : BaseCharacterController
 	{
 		public static PlayerMove inst;
@@ -13,21 +16,6 @@ namespace Tea.NewRouge
 			get
 			{
 				return 1 - moveDirection.magnitude;
-			}
-		}
-		Transform targetEnemy
-		{
-			get
-			{
-				try
-				{
-					return Player_Control.I.TargetEnemy.transform;
-
-				}
-				catch (System.Exception)
-				{
-					return null;
-				}
 			}
 		}
 		float virRotate;
@@ -43,11 +31,10 @@ namespace Tea.NewRouge
 		float nowSpeed;
 		protected override void UpdateRotation()
 		{
-
-			if (targetEnemy)
+			if (Player_Control.I.selectEnemy)
 			{
 				//Debug.Log(movement);
-				movement.Rotate((targetEnemy.position - transform.position).normalized, angularSpeed);
+				movement.Rotate((Player_Control.I.selectEnemy.transform.position - transform.position).normalized, angularSpeed);
 			}
 			else
 				base.UpdateRotation();

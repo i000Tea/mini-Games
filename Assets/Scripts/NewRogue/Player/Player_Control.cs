@@ -9,8 +9,6 @@ namespace Tea.NewRouge
 	public class Player_Control : Singleton<Player_Control>
 	{
 		#region 变量
-
-
 		#region Camera
 		[Header("Camera")]
 		[SerializeField]
@@ -26,12 +24,18 @@ namespace Tea.NewRouge
 		#endregion
 
 		#region Anim
-		[Header("Anim")]
-		public PlayerAnim_Control animControl;
 		/// <summary>
 		/// 交互系统
 		/// </summary>
+		[Header("Anim")]
+		public PlayerAnim_Control animControl;
 		#endregion
+
+		/// <summary>
+		/// 选择准备攻击的敌人
+		/// </summary>
+		public Enemy_Control selectEnemy;
+		
 
 		public int Keycord
 		{
@@ -84,9 +88,9 @@ namespace Tea.NewRouge
 		}
 		private void Update()
 		{
-			if (!TargetEnemy)
+			if (!selectEnemy)
 				FindTargetEnemy();
-			else if (TargetEnemy.health <= 0)
+			else if (selectEnemy.health <= 0)
 				FindTargetEnemy();
 		}
 
@@ -101,9 +105,9 @@ namespace Tea.NewRouge
 		{
 			if (EnemyManager.I)
 			{
-				TargetEnemy = EnemyManager.I.FindEnemy();
-				if (TargetEnemy)
-					aimIK.solver.target = TargetEnemy.GetUnHitPoint();
+				selectEnemy = EnemyManager.I.FindEnemy();
+				if (selectEnemy)
+					PlayerAnim_Control.I.aimIK.solver.target = selectEnemy.GetUnHitPoint();
 			}
 		}
 		/// <summary>
