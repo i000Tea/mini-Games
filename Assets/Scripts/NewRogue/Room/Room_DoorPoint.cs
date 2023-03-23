@@ -77,7 +77,7 @@ namespace Tea.NewRouge
 
 		void Loading()
 		{
-			if(Player_Control.I.Keycord>= CostNeedNum)
+			if (Player_Control.I.Keycord >= CostNeedNum)
 			{
 				if (costLoading.LoadingRim(LoadingAdd))
 				{
@@ -85,7 +85,7 @@ namespace Tea.NewRouge
 					OpenDoor();
 				}
 			}
-			
+
 		}
 
 		/// <summary>

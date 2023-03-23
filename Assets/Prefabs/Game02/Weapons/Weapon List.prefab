@@ -1530,7 +1530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsUse: 0
+  IsUse: 1
   muzzle: {fileID: 7902208751906211441}
   weaponBullet: {fileID: 0}
   damage: 1
@@ -1824,7 +1824,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsUse: 0
+  IsUse: 1
   muzzle: {fileID: 1086979221}
   weaponBullet: {fileID: 0}
   damage: 1
@@ -1845,7 +1845,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1924490103925104, guid: 49ede2abd454d6541969f5ed82f28081, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4888476691437928, guid: 49ede2abd454d6541969f5ed82f28081, type: 3}
       propertyPath: m_RootOrder
@@ -1928,9 +1928,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsUse: 0
+  IsUse: 1
   muzzle: {fileID: 651526812}
-  weaponBullet: {fileID: 0}
+  weaponBullet: {fileID: 294445597962338927, guid: 008e3fffbddda454a95b9f0b833731bf,
+    type: 3}
   damage: 1
   RatePerS: 4
   Offset: 0.01
@@ -2222,7 +2223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsUse: 0
+  IsUse: 1
   muzzle: {fileID: 438264118}
   weaponBullet: {fileID: 0}
   damage: 1
@@ -2712,7 +2713,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsUse: 0
+  IsUse: 1
   muzzle: {fileID: 109729955}
   weaponBullet: {fileID: 0}
   damage: 1
@@ -3398,7 +3399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsUse: 0
+  IsUse: 1
   muzzle: {fileID: 1272525696}
   weaponBullet: {fileID: 0}
   damage: 1
@@ -3512,7 +3513,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsUse: 0
+  IsUse: 1
   muzzle: {fileID: 9134585913782212086}
   weaponBullet: {fileID: 0}
   damage: 1

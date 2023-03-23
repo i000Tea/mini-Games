@@ -74,7 +74,7 @@ namespace Tea.NewRouge
 		/// </summary>
 		public void ShowMy()
 		{
-			Debug.Log("?");
+			//Debug.Log("?");
 			gameObject.SetActive(true);
 			StartCoroutine(WaitTake());
 		}

@@ -173,7 +173,7 @@ namespace Tea.NewRouge
 					prop = rEntityList[num].CreateProp(rItem.weaponPrefab);
 					if (prop)
 					{
-						Debug.Log(num);
+						//Debug.Log(num);
 						break;
 					}
 					else
@@ -197,12 +197,6 @@ namespace Tea.NewRouge
 			{
 				startRoom.myDoors[i].OpenDoor(false);
 			}
-
-			StartGame();
-		}
-		void StartGame()
-		{
-			StartCoroutine(EnemyManager.I.StartCreate());
 		}
 		/// <summary>
 		/// 创造房间

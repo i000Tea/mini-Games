@@ -18,6 +18,11 @@ namespace Tea.NewRouge
 			if (Input.GetKeyDown(KeyCode.Escape))
 				PauseButton();
 		}
+		
+		public void StartGame()
+		{
+			StartCoroutine(EnemyManager.I.StartCreate());
+		}
 		public void PauseButton()
 		{
 			switch (gState)
@@ -39,10 +44,6 @@ namespace Tea.NewRouge
 				default:
 					break;
 			}
-		}
-		private void OnApplicationPause(bool pause)
-		{
-
 		}
 	}
 }

@@ -4,16 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using ECM.Controllers;
 using Cinemachine;
-using RootMotion.FinalIK;
 namespace Tea.NewRouge
 {
 	public class Player_Control : Singleton<Player_Control>
 	{
 		#region 变量
-		/// <summary>
-		/// 目标敌人
-		/// </summary>
-		public Enemy_Control TargetEnemy;
+
 
 		#region Camera
 		[Header("Camera")]
@@ -31,12 +27,10 @@ namespace Tea.NewRouge
 
 		#region Anim
 		[Header("Anim")]
-		public Animator animControl;
+		public PlayerAnim_Control animControl;
 		/// <summary>
 		/// 交互系统
 		/// </summary>
-		public InteractionSystem interSystem;
-		public AimIK aimIK;
 		#endregion
 
 		public int Keycord
@@ -77,23 +71,9 @@ namespace Tea.NewRouge
 		{
 			if (!animControl)
 			{
-				if (transform.GetChild(0).TryGetComponent(out Animator anim))
+				if (transform.GetChild(0).TryGetComponent(out PlayerAnim_Control anim))
 				{
 					animControl = anim;
-				}
-			}
-			if (!interSystem)
-			{
-				if (transform.GetChild(0).TryGetComponent(out InteractionSystem interS))
-				{
-					interSystem = interS;
-				}
-			}
-			if (!aimIK)
-			{
-				if (transform.GetChild(0).TryGetComponent(out AimIK aim))
-				{
-					aimIK = aim;
 				}
 			}
 		}

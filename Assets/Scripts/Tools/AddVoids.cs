@@ -103,6 +103,22 @@ namespace Tea
 				}
 			}
 		}
+
+		/// <summary>
+		/// 将数锁定在列表中
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="num"></param>
+		/// <param name="targetList"></param>
+		/// <returns></returns>
+		public static void NumInTheList<T>(this List<T> targetList,ref int num)
+		{
+			if (num >= targetList.Count)
+				num -= targetList.Count;
+			else if (num < 0)
+				num += targetList.Count;
+		}
+
 		#endregion
 
 		#region Game1
@@ -182,7 +198,7 @@ namespace Tea
 
 			if (entity.TryGetComponent(out Bullet bullet1))
 			{
-				bullet1.Shoot(muzzle,Damage, velocity, HorizOffset,vertiOffset,Scale);
+				bullet1.Shoot(muzzle, Damage, velocity, HorizOffset, vertiOffset, Scale);
 			}
 
 			GameObject.Destroy(entity, lifeTime);
@@ -221,7 +237,6 @@ namespace Tea
 			T result = results[UnityEngine.Random.Range(0, results.Length)];
 			return result;
 		}
-
 
 		/// <summary>
 		/// 经过角度转换后的V3

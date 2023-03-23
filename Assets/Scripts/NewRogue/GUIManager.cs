@@ -8,11 +8,87 @@ namespace Tea.NewRouge
 	public class GUIManager : Singleton<GUIManager>
 	{
 		[SerializeField]
+		private GameObject gameingCanvas;
+
+		#region StartSelect
+		[SerializeField]
+		GameObject startCanvas;
+
+		[SerializeField]
+		Text selectNum;
+
+		[SerializeField]
+		GameObject bPlayer;
+		[SerializeField]
+		GameObject PObj;
+
+		[Space(10)]
+		[SerializeField]
+		GameObject bWeapon;
+		[SerializeField]
+		GameObject WObj;
+		#endregion
+
+		#region gameing
+
+		[SerializeField]
 		private Text KeycardText;
 		[SerializeField]
 		private Text playerHealthText;
+		#endregion
+
 		[SerializeField]
 		private GameObject pauseCanvas;
+
+		private void Start()
+		{
+			Button_ChangeSelect_Player();
+		}
+
+		#region OpenSelect
+		bool selectWeapon;
+		public void Button_ChangeSelect_Player()
+		{
+			bPlayer.SetActive(false);
+			PObj.SetActive(true);
+
+			bWeapon.SetActive(true);
+			WObj.SetActive(false);
+
+			selectWeapon = false;
+			selectNum.text = OpenSelectManager.I.ChangeSelect(0, selectWeapon).ToString();
+		}
+		public void Button_ChangeSelect_Weapon()
+		{
+			bPlayer.SetActive(true);
+			PObj.SetActive(false);
+
+			bWeapon.SetActive(false);
+			WObj.SetActive(true);
+
+			selectWeapon = true;
+			selectNum.text = OpenSelectManager.I.ChangeSelect(0, selectWeapon).ToString();
+		}
+
+		public void Button_SelectNext()
+		{
+			selectNum.text = OpenSelectManager.I.ChangeSelect(1, selectWeapon).ToString();
+		}
+		public void Button_SelectBefore()
+		{
+			selectNum.text = OpenSelectManager.I.ChangeSelect(-1, selectWeapon).ToString();
+		}
+		public void Button_StartGame()
+		{
+			startCanvas.SetActive(false);
+			gameingCanvas.SetActive(true);
+
+			GameManager.I.StartGame();
+			OpenSelectManager.I.StartGame();
+		}
+		#endregion
+
+		#region Gameing
 		public void SetKeycord(int num)
 		{
 			if (KeycardText)
@@ -35,5 +111,7 @@ namespace Tea.NewRouge
 			Debug.Log(pauseCanvas);
 			pauseCanvas.SetActive(isPause);
 		}
+
+		#endregion
 	}
 }

@@ -10,15 +10,21 @@ namespace Tea
 	{
 		public Vector2 inputContent
 		{
-			get { return this.content.anchoredPosition / m_Radius; }
+			get
+			{
+				if (m_Radius == 0)
+					m_Radius = (transform as RectTransform).sizeDelta.x * 0.45f;
+
+				return this.content.anchoredPosition / m_Radius;
+			}
 		}
 		/// <summary>
 		/// 半径
 		/// </summary>
 		float m_Radius;
-		protected override void Start()
+		protected override void Awake()
 		{
-			base.Start();
+			base.Awake();
 			m_Radius = (transform as RectTransform).sizeDelta.x * 0.45f;
 		}
 		public override void OnDrag(PointerEventData eventData)

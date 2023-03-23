@@ -39,6 +39,7 @@ namespace Tea.NewRouge
 
 		#endregion
 
+		#region MyRegion
 		private void OnValidate()
 		{
 			if (weaponsParent)
@@ -67,7 +68,7 @@ namespace Tea.NewRouge
 		private IEnumerator Start()
 		{
 			yield return new WaitForSeconds(0.1f);
-			GetWeapon(20);
+			//GetWeapon(20);
 		}
 		private void Update()
 		{
@@ -92,6 +93,8 @@ namespace Tea.NewRouge
 				SwitchWeapon(3);
 			}
 		}
+		#endregion
+
 		#region Weapon
 		void WeaponUpdate()
 		{
@@ -111,13 +114,23 @@ namespace Tea.NewRouge
 				shootCDNow += Time.deltaTime;
 			}
 		}
+		/// <summary>
+		/// 获取武器
+		/// </summary>
+		/// <param name="WeaponSN"></param>
 		public void GetWeapon(int WeaponSN)
 		{
 			weapons[WeaponSN].GetMy();
 			SwitchWeapon(WeaponSN);
 		}
+
+		/// <summary>
+		/// 切换武器
+		/// </summary>
+		/// <param name="weaponNum"></param>
 		public void SwitchWeapon(int weaponNum)
 		{
+			PlayerAnim_Control.I.
 			Player_Control.I.interSystem.ResumeAll();
 			if (nowWep != weaponNum && weaponNum < weapons.Count)
 			{
@@ -128,6 +141,17 @@ namespace Tea.NewRouge
 				}
 				weapons[weaponNum].ShowMy();
 				nowWep = weaponNum;
+			}
+		}
+		/// <summary>
+		/// 收回武器
+		/// </summary>
+		public void TakeBackWeapon()
+		{
+			Player_Control.I.interSystem.ResumeAll();
+			for (int i = 0; i < weapons.Count; i++)
+			{
+				weapons[i].gameObject.SetActive(false);
 			}
 		}
 		/// <summary>

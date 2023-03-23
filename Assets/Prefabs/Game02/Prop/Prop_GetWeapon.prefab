@@ -1489,35 +1489,7 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.11304
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 878298524, guid: d7bcf5030a521b0418b7b26c98c1741d, type: 3}
-    - {fileID: 424731764, guid: d7bcf5030a521b0418b7b26c98c1741d, type: 3}
-    - {fileID: 237679783, guid: d7bcf5030a521b0418b7b26c98c1741d, type: 3}
-    - {fileID: 916334976, guid: d7bcf5030a521b0418b7b26c98c1741d, type: 3}
-    - {fileID: 2113236964, guid: d7bcf5030a521b0418b7b26c98c1741d, type: 3}
-    - {fileID: 113051305, guid: d7bcf5030a521b0418b7b26c98c1741d, type: 3}
-    - {fileID: 1086069161, guid: d7bcf5030a521b0418b7b26c98c1741d, type: 3}
-    - {fileID: 1548038774, guid: d7bcf5030a521b0418b7b26c98c1741d, type: 3}
-    - {fileID: 1940441864, guid: d7bcf5030a521b0418b7b26c98c1741d, type: 3}
-    - {fileID: 509397466, guid: d7bcf5030a521b0418b7b26c98c1741d, type: 3}
-    - {fileID: 551700070240670650, guid: d7bcf5030a521b0418b7b26c98c1741d, type: 3}
-    - {fileID: 1027192835, guid: d7bcf5030a521b0418b7b26c98c1741d, type: 3}
-    - {fileID: 5136445187823109337, guid: d7bcf5030a521b0418b7b26c98c1741d, type: 3}
-    - {fileID: 5035533337821785008, guid: d7bcf5030a521b0418b7b26c98c1741d, type: 3}
-    - {fileID: 505726087, guid: d7bcf5030a521b0418b7b26c98c1741d, type: 3}
-    - {fileID: 1548562017, guid: d7bcf5030a521b0418b7b26c98c1741d, type: 3}
-    - {fileID: 1453062778, guid: d7bcf5030a521b0418b7b26c98c1741d, type: 3}
-    - {fileID: 1119614510, guid: d7bcf5030a521b0418b7b26c98c1741d, type: 3}
-    - {fileID: 1238025216697558278, guid: d7bcf5030a521b0418b7b26c98c1741d, type: 3}
-    - {fileID: 2052386791, guid: d7bcf5030a521b0418b7b26c98c1741d, type: 3}
-    - {fileID: 1781043023, guid: d7bcf5030a521b0418b7b26c98c1741d, type: 3}
-    - {fileID: 348060727, guid: d7bcf5030a521b0418b7b26c98c1741d, type: 3}
-    - {fileID: 451891457, guid: d7bcf5030a521b0418b7b26c98c1741d, type: 3}
-    - {fileID: 537357620, guid: d7bcf5030a521b0418b7b26c98c1741d, type: 3}
-    - {fileID: 217742500, guid: d7bcf5030a521b0418b7b26c98c1741d, type: 3}
-    - {fileID: 239662111, guid: d7bcf5030a521b0418b7b26c98c1741d, type: 3}
-    - {fileID: 1660276749, guid: d7bcf5030a521b0418b7b26c98c1741d, type: 3}
-    - {fileID: 860170213, guid: d7bcf5030a521b0418b7b26c98c1741d, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7bcf5030a521b0418b7b26c98c1741d, type: 3}
 --- !u!1 &1031729641394797608 stripped
 GameObject:
