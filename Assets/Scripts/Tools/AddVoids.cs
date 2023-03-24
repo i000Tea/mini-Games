@@ -176,35 +176,6 @@ namespace Tea
 		#endregion
 
 		#region Game2
-		/// <summary>
-		/// 实例化子弹
-		/// </summary>
-		/// <param name="prefab">子弹预制件</param>
-		/// <param name="muzzle">枪口位置</param>
-		/// <param name="Damage">伤害值</param>
-		/// <param name="velocity">弹速</param>
-		/// <param name="HorizOffset">横向偏移</param>
-		/// <param name="vertiOffset">纵向偏移</param>
-		/// <param name="lifeTime">最大生命时间</param>
-		/// <returns></returns>
-		public static GameObject InstantiateBullet(this GameObject prefab, Transform muzzle,
-			float Damage = 1, float velocity = 1,
-			float HorizOffset = 0.05f, float vertiOffset = 0.05f, float Scale = 1, float lifeTime = 3)
-		{
-			var entity = GameObject.Instantiate(prefab, muzzle.position, muzzle.rotation);
-
-			HorizOffset = UnityEngine.Random.Range(-HorizOffset, HorizOffset);
-			vertiOffset = UnityEngine.Random.Range(-vertiOffset, vertiOffset);
-
-			if (entity.TryGetComponent(out Bullet bullet1))
-			{
-				bullet1.Shoot(muzzle, Damage, velocity, HorizOffset, vertiOffset, Scale);
-			}
-
-			GameObject.Destroy(entity, lifeTime);
-
-			return entity;
-		}
 
 		#endregion
 

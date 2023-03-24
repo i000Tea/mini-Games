@@ -18,11 +18,12 @@ namespace Tea.NewRouge
 		/// 攻击距离
 		/// </summary>
 		public float strikingDistance = 1;
-		public int baseDamage;
+		public int baseDamage = 1;
 		/// <summary>
 		/// 攻击冷却
 		/// </summary>
 		bool AtkCD;
+		float CDTime = 3;
 		#endregion
 
 		int valueKeyCard = 1;
@@ -57,11 +58,13 @@ namespace Tea.NewRouge
 			yield return 1;
 			if (DistanceFromPlayer < strikingDistance)
 			{
-				Player_Control.I.UnHit(baseDamage);
+				Player_Control.I.BeHit(baseDamage);
+				Debug.Log("打出一次攻击");
 			}
+			yield return new WaitForSeconds(CDTime);
 			AtkCD = false;
 		}
-		public void Startsetting()
+		public void StartSetting()
 		{
 
 		}
@@ -72,7 +75,7 @@ namespace Tea.NewRouge
 			{
 				GetComponent<EnemyMove>().speed = 0;
 				GetComponent<Collider>().enabled = false;
-				StartCoroutine(Die());
+				StartCoroutine(Death());
 			}
 		}
 		public Transform GetUnHitPoint()
@@ -83,12 +86,28 @@ namespace Tea.NewRouge
 				return transform;
 		}
 
-		IEnumerator Die()
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="beAssault">被攻击而死</param>
+		/// <returns></returns>
+		public IEnumerator Death(bool beAssault = true)
 		{
-			Player_Control.I.Keycord += valueKeyCard;
-			transform.DOScale(0, 1);
-			ParticleManager.InstParticle(dieParticle, transform.position, dieTime: 5);
-			yield return new WaitForSeconds(1);
+			enabled = false;
+			GetComponent<EnemyMove>().enabled = false;
+			if (beAssault)
+			{
+				Player_Control.I.Keycord += valueKeyCard;
+
+			}
+			else
+			{
+
+			}
+			float dieTime = Random.Range(0.9f, 1.1f);
+			transform.DOScale(0, dieTime);
+			//ParticleManager.InstParticle(dieParticle, transform.position, dieTime: 5);
+			yield return new WaitForSeconds(dieTime + 0.1f);
 			gameObject.SetActive(false);
 			EnemyManager.I.EnemyOver(this);
 		}

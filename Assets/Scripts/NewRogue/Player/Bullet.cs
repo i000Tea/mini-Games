@@ -23,18 +23,40 @@ namespace Tea.NewRouge
 		public GameObject hitParticle;
 		private float damage = 1;
 
-		public void Shoot(Transform muzzle, float damage, float velocity,
-			float HorizOffset, float vertiOffset, float scale)
+		/// <summary>
+		/// 创建子弹 
+		/// </summary>
+		/// <param name="item"></param>
+		public void Create(HoldWeaponItem item)
 		{
-			BulletStart(damage);
+			// 设置位置及缩放
+			transform.SetPositionAndRotation(item.muzzle.position, item.muzzle.rotation);
+			transform.localScale = Vector3.one * item.scale;
 
+			// 设置伤害
+			damage = item.damage;
+
+			// 设置枪口粒子
+			ParticleManager.InstParticle(muzzleParticle,
+				transform.position, null, Scale: item.scale, dieTime: 1f);
+			// 当存在音频时 播放
+			if (TryGetComponent(out AudioSource audio))
+			{
+				audio.pitch = Random.Range(audio.pitch - 0.15f, audio.pitch + 0.15f);
+				audio.Play();
+			}
+
+
+			var Offset = Random.Range(-item.Offset, item.Offset);
+			//var	HorizOffset = Random.Range(-item.Offset, item.Offset);
+			//var	vertiOffset = Random.Range(-item.Offset, item.Offset);
 			// 计算经过偏移后的射击方向
-			var _forward = (muzzle.transform.forward + new Vector3(HorizOffset, 0, vertiOffset));
+			var _forward = (transform.forward + new Vector3(Offset, 0, Offset));
 
 			switch (mode)
 			{
 				case BulletMode._base:
-					ShootMod1(mode1BaseVelocity * velocity * _forward, scale);
+					ShootMod1(mode1BaseVelocity  * item.velocity * _forward);
 					break;
 				case BulletMode.onlyOneRay:
 					ShootMode2(_forward);
@@ -45,30 +67,15 @@ namespace Tea.NewRouge
 					break;
 			}
 		}
-		private void BulletStart(float dmg = 1)
-		{
-			damage = dmg;
-			ParticleManager.InstParticle(muzzleParticle,
-				transform.position, null, Scale: transform.lossyScale.z, dieTime: 1f);
-
-			if (TryGetComponent(out AudioSource audio))
-			{
-				audio.pitch = Random.Range(audio.pitch - 0.15f, audio.pitch + 0.15f);
-				audio.Play();
-			}
-
-			//Debug.Log(transform.localScale);
-		}
 		/// <summary>
 		/// 子弹模组1射击
 		/// </summary>
 		/// <param name="velocity"></param>
 		/// <param name="scale"></param>
-		void ShootMod1(Vector3 velocity, float scale)
+		void ShootMod1(Vector3 velocity)
 		{
 			if (TryGetComponent(out Rigidbody rig))
 			{
-				transform.localScale = Vector3.one * scale;
 				rig.velocity = velocity;
 			}
 			else

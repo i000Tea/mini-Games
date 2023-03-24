@@ -35,7 +35,7 @@ namespace Tea.NewRouge
 		/// 选择准备攻击的敌人
 		/// </summary>
 		public Enemy_Control selectEnemy;
-		
+
 
 		public int Keycord
 		{
@@ -52,6 +52,11 @@ namespace Tea.NewRouge
 		}
 		float keycord;
 
+		/// <summary>
+		/// 受伤阈值
+		/// </summary>
+		const float beHitThreshold = 0.6f;
+		float nowThreshold;
 		[SerializeField]
 		private int MaxHealth = 10;
 		public int Health
@@ -59,8 +64,11 @@ namespace Tea.NewRouge
 			get { return health; }
 			set
 			{
-				if (value < 0)
+				if (value <= 0)
+				{
+					GameManager.I.GameOver();
 					health = 0;
+				}
 				else if (value > MaxHealth)
 					health = MaxHealth;
 				else
@@ -92,12 +100,20 @@ namespace Tea.NewRouge
 				FindTargetEnemy();
 			else if (selectEnemy.health <= 0)
 				FindTargetEnemy();
+			if (nowThreshold > 0)
+				nowThreshold -= Time.deltaTime;
 		}
 
-		public void UnHit(int damage = 1)
+		public void BeHit(int damage)
 		{
-			health -= damage;
+			if (nowThreshold <= 0)
+			{
+				Health -= damage;
+				nowThreshold = beHitThreshold; 
+				PlayerAnim_Control.I.BeHit();
+			}
 		}
+
 		/// <summary>
 		/// 查找目标敌人
 		/// </summary>
@@ -107,7 +123,9 @@ namespace Tea.NewRouge
 			{
 				selectEnemy = EnemyManager.I.FindEnemy();
 				if (selectEnemy)
-					PlayerAnim_Control.I.aimIK.solver.target = selectEnemy.GetUnHitPoint();
+				{
+					StartCoroutine(PlayerAnim_Control.I.TargetLink(selectEnemy.GetUnHitPoint()));
+				}
 			}
 		}
 		/// <summary>

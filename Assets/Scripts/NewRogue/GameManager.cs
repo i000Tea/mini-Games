@@ -21,7 +21,7 @@ namespace Tea.NewRouge
 		
 		public void StartGame()
 		{
-			StartCoroutine(EnemyManager.I.StartCreate());
+			EnemyManager.I.StartCreate();
 		}
 		public void PauseButton()
 		{
@@ -44,6 +44,12 @@ namespace Tea.NewRouge
 				default:
 					break;
 			}
+		}
+
+		public void GameOver()
+		{
+			EnemyManager.I.GameOver();
+			HoldWeapons_Control.I.enabled = false;
 		}
 	}
 }

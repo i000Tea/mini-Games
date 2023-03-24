@@ -46,7 +46,7 @@ namespace Tea.NewRouge
 		}
 		public bool createing;
 		public GameObject prefab;
-
+		 
 		protected override void Awake()
 		{
 			base.Awake();
@@ -54,10 +54,26 @@ namespace Tea.NewRouge
 			createPoints = new List<Transform>();
 		}
 		/// <summary>
+		/// 游戏结束
+		/// </summary>
+		public void GameOver()
+		{
+			for (int i = 0; i < enemys.Count; i++)
+			{
+				StartCoroutine(enemys[i].Death(false));
+			}
+			StopAllCoroutines();
+		}
+		public void StartCreate()
+		{
+			StartCoroutine(IsCreate());
+		}
+
+		/// <summary>
 		/// 开始生成敌人
 		/// </summary>
 		/// <returns></returns>
-		public IEnumerator StartCreate()
+		IEnumerator IsCreate()
 		{
 			createing = true;
 
@@ -87,7 +103,7 @@ namespace Tea.NewRouge
 				var obj = Instantiate(prefab);
 				obj.transform.position = createPoints[0].position + new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
 				obj.transform.SetParent(transform);
-				obj.GetComponent<Enemy_Control>().Startsetting();
+				obj.GetComponent<Enemy_Control>().StartSetting();
 				enemys.Add(obj.GetComponent<Enemy_Control>());
 				return obj;
 			}
@@ -112,6 +128,7 @@ namespace Tea.NewRouge
 			}
 			return target;
 		}
+
 		public void EnemyOver(Enemy_Control over)
 		{
 			enemys.Remove(over);

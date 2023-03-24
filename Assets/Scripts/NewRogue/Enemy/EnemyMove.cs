@@ -20,7 +20,6 @@ namespace Tea.NewRouge
 			var length = Vector3.Distance(transform.position, Player_Control.I.transform.position);
 
 			my.ReadyAtk(length);
-
 		}
 	}
 }

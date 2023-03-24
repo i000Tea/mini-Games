@@ -389,6 +389,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 10
+  strikingDistance: 3
+  baseDamage: 1
   dieParticle: {fileID: 5106220929241827765, guid: 4038d5b2bdc4aef4084b42be8f1597e8,
     type: 3}
   unHitPoint: {fileID: 7861917638384089335}

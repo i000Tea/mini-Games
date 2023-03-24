@@ -199,8 +199,7 @@ namespace Tea.NewRouge
 			// 实例化子弹
 			try
 			{
-				var a = bullet.InstantiateBullet(item.muzzle, item.damage, HorizOffset: item.Offset,
-						velocity: item.velocity, vertiOffset: item.Offset, Scale: item.scale);
+				Instantiate(bullet).GetComponent<Bullet>().Create(item);
 				return true;
 			}
 			catch (System.Exception)

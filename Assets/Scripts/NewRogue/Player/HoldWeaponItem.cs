@@ -10,6 +10,9 @@ namespace Tea.NewRouge
 	public class HoldWeaponItem : MonoBehaviour
 	{
 		public bool IsUse;
+		/// <summary>
+		/// 枪口位置
+		/// </summary>
 		public Transform muzzle;
 
 		#region  parameter 射击参数
@@ -38,7 +41,7 @@ namespace Tea.NewRouge
 		/// <summary>
 		/// 大小
 		/// </summary>
-		public float scale = 1;
+		public float scale = 0.5f;
 
 		#endregion
 

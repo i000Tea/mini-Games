@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 using RootMotion.FinalIK;
 
 namespace Tea.NewRouge
@@ -17,7 +18,11 @@ namespace Tea.NewRouge
 
 		public AimIK aimIK;
 
-		Transform aimIKTarget;
+		/// <summary>
+		/// 当没有敌人时的ik目标
+		/// </summary>
+		Transform aimIKBaseTarget;
+		[SerializeField] Transform ShakeObj;
 
 		/// <summary>
 		/// 已锁定敌人
@@ -63,7 +68,7 @@ namespace Tea.NewRouge
 		{
 			SetWeaponParent();
 			aimIK.solver.IKPositionWeight = 0;
-			aimIKTarget = aimIK.solver.target;
+			aimIKBaseTarget = aimIK.solver.target;
 		}
 
 		private void Update()
@@ -72,7 +77,10 @@ namespace Tea.NewRouge
 			//Debug.Log(a);
 			anim.SetFloat("move", a.z * 0.5f);
 		}
-
+		public void BeHit()
+		{
+			ShakeObj.DOShakePosition(0.3f, 0.15f, fadeOut: true, randomnessMode: ShakeRandomnessMode.Harmonic);
+		}
 		public void AnimTakeWeapon(bool isTake)
 		{
 			anim.SetBool("TakeWeapon", isTake);
@@ -107,21 +115,48 @@ namespace Tea.NewRouge
 		/// <summary>
 		/// 链接目标
 		/// </summary>
-		/// <param name="target"></param>
+		/// <param name="inputTarget"> 输入的新的目标 </param>
 		/// <returns></returns>
-		public IEnumerator TargetLink(Transform target)
+		public IEnumerator TargetLink(Transform inputTarget)
 		{
-			var nowTarget = aimIK.solver.target;
-			nowTarget.position = Vector3.Lerp(Player_Control.I.transform.position, target.position, 0.5f);
-
-			while (Vector3.Distance(nowTarget.position, target.position) > 0.2f)
+			// 如果当前目标和更新目标距离小于1 则直接更新 返回
+			if (Vector3.Distance(aimIK.solver.target.position, inputTarget.position) < 3)
 			{
-				nowTarget.position = Vector3.Lerp(nowTarget.position, target.position, 0.5f);
-				aimIK.solver.poleWeight += Time.deltaTime * 4;
+				aimIK.solver.target = inputTarget;
+				yield break;
+			}
+			Debug.Log("重新校准");
+			// 否则 开始 重新校准 过渡动画
+
+			// 先把这个关闭
+			aimOver = false;
+
+			// 当前目标 获取为aimIK中的目标
+
+			// 若当前位置为基础(即当前没有锁定的敌人)
+			if (aimIK.solver.target == aimIKBaseTarget)
+			{
+				//把基准位置更新到玩家和新的点位的中间
+				aimIKBaseTarget.position = Vector3.Lerp(Player_Control.I.transform.position, inputTarget.position, 0.5f);
+			}
+			else
+			{
+				// 否则 更新到旧点位
+				aimIKBaseTarget.position = aimIK.solver.target.position;
+			}
+			// 把目标重新锁回空对象
+			aimIK.solver.target = aimIKBaseTarget;
+
+			var nowTarget = aimIK.solver.target;
+			while (Vector3.Distance(nowTarget.position, inputTarget.position) > 0.2f)
+			{
+				nowTarget.position = Vector3.Lerp(nowTarget.position, inputTarget.position, 0.5f);
+				if (aimIK.solver.IKPositionWeight < 1)
+					aimIK.solver.IKPositionWeight += Time.deltaTime * 4;
 				yield return new WaitForFixedUpdate();
 			}
-			aimIK.solver.target = target;
-			aimIK.solver.poleWeight = 1;
+			aimIK.solver.target = inputTarget;
+			aimIK.solver.IKPositionWeight = 1;
 			aimOver = true;
 		}
 	}

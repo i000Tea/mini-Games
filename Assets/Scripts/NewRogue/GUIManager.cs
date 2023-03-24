@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace Tea.NewRouge
 {
@@ -33,6 +34,11 @@ namespace Tea.NewRouge
 
 		[SerializeField]
 		private Text KeycardText;
+
+		[Header("Health")]
+		[SerializeField]
+		private Transform playerLifebar;
+		private float lifebarMaxX;
 		[SerializeField]
 		private Text playerHealthText;
 		#endregion
@@ -40,9 +46,18 @@ namespace Tea.NewRouge
 		[SerializeField]
 		private GameObject pauseCanvas;
 
+		protected override void Awake()
+		{
+			if (playerLifebar)
+			{
+				lifebarMaxX = (playerLifebar as RectTransform).sizeDelta.x;
+			}
+			base.Awake();
+		}
 		private void Start()
 		{
 			Button_ChangeSelect_Player();
+
 		}
 
 		#region OpenSelect
@@ -98,7 +113,11 @@ namespace Tea.NewRouge
 		{
 			string nText = num.ToString();
 			if (maxNum != null)
+			{
 				nText += "/" + maxNum;
+				(playerLifebar as RectTransform).sizeDelta = new Vector2((float)num / (float)maxNum * lifebarMaxX,
+					(playerLifebar as RectTransform).sizeDelta.y);
+			}
 			playerHealthText.text = nText;
 		}
 		/// <summary>
@@ -112,6 +131,25 @@ namespace Tea.NewRouge
 			pauseCanvas.SetActive(isPause);
 		}
 
+		#endregion
+
+		#region Over Setting
+		public void GameOver()
+		{
+
+		}
+		public void Button_Setting_()
+		{
+
+		}
+		public void Button_Setting_Return()
+		{
+			SceneManager.LoadScene(2);
+		}
+		public void Button_Setting_Exit()
+		{
+			SceneManager.LoadScene(0);
+		}
 		#endregion
 	}
 }
