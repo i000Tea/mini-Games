@@ -66,7 +66,7 @@ namespace Tea.NewRouge
 			{
 				if (value <= 0)
 				{
-					GameManager.I.GameOver();
+					GameManager.I.Stage_GameOver();
 					health = 0;
 				}
 				else if (value > MaxHealth)

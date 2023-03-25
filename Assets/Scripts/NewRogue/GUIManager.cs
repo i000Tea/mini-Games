@@ -8,13 +8,18 @@ namespace Tea.NewRouge
 {
 	public class GUIManager : Singleton<GUIManager>
 	{
+		#region 变量
 		[SerializeField]
-		private GameObject gameingCanvas;
+		private GameObject canvas_Start;
+		[SerializeField]
+		private GameObject canvas_Playing;
+		[SerializeField]
+		private GameObject canvas_Pause;
+		[SerializeField]
+		private GameObject canvas_Over;
 
 		#region StartSelect
-		[SerializeField]
-		GameObject startCanvas;
-
+		[Header("开始前配置")]
 		[SerializeField]
 		Text selectNum;
 
@@ -32,6 +37,7 @@ namespace Tea.NewRouge
 
 		#region gameing
 
+		[Header("游戏中")]
 		[SerializeField]
 		private Text KeycardText;
 
@@ -43,8 +49,6 @@ namespace Tea.NewRouge
 		private Text playerHealthText;
 		#endregion
 
-		[SerializeField]
-		private GameObject pauseCanvas;
 
 		protected override void Awake()
 		{
@@ -57,10 +61,14 @@ namespace Tea.NewRouge
 		private void Start()
 		{
 			Button_ChangeSelect_Player();
-
+			GameManager.I.OnGameStart += GameStart;
+			GameManager.I.OnPlayerDead += GameOver;
 		}
 
-		#region OpenSelect
+		#endregion
+
+		#region OpenSelect 开始时 选择页面
+
 		bool selectWeapon;
 		public void Button_ChangeSelect_Player()
 		{
@@ -93,17 +101,14 @@ namespace Tea.NewRouge
 		{
 			selectNum.text = OpenSelectManager.I.ChangeSelect(-1, selectWeapon).ToString();
 		}
-		public void Button_StartGame()
-		{
-			startCanvas.SetActive(false);
-			gameingCanvas.SetActive(true);
-
-			GameManager.I.StartGame();
-			OpenSelectManager.I.StartGame();
-		}
 		#endregion
 
-		#region Gameing
+		#region Gameing 游戏中
+		void GameStart()
+		{
+			canvas_Start.SetActive(false);
+			canvas_Playing.SetActive(true);
+		}
 		public void SetKeycord(int num)
 		{
 			if (KeycardText)
@@ -127,16 +132,17 @@ namespace Tea.NewRouge
 		public void SetPause(bool isPause)
 		{
 			Debug.LogWarning(gameObject);
-			Debug.Log(pauseCanvas);
-			pauseCanvas.SetActive(isPause);
+			Debug.Log(canvas_Pause);
+			canvas_Pause.SetActive(isPause);
 		}
 
 		#endregion
 
-		#region Over Setting
-		public void GameOver()
+		#region Over Setting 结束后设置
+		void GameOver()
 		{
-
+			canvas_Playing.SetActive(false);
+			canvas_Over.SetActive(true);
 		}
 		public void Button_Setting_()
 		{

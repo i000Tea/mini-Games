@@ -31,5 +31,6 @@ namespace Tea
 				_instance = (T)this;
 			}
 		}
+
 	}
 }

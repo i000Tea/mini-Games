@@ -857,9 +857,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.2
-  m_Text: 'v0.07
+  m_Text: 'v0.08
 
-    23.03.12'
+    23.03.25'
 --- !u!222 &970077293
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1117,7 +1117,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u76EE\u524D\u5F00\u59CB\u66F4\u65B0\u7B2C\u4E8C\u4E2A\u6E38\u620F\n\u672C\u6B21\u8FDB\u5EA6\uFF1A\n\u66F4\u65B0\u6B66\u5668\u7CFB\u7EDF\uFF0C\u6D4B\u8BD5\u5171\u52A0\u51654\u79CD\u6B66\u5668(\u4F46\u8FD8\u6CA1\u505A\u83B7\u53D6)\n\u66F4\u65B0\u8D27\u5E01\u7CFB\u7EDF\uFF0C\u51FB\u6740\u654C\u4EBA\u83B7\u53D6\u8D27\u5E01\uFF0C\u5F00\u95E8\u9700\u8981\u8D27\u5E01(\u4E0D\u8FC7\u6CA1\u505A\u6263\u9664)"
+  m_Text: "\u76EE\u524D\u5F00\u59CB\u66F4\u65B0\u7B2C\u4E8C\u4E2A\u6E38\u620F\n\u672C\u6B21\u8FDB\u5EA6\uFF1A\n\u521D\u6B65\u7684demo\u5DF2\u5B8C\u6210\n\u4ECE\u5F00\u59CB\u5230\u7ED3\u675F\u5DF2\u5B8C\u6210"
 --- !u!222 &1616821281
 CanvasRenderer:
   m_ObjectHideFlags: 0

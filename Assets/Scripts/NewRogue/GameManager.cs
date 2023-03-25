@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Tea.NewRouge
 {
+	public delegate void BaseEvent();
 	public class GameManager : Singleton<GameManager>
 	{
+		public event BaseEvent OnGameStart;
+		public event BaseEvent OnPlayerDead;
 		enum GameState
 		{
 			menu,
@@ -16,14 +19,14 @@ namespace Tea.NewRouge
 		private void Update()
 		{
 			if (Input.GetKeyDown(KeyCode.Escape))
-				PauseButton();
+				Stage_Pause();
 		}
-		
-		public void StartGame()
+
+		public void Stage_GameStart()
 		{
-			EnemyManager.I.StartCreate();
+			OnGameStart();
 		}
-		public void PauseButton()
+		public void Stage_Pause()
 		{
 			switch (gState)
 			{
@@ -46,10 +49,9 @@ namespace Tea.NewRouge
 			}
 		}
 
-		public void GameOver()
+		public void Stage_GameOver()
 		{
-			EnemyManager.I.GameOver();
-			HoldWeapons_Control.I.enabled = false;
+			OnPlayerDead();
 		}
 	}
 }
