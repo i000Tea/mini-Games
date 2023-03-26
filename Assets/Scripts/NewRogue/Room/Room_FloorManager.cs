@@ -57,10 +57,9 @@ namespace Tea.NewRouge
 		/// </summary>
 		public int OpenDoorCost = 10;
 		#endregion
-		private void Start()
+		public void StartCreate()
 		{
 			StartCoroutine(ICreateWholeFloor());
-			//CreateWholeFloor();
 		}
 		/// <summary>
 		/// 生成楼层
@@ -68,6 +67,7 @@ namespace Tea.NewRouge
 		/// <returns></returns>
 		IEnumerator ICreateWholeFloor()
 		{
+			yield return new WaitForFixedUpdate();
 			// 房间列表重置
 			rEnemyList = new List<Room_Control_EnemyCreate>();
 			rEntityList = new List<Room_Control>();

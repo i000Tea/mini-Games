@@ -26,7 +26,7 @@ namespace Tea.NewRouge
 						weightValue += BasePrefabssss[i].Weight;
 					}
 				}
-				Debug.Log(weightValue);
+				//Debug.Log(weightValue);
 				return weightValue;
 			}
 		}

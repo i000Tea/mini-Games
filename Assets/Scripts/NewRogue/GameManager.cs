@@ -16,6 +16,12 @@ namespace Tea.NewRouge
 		}
 		GameState gState = GameState.playing;
 		float gameSpeed;
+
+		private void Start()
+		{
+			Debug.Log("start");
+			Room_FloorManager.I.StartCreate();
+		}
 		private void Update()
 		{
 			if (Input.GetKeyDown(KeyCode.Escape))

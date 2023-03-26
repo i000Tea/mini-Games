@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Tea.CyberCard
+namespace Tea
 {
     public class MenuManager : MonoBehaviour
     {

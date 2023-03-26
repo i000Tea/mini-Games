@@ -220,7 +220,7 @@ namespace Tea
 			Vector3 a = new Vector3(
 				beforePoint.x * Mathf.Cos(angle * Mathf.Deg2Rad) +
 				beforePoint.z * Mathf.Sin(angle * Mathf.Deg2Rad),
-				0,
+				beforePoint.y,
 				beforePoint.x * -Mathf.Sin(angle * Mathf.Deg2Rad) +
 				beforePoint.z * Mathf.Cos(angle * Mathf.Deg2Rad)
 				);
