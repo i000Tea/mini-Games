@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6411407447062241288}
   - component: {fileID: 5110370076650702987}
   m_Layer: 6
-  m_Name: Door-UP1
+  m_Name: Door-width1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24,8 +24,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8842348621271534453}
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.00000013411044}
-  m_LocalPosition: {x: 0.5, y: 0, z: -30}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 848987011062458342}
@@ -34,7 +34,7 @@ Transform:
   - {fileID: 703628665857058730}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5110370076650702987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,6 +307,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Door Cost Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 1896622882360436253, guid: 40620c0787c2c9a4b97aeb8166ceff94,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40620c0787c2c9a4b97aeb8166ceff94, type: 3}

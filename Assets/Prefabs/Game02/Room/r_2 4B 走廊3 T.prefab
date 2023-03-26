@@ -279,7 +279,7 @@ GameObject:
   - component: {fileID: 8857717480738582961}
   - component: {fileID: 2801473304094228141}
   m_Layer: 6
-  m_Name: Room_2 Corridor T
+  m_Name: "r_2 4B \u8D70\u5ECA3 T"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

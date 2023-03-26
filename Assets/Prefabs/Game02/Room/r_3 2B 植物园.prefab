@@ -327,7 +327,7 @@ GameObject:
   - component: {fileID: 5074668836953696243}
   - component: {fileID: 3533108701158342116}
   m_Layer: 0
-  m_Name: Room_3Big_
+  m_Name: "r_3 2B \u690D\u7269\u56ED"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

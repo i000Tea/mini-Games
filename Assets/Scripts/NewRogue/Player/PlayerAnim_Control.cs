@@ -17,6 +17,7 @@ namespace Tea.NewRouge
 		public InteractionSystem interSystem;
 
 		public AimIK aimIK;
+		public Recoil recoil;
 
 		/// <summary>
 		/// 当没有敌人时的ik目标
@@ -158,6 +159,12 @@ namespace Tea.NewRouge
 			aimIK.solver.target = inputTarget;
 			aimIK.solver.IKPositionWeight = 1;
 			aimOver = true;
+		}
+
+		public void Shoot(float Power = 1)
+		{
+			if (recoil!=null)
+				recoil.Fire(Power);
 		}
 	}
 }

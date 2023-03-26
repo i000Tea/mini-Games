@@ -19,12 +19,13 @@ namespace Tea.NewRouge
 		private void OnValidate()
 		{
 			Transform parent = transform.GetChild(0);
-			if (Weapons == null || Weapons.Count != parent.childCount)
+			if (Weapons.Count ==0)
 			{
 				Weapons = new List<GameObject>();
 				for (int i = 0; i < parent.childCount; i++)
 				{
-					Weapons.Add(parent.GetChild(i).gameObject);
+					if (parent.GetChild(i).GetComponent<HoldWeaponItem>().IsUse)
+						Weapons.Add(parent.GetChild(i).gameObject);
 				}
 			}
 		}

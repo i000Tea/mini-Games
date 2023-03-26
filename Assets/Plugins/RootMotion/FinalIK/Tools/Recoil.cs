@@ -1,15 +1,19 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
-namespace RootMotion.FinalIK {
+namespace RootMotion.FinalIK
+{
 
 	/// <summary>
+	/// 使用FBBIK的程序后坐力。
 	/// Procedural recoil using FBBIK.
 	/// </summary>
-	public class Recoil : OffsetModifier {
-		
+	public class Recoil : OffsetModifier
+	{
+
 		[System.Serializable]
-		public class RecoilOffset {
+		public class RecoilOffset
+		{
 
 			[Tooltip("Offset vector for the associated effector when doing recoil.")]
 			public Vector3 offset;
@@ -17,42 +21,57 @@ namespace RootMotion.FinalIK {
 			[Range(0f, 1f)] public float additivity = 1f;
 			[Tooltip("Max additive recoil for automatic fire.")]
 			public float maxAdditiveOffsetMag = 0.2f;
-			
-			// Linking this to an effector
+
+			/// <summary>
+			/// 链接到一个效应器
+			/// Linking this to an effector
+			/// </summary>
 			[System.Serializable]
-			public class EffectorLink {
+			public class EffectorLink
+			{
 				[Tooltip("Type of the FBBIK effector to use")]
 				public FullBodyBipedEffector effector;
 				[Tooltip("Weight of using this effector")]
 				public float weight;
 			}
 
-			[Tooltip("Linking this recoil offset to FBBIK effectors.")]
+			[Tooltip("将这个反冲偏移连接到FBBIK效应器上。 Linking this recoil offset to FBBIK effectors.")]
 			public EffectorLink[] effectorLinks;
 
 			private Vector3 additiveOffset;
 			private Vector3 lastOffset;
 
 			// Start recoil
-			public void Start() {
+			public void Start()
+			{
 				if (additivity <= 0f) return;
 
 				additiveOffset = Vector3.ClampMagnitude(lastOffset * additivity, maxAdditiveOffsetMag);
 			}
-
-			// Apply offset to FBBIK effectors
-			public void Apply(IKSolverFullBodyBiped solver, Quaternion rotation, float masterWeight, float length, float timeLeft) {
+			/// <summary>
+			/// 将偏移量应用到FBBIK效应器
+			/// Apply offset to FBBIK effectors
+			/// </summary>
+			/// <param name="solver"></param>
+			/// <param name="rotation"></param>
+			/// <param name="masterWeight"></param>
+			/// <param name="length"></param>
+			/// <param name="timeLeft"></param>
+			public void Apply(IKSolverFullBodyBiped solver, Quaternion rotation, float masterWeight, float length, float timeLeft)
+			{
 				additiveOffset = Vector3.Lerp(Vector3.zero, additiveOffset, timeLeft / length);
 				lastOffset = (rotation * (offset * masterWeight)) + (rotation * additiveOffset);
 
-				foreach (EffectorLink e in effectorLinks) {
+				foreach (EffectorLink e in effectorLinks)
+				{
 					solver.GetEffector(e.effector).positionOffset += lastOffset * e.weight;
 				}
 			}
 		}
 
 		[System.Serializable]
-		public enum Handedness {
+		public enum Handedness
+		{
 			Right,
 			Left
 		}
@@ -83,6 +102,9 @@ namespace RootMotion.FinalIK {
 
 		[HideInInspector] public Quaternion rotationOffset = Quaternion.identity;
 
+		/// <summary>
+		/// 级延时
+		/// </summary>
 		private float magnitudeMlp = 1f;
 		private float endTime = -1f;
 		private Quaternion handRotation, secondaryHandRelativeRotation, randomRotation;
@@ -98,8 +120,10 @@ namespace RootMotion.FinalIK {
 		/// <summary>
 		/// Returns true if recoil has finished or has not been called at all.
 		/// </summary>
-		public bool isFinished {
-			get {
+		public bool isFinished
+		{
+			get
+			{
 				return Time.time > endTime;
 			}
 		}
@@ -107,11 +131,15 @@ namespace RootMotion.FinalIK {
 		/// <summary>
 		/// Sets the starting rotations for the hands for 1 frame. Use this if the final rotation of the hands will not be the same as before FBBIK solves.
 		/// </summary>
-		public void SetHandRotations(Quaternion leftHandRotation, Quaternion rightHandRotation) {
-			if (handedness == Handedness.Left) {
+		public void SetHandRotations(Quaternion leftHandRotation, Quaternion rightHandRotation)
+		{
+			if (handedness == Handedness.Left)
+			{
 				primaryHandRotation = leftHandRotation;
 				//secondaryHandRotation = rightHandRotation;
-			} else {
+			}
+			else
+			{
 				primaryHandRotation = rightHandRotation;
 				//secondaryHandRotation = leftHandRotation;
 			}
@@ -120,15 +148,19 @@ namespace RootMotion.FinalIK {
 		}
 
 		/// <summary>
+		/// 启动反冲程序。
 		/// Starts the recoil procedure.
 		/// </summary>
-		public void Fire(float magnitude) {
+		/// <param name="magnitude">力</param>
+		public void Fire(float magnitude)
+		{
 			float rnd = magnitude * UnityEngine.Random.value * magnitudeRandom;
 			magnitudeMlp = magnitude + rnd;
-			
+
 			randomRotation = Quaternion.Euler(rotationRandom * UnityEngine.Random.value);
 
-			foreach (RecoilOffset offset in offsets) {
+			foreach (RecoilOffset offset in offsets)
+			{
 				offset.Start();
 			}
 
@@ -140,15 +172,21 @@ namespace RootMotion.FinalIK {
 			endTime = Time.time + length;
 		}
 
-		protected override void OnModifyOffset() {
+		/// <summary>
+		/// 关于修改偏移量
+		/// </summary>
+		protected override void OnModifyOffset()
+		{
 			if (aimIK != null) aimIKAxis = aimIK.solver.axis;
 
-			if (Time.time >= endTime) {
+			if (Time.time >= endTime)
+			{
 				rotationOffset = Quaternion.identity;
 				return;
 			}
 
-			if (!initiated && ik != null) {
+			if (!initiated && ik != null)
+			{
 				initiated = true;
 				ik.solver.OnPostUpdate += AfterFBBIK;
 				if (aimIK != null) aimIK.solver.OnPostUpdate += AfterAimIK;
@@ -163,15 +201,18 @@ namespace RootMotion.FinalIK {
 			w = Mathf.Lerp(w, wTarget, blendWeight);
 
 			// Find the rotation space of the recoil
-			Quaternion lookRotation = aimIK != null && aimIK.solver.transform != null && !aimIKSolvedLast? Quaternion.LookRotation(aimIK.solver.IKPosition - aimIK.solver.transform.position, ik.references.root.up): ik.references.root.rotation;
+			Quaternion lookRotation = aimIK != null && aimIK.solver.transform != null && !aimIKSolvedLast ? Quaternion.LookRotation(aimIK.solver.IKPosition - aimIK.solver.transform.position, ik.references.root.up) : ik.references.root.rotation;
 			lookRotation = randomRotation * lookRotation;
 
+			// 应用FBBIK效应器positionoffset
 			// Apply FBBIK effector positionOffsets
-			foreach (RecoilOffset offset in offsets) {
+			foreach (RecoilOffset offset in offsets)
+			{
 				offset.Apply(ik.solver, lookRotation, w, length, endTime - Time.time);
 			}
 
-			if (!handRotationsSet) {
+			if (!handRotationsSet)
+			{
 				primaryHandRotation = primaryHand.rotation;
 				//if (twoHanded) secondaryHandRotation = secondaryHand.rotation;
 			}
@@ -180,9 +221,10 @@ namespace RootMotion.FinalIK {
 			// Rotation offset of the primary hand
 			rotationOffset = Quaternion.Lerp(Quaternion.identity, Quaternion.Euler(randomRotation * primaryHandRotation * handRotationOffset), w);
 			handRotation = rotationOffset * primaryHandRotation;
-				
+
 			// Fix the secondary hand relative to the primary hand
-			if (twoHanded) {
+			if (twoHanded)
+			{
 				Vector3 secondaryHandRelativePosition = Quaternion.Inverse(primaryHand.rotation) * (secondaryHand.position - primaryHand.position);
 				secondaryHandRelativeRotation = Quaternion.Inverse(primaryHand.rotation) * secondaryHand.rotation;
 
@@ -195,7 +237,8 @@ namespace RootMotion.FinalIK {
 			if (aimIK != null && aimIKSolvedLast) aimIK.solver.axis = Quaternion.Inverse(ik.references.root.rotation) * Quaternion.Inverse(rotationOffset) * aimIKAxis;
 		}
 
-		private void AfterFBBIK() {
+		private void AfterFBBIK()
+		{
 			if (Time.time >= endTime) return;
 
 			// Rotate the hand bones
@@ -203,44 +246,55 @@ namespace RootMotion.FinalIK {
 			if (twoHanded) secondaryHand.rotation = primaryHand.rotation * secondaryHandRelativeRotation;
 		}
 
-		private void AfterAimIK() {
+		private void AfterAimIK()
+		{
 			if (aimIKSolvedLast) aimIK.solver.axis = aimIKAxis;
 		}
 
 		// Shortcuts
-		private IKEffector primaryHandEffector {
-			get {
+		private IKEffector primaryHandEffector
+		{
+			get
+			{
 				if (handedness == Handedness.Right) return ik.solver.rightHandEffector;
 				return ik.solver.leftHandEffector;
 			}
 		}
-		
-		private IKEffector secondaryHandEffector {
-			get {
+
+		private IKEffector secondaryHandEffector
+		{
+			get
+			{
 				if (handedness == Handedness.Right) return ik.solver.leftHandEffector;
 				return ik.solver.rightHandEffector;
 			}
 		}
-		
-		private Transform primaryHand {
-			get {
+
+		private Transform primaryHand
+		{
+			get
+			{
 				return primaryHandEffector.bone;
 			}
 		}
-		
-		private Transform secondaryHand {
-			get {
+
+		private Transform secondaryHand
+		{
+			get
+			{
 				return secondaryHandEffector.bone;
 			}
 		}
 
-		protected override void OnDestroy() {
+		protected override void OnDestroy()
+		{
 			base.OnDestroy();
-			if (ik != null && initiated) {
+			if (ik != null && initiated)
+			{
 				ik.solver.OnPostUpdate -= AfterFBBIK;
 				if (aimIK != null) aimIK.solver.OnPostUpdate -= AfterAimIK;
 			}
 		}
-		
+
 	}
 }

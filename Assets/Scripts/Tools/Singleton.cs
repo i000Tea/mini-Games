@@ -22,6 +22,7 @@ namespace Tea
 			//返回实例
 			get { return _instance; }
 		}
+
 		protected virtual void Awake()
 		{
 			//判断实例是否已存在
@@ -31,6 +32,9 @@ namespace Tea
 				_instance = (T)this;
 			}
 		}
-
+		private void OnDestroy()
+		{
+			_instance = null;
+		}
 	}
 }

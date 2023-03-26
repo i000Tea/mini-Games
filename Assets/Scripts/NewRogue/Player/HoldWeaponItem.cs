@@ -9,6 +9,7 @@ namespace Tea.NewRouge
 	/// </summary>
 	public class HoldWeaponItem : MonoBehaviour
 	{
+		public bool IsStartToGet;
 		public bool IsUse;
 		/// <summary>
 		/// 枪口位置
@@ -38,6 +39,10 @@ namespace Tea.NewRouge
 		/// 弹速
 		/// </summary>
 		public float velocity = 1;
+		/// <summary>
+		/// 弹速
+		/// </summary>
+		public float recoil = 1;
 		/// <summary>
 		/// 大小
 		/// </summary>

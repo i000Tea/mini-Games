@@ -132,6 +132,7 @@ namespace Tea.NewRouge
 
 				shootCDNow = 0;
 				IsShoot(weapons[nowWep]);
+				PlayerAnim_Control.I.Shoot(weapons[nowWep].recoil);
 				Player_Control.I.FindTargetEnemy();
 
 			}

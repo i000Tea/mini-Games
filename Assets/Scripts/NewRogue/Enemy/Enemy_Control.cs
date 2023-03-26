@@ -26,7 +26,13 @@ namespace Tea.NewRouge
 		float CDTime = 3;
 		#endregion
 
-		int valueKeyCard = 1;
+		int valueKeyCard
+		{
+			get
+			{
+				return Random.Range(5, 7);
+			}
+		}
 
 		public GameObject dieParticle;
 
