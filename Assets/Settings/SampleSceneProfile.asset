@@ -42,7 +42,7 @@ MonoBehaviour:
     m_Value: 1
   skipIterations:
     m_OverrideState: 0
-    m_Value: 1
+    m_Value: 3
     min: 0
     max: 16
   dirtTexture:
@@ -322,10 +322,10 @@ MonoBehaviour:
   active: 1
   m_AdvancedMode: 0
   postExposure:
-    m_OverrideState: 0
-    m_Value: 0.59
+    m_OverrideState: 1
+    m_Value: 0.5
   contrast:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 14
     min: -100
     max: 100
@@ -336,13 +336,13 @@ MonoBehaviour:
     showAlpha: 0
     showEyeDropper: 1
   hueShift:
-    m_OverrideState: 0
-    m_Value: -180
+    m_OverrideState: 1
+    m_Value: 0
     min: -180
     max: 180
   saturation:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 5
     min: -100
     max: 100
 --- !u!114 &849379129802519247
@@ -384,7 +384,7 @@ MonoBehaviour:
     m_Value: 2
   intensity:
     m_OverrideState: 1
-    m_Value: 0.5
+    m_Value: 0.2
     min: 0
     max: 1
   clamp:
@@ -408,18 +408,18 @@ MonoBehaviour:
   m_AdvancedMode: 0
   shadows:
     m_OverrideState: 1
-    m_Value: {r: 0.3490566, g: 0.3490566, b: 0.3490566, a: 1}
+    m_Value: {r: 0.7169812, g: 0.7169812, b: 0.7169812, a: 1}
     hdr: 0
     showAlpha: 0
     showEyeDropper: 1
   highlights:
-    m_OverrideState: 0
-    m_Value: {r: 1, g: 1, b: 1, a: 1}
+    m_OverrideState: 1
+    m_Value: {r: 0.745283, g: 0.62143874, b: 0.600445, a: 1}
     hdr: 0
     showAlpha: 0
     showEyeDropper: 1
   balance:
     m_OverrideState: 1
-    m_Value: -23
+    m_Value: -78
     min: -100
     max: 100

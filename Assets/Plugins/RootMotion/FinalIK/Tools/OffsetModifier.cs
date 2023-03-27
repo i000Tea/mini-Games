@@ -4,6 +4,7 @@ using System.Collections;
 namespace RootMotion.FinalIK {
 
 	/// <summary>
+	/// 所有FBBIK效应器positionOffset修饰符的基类。使用animatePhysics，安全委托，偏移限制。
 	/// Base class for all FBBIK effector positionOffset modifiers. Works with animatePhysics, safe delegates, offset limits.
 	/// </summary>
 	public abstract class OffsetModifier: MonoBehaviour {
@@ -83,8 +84,10 @@ namespace RootMotion.FinalIK {
 			ik.solver.OnPreUpdate += ModifyOffset;
 			lastTime = Time.time;
 		}
-
-		// The main function that checks for all conditions and calls OnModifyOffset if they are met
+		/// <summary>
+		/// 检查所有条件并在满足条件时调用OnModifyOffset的主要函数
+		/// The main function that checks for all conditions and calls OnModifyOffset if they are met
+		/// </summary>
 		private void ModifyOffset() {
 			if (!enabled) return;
 			if (weight <= 0f) return;

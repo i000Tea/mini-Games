@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Tea;
-using Tea.CyberCard;
 using DG.Tweening;
 
 namespace Tea.PolygonHit

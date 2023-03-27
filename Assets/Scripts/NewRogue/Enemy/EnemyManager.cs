@@ -53,10 +53,15 @@ namespace Tea.NewRouge
 			enemys = new List<Enemy_Control>();
 			createPoints = new List<Transform>();
 		}
+		protected void Start()
+		{
+			GameManager.I.OnGameStart += OnCreate;
+			GameManager.I.OnPlayerDead += GameOver;
+		}
 		/// <summary>
 		/// 游戏结束
 		/// </summary>
-		public void GameOver()
+		void GameOver()
 		{
 			for (int i = 0; i < enemys.Count; i++)
 			{
@@ -69,6 +74,10 @@ namespace Tea.NewRouge
 			StartCoroutine(IsCreate());
 		}
 
+		void OnCreate()
+		{
+			StartCoroutine(IsCreate());
+		}
 		/// <summary>
 		/// 开始生成敌人
 		/// </summary>

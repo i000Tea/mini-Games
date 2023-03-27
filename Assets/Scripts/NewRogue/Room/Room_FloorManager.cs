@@ -57,10 +57,9 @@ namespace Tea.NewRouge
 		/// </summary>
 		public int OpenDoorCost = 10;
 		#endregion
-		private void Start()
+		public void StartCreate()
 		{
 			StartCoroutine(ICreateWholeFloor());
-			//CreateWholeFloor();
 		}
 		/// <summary>
 		/// 生成楼层
@@ -68,6 +67,7 @@ namespace Tea.NewRouge
 		/// <returns></returns>
 		IEnumerator ICreateWholeFloor()
 		{
+			yield return new WaitForFixedUpdate();
 			// 房间列表重置
 			rEnemyList = new List<Room_Control_EnemyCreate>();
 			rEntityList = new List<Room_Control>();
@@ -82,6 +82,7 @@ namespace Tea.NewRouge
 				rEnemyList.Add(a);
 			//Debug.Log(a);
 			yield return new WaitForFixedUpdate();
+			//Debug.Log(mainRoadLength);
 			// 第一循环 创造主路线
 			for (int i = 0; i < mainRoadLength - 1; i++)
 			{
@@ -100,6 +101,7 @@ namespace Tea.NewRouge
 			// 获取主路线的最后一个房间
 			var baseLastRoom = rEntityList[rEntityList.Count - 1];
 
+			//Debug.Log(baseLastRoom);
 			// 分支岔道1 从初始房间开始(剩余两间)
 			for (int i = 0; i < 2; i++)
 			{

@@ -83,7 +83,12 @@ namespace Tea.NewRouge
 			}
 		}
 
-		public void StartGame()
+		protected void Start()
+		{
+			GameManager.I.OnGameStart += GameStart;
+		}
+
+		void GameStart()
 		{
 			//获取武器
 			HoldWeapons_Control.I.GetWeapon(weapons[nowWeapon].transform.GetSiblingIndex());

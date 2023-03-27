@@ -28,7 +28,13 @@ namespace Tea.NewRouge
 			base.Awake();
 			inst = this;
 		}
-		float nowSpeed;
+		private void Start()
+		{
+			GameManager.I.OnPlayerDead += () =>
+			{
+				joyStick = null;
+			};
+		}
 		protected override void UpdateRotation()
 		{
 			if (Player_Control.I.selectEnemy)
@@ -74,7 +80,6 @@ namespace Tea.NewRouge
 					move.y * Mathf.Cos(virRotate * Mathf.Deg2Rad)
 			};
 			jump = Input.GetButton("Jump");
-			nowSpeed = moveDirection.magnitude;
 		}
 		public override void Update()
 		{

@@ -12,8 +12,25 @@ namespace Tea.NewRouge
 	[Serializable]
 	public class RoomItem : ScriptableObject
 	{
-		public List<GameObject> EnemyPrefabs;
+		public List<WeightRoom> EnemyPrefabs;
 		public List<GameObject> BasePrefabs;
+		int WeightValue
+		{
+			get
+			{
+				if (weightValue <= BasePrefabssss.Count)
+				{
+					weightValue = 0;
+					for (int i = 0; i < BasePrefabssss.Count; i++)
+					{
+						weightValue += BasePrefabssss[i].Weight;
+					}
+				}
+				//Debug.Log(weightValue);
+				return weightValue;
+			}
+		}
+		int weightValue;
 		public List<WeightRoom> BasePrefabssss;
 		public GameObject weaponPrefab;
 		/// <summary>
@@ -24,19 +41,31 @@ namespace Tea.NewRouge
 		/// <returns></returns>
 		public GameObject RandomRoom(RoomPrefabs whichlist, DoorType dt, int Seed = -1)
 		{
-			List<GameObject> roomList;
+			List<WeightRoom> roomList;
 			switch (whichlist)
 			{
 				case RoomPrefabs.BaseRoom:
-					roomList = BasePrefabs;
+					roomList = BasePrefabssss;
+					Seed = UnityEngine.Random.Range(0, WeightValue);
+					for (int i = 0; i < BasePrefabs.Count; i++)
+					{
+						Seed -= BasePrefabssss[i].Weight;
+						if (Seed <= 0)
+						{
+							Seed = i;
+							break;
+						}
+					}
 					break;
+
 				case RoomPrefabs.EnemyCreate:
 					roomList = EnemyPrefabs;
 					break;
+
 				default:
 					return null;
 			}
-			if (Seed <= 0)
+			if (whichlist != RoomPrefabs.BaseRoom && Seed <= 0)
 			{
 				Seed = UnityEngine.Random.Range(0, roomList.Count);
 			}
@@ -45,10 +74,10 @@ namespace Tea.NewRouge
 			{
 				if (Seed >= roomList.Count)
 					Seed = 0;
-				if (roomList[Seed].GetComponent<Room_Control>().FindDoorType(dt))
+				if (roomList[Seed].Prefab.GetComponent<Room_Control>().FindDoorType(dt))
 				{
 					//Debug.Log($"seed为{Seed}时可以使用");
-					return roomList[Seed];
+					return roomList[Seed].Prefab;
 				}
 				else
 					Seed++;
@@ -67,7 +96,7 @@ namespace Tea.NewRouge
 		BaseRoom,
 		EnemyCreate,
 	}
-	
+
 	[Serializable]
 	public class WeightRoom
 	{

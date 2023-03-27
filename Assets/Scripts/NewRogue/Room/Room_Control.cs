@@ -191,7 +191,7 @@ namespace Tea.NewRouge
 				// 若没有被使用 返回该门点
 				else
 				{
-					//Debug.Log(myDoors[num]);
+					//Debug.Log($"{name} 门数量{myDoors.Count} 随机序号{num} , {myDoors[num]}");
 					return myDoors[num];
 				}
 			}

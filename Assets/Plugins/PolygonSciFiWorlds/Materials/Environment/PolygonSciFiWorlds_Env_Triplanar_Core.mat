@@ -310,3 +310,4 @@ Material:
     - _Rock_Colour: {r: 0.2784314, g: 0.25490198, b: 0.29411766, a: 1}
     - _Rock_Colour_Primary: {r: 0.18977074, g: 0.18977074, b: 0.2205882, a: 0}
     - _Rock_Colour_Secondary: {r: 0.60294116, g: 0.28679457, b: 0.11526816, a: 0}
+  m_BuildTextureStacks: []

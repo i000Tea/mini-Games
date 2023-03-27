@@ -52,7 +52,7 @@ namespace Tea.NewRouge
 
 		#endregion
 
-		#region MyRegion
+		#region unity
 		private void OnValidate()
 		{
 			if (weaponsParent)
@@ -77,11 +77,6 @@ namespace Tea.NewRouge
 				}
 
 			}
-		}
-		private IEnumerator Start()
-		{
-			yield return new WaitForSeconds(0.1f);
-			//GetWeapon(20);
 		}
 		private void Update()
 		{
@@ -109,6 +104,13 @@ namespace Tea.NewRouge
 		#endregion
 
 		#region Weapon
+		protected void Start()
+		{
+			GameManager.I.OnPlayerDead += () =>
+			{
+				enabled = false; 
+			};
+		}
 		/// <summary>
 		/// 武器的每帧计算
 		/// </summary>
@@ -130,6 +132,7 @@ namespace Tea.NewRouge
 
 				shootCDNow = 0;
 				IsShoot(weapons[nowWep]);
+				PlayerAnim_Control.I.Shoot(weapons[nowWep].recoil);
 				Player_Control.I.FindTargetEnemy();
 
 			}
