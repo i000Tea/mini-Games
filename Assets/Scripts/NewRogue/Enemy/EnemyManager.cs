@@ -9,10 +9,15 @@ namespace Tea.NewRouge
 		public List<Enemy_Control> enemys;
 		public List<Transform> createPoints;
 
+		public int CreateNum
+		{
+			get { return createNum; }
+		}
 		/// <summary>
 		/// 本层需要生成的总数
 		/// </summary>
-		public int createNum = 50;
+		[SerializeField]
+		private int createNum = 50;
 
 		/// <summary>
 		/// 基础等待时间
@@ -91,7 +96,7 @@ namespace Tea.NewRouge
 			yield return new WaitForSeconds(1f);
 
 			// 循环生成总数
-			for (int i = 0; i < createNum; i++)
+			for (int i = 0; i < CreateNum; i++)
 			{
 				// 生成
 				CreateEnemy();

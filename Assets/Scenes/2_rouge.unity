@@ -945,6 +945,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1107592283}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &95824102 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7912944423337753441, guid: 9a46134d34be121479d7d9c8b80c5fa0,
+    type: 3}
+  m_PrefabInstance: {fileID: 644705055}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &104295376 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6265321178777466495, guid: 9a46134d34be121479d7d9c8b80c5fa0,
@@ -1133,9 +1139,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1014f09059f78724e9fbc7c48c2afc8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useNew: 1
   enemys: []
   createPoints: []
-  createNum: 999
+  createNum: 50
   baseWait: 0.25
   slowWait: 2
   eSlowNum: 30
@@ -5139,6 +5146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dac2b214ac961841a7b12c718b546f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useNew: 1
   showParent: {fileID: 55393091}
   playerParent: {fileID: 936691595}
   players:
@@ -5186,6 +5194,7 @@ MonoBehaviour:
   - {fileID: 473306846}
   - {fileID: 1704698527}
   - {fileID: 553096649}
+  - {fileID: 95824102}
   - {fileID: 1592424102}
   - {fileID: 1122867466}
   - {fileID: 25669327}
@@ -6023,6 +6032,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e82532cad2f25646b8ba496e97618ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useNew: 1
 --- !u!1 &879947181
 GameObject:
   m_ObjectHideFlags: 0
@@ -6247,6 +6257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02b3a7e34d0a60546ac2f4e10bf12474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useNew: 1
   canvas_Start: {fileID: 1303508616}
   canvas_Playing: {fileID: 1792904495}
   canvas_Pause: {fileID: 1555120457}
@@ -12911,6 +12922,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e3553cbf4b1324468034e16e8bf913c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useNew: 1
   rItem: {fileID: 11400000, guid: aac19a8119bd3974f9ee26371c5d3ceb, type: 2}
   Floor: {fileID: 1680486112}
   startRoom: {fileID: 1709698738}
@@ -15590,6 +15602,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 190795542659370545, guid: 761e53020a3e41a4fa6da7adc0c8423b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2660453641544543159, guid: 761e53020a3e41a4fa6da7adc0c8423b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3549363136033778041, guid: 761e53020a3e41a4fa6da7adc0c8423b,
         type: 3}
       propertyPath: recoil
@@ -15785,6 +15807,11 @@ PrefabInstance:
       propertyPath: recoil
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 4165253090614808826, guid: 761e53020a3e41a4fa6da7adc0c8423b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4741311913483498275, guid: 761e53020a3e41a4fa6da7adc0c8423b,
         type: 3}
       propertyPath: joyStick
@@ -15853,6 +15880,21 @@ PrefabInstance:
     - target: {fileID: 4741311914840673893, guid: 761e53020a3e41a4fa6da7adc0c8423b,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5450723084144760074, guid: 761e53020a3e41a4fa6da7adc0c8423b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6278347596897330855, guid: 761e53020a3e41a4fa6da7adc0c8423b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6999942003435178360, guid: 761e53020a3e41a4fa6da7adc0c8423b,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7291585114555633335, guid: 761e53020a3e41a4fa6da7adc0c8423b,

@@ -2350,6 +2350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsStartToGet: 0
   IsUse: 1
   muzzle: {fileID: 7902208751906211441}
   weaponBullet: {fileID: 0}
@@ -2357,6 +2358,7 @@ MonoBehaviour:
   RatePerS: 4
   Offset: 0.01
   velocity: 1
+  recoil: 1
   scale: 1
 --- !u!1001 &418267313103540339
 PrefabInstance:
@@ -2448,6 +2450,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsStartToGet: 0
   IsUse: 0
   muzzle: {fileID: 1638709304}
   weaponBullet: {fileID: 0}
@@ -2455,6 +2458,7 @@ MonoBehaviour:
   RatePerS: 4
   Offset: 0.01
   velocity: 1
+  recoil: 1
   scale: 1
 --- !u!1001 &571248698061672595
 PrefabInstance:
@@ -2546,6 +2550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsStartToGet: 0
   IsUse: 0
   muzzle: {fileID: 707634686}
   weaponBullet: {fileID: 0}
@@ -2553,6 +2558,7 @@ MonoBehaviour:
   RatePerS: 4
   Offset: 0.01
   velocity: 1
+  recoil: 1
   scale: 1
 --- !u!1001 &616967048990295036
 PrefabInstance:
@@ -2644,6 +2650,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsStartToGet: 0
   IsUse: 1
   muzzle: {fileID: 1086979221}
   weaponBullet: {fileID: 0}
@@ -2651,6 +2658,7 @@ MonoBehaviour:
   RatePerS: 4
   Offset: 0.01
   velocity: 1
+  recoil: 1
   scale: 1
 --- !u!1001 &1561866001745740889
 PrefabInstance:
@@ -2748,6 +2756,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsStartToGet: 0
   IsUse: 1
   muzzle: {fileID: 651526812}
   weaponBullet: {fileID: 294445597962338927, guid: 008e3fffbddda454a95b9f0b833731bf,
@@ -2756,6 +2765,7 @@ MonoBehaviour:
   RatePerS: 1
   Offset: 0.01
   velocity: 1
+  recoil: 1
   scale: 1
 --- !u!114 &702707351495388129
 MonoBehaviour:
@@ -2910,6 +2920,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsStartToGet: 0
   IsUse: 0
   muzzle: {fileID: 617025915}
   weaponBullet: {fileID: 0}
@@ -2917,6 +2928,7 @@ MonoBehaviour:
   RatePerS: 4
   Offset: 0.01
   velocity: 1
+  recoil: 1
   scale: 1
 --- !u!1001 &1986025183782759354
 PrefabInstance:
@@ -3008,6 +3020,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsStartToGet: 0
   IsUse: 0
   muzzle: {fileID: 2147149819}
   weaponBullet: {fileID: 0}
@@ -3015,6 +3028,7 @@ MonoBehaviour:
   RatePerS: 4
   Offset: 0.01
   velocity: 1
+  recoil: 1
   scale: 1
 --- !u!1001 &2822992281765771155
 PrefabInstance:
@@ -3106,6 +3120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsStartToGet: 0
   IsUse: 1
   muzzle: {fileID: 438264118}
   weaponBullet: {fileID: 0}
@@ -3113,6 +3128,7 @@ MonoBehaviour:
   RatePerS: 4
   Offset: 0.01
   velocity: 1
+  recoil: 1
   scale: 1
 --- !u!114 &2524297193599792067
 MonoBehaviour:
@@ -3270,6 +3286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsStartToGet: 0
   IsUse: 0
   muzzle: {fileID: 797169131}
   weaponBullet: {fileID: 0}
@@ -3277,6 +3294,7 @@ MonoBehaviour:
   RatePerS: 4
   Offset: 0.01
   velocity: 1
+  recoil: 1
   scale: 1
 --- !u!1001 &3770660580624665209
 PrefabInstance:
@@ -3368,6 +3386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsStartToGet: 0
   IsUse: 0
   muzzle: {fileID: 1615984904}
   weaponBullet: {fileID: 0}
@@ -3375,6 +3394,7 @@ MonoBehaviour:
   RatePerS: 4
   Offset: 0.01
   velocity: 1
+  recoil: 1
   scale: 1
 --- !u!1001 &4474204391709321362
 PrefabInstance:
@@ -3466,6 +3486,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsStartToGet: 0
   IsUse: 0
   muzzle: {fileID: 143215994}
   weaponBullet: {fileID: 0}
@@ -3473,6 +3494,7 @@ MonoBehaviour:
   RatePerS: 4
   Offset: 0.01
   velocity: 1
+  recoil: 1
   scale: 1
 --- !u!1001 &4706632329026568760
 PrefabInstance:
@@ -3564,6 +3586,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsStartToGet: 0
   IsUse: 0
   muzzle: {fileID: 370755951}
   weaponBullet: {fileID: 0}
@@ -3571,6 +3594,7 @@ MonoBehaviour:
   RatePerS: 4
   Offset: 0.01
   velocity: 1
+  recoil: 1
   scale: 1
 --- !u!1001 &5123773593902311165
 PrefabInstance:
@@ -3662,6 +3686,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsStartToGet: 0
   IsUse: 1
   muzzle: {fileID: 109729955}
   weaponBullet: {fileID: 0}
@@ -3669,6 +3694,7 @@ MonoBehaviour:
   RatePerS: 4
   Offset: 0.01
   velocity: 1
+  recoil: 1
   scale: 1
 --- !u!114 &7185958346938779998
 MonoBehaviour:
@@ -3826,6 +3852,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsStartToGet: 0
   IsUse: 0
   muzzle: {fileID: 5555598401361878538}
   weaponBullet: {fileID: 0}
@@ -3833,6 +3860,7 @@ MonoBehaviour:
   RatePerS: 4
   Offset: 0.01
   velocity: 1
+  recoil: 1
   scale: 1
 --- !u!1001 &5792121833274289784
 PrefabInstance:
@@ -3924,14 +3952,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsUse: 0
+  IsStartToGet: 0
+  IsUse: 1
   muzzle: {fileID: 221267330}
-  weaponBullet: {fileID: 0}
-  damage: 1
-  RatePerS: 4
+  weaponBullet: {fileID: 294445597962338927, guid: 008e3fffbddda454a95b9f0b833731bf,
+    type: 3}
+  damage: 99
+  RatePerS: 1
   Offset: 0.01
   velocity: 1
-  scale: 1
+  recoil: 1
+  scale: 2
 --- !u!1001 &6145014967085690914
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4022,6 +4053,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsStartToGet: 0
   IsUse: 0
   muzzle: {fileID: 1617508392}
   weaponBullet: {fileID: 0}
@@ -4029,6 +4061,7 @@ MonoBehaviour:
   RatePerS: 4
   Offset: 0.01
   velocity: 1
+  recoil: 1
   scale: 1
 --- !u!1001 &6209272206953488530
 PrefabInstance:
@@ -4120,6 +4153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsStartToGet: 0
   IsUse: 0
   muzzle: {fileID: 1791609200}
   weaponBullet: {fileID: 0}
@@ -4127,6 +4161,7 @@ MonoBehaviour:
   RatePerS: 4
   Offset: 0.01
   velocity: 1
+  recoil: 1
   scale: 1
 --- !u!1001 &6222735132294615061
 PrefabInstance:
@@ -4218,6 +4253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsStartToGet: 0
   IsUse: 0
   muzzle: {fileID: 370796392}
   weaponBullet: {fileID: 0}
@@ -4225,6 +4261,7 @@ MonoBehaviour:
   RatePerS: 4
   Offset: 0.01
   velocity: 1
+  recoil: 1
   scale: 1
 --- !u!1001 &6348465160894607995
 PrefabInstance:
@@ -4316,6 +4353,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsStartToGet: 0
   IsUse: 0
   muzzle: {fileID: 1847886386}
   weaponBullet: {fileID: 0}
@@ -4323,6 +4361,7 @@ MonoBehaviour:
   RatePerS: 4
   Offset: 0.01
   velocity: 1
+  recoil: 1
   scale: 1
 --- !u!1001 &6506767380164380423
 PrefabInstance:
@@ -4414,6 +4453,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsStartToGet: 0
   IsUse: 1
   muzzle: {fileID: 1272525696}
   weaponBullet: {fileID: 0}
@@ -4421,6 +4461,7 @@ MonoBehaviour:
   RatePerS: 4
   Offset: 0.01
   velocity: 1
+  recoil: 1
   scale: 1
 --- !u!114 &8999412238995784244
 MonoBehaviour:
@@ -4594,6 +4635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsStartToGet: 0
   IsUse: 1
   muzzle: {fileID: 9134585913782212086}
   weaponBullet: {fileID: 0}
@@ -4601,6 +4643,7 @@ MonoBehaviour:
   RatePerS: 4
   Offset: 0.01
   velocity: 1
+  recoil: 1
   scale: 1
 --- !u!1001 &6963489561317522442
 PrefabInstance:
@@ -4692,6 +4735,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsStartToGet: 0
   IsUse: 0
   muzzle: {fileID: 1247085662}
   weaponBullet: {fileID: 0}
@@ -4699,6 +4743,7 @@ MonoBehaviour:
   RatePerS: 4
   Offset: 0.01
   velocity: 1
+  recoil: 1
   scale: 1
 --- !u!1001 &7377747206216521705
 PrefabInstance:
@@ -4796,6 +4841,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsStartToGet: 0
   IsUse: 0
   muzzle: {fileID: 0}
   weaponBullet: {fileID: 0}
@@ -4803,6 +4849,7 @@ MonoBehaviour:
   RatePerS: 4
   Offset: 0.01
   velocity: 1
+  recoil: 1
   scale: 1
 --- !u!1001 &7516592741390347318
 PrefabInstance:
@@ -4894,6 +4941,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsStartToGet: 0
   IsUse: 0
   muzzle: {fileID: 1428575259}
   weaponBullet: {fileID: 0}
@@ -4901,6 +4949,7 @@ MonoBehaviour:
   RatePerS: 4
   Offset: 0.01
   velocity: 1
+  recoil: 1
   scale: 1
 --- !u!1001 &7720724687620453591
 PrefabInstance:
@@ -4992,6 +5041,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsStartToGet: 0
   IsUse: 0
   muzzle: {fileID: 1580933349}
   weaponBullet: {fileID: 0}
@@ -4999,6 +5049,7 @@ MonoBehaviour:
   RatePerS: 4
   Offset: 0.01
   velocity: 1
+  recoil: 1
   scale: 1
 --- !u!1001 &8110236254163212912
 PrefabInstance:
@@ -5107,6 +5158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsStartToGet: 0
   IsUse: 0
   muzzle: {fileID: 8496644273320942730}
   weaponBullet: {fileID: 0}
@@ -5114,6 +5166,7 @@ MonoBehaviour:
   RatePerS: 4
   Offset: 0.01
   velocity: 1
+  recoil: 1
   scale: 1
 --- !u!1001 &8112301675647453972
 PrefabInstance:
@@ -5217,6 +5270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsStartToGet: 0
   IsUse: 0
   muzzle: {fileID: 6521145399182203370}
   weaponBullet: {fileID: 0}
@@ -5224,6 +5278,7 @@ MonoBehaviour:
   RatePerS: 4
   Offset: 0.01
   velocity: 1
+  recoil: 1
   scale: 1
 --- !u!1001 &8854619335954913400
 PrefabInstance:
@@ -5315,6 +5370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285045c1693ef58449df38f9aa6dc170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsStartToGet: 0
   IsUse: 0
   muzzle: {fileID: 937800796}
   weaponBullet: {fileID: 0}
@@ -5322,4 +5378,5 @@ MonoBehaviour:
   RatePerS: 4
   Offset: 0.01
   velocity: 1
+  recoil: 1
   scale: 1

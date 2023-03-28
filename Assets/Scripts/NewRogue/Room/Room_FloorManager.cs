@@ -242,8 +242,21 @@ namespace Tea.NewRouge
 				newDoor = newRoom.GetDoor((DoorType)dType);
 				newDoorNum = newRoom.GetDoorNum(newDoor);
 				beforerDoor = beforeRoom.GetDoor((DoorType)dType);
+				if(newDoor == null||beforerDoor == null)
+				{
+					continue;
+				}
 				// 设置旋转值
-				rotateY = beforerDoor.transform.eulerAngles.y - newDoor.transform.localEulerAngles.y + 180;
+				try
+				{
+					rotateY = beforerDoor.transform.eulerAngles.y - newDoor.transform.localEulerAngles.y + 180;
+				}
+				catch (Exception)
+				{
+					//Debug.Log($"{beforeRoom.name} {newRoom.name}  ");
+					//Debug.Log($"{beforerDoor != null} and {newDoor != null} ");
+					throw;
+				}
 				if (Mathf.Abs(rotateY) > 360)
 					rotateY %= 360;
 				string log = $"构建次数{i + 1}";
@@ -263,6 +276,10 @@ namespace Tea.NewRouge
 					return null;
 				}
 				//Debug.Log(log + ",继续");
+			}
+			if (newDoor == null || beforerDoor == null)
+			{
+				return null;
 			}
 			//Debug.Log("构建成功");
 

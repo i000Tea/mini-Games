@@ -97,7 +97,16 @@ namespace Tea.NewRouge
 		{
 			if (propUseUp || roomDepth <= 1)
 				return null;
-			var target = floors.RandomListValue().transform;
+			Transform target;
+			try
+			{
+				target = floors.RandomListValue().transform;
+			}
+			catch (System.Exception)
+			{
+				return null;
+			}
+
 			var prop = Instantiate(propPrefab,
 				target.position + new Vector3(-2.5f, 0, 2.5f).AngleTransfor(target.eulerAngles.y),
 				Quaternion.Euler(0, 0, 0), transform);

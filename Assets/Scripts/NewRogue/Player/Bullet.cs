@@ -141,7 +141,7 @@ namespace Tea.NewRouge
 					Debug.DrawLine(ray.origin, hit.point, Color.red);
 					if (hit.collider.gameObject.TryGetComponent(out Enemy_Control enemy))
 					{
-						enemy.UnHit();
+						enemy.UnHit(damage);
 					}
 					//Debug.Log(hit.collider.gameObject.name);
 					line.SetPosition(0, transform.position);
