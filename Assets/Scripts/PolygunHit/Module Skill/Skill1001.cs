@@ -21,7 +21,7 @@ namespace Tea.PolygonHit
 		public override void UseStrikeSkill(EnemyBase _)
         {
 			// 获取攻击范围内的敌人
-			var enemy = AddVoids.ListDistance(EnemyManager.enemys, PlayerBase.Player.position, m_long);
+			var enemy = AddVoids.ListDistance(EnemyManager.nowEnemys, PlayerBase.Player.position, m_long);
 			// 对获取到的敌人 攻击1 击退
 			enemy.AtkEnemys(1,AddVoids.SetUnColl(m_power, PlayerBase.Player.position));
 			// 击退粒子

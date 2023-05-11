@@ -37,7 +37,7 @@ namespace Tea.PolygonHit
 			{
 				Debug.Log( Vector3.Distance(transform.position, collision.transform.position));
 				// 获取攻击范围内的敌人
-				var enemy = AddVoids.ListDistance(EnemyManager.enemys, transform.position, BoomScale);
+				var enemy = AddVoids.ListDistance(EnemyManager.nowEnemys, transform.position, BoomScale);
 
 				// 爆炸伤害和击退
 				enemy.AtkEnemys(m_Dmg, AddVoids.SetUnColl(m_Power, PlayerBase.Player.position));

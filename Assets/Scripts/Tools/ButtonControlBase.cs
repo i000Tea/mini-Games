@@ -18,70 +18,108 @@ namespace Tea
         private ButtonControlSetting m_Setting;
 
         [SerializeField]
-        private bool isDebug = false;
+        protected bool isDebug = false;
 
         /// <summary>
         /// 鼠标是否在自身身上
         /// </summary>
-        private bool mouseIsIn = false;
-        private bool drawing = false;
+        protected bool mouseIsIn = false;
+        /// <summary>
+        /// 是否处于拖拽中
+        /// </summary>
+        protected bool drawing = false;
         #region Draw 拖拽移动
         /// <summary>
         /// 父集位置
         /// </summary>
-        public RectTransform ParentRTran
-        {
-            get
-            {
-                if (!m_ParentRTran)
-                    m_ParentRTran = transform.parent.GetComponent<RectTransform>();
-                return m_ParentRTran;
-            }
-        }
-        private RectTransform m_ParentRTran;
+        public RectTransform ParentRectTrans => transform.parent.GetComponent<RectTransform>();
         /// <summary>
         /// 自身坐标位置
         /// </summary>
-        private RectTransform myRTran;
+        protected RectTransform thisRectTrans;
+        /// <summary>
+        /// 拖拽偏移
+        /// </summary>
+
+        protected Vector2 dragOffsetPoint;
+
+        /// <summary>
+        /// 被拖拽的物体
+        /// </summary>
+        protected virtual Transform DragSomeTran
+        {
+            get
+            {
+                // 当拖拽对象为空 
+                if (dragSomeObj == null)
+                {
+                    dragSomeObj = thisRectTrans;
+                }
+                else if (dragOffsetPoint == Vector2.zero)
+                {
+                    dragOffsetPoint = dragSomeObj.localPosition;
+                }
+                return dragSomeObj;
+            }
+        }
+        protected RectTransform DragRTran => dragSomeObj as RectTransform;
+
+        /// <summary>
+        /// 被拖拽的某物体(手动配置)
+        /// </summary>
+        [SerializeField]
+        protected Transform dragSomeObj;
+
         /// <summary>
         /// 初始坐标
         /// </summary>
-        private Vector3 awakePosition;
-		protected Vector3 _movePosition(PointerEventData eventData)
-		{
-			//新建v2
-			Vector2 pos;
-			// 如果点击 RectTransform 平面，则无论点是否在矩形内，都返回 true。
-			if (RectTransformUtility.ScreenPointToLocalPointInRectangle(ParentRTran,
-				eventData.position,
-				eventData.pressEventCamera,
-				out pos))
-			{
-				// 当前移动位置为移动后的值
-				movePosition = pos;
-				// 若可以移动 则自身坐标为移动后的值
-				if (m_Setting.CanDraw)
-					myRTran.localPosition = pos;
-				return pos;
-			}
-			else
-			{
-				return Vector3.zero;
-			}
+        protected Vector3 awakePosition;
+        /// <summary>
+        /// 转换父集后的初始坐标
+        /// </summary>
+        protected Vector3 awakeNewPosition;
 
-		}
+        /// <summary>
+        /// 位移位置
+        /// </summary>
+        /// <param name="eventData"></param>
+        /// <returns></returns>
+		protected Vector3 MovePosition(PointerEventData eventData)
+        {
+            //新建v2
+            Vector2 pos;
+            // 如果点击 RectTransform 平面，则无论点是否在矩形内，都返回 true。
+            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(ParentRectTrans,
+                eventData.position,
+                eventData.pressEventCamera,
+                out pos))
+            {
+                // 当前移动位置为移动后的值
+                movePosition = pos;
+                // 若可以移动 则自身坐标为移动后的值
+                if (m_Setting.CanDraw)
+                    DragSomeTran.localPosition = pos;
+                return pos;
+            }
+            else
+            {
+                return Vector3.zero;
+            }
 
-		/// <summary>
-		/// 鼠标的当前移动位置
-		/// </summary>
-		protected Vector3 movePosition;
-		#endregion
+        }
 
-		#endregion
+        /// <summary>
+        /// 鼠标的当前移动位置
+        /// </summary>
+        protected Vector3 movePosition;
+        #endregion
 
-		#region Unity void 基础方法
+        Tween inAnim;
+        #endregion
 
-		private void OnValidate()
+        #region Unity void 基础方法
+
+        private void OnValidate()
         {
             //if (!m_Setting)
             //{
@@ -91,15 +129,18 @@ namespace Tea
 
         private void Awake()
         {
-			AwakeSet();
-		}
+            AwakeSet();
+        }
         #endregion
 
-		protected virtual void AwakeSet()
-		{
-			// 获取自身UI坐标
-			if (TryGetComponent(out RectTransform RT)) myRTran = RT;
-		}
+        /// <summary>
+        /// 初始化设置
+        /// </summary>
+        protected virtual void AwakeSet()
+        {
+            // 获取自身UI坐标
+            if (TryGetComponent(out RectTransform RT)) thisRectTrans = RT;
+        }
 
         #region 鼠标触碰 点击
         /// <summary>
@@ -108,13 +149,15 @@ namespace Tea
         /// <param name="eventData"></param>
         public void OnPointerEnter(PointerEventData eventData)
         {
+            if (isDebug)
+                Debug.Log("PointerEnter");
             OnEnter();
             if (m_Setting.CanEnter)
             {
                 //Debug.Log("鼠标进入");
                 if (m_Setting.CanEnterAnim)
                 {
-                    OnScale(m_Setting.enter_Scale, m_Setting.enter_Time);
+                    inAnim = OnScale(m_Setting.enter_Scale, m_Setting.enter_Time);
                 }
                 mouseIsIn = true;
             }
@@ -125,12 +168,21 @@ namespace Tea
         /// <param name="eventData"></param>
         public void OnPointerExit(PointerEventData eventData)
         {
+            if (isDebug)
+                Debug.Log("PointerExit");
             OnExit();
-            if (m_Setting.CanEnter && !drawing)
+            if (m_Setting.CanEnter &&
+                // 当不处于拖拽中 或 被拖拽的物体不是自身
+                (!drawing || DragSomeTran != thisRectTrans))
             {
                 //Debug.Log("鼠标离开"); 
                 if (m_Setting.CanEnterAnim)
                 {
+                    if (inAnim != null)
+                    {
+                        inAnim.Kill();
+                        inAnim = null;
+                    }
                     OnScale(1f, m_Setting.enterBack_Time);
                 }
                 mouseIsIn = false;
@@ -143,6 +195,8 @@ namespace Tea
         /// <param name="eventData"></param>
         public void OnPointerDown(PointerEventData eventData)
         {
+            if (isDebug)
+                Debug.Log("PointerDown");
             if (m_Setting.CanClick)
             {
                 //Debug.Log("按下鼠标");
@@ -216,7 +270,11 @@ namespace Tea
             if (m_Setting.CanDraw)
             {
                 drawing = true;
-                awakePosition = myRTran.localPosition;
+                awakePosition = DragSomeTran.localPosition;
+                if (DragSomeTran != thisRectTrans)
+                {
+                    DragSomeTran.SetParent(thisRectTrans.parent);
+                }
             }
         }
         /// <summary>
@@ -225,19 +283,24 @@ namespace Tea
         /// <param name="eventData"></param>
         public virtual void OnDrag(PointerEventData eventData)
         {
-            if (isDebug)
-                Debug.Log("isDrap");
-			// 若可拖拽 自身坐标更新
-			_movePosition(eventData);
-			if (m_Setting.CanDraw)
+            Vector2 pos;
+            if (awakeNewPosition == default)
             {
-                Vector2 pos;
-                if (RectTransformUtility.ScreenPointToLocalPointInRectangle(ParentRTran,
+                awakeNewPosition = DragSomeTran.localPosition;
+            }
+            //if (isDebug)
+            //    Debug.Log("isDrap");
+            // 若可拖拽 自身坐标更新
+            MovePosition(eventData);
+            if (m_Setting.CanDraw)
+            {
+                if (RectTransformUtility.ScreenPointToLocalPointInRectangle(ParentRectTrans,
                     eventData.position,
                     eventData.pressEventCamera,
                     out pos))
                 {
-                    myRTran.localPosition = pos;
+                    DragSomeTran.localPosition = pos;
+                    //Debug.Log($"{pos}  {DragTran.localPosition}");
                 }
             }
         }
@@ -252,6 +315,12 @@ namespace Tea
             if (m_Setting.CanDraw)
             {
                 drawing = false;
+                awakeNewPosition = default;
+                dragOffsetPoint = default;
+                if (DragSomeTran != thisRectTrans)
+                {
+                    DragSomeTran.SetParent(thisRectTrans);
+                }
                 StartCoroutine(ButtonDisAppear());
             }
         }
@@ -261,19 +330,20 @@ namespace Tea
         /// <summary>
         /// 动态改变自身的大小
         /// </summary>
-        public virtual void OnScale(float Scale, float time = 0.25f)
+        public virtual Tween OnScale(float Scale, float time = 0.25f)
         {
-            transform.DOScale(Scale, time);
+            return transform.DOScale(Scale, time);
         }
 
         /// <summary>
         /// 按钮返回
         /// </summary>
         /// <returns></returns>
-        IEnumerator ButtonDisAppear()
+        protected virtual IEnumerator ButtonDisAppear()
         {
-            transform.DOLocalMove(awakePosition, 0.25f);
-            transform.DOScale(1f, 0.25f);
+            yield return new WaitForFixedUpdate();
+            DragSomeTran.transform.DOLocalMove(awakePosition /*+ new Vector3(dragOffsetPoint.x,  dragOffsetPoint.y, 0)*/, 0.25f);
+            DragSomeTran.transform.DOScale(1f, 0.25f);
             yield return new WaitForSeconds(0.5f);
         }
         #endregion

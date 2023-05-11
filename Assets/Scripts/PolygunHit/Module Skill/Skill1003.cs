@@ -43,7 +43,7 @@ namespace Tea.PolygonHit
 				//判断冻结是否范围生效
 				if (m_DiffPercent > Random.Range(0, 100))
 				{
-					var a =	AddVoids.ListDistance(EnemyManager.enemys, PlayerBase.Player.position, m_DiffScale);
+					var a =	AddVoids.ListDistance(EnemyManager.nowEnemys, PlayerBase.Player.position, m_DiffScale);
 
 					var c = new UnCollision();
 					c.Power = 1;

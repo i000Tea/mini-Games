@@ -86,7 +86,7 @@ namespace Tea.PolygonHit
 		}
 		public void SetTarget()
 		{
-			enemyTarget = AddVoids.ListMin(EnemyManager.enemys, transform.position);
+			enemyTarget = AddVoids.ListMin(EnemyManager.nowEnemys, transform.position);
 			//Debug.Log(enemyTarget);
 		}
 		void UpdateMove()

@@ -46,7 +46,8 @@ namespace Tea.NewRouge
 		public Transform roomColl;
 
 		#endregion
-
+		/*
+#if UNITY_EDITOR
 		private void OnValidate()
 		{
 			//Debug.Log(roomColl.lossyScale);
@@ -83,6 +84,8 @@ namespace Tea.NewRouge
 			}
 
 		}
+#endif
+		*/
 		private void Awake()
 		{
 

@@ -139,7 +139,7 @@ namespace Tea.PolygonHit
 			// 拖拽开始 记录初始鼠标位置
 			if (StartPoint == Vector3.zero)
             {
-                StartPoint = _movePosition(eventData);
+                StartPoint = MovePosition(eventData);
 
 				if (reverseDrag)
 					SetDragLine();
@@ -147,17 +147,17 @@ namespace Tea.PolygonHit
 					SetDragImage();
 
                 aim.enabled = true;
-                aim.transform.localPosition = _movePosition(eventData);
+                aim.transform.localPosition = MovePosition(eventData);
 
                 backValve = false;
             }
 
 
-			Debug.Log("Drag1+1");
+			//Debug.Log("Drag1+1");
 			// 线段末尾为初始与当前的插值
 			target = movePosition - StartPoint;
 
-			Debug.Log("Drag2+1");
+			//Debug.Log("Drag2+1");
 
 			if (reverseDrag)
 				SetDragLine();
@@ -165,13 +165,13 @@ namespace Tea.PolygonHit
 				SetDragImage();
 
 
-			Debug.Log("Drag3");
+			//Debug.Log("Drag3");
 			SetPower(target.magnitude);
 
             if (targets)
                 targets.position = target;
-			Debug.Log("Drag3");
-			Debug.Log($"{movePosition} - {StartPoint}");
+			//Debug.Log("Drag3");
+			//Debug.Log($"{movePosition} - {StartPoint}");
 		}
 
 		public override void OnEndDrag(PointerEventData eventData)

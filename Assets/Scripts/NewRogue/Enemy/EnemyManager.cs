@@ -51,7 +51,7 @@ namespace Tea.NewRouge
 		}
 		public bool createing;
 		public GameObject prefab;
-		 
+
 		protected override void Awake()
 		{
 			base.Awake();
