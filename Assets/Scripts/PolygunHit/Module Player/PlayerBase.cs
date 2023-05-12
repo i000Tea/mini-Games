@@ -13,7 +13,7 @@ namespace Tea.PolygonHit
 	{
 		#region variable	变量
 		public static Transform Player;
-		public Vector3 Point => transform.localPosition;
+		public Vector3 Point => transform.position;
 
 		[SerializeField]
 		private Image m_ShowImage;

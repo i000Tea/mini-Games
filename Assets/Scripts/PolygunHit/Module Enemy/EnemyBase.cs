@@ -146,7 +146,7 @@ namespace Tea.PolygonHit
 		/// <summary>
 		/// 与玩家之间的距离
 		/// </summary>
-		private float DistanceFromPlayer => Vector3.Distance(transform.position, PlayerBase.I.Point);
+		private float DistanceFromPlayer => Vector3.Distance(transform.position, PlayerBase.I.Point) * transform.lossyScale.x;
 
 		/// <summary>
 		/// 带有方向的基础速度
@@ -438,7 +438,7 @@ namespace Tea.PolygonHit
 			// 计算与玩家之间的距离
 			//DistanceFromPlayer = Vector3.Distance(transform.position, PlayerBase.Player.position);
 
-
+			Debug.Log($"{DistanceFromPlayer}  {CameraController.inst.MaxEdgeDistance}");
 			// 当与玩家间的距离大于视线外 倍速移动靠近玩家
 			if (DistanceFromPlayer > CameraController.inst.MaxEdgeDistance)
 			{
