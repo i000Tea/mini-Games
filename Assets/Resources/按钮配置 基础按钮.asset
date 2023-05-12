@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f56946bf2a73cdf4383fdc0d3e58e0f6, type: 3}
+  m_Name: "\u6309\u94AE\u914D\u7F6E \u57FA\u7840\u6309\u94AE"
+  m_EditorClassIdentifier: 
+  CanClick: 1
+  CanClickAnim: 1
+  click_Scale: 0.9
+  click_Time: 0.1
+  click_UseColor: 1
+  click_Color: {r: 1, g: 0, b: 0, a: 0}
+  clickBack_Time: 0.1
+  CanEnter: 0
+  CanEnterAnim: 1
+  enter_Scale: 1.1
+  enter_Time: 0.1
+  enter_UseColor: 0
+  enter_Color: {r: 0, g: 0.2599814, b: 1, a: 0}
+  enterBack_Time: 1
+  CanDraw: 0
+  draw_Speed: 1
+  drawBack_Speed: 1

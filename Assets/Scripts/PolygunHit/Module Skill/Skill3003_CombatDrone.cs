@@ -77,7 +77,7 @@ namespace Tea.PolygonHit
 			else
 			{
 				//Debug.Log("射击");
-				var a = GameManager.inst.TeaInstantiate(Bullet, m_shootTarget);
+				var a = GameManager.I.TeaInstantiate(Bullet, m_shootTarget);
 				a.GetComponent<Rigidbody2D>().velocity = transform.up * 16;
 				Destroy(a, 3);
 				SetTarget();

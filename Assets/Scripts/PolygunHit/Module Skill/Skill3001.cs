@@ -14,7 +14,7 @@ namespace Tea.PolygonHit
 		public override void UseStrikeSkill(EnemyBase enemy)
 		{
 			//Debug.Log("装填");
-			PlayerBase.inst.AddAmmo(num);
+			PlayerBase.I.AddAmmo(num);
         }
     }
 }

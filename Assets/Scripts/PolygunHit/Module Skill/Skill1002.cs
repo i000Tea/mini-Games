@@ -19,7 +19,7 @@ namespace Tea.PolygonHit
         {
 			// 使用技能时 增加一个单次撞击的
 			var newBuff = new BuffOnceStrike();
-			newBuff = (BuffOnceStrike)PlayerBase.inst.AddBuff(newBuff);
+			newBuff = (BuffOnceStrike)PlayerBase.I.AddBuff(newBuff);
 			GC.Collect();
 			newBuff.mult += m_Multiplying;
 		}

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f56946bf2a73cdf4383fdc0d3e58e0f6, type: 3}
-  m_Name: "\u65B0\u7684\u6309\u94AE\u914D\u7F6E"
+  m_Name: "\u6309\u94AE\u914D\u7F6E \u62D6\u62FD\u6761"
   m_EditorClassIdentifier: 
   CanClick: 1
   CanClickAnim: 0
@@ -19,13 +19,13 @@ MonoBehaviour:
   click_UseColor: 0
   click_Color: {r: 0, g: 0, b: 0, a: 0}
   clickBack_Time: 0.25
-  CanEnter: 1
+  CanEnter: 0
   CanEnterAnim: 0
   enter_Scale: 1.5
   enter_Time: 1
   enter_UseColor: 0
   enter_Color: {r: 0, g: 0, b: 0, a: 0}
   enterBack_Time: 1
-  CanDraw: 0
+  CanDraw: 1
   draw_Speed: 1
   drawBack_Speed: 1

@@ -49,7 +49,7 @@ namespace Tea.PolygonHit
 			mySkills.Add(@object.GetComponent<SkillBase>());
 
 			// 返回游戏
-			GameManager.inst.SetState(GameState.Gameing);
+			GameManager.I.SetState(GameState.Gameing);
 		}
 		public void AddSkill(int filePathNum)
 		{

@@ -22,7 +22,7 @@ namespace Tea.PolygonHit
 		private float expect = 2;
 		private void Start()
 		{
-			var a = GameManager.inst.TeaInstantiate
+			var a = GameManager.I.TeaInstantiate
 				(CombatDrone,PlayerBase.Player.position);
 			a.transform.position += new Vector3(
 				Random.Range(-0.3f, 0.3f),
@@ -37,9 +37,9 @@ namespace Tea.PolygonHit
 			if (fireDetection >= expect)
 			{
 				//
-				if (PlayerBase.inst.m_Ammo >= 3 && m_CombatDrone.IsShoot())
+				if (PlayerBase.I.m_Ammo >= 3 && m_CombatDrone.IsShoot())
 				{
-					PlayerBase.inst.UseAmmo(2);
+					PlayerBase.I.UseAmmo(2);
 					fireDetection = 0;
 				}
 			}

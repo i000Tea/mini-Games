@@ -8,7 +8,7 @@ namespace Tea.PolygonHit
 	/// <summary>
 	/// 敌人管理器
 	/// </summary>
-	public class EnemyManager : MonoBehaviour
+	public class EnemyManager : Singleton<EnemyManager>
 	{
 		#region 变量
 
@@ -20,7 +20,7 @@ namespace Tea.PolygonHit
 		/// <summary>
 		/// 敌人生成开关
 		/// </summary>
-		public static bool isCreate = true;
+		public static bool isCreate = false;
 		/// <summary>
 		/// 难度阶梯
 		/// </summary>
@@ -112,10 +112,10 @@ namespace Tea.PolygonHit
 		/// <summary>
 		/// 初始化
 		/// </summary>
-		public void Awake()
+		protected override void Awake()
 		{
+			base.Awake();
 			AddEvent();
-			isCreate = true;
 			nowEnemys = new List<GameObject>();
 			dieEnemyPool = new List<GameObject>();
 		}
@@ -190,7 +190,7 @@ namespace Tea.PolygonHit
 				newEnemy.transform.position = RandomPoint();
 			}
 			else
-				newEnemy = GameManager.inst.TeaInstantiate(prefab, RandomPoint(), 1, transform);
+				newEnemy = GameManager.I.TeaInstantiate(prefab, RandomPoint(), 1, transform);
 			//newEnemy = Instantiate(prefab);
 
 			newEnemy.GetComponent<EnemyBase>().BeCreated(diff_HP);

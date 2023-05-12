@@ -5,11 +5,11 @@ using Tea;
 
 namespace Tea.PolygonHit
 {
-    /// <summary>
-    /// 震荡
-    /// </summary>
-    public class Skill1003_Latch : MonoBehaviour
-    {
+	/// <summary>
+	/// 震荡
+	/// </summary>
+	public class Skill1003_Latch : MonoBehaviour
+	{
 		[SerializeField]
 		private GameObject m_Particle;
 
@@ -21,11 +21,11 @@ namespace Tea.PolygonHit
 		[Tooltip("旋转速度最大限制")]
 		[Range(0, 10)]
 		public float m_RotateMaxSpeed;
-		float max;	
+		float max;
 		float speed;
 		private void OnValidate()
 		{
-			if (m_RotateSpeed > max) 
+			if (m_RotateSpeed > max)
 			{
 				m_RotateMaxSpeed = m_RotateSpeed;
 			}
@@ -51,8 +51,8 @@ namespace Tea.PolygonHit
 				StartCoroutine(StartRotate());
 			}
 		}
-		
-		IEnumerator StartRotate() 
+
+		IEnumerator StartRotate()
 		{
 			var enemy = transform.parent.GetComponent<EnemyBase>();
 			enemy.SetAct(false);
@@ -61,10 +61,10 @@ namespace Tea.PolygonHit
 			yield return 0;
 			float rotate = 0;
 			float nowTime = 0;
-			while (nowTime < m_LatchTime) 
+			while (nowTime < m_LatchTime)
 			{
 				yield return new WaitForFixedUpdate();
-				
+
 				rotate += speed;
 				transform.eulerAngles = new Vector3(0, 0, rotate);
 

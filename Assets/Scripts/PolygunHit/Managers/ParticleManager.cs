@@ -4,13 +4,14 @@ using UnityEngine;
 
 namespace Tea
 {
-	public class ParticleManager : MonoBehaviour
+	public class ParticleManager : Singleton<ParticleManager>
 	{
 		public static List<GameObject> strikes;
 		[SerializeField]
 		private List<GameObject> m_Strikes;
-		private void Awake()
+		protected override void Awake()
 		{
+			base.Awake();
 			strikes = m_Strikes;
 		}
 

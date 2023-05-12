@@ -15,7 +15,7 @@ namespace Tea.PolygonHit
 
         public override void UseSkill()
         {
-			GameManager.inst.TeaInstantiate(DiLei, PlayerBase.inst.transform.position, 1);
+			GameManager.I.TeaInstantiate(DiLei, PlayerBase.I.transform.position, 1);
         }
     }
 }

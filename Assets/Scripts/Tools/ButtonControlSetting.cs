@@ -58,6 +58,9 @@ namespace Tea
 
         #region 拖拽
 
+        /// <summary>
+        /// 可以被拖拽
+        /// </summary>
         [Header("Draw   拖拽")]
         public bool CanDraw;
         [Range(0.01f, 1)]

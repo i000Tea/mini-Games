@@ -10,101 +10,118 @@ namespace Tea.PolygonHit
 	/// <summary>
 	/// 游戏管理器
 	/// </summary>
-    public class GameManager : MonoBehaviour
-    {
-        #region State 游戏状态
-        /// <summary>
-        /// 静态自身
-        /// </summary>
-        public static GameManager inst;
-        
-        /// <summary>
-        /// 暂停状态
-        /// </summary>
-        public static bool Pause;
+	public class GameManager : Singleton<GameManager>
+	{
+		#region State 游戏状态
 
-        /// <summary>
-        /// 游戏速度
-        /// </summary>
-        private float gameSpeed;
-        #endregion
+		/// <summary>
+		/// 暂停状态
+		/// </summary>
+		public static bool Pause;
 
-        #region Data 数据
+		/// <summary>
+		/// 游戏速度
+		/// </summary>
+		private float gameSpeed;
+		#endregion
 
-        private int score;
+		#region Data 数据
+
+		private int score;
 
 		[SerializeField]
 		private Transform GameCanvas;
-
+		
+		public Transform PlayerParent =>GameCanvas;
 		#endregion
 
 		#region unity void
-
-		/// <summary>
-		/// 
-		/// </summary>
-		private void Awake()
-        {
-            inst = this;
-            Time.timeScale = 1;
-        }
-        private void Start()
-        {
-            SetState(GameState.Gameing);
-            GUIManager.inst.CalculationScore(score);
-        }
+		protected override void Awake()
+		{
+			base.Awake();
+			Time.timeScale = 1;
+		}
 		#endregion
 
-		#region 预计要做成广播的方法
+		/// <summary>
+		/// 游戏进程开始
+		/// </summary>
+		private void GameStart()
+		{
+
+		}
+
+		/// <summary>
+		/// 跳回0场景
+		/// </summary>
+		private void ExitGame()
+		{
+			SceneManager.LoadScene(0);
+		}
+
+		#region 广播
+
+		protected override void AddDelegate()
+		{
+			EventCenter.OnAddButtonList(ButtonType.Menu_StartGame, GameStart);
+			EventCenter.OnAddButtonList(ButtonType.Exit, ExitGame);
+			EventCenter.OnAddGameStateList(SetState);
+		}
+		protected override void Removedelegate()
+		{
+			EventCenter.OnRemoveButtonList(ButtonType.Menu_StartGame, GameStart);
+			EventCenter.OnRemoveButtonList(ButtonType.Exit, ExitGame);
+			EventCenter.OnRemoveGameStateList(SetState);
+		}
 
 		/// <summary>
 		/// 加分
 		/// </summary>
 		/// <param name="add"></param>
 		public void ScoreAdd(int add = 1)
-        {
-            score += add;
-            GUIManager.inst.CalculationScore(score);
-        }
+		{
+			score += add;
+			GUIManager.I.CalculationScore(score);
+		}
 
-        /// <summary>
-        /// 设置游戏状态
-        /// </summary>
-        public void SetState(GameState State)
-        {
-            switch (State)
-            {
-                case GameState.Gameing:
-                    if (gameSpeed != 0)
-                        Time.timeScale = gameSpeed;
-                    GUIManager.inst.CanvasSwitch(GameState.Gameing);
-                    break;
+		/// <summary>
+		/// 设置游戏状态
+		/// </summary>
+		public void SetState(GameState State)
+		{
+			switch (State)
+			{
+				case GameState.Gameing:
+					if (gameSpeed != 0)
+						Time.timeScale = gameSpeed;
+					GUIManager.I.CanvasSwitch(GameState.Gameing);
+					break;
 
-                case GameState.LevelUp:
+				case GameState.LevelUp:
 
-                    if (Time.timeScale != 0)
-                        gameSpeed = Time.timeScale;
-                    Time.timeScale = 0;
+					if (Time.timeScale != 0)
+						gameSpeed = Time.timeScale;
+					Time.timeScale = 0;
 
-                    GUIManager.inst.CanvasSwitch(GameState.LevelUp);
-                    break;
+					GUIManager.I.CanvasSwitch(GameState.LevelUp);
+					break;
 
-                case GameState.Pause:
-                    if (Time.timeScale != 0)
-                        gameSpeed = Time.timeScale;
-                    Time.timeScale = 0;
+				case GameState.Pause:
+					if (Time.timeScale != 0)
+						gameSpeed = Time.timeScale;
+					Time.timeScale = 0;
 
-                    GUIManager.inst.CanvasSwitch(GameState.Pause);
-                    break;
+					GUIManager.I.CanvasSwitch(GameState.Pause);
+					break;
 
-                case GameState.Over:
-                    GUIManager.inst.CanvasSwitch(GameState.Pause);
-                    break;
+				case GameState.Over:
+					GUIManager.I.CanvasSwitch(GameState.Pause);
+					break;
 
-                default:
-                    break;
-            }
-        }
+				default:
+					break;
+			}
+		}
 
 		#endregion
 
@@ -114,25 +131,25 @@ namespace Tea.PolygonHit
 		/// </summary>
 		/// <param name="_pause"></param>
 		public void ButtonPause(bool _pause)
-        {
-            if (_pause)
-                SetState(GameState.Pause);
-            else
-                SetState(GameState.Gameing);
-        }
-        /// <summary>
-        /// 重新开始
-        /// </summary>
-        public void ButtonReturn()
-        {
-            SceneManager.LoadScene(1);
-        }
-        public void ButtonQuit()
-        {
-            SceneManager.LoadScene(0);
-        }
+		{
+			if (_pause)
+				SetState(GameState.Pause);
+			else
+				SetState(GameState.Gameing);
+		}
+		/// <summary>
+		/// 重新开始
+		/// </summary>
+		public void ButtonReturn()
+		{
+			SceneManager.LoadScene(1);
+		}
+		public void ButtonQuit()
+		{
+			SceneManager.LoadScene(0);
+		}
 		#endregion
-		
+
 		public GameObject TeaInstantiate(GameObject instObj, Vector3 position, float Scale = 1, Transform Parent = null)
 		{
 			return TeaInstantiate(instObj, position, new Quaternion(0, 0, 0, 0), Scale, Parent);
@@ -162,7 +179,7 @@ namespace Tea.PolygonHit
 			obj.transform.position = setPosition;
 			obj.transform.rotation = setRotation;
 
-			return obj; 
+			return obj;
 		}
 	}
 }

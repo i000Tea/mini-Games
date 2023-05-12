@@ -3,42 +3,53 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Tea.PolygonHit {
-    public class GUIManager : MonoBehaviour
-    {
-        public static GUIManager inst;
-
-		public GUISpecialSystems specialSystems;
-
-		#region Show UI
+namespace Tea.PolygonHit
+{
+	public class GUIManager : Singleton<GUIManager>
+	{
+		#region 变量
 		[SerializeField]
-        GameObject[] showCanvas;
+		private GameObject _Awake;
+		[SerializeField]
+		GameObject[] showCanvas;
 
-        [SerializeField]
-        private Image exaImage;
+		#region Drag setting
+		[Header("PlayingSetting")]
 
-        [SerializeField]
-        private Text levelText;
+		[SerializeField]
+		private Image exaImage;
 
-        [SerializeField]
-        private Text scoreText;
+		[SerializeField]
+		private Text levelText;
 
-        [SerializeField]
-        private Text HealthText;
+		[SerializeField]
+		private Text scoreText;
+
+		[SerializeField]
+		private Text HealthText;
 		#endregion
 
-		private void Awake()
-        {
-            inst = this;
-			if(TryGetComponent(out GUISpecialSystems special))
-			{
-				specialSystems = special;
-				specialSystems.SpecialAwake();
-			}
-			
-		}
+		#endregion
 
-        #region Calculation ui更新
+		#region 广播
+
+		protected override void AddDelegate()
+		{
+			EventCenter.OnAddButtonList(ButtonType.Menu_StartGame, GameStart);
+		}
+		protected override void Removedelegate()
+		{
+			EventCenter.OnRemoveButtonList(ButtonType.Menu_StartGame, GameStart);
+		}
+		#endregion
+
+		private void GameStart()
+		{
+			Debug.Log("游戏开始");
+			_Awake.SetActive(false);
+			CanvasSwitch(GameState.Gameing);
+		}
+		#region Calculation ui更新
 
 		/// <summary>
 		/// 玩家界面UI更新
@@ -47,39 +58,55 @@ namespace Tea.PolygonHit {
 		/// <param name="now"></param>
 		/// <param name="max"></param>
 		/// <param name="health"></param>
-        public void PlayerMessageUpdate(int level, int now, int max, int health)
-        {
-            exaImage.fillAmount = (float)now / (float)max;
-            levelText.text = level.ToString();
-            HealthText.text = health.ToString();
-        }
+		public void PlayerMessageUpdate(int level, int now, int max, int health)
+		{
+			exaImage.fillAmount = (float)now / (float)max;
+			levelText.text = level.ToString();
+			HealthText.text = health.ToString();
+		}
 
-        /// <summary>
-        /// 显示更新后的分数
-        /// </summary>
-        /// <param name="score"></param>
-        public void CalculationScore(int score)
-        {
-            scoreText.text = score.ToString();
-        }
+		/// <summary>
+		/// 显示更新后的分数
+		/// </summary>
+		/// <param name="score"></param>
+		public void CalculationScore(int score)
+		{
+			scoreText.text = score.ToString();
+		}
 
+		/// <summary>
+		/// 切换Canvas显示
+		/// </summary>
+		/// <param name="state"></param>
+		public void CanvasSwitch(GameState state)
+		{
+			for (int i = 1; i < showCanvas.Length; i++)
+				showCanvas[i].SetActive(false);
 
-        /// <summary>
-        /// 切换Canvas显示
-        /// </summary>
-        /// <param name="state"></param>
-        public void CanvasSwitch(GameState state)
-        {
-            for (int i = 1; i < showCanvas.Length; i++)
-                showCanvas[i].SetActive(false);
-
-            showCanvas[(int)state].SetActive(true);
-        }
+			showCanvas[(int)state].SetActive(true);
+		}
 
 		#endregion
 
 		#region SpecialSystems 特殊系统
 
+		#endregion
+
+		#region Buttons
+		/// <summary>
+		/// 上一个角色
+		/// </summary>
+		public void MenuButton_BeforeCharacter()
+		{
+
+		}
+		/// <summary>
+		/// 下一个角色
+		/// </summary>
+		public void MenuButton_AfterCharacter()
+		{
+
+		}
 		#endregion
 	}
 }

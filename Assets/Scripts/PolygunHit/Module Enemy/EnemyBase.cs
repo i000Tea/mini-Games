@@ -242,8 +242,8 @@ namespace Tea.PolygonHit
             }
 
             // 玩家经验增加 分数增加 后续看看能不能整理成广播
-            PlayerBase.inst.ExpAdd(1);
-            GameManager.inst.ScoreAdd();
+            PlayerBase.I.ExpAdd(1);
+            GameManager.I.ScoreAdd();
 
             // 实例化粒子 粒子位置为自身 6秒后删除粒子
             var particle = Instantiate(Particle);
@@ -360,7 +360,7 @@ namespace Tea.PolygonHit
         /// </summary>
         private void UseAtk()
         {
-            PlayerBase.inst.UnHit(1);
+            PlayerBase.I.UnHit(1);
         }
 
         /// <summary>

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -44,10 +45,22 @@ namespace Tea
 			}
 			//不存在则创建新的实例
 			_instance = (T)this;
+			AddDelegate();
 		}
 		private void OnDestroy()
 		{
-			_instance = null;
+			if (_instance == this)
+			{
+				_instance = null;
+			}
+			Removedelegate();
+		}
+
+		protected virtual void AddDelegate() 
+		{ 
+		}
+		protected virtual void Removedelegate() 
+		{ 
 		}
 	}
 }
