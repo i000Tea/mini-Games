@@ -35,11 +35,11 @@ namespace Tea.PolygonHit
 
 		protected override void AddDelegate()
 		{
-			EventCenter.OnAddButtonList(ButtonType.Menu_StartGame, GameStart);
+			EventControl.OnAddButtonList(ButtonType.Menu_StartGame, GameStart);
 		}
 		protected override void Removedelegate()
 		{
-			EventCenter.OnRemoveButtonList(ButtonType.Menu_StartGame, GameStart);
+			EventControl.OnRemoveButtonList(ButtonType.Menu_StartGame, GameStart);
 		}
 		#endregion
 

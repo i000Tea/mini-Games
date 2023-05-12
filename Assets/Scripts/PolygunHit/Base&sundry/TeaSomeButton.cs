@@ -40,7 +40,7 @@ namespace Tea.PolygonHit
 		}
 		private void TouthButton()
 		{
-			EventCenter.InvokeButton(m_ButtonType);
+			EventControl.InvokeButton(m_ButtonType);
 		}
 	}
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Tea.PolygonHit;
 using UnityEngine;
+using static UnityEditor.Searcher.Searcher.AnalyticsEvent;
 
 namespace Tea
 {
@@ -10,11 +11,12 @@ namespace Tea
 	/// 监听事件
 	/// </summary>
 	public delegate void DelegateEvent();
+	public delegate void DelegateEvent<T>(T arg);
 	public delegate void GameStateEvent(GameState gameState);
 	/// <summary>
 	/// 事件控制
 	/// </summary>
-	public class EventCenter : MonoBehaviour
+	public class EventControl : MonoBehaviour
 	{
 		/// <summary>
 		/// 任意枚举类的事件
@@ -80,6 +82,109 @@ namespace Tea
 			if (m_EveryTable[eventType] == null)
 			{
 				m_EveryTable.Remove(eventType);
+			}
+		}
+		#endregion
+
+		#region Anther 其他类型
+
+		#region Add
+		/// <summary>
+		/// 添加一个任意枚举类的事件到列表
+		/// </summary>
+		/// <typeparam name="_Enum"></typeparam>
+		/// <param name="someEnum"></param>
+		/// <param name="callBack"></param>
+		public static void OnAddAntherList<_Enum>(_Enum someEnum, DelegateEvent callBack) where _Enum : Enum
+		{
+			OnAddSomeList(someEnum, callBack);
+			m_EveryTable[someEnum] = (DelegateEvent)m_EveryTable[someEnum] + callBack;
+		}
+		/// <summary>
+		/// 添加一个任意枚举类+1参数的事件到列表
+		/// </summary>
+		/// <typeparam name="_Enum"></typeparam>
+		/// <param name="someEnum"></param>
+		/// <param name="callBack"></param>
+		public static void OnAddAntherList<_Enum,T>(_Enum someEnum, DelegateEvent<T> callBack) where _Enum : Enum
+		{
+			OnAddSomeList(someEnum, callBack);
+			m_EveryTable[someEnum] = (DelegateEvent<T>)m_EveryTable[someEnum] + callBack;
+		}
+
+		#endregion
+
+		#region Remove
+		/// <summary>
+		/// 移除一个任意枚举类的事件到列表
+		/// </summary>
+		/// <typeparam name="_Enum"></typeparam>
+		/// <param name="someEnum"></param>
+		/// <param name="callBack"></param>
+		public static void OnRemoveAhtnerList<_Enum>(_Enum someEnum, DelegateEvent callBack) where _Enum : Enum
+		{
+
+			OnRemovingSomeList(someEnum, callBack);
+			m_EveryTable[someEnum] = (DelegateEvent)m_EveryTable[someEnum] - callBack;
+			OnRemovedSomeList(someEnum);
+		}
+		/// <summary>
+		/// 移除一个任意枚举类+1参数的事件到列表
+		/// </summary>
+		/// <typeparam name="_Enum"></typeparam>
+		/// <param name="someEnum"></param>
+		/// <param name="callBack"></param>
+		public static void OnRemoveAhtnerList<_Enum,T>(_Enum someEnum, DelegateEvent<T> callBack) where _Enum : Enum
+		{
+
+			OnRemovingSomeList(someEnum, callBack);
+			m_EveryTable[someEnum] = (DelegateEvent<T>)m_EveryTable[someEnum] - callBack;
+			OnRemovedSomeList(someEnum);
+		}
+
+		#endregion
+		/// <summary>
+		/// 执行一个委托事件
+		/// </summary>
+		/// <typeparam name="_Enum"></typeparam>
+		/// <param name="someEnum"></param>
+		/// <exception cref="Exception"></exception>
+		public static void InvokeSomething<_Enum>(_Enum someEnum) where _Enum : Enum
+		{
+			Delegate baseDele;
+			if (m_EveryTable.TryGetValue(someEnum, out baseDele))
+			{
+				DelegateEvent dEvent = baseDele as DelegateEvent;
+				if (dEvent != null)
+				{
+					dEvent();
+				}
+				else
+				{
+					throw new Exception(string.Format("广播事件错误错误：事件{0}对应的委托具有不同的类型", someEnum));
+				}
+			}
+		}
+		/// <summary>
+		/// 执行一个 1参 委托事件
+		/// </summary>
+		/// <typeparam name="_Enum"></typeparam>
+		/// <param name="someEnum"></param>
+		/// <exception cref="Exception"></exception>
+		public static void InvokeSomething<_Enum,T>(_Enum someEnum,T arg) where _Enum : Enum
+		{
+			Delegate baseDele;
+			if (m_EveryTable.TryGetValue(someEnum, out baseDele))
+			{
+				DelegateEvent<T> dEvent = baseDele as DelegateEvent<T>;
+				if (dEvent != null)
+				{
+					dEvent(arg);
+				}
+				else
+				{
+					throw new Exception(string.Format("广播事件错误错误：事件{0}对应的委托具有不同的类型", someEnum));
+				}
 			}
 		}
 		#endregion

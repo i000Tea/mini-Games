@@ -74,6 +74,24 @@ namespace Tea.PolygonHit
         /// <summary> 游戏结束 </summary>
         Over,
     }
+	/// <summary>
+	/// 行动
+	/// </summary>
+	public enum ActionType
+	{
+		/// <summary> 拖拽弹射时 </summary>
+		Shoot,
+		/// <summary> 撞击时 </summary>
+		Strike,
+		/// <summary> 受击时 </summary>
+		UnStrike,
+		/// <summary> 击杀时 </summary>
+		Kill,
+		/// <summary> 获取经验 </summary>
+		ExpAdd,
+		/// <summary> 等级提升 </summary>
+		LevelUp,
+	}
     public enum EventType
     {
         ShowText0,

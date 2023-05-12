@@ -20,47 +20,20 @@ namespace Tea.PolygonHit
 		/// <summary>
 		/// 敌人生成开关
 		/// </summary>
-		public static bool isCreate = false;
-		/// <summary>
-		/// 难度阶梯
-		/// </summary>
-		private int Challenge = 1;
-
-		/// <summary>
-		/// 基础最大数量
-		/// </summary>
-		[SerializeField]
-		private int baseMaxCount;
+		private bool isCreate = false;
 		/// <summary>
 		/// 最大敌人数量
 		/// </summary>
-		public int EnemyMaxLimit
-		{
-			get
-			{
-				if (Challenge > 15)
-					return Challenge * 10;
-				return (Challenge + 1) * 6;
-			}
-		}
+		public int EnemyMaxLimit = 30;
 		/// <summary>
 		/// 每次生成的数量
 		/// </summary>
-		private int diff_createNum
-		{
-			get
-			{
-				return 1 + Challenge / 3;
-			}
-		}
-		private int diff_HP
-		{
-			get
-			{
-				return 3 + Challenge * 2;
-			}
-		}
+		private int BaseCreateNum => Random.Range(1, 3);
+		private int BaseHPMulti = 1;
 
+		/// <summary>
+		/// 生成是否就绪
+		/// </summary>
 		public bool CreateReady => createCD <= 0;
 		/// <summary>
 		/// 生成倒计时
@@ -88,17 +61,15 @@ namespace Tea.PolygonHit
 		}
 		private float createCD;
 		/// <summary>
-		/// CD上限 随时间减少
+		/// CD上限
 		/// </summary>
 		public float cdUpperLimit;
+
 		/// <summary>
-		/// 所有场景中的敌人
+		///场景中的敌人的列表
 		/// </summary>
 		public static List<GameObject> nowEnemys;
 
-		#endregion
-
-		#region pool
 		/// <summary>
 		/// 敌人的对象池
 		/// </summary>
@@ -123,7 +94,9 @@ namespace Tea.PolygonHit
 		private void Update()
 		{
 			if (isCreate)
-				IsCreate();
+			{
+				CreateUpdate();
+			}
 		}
 
 		private void OnDestroy()
@@ -133,20 +106,68 @@ namespace Tea.PolygonHit
 		#endregion
 
 		#region Event
-		void AddEvent()
+		protected override void AddDelegate()
+		{
+			EventControl.OnAddButtonList(ButtonType.Menu_StartGame,GameStart);
+			EventControl.OnAddGameStateList(SetTheState);
+		}
+		protected override void Removedelegate()
+		{
+			EventControl.OnRemoveButtonList(ButtonType.Menu_StartGame, GameStart);
+			EventControl.OnRemoveGameStateList(SetTheState);
+		}
+
+
+		private void AddEvent()
 		{
 			EventController.AddListener(EventType.PlayerDestory, StopCreate);
 			EventController.AddListener(EventType.action_LevelUp, PlayerLevelUp);
 		}
-		void RemoveEvent()
+		private void RemoveEvent()
 		{
 			EventController.RemoveListener(EventType.PlayerDestory, StopCreate);
 			EventController.RemoveListener(EventType.action_LevelUp, PlayerLevelUp);
 		}
 
-		void PlayerLevelUp()
+		#endregion
+
+		#region progress 进度
+		/// <summary>
+		/// 游戏开始 
+		/// </summary>
+		private void GameStart()
 		{
-			Challenge++;
+			isCreate = true;
+		}
+		private void SetTheState(GameState state)
+		{
+			if (state == GameState.Gameing)
+			{
+				isCreate = true;
+			}
+			else
+			{
+				isCreate = false;
+			}
+
+			switch (state)
+			{
+				case GameState.Gameing:
+					break;
+				case GameState.LevelUp:
+					break;
+				case GameState.Pause:
+					isCreate = false;
+					break;
+				case GameState.Over:
+					StopCreate();
+					break;
+				default:
+					break;
+			}
+		}
+		private void PlayerLevelUp()
+		{
 		}
 		#endregion
 
@@ -155,15 +176,23 @@ namespace Tea.PolygonHit
 		/// <summary>
 		/// CD倒计时 检测能否生成
 		/// </summary>
-		private void IsCreate()
+		private void CreateUpdate()
 		{
-			createCD -= Time.deltaTime;
-			if (createCD <= 0)
+			// 可以运行的时候 CD每帧减少
+			CreateCD -= Time.deltaTime;
+			//若CD未就绪 返回
+			if (CreateCD > 0)
 			{
-				createCD = cdUpperLimit;
-				for (int i = 0; i < diff_createNum; i++)
-					if (nowEnemys.Count < EnemyMaxLimit)
-						TryCreateEnemy();
+				return;
+			}
+			// 可以生成 将CD设为0
+			CreateCD = cdUpperLimit;
+			for (int i = 0; i < BaseCreateNum; i++)
+			{
+				if (!TryCreateEnemy())
+				{
+					return;
+				}
 			}
 		}
 
@@ -172,28 +201,30 @@ namespace Tea.PolygonHit
 		/// </summary>
 		private bool TryCreateEnemy()
 		{
-			// 若敌人
+			// 若敌人大于上限 返回否
 			if (nowEnemys.Count >= EnemyMaxLimit)
 			{
 				return false;
 			}
+
+			// 新建对象
 			GameObject newEnemy;
 
 			// 尝试从对象池中生成一个敌人
-
-			// 否则 创建一个敌人
-
 			if (dieEnemyPool.Count > 0)
 			{
 				newEnemy = dieEnemyPool[0];
 				dieEnemyPool.RemoveAt(0);
-				newEnemy.transform.position = RandomPoint();
 			}
+			// 否则 创建一个敌人
 			else
-				newEnemy = GameManager.I.TeaInstantiate(prefab, RandomPoint(), 1, transform);
+			{
+				newEnemy = prefab.CreateObjInCanvas(transform as RectTransform);
+			}
 			//newEnemy = Instantiate(prefab);
+			newEnemy.transform.position = RandomPoint();
 
-			newEnemy.GetComponent<EnemyBase>().BeCreated(diff_HP);
+			newEnemy.GetComponent<EnemyBase>().Initialize();
 
 			nowEnemys.Add(newEnemy);
 			return true;

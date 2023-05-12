@@ -319,9 +319,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowImage: {fileID: 4837712967567848631}
-  healthMax: 10
+  baseHealthMax: 10
   Particle: {fileID: 149344, guid: 617378de28fbaa64c96485d5b0d9169b, type: 3}
-  health: {fileID: 4837712969049479924}
+  healthImage: {fileID: 4837712969049479924}
   atcImage: {fileID: 5024628470989459385}
   minAtkDist: 2
   ChargeTime: 0.3

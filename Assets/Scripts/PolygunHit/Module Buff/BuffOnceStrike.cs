@@ -6,7 +6,7 @@ namespace Tea.PolygonHit
 	/// <summary>
 	/// 单次撞击附加伤害
 	/// </summary>
-	public class BuffOnceStrike : BuffBase
+	public class BuffOnceStrike : IBuff
 	{
 		public float mult = 1;
 		public float mult22;

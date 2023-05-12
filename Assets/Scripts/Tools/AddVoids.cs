@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using Tea.PolygonHit;
 using Tea.NewRouge;
+using System.Xml.Linq;
 
 namespace Tea
 {
@@ -111,7 +112,7 @@ namespace Tea
 		/// <param name="num"></param>
 		/// <param name="targetList"></param>
 		/// <returns></returns>
-		public static void NumInTheList<T>(this List<T> targetList,ref int num)
+		public static void NumInTheList<T>(this List<T> targetList, ref int num)
 		{
 			if (num >= targetList.Count)
 				num -= targetList.Count;
@@ -119,9 +120,21 @@ namespace Tea
 				num += targetList.Count;
 		}
 
-		#endregion
 
+		#endregion
 		#region Game1
+		/// <summary>
+		/// 在画布上生成物体
+		/// </summary>
+		/// <param name="prefab"></param>
+		/// <returns></returns>
+		public static GameObject CreateObjInCanvas(this GameObject prefab, RectTransform rect, float inputLocalScale = 1)
+		{
+			var obj = GameObject.Instantiate(prefab);
+			obj.transform.SetParent(rect);
+			obj.transform.localScale = Vector3.one * inputLocalScale;
+			return obj;
+		}
 		/// <summary>
 		/// 仅传入了撞击
 		/// </summary>
@@ -141,7 +154,6 @@ namespace Tea
 			UnCollision unC = new UnCollision();
 			AtkEnemys(enemys, Hit, unC);
 		}
-
 		/// <summary>
 		/// 对列表中的敌人进行aoe攻击
 		/// </summary>
@@ -162,8 +174,6 @@ namespace Tea
 					a.UnCollision(UnC);
 			}
 		}
-
-		// 
 		public static UnCollision SetUnColl(float Power, Vector3 Target)
 		{
 			UnCollision data = new UnCollision();
@@ -172,12 +182,13 @@ namespace Tea
 			return data;
 		}
 
-
 		#endregion
 
 		#region Game2
 
 		#endregion
+
+		#region Anther
 
 		/// <summary>
 		/// 加载环
@@ -227,6 +238,8 @@ namespace Tea
 
 			return a;
 		}
+
+		#endregion
 	}
 }
 /// <summary>

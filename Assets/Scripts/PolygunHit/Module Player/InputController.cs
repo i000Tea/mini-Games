@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Tea;
 using DG.Tweening;
+using RootMotion.FinalIK;
 
 namespace Tea.PolygonHit
 {
@@ -38,11 +39,19 @@ namespace Tea.PolygonHit
 		public Image aim;
 
 		/// <summary>
-		/// 鼠标偏移位置 为初始与当前的差值
+		/// 拖拽偏移位置 为初始与当前的差值
 		/// </summary>
-		Vector3 MouseOffset => movePosition - awakeNewPosition;
-
-		Vector3 mouseTarget;
+		Vector3 dragOffset => movePosition - awakeNewPosition;
+		float dragPower
+		{
+			get
+			{
+				if (dragOffset.magnitude < 1000)
+					return  dragOffset.magnitude;
+				else
+					return 1000;
+			}
+		}
 
 		/// <summary>
 		/// 返回阈值
@@ -59,7 +68,26 @@ namespace Tea.PolygonHit
 		/// </summary>
 		public float minLong = 100;
 
-		public float Power = 10;
+		[SerializeField]
+		private float Power = 10;
+
+		/// <summary>
+		/// 输出的力
+		/// </summary>
+		float outputPower
+		{
+			get
+			{
+				var _power = Power * 0.1f;
+
+				if (reverseDragMode)
+				{
+					_power *= -1;
+				}
+
+				return _power * dragPower;
+			}
+		}
 
 		#endregion
 
@@ -174,44 +202,30 @@ namespace Tea.PolygonHit
 		{
 			base.OnDrag(eventData);
 
-			// 线段末尾为初始与当前的插值
-			mouseTarget = movePosition - awakeNewPosition;
-
 			if (reverseDragMode)
+			{
 				SetDragLine();
+			}
 			else
+			{
 				SetDragImage();
-
-			SetPower(mouseTarget.magnitude);
+			}
+			SetPower(dragOffset.magnitude);
 
 			if (targets)
-				targets.position = mouseTarget;
+				targets.position = dragOffset;
+			PlayerBase.I.FixMovement(dragOffset.normalized);
 		}
 
 		public override void OnEndDrag(PointerEventData eventData)
 		{
-			base.OnEndDrag(eventData);
-
-			awakeNewPosition = default;
-
 			// 刚体运动
 			if (isShoot)
 			{
-				Vector2 _power = mouseTarget.normalized * 0.1f * Power;
-
-				if (reverseDragMode)
-					_power *= -1;
-
-				if (mouseTarget.magnitude < 1000)
-					_power *= mouseTarget.magnitude;
-				else
-					_power *= 1000;
-
-				if (PlayerBase.I)
-				{
-					PlayerBase.I.m_Rig.velocity += _power;
-				}
+				PlayerBase.I.ShootMovement(dragOffset.normalized, outputPower);
 			}
+
+			base.OnEndDrag(eventData);
 
 			EventController.Broadcast(EventType.action_Shoot);
 
@@ -232,7 +246,7 @@ namespace Tea.PolygonHit
 		{
 			LR.enabled = open;
 
-			LR.SetPosition(1, mouseTarget);
+			LR.SetPosition(1, dragOffset);
 
 			if (!open)
 			{
@@ -258,7 +272,7 @@ namespace Tea.PolygonHit
 				// 返回有符号的角度
 				var angle = Vector3.SignedAngle(Vector3.right, dir, Vector3.forward);
 				dragImage.rotation = Quaternion.Euler(0, 0, angle);
-				rectImage.sizeDelta = new Vector2(mouseTarget.magnitude / 2, 50);
+				rectImage.sizeDelta = new Vector2(dragOffset.magnitude, 50);
 			}
 			catch (System.Exception)
 			{

@@ -63,15 +63,15 @@ namespace Tea.PolygonHit
 
 		protected override void AddDelegate()
 		{
-			EventCenter.OnAddButtonList(ButtonType.Menu_StartGame, GameStart);
-			EventCenter.OnAddButtonList(ButtonType.Exit, ExitGame);
-			EventCenter.OnAddGameStateList(SetState);
+			EventControl.OnAddButtonList(ButtonType.Menu_StartGame, GameStart);
+			EventControl.OnAddButtonList(ButtonType.Exit, ExitGame);
+			EventControl.OnAddGameStateList(SetState);
 		}
 		protected override void Removedelegate()
 		{
-			EventCenter.OnRemoveButtonList(ButtonType.Menu_StartGame, GameStart);
-			EventCenter.OnRemoveButtonList(ButtonType.Exit, ExitGame);
-			EventCenter.OnRemoveGameStateList(SetState);
+			EventControl.OnRemoveButtonList(ButtonType.Menu_StartGame, GameStart);
+			EventControl.OnRemoveButtonList(ButtonType.Exit, ExitGame);
+			EventControl.OnRemoveGameStateList(SetState);
 		}
 
 		/// <summary>

@@ -6,7 +6,7 @@ namespace Tea.PolygonHit
 	/// <summary>
 	/// 单次弹射后所有撞击事件附加伤害
 	/// </summary>
-	public class BuffOnceShoot : BuffBase
+	public class BuffOnceShoot : IBuff
 	{
 		/// <summary>
 		/// 是否使用过的标记

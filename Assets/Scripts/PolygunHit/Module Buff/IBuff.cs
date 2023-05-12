@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Tea.PolygonHit
 {
-	public class BuffBase
+	public class IBuff
 	{
 		BuffTarget m_target;
+		/// <summary>
+		/// 初始化
+		/// </summary>
 		public virtual void BuffAwake()
 		{
 
@@ -14,9 +17,8 @@ namespace Tea.PolygonHit
 		{
 
 		}
-		
 		/// <summary>
-		/// 拖拽时执行
+		/// 弹射时执行
 		/// </summary>
 		/// <param name="dmg"></param>
 		public virtual void IsShoot()
@@ -24,9 +26,9 @@ namespace Tea.PolygonHit
 
 		}
 		/// <summary>
-		/// 
+		/// 移动时执行
 		/// </summary>
-		public virtual void IsMove()
+		public virtual void IsMovement()
 		{
 
 		}
@@ -39,7 +41,7 @@ namespace Tea.PolygonHit
 
 		}
 		/// <summary>
-		/// 受到撞击
+		/// 受到撞击时执行
 		/// </summary>
 		/// <param name="unDmg">受到伤害值</param>
 		public virtual void UnStrike(ref float unDmg)
