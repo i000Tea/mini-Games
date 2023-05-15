@@ -31,25 +31,5 @@ namespace Tea.PolygonHit
 		{
 			GetComponent<CircleCollider2D>().radius = 50 * Scale * 2;
 		}
-		private void OnTriggerEnter2D(Collider2D collision)
-		{
-			if(collision.tag == "Enemy")
-			{
-				Debug.Log( Vector3.Distance(transform.position, collision.transform.position));
-				// 获取攻击范围内的敌人
-				var enemy = AddVoids.ListDistance(EnemyManager.nowEnemys, transform.position, BoomScale);
-
-				// 爆炸伤害和击退
-				enemy.AtkEnemys(m_Dmg, AddVoids.SetUnColl(m_Power, PlayerBase.Player.position));
-
-				//// 设置震荡范围
-				//enemy = AddVoid.ListDistance(EnemyManager.enemys, transform.position, ShockScale);
-				//// 震荡范围内额外受一次冲击
-				//enemy.AtkEnemys(AddVoid.SetUnColl(1, PlayerBase.Player.position));
-
-				ParticleManager.InstParticle(m_Particle, transform.position);
-				Destroy(gameObject);
-			}
-		}
 	}
 }

@@ -4,6 +4,9 @@ using DG.Tweening;
 
 namespace Tea
 {
+	/// <summary>
+	/// 保存之类的
+	/// </summary>
     public class LoadCanvas : Singleton<LoadCanvas>
     {
 		RectTransform rect;

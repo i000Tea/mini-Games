@@ -135,45 +135,6 @@ namespace Tea
 			obj.transform.localScale = Vector3.one * inputLocalScale;
 			return obj;
 		}
-		/// <summary>
-		/// 仅传入了撞击
-		/// </summary>
-		/// <param name="enemys"></param>
-		/// <param name="unC"></param>
-		public static void AtkEnemys(this GameObject[] enemys, UnCollision unC)
-		{
-			AtkEnemys(enemys, 0, unC);
-		}
-		/// <summary>
-		/// 仅传入了伤害
-		/// </summary>
-		/// <param name="enemys"></param>
-		/// <param name="Hit"></param>
-		public static void AtkEnemys(this GameObject[] enemys, float Hit)
-		{
-			UnCollision unC = new UnCollision();
-			AtkEnemys(enemys, Hit, unC);
-		}
-		/// <summary>
-		/// 对列表中的敌人进行aoe攻击
-		/// </summary>
-		/// <param name="enemys"></param>
-		/// <param name="Hit"></param>
-		/// <param name="Power"></param>
-		/// <param name="Point"></param>
-		/// <param name="dizzTime"></param>
-		public static void AtkEnemys(this GameObject[] enemys, float Hit, UnCollision UnC)
-		{
-			EnemyBase a;
-			for (int i = 0; i < enemys.Length; i++)
-			{
-				a = enemys[i].GetComponent<EnemyBase>();
-				if (Hit > 0)
-					a.UnHit(Hit);
-				if (UnC.Power > 0)
-					a.UnCollision(UnC);
-			}
-		}
 		public static UnCollision SetUnColl(float Power, Vector3 Target)
 		{
 			UnCollision data = new UnCollision();

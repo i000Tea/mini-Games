@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Tea
 {
+   /// <summary>
+   /// 粒子管理器
+   /// </summary>
 	public class ParticleManager : Singleton<ParticleManager>
 	{
 		public static List<GameObject> strikes;

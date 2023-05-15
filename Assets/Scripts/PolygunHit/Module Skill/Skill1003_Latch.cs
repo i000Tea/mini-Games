@@ -55,7 +55,6 @@ namespace Tea.PolygonHit
 		IEnumerator StartRotate()
 		{
 			var enemy = transform.parent.GetComponent<EnemyBase>();
-			enemy.SetAct(false);
 			transform.localScale = Vector3.one;
 			transform.localPosition = Vector3.zero;
 			yield return 0;
@@ -70,7 +69,6 @@ namespace Tea.PolygonHit
 
 				nowTime += Time.deltaTime;
 			}
-			enemy.SetAct(true);
 			Destroy(gameObject);
 		}
 	}

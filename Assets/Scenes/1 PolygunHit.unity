@@ -3101,6 +3101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a6665106221aab43a7d18df464d1b41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useNew: 1
   baseCamera: {fileID: 1311794526}
   myCamera: {fileID: 963194227}
   CameraAnim: {fileID: 254411629}
@@ -6135,7 +6136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useNew: 1
   prefab: {fileID: 4837712967704216213, guid: 429840f3730089844954e01a23f6db44, type: 3}
-  EnemyMaxLimit: 30
+  EnemyMaxLimit: 1
   cdUpperLimit: 1
 --- !u!1 &1773692524
 GameObject:
