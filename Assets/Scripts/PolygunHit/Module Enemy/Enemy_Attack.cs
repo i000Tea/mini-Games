@@ -26,9 +26,14 @@ namespace Tea.PolygonHit.Enemy
             // 当时间超过阈值 尝试攻击 成功 则时间归零
             if (nowDelay >= neetDelay)
             {
-               Debug.Log(collision.gameObject.name);
-               player.UnAtk(Atk);
-               nowDelay = 0;
+               if (player.UnAtk(Atk))
+               {
+                  nowDelay = 0;
+               }
+               else
+               {
+                  Debug.Log($"{collision.gameObject.name}");
+               }
             }
          }
       }

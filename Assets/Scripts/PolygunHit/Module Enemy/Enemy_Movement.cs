@@ -18,7 +18,7 @@ namespace Tea.PolygonHit.Enemy
       {
          get
          {
-            return PlayerBase.Player.position;
+            return Base.m_Target.position;
          }
       }
 
@@ -94,6 +94,7 @@ namespace Tea.PolygonHit.Enemy
       }
       private IEnumerator MovementUpdate()
       {
+         yield return 1;
          while (true)
          {
             UpdateMove();

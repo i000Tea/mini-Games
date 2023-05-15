@@ -45,7 +45,7 @@ namespace Tea.PolygonHit
 		#endregion
 		private void Start()
 		{
-			baseCamera.m_Follow = PlayerBase.Player;
+			baseCamera.m_Follow = PlayerBase.I.transform;
 
 			myCamera = Camera.main;
 			inst = this;

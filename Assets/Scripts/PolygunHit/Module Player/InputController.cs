@@ -110,11 +110,11 @@ namespace Tea.PolygonHit
             if (LR.enabled)
             {
                // 线段位置与小球一致
-               LR.transform.localPosition = PlayerBase.Player.localPosition - new Vector3(0, 0, -1);
+               LR.transform.localPosition = PlayerBase.I.transform.localPosition - new Vector3(0, 0, -1);
             }
             if (_image.enabled)
             {
-               _image.transform.localPosition = PlayerBase.Player.localPosition - new Vector3(0, 0, -1);
+               _image.transform.localPosition = PlayerBase.I.transform.localPosition - new Vector3(0, 0, -1);
             }
          }
       }

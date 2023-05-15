@@ -14,7 +14,6 @@ namespace Tea.PolygonHit
       #region variable     变量
 
       #region 基础组件
-      public static Transform Player;
       public Vector3 Point => transform.position;
 
       [SerializeField]
@@ -138,17 +137,12 @@ namespace Tea.PolygonHit
       protected override void Awake()
       {
          base.Awake();
-         // 更新血量
-         Health = HealthMax;
-         // 设置玩家位置
-         Player = transform;
-
          m_playerBuffs = new List<IBuff>();
       }
       protected virtual void Start()
       {
-
-         GUIManager.I.PlayerMessageUpdate(nowLevel, nowExp, MaxExp, Health);
+         // 更新血量
+         Health = HealthMax;
       }
 
       private void FixedUpdate()
