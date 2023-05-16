@@ -1,4 +1,4 @@
-using RootMotion.FinalIK;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,13 +15,18 @@ namespace Tea.PolygonHit
 
       #region 基础组件
       public Vector3 Point => transform.position;
+      public Vector3 localPoint => transform.localPosition;
 
       [SerializeField]
       private Image m_ShowImage;
+      Color baseColor;
 
       [SerializeField]
       private Rigidbody2D m_Rig => GetComponent<Rigidbody2D>();
 
+      /// <summary>
+      /// 玩家身上挂载的buff列表
+      /// </summary>
       private List<IBuff> m_playerBuffs;
 
       #endregion
@@ -41,7 +46,7 @@ namespace Tea.PolygonHit
       {
          get
          {
-            //if (nowLevel == 1) return 3;
+            if (nowLevel == 1) return 3;
             return (int)(Mathf.Pow(nowLevel, 3) / 6 + 15 * nowLevel)
                 // 测试模式 经验减少
                 / 2;
@@ -56,13 +61,17 @@ namespace Tea.PolygonHit
          get => nowExp;
          set
          {
-            nowExp = value;
             if (value >= MaxExp)
             {
-               value -= MaxExp;
+               nowExp = value - MaxExp;
                LevelUp();
             }
-            nowExp = value;
+            else
+            {
+               nowExp = value;
+            }
+
+            GUIManager.I.ExpUpdate(nowExp, MaxExp);
          }
       }
       public int nowExp;
@@ -77,7 +86,7 @@ namespace Tea.PolygonHit
                StartCoroutine(IsDestroy());
             }
             nowHP = value;
-            GUIManager.I.GUIUpdate(health: nowHP);
+            GUIManager.I.HealthUpdate(health: nowHP);
          }
       }
       private int nowHP;
@@ -93,14 +102,30 @@ namespace Tea.PolygonHit
       #endregion
 
       #region Fight 战斗相关
-      bool invincibility;
+      /// <summary>
+      /// 受到伤害时的动画
+      /// </summary>
+      private Tween unAtkColorTween;
+      public bool IsInjury => !protectAfterInjury && !protectFromShoot;
+
+      /// <summary>
+      /// 弹射保护
+      /// </summary>
+      private bool protectFromShoot;
+      Coroutine protectShoot;
+
+      /// <summary>
+      /// 受伤后保护
+      /// </summary>
+      private bool protectAfterInjury;
       /// <summary>
       /// 无敌时间
       /// </summary>
       [SerializeField]
-      private float invincibilityTime = 3;
+      private float protectInjuryTime = 1.5f;
       #endregion
 
+      #region Anther
       /// <summary>
       /// 死亡时播放的粒子
       /// </summary>
@@ -125,6 +150,8 @@ namespace Tea.PolygonHit
       private float nmp;
       #endregion
 
+      #endregion
+
       #region unity void   基础方法
       private void OnValidate()
       {
@@ -138,11 +165,13 @@ namespace Tea.PolygonHit
       {
          base.Awake();
          m_playerBuffs = new List<IBuff>();
+         baseColor = m_ShowImage.color;
       }
       protected virtual void Start()
       {
          // 更新血量
          Health = HealthMax;
+         GUIManager.I.GUIUpdate(nowLevel, 0, MaxExp, Health);
       }
 
       private void FixedUpdate()
@@ -203,10 +232,17 @@ namespace Tea.PolygonHit
          NowMovePower = 0;
 
          m_Rig.velocity += moveForworld * powerBaseScale;
+
+         if (protectShoot != null)
+         {
+            StopCoroutine(protectShoot);
+         }
+         protectShoot = StartCoroutine(ShootProtect());
       }
       #endregion
 
-      #region Fight 攻击与被攻击
+      #region Fight        攻击与被攻击
+
       /// <summary>
       /// 撞击敌人
       /// </summary>
@@ -246,28 +282,62 @@ namespace Tea.PolygonHit
       /// 受到攻击
       /// </summary>
       /// <param name="atk"></param>
-      /// <returns>返回是否成功击中</returns>
-      public bool UnAtk(int atk)
+      /// <returns>是否成功击中</returns>
+      public bool Injury(int atk)
       {
-         if (invincibility)
+         Debug.Log($"是否可以攻击{IsInjury} 受伤防护{protectAfterInjury} 弹射防护{protectFromShoot}");
+         if (!IsInjury)
          {
             return false;
          }
-         var _ = OpenInvincibility();
-         Health -= atk;
-         return true;
+         else
+         {
+            var _ = StartCoroutine(InjuryProtect());
+            Health -= atk;
+            return true;
+         }
       }
       /// <summary>
-      /// 启动无敌时间
+      /// 受到攻击后防护
       /// </summary>
       /// <returns></returns>
-      private IEnumerator OpenInvincibility()
+      private IEnumerator InjuryProtect()
       {
-         invincibility = true;
-         yield return new WaitForSeconds(invincibilityTime);
-         invincibility = false;
+         // 开启无敌
+         protectAfterInjury = true;
+         // 循环无敌帧动画
+         unAtkColorTween = m_ShowImage.DOColor(Color.black, 0.15f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Flash);
+         // 等待无敌时间
+         yield return new WaitForSeconds(protectInjuryTime - 0.2f);
+         // 杀死动画
+         unAtkColorTween.Kill();
+         // 返回原色
+         m_ShowImage.DOColor(baseColor, 0.2f);
+         yield return new WaitForSeconds(0.4f);
+         // 结束无敌
+         protectAfterInjury = false;
       }
-
+      /// <summary>
+      /// 弹射防护
+      /// </summary>
+      private IEnumerator ShootProtect()
+      {
+         protectFromShoot = true;
+         while (true)
+         {
+            yield return new WaitUntil(() => m_Rig.velocity.magnitude < 1f);
+            yield return new WaitForSeconds(0.1f);
+            if (m_Rig.velocity.magnitude < 1f)
+            {
+               break;
+            }
+            else
+            {
+               continue;
+            }
+         }
+         protectFromShoot = false;
+      }
       /// <summary>
       /// 死亡
       /// </summary>
@@ -276,13 +346,12 @@ namespace Tea.PolygonHit
       {
          // 放出死亡事件
          EventControl.InvokeSomething(ActionType.PlayerDestory);
-         // 循环闪烁4次
-         for (int i = 0; i < 4; i++)
-         {
-            Color main = m_ShowImage.color;
-            m_ShowImage.ColorFlicker(Color.black, main, 0.25f);
-            yield return new WaitForSeconds(0.25f);
-         }
+
+         // 循环无敌帧动画
+         var tweenAnim = m_ShowImage.DOColor(Color.black, 0.15f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Flash);
+         yield return new WaitForSeconds(1);
+         tweenAnim.Kill();
+
          // 关闭自身图片显示
          m_ShowImage.enabled = false;
 
@@ -304,8 +373,7 @@ namespace Tea.PolygonHit
       /// <param name="exp"></param>
       private void ExpAdd(int exp)
       {
-         nowExp += exp;
-         GUIManager.I.PlayerMessageUpdate(nowLevel, nowExp, MaxExp, Health);
+         NowExp += exp;
       }
       /// <summary>
       /// 升级
@@ -319,7 +387,7 @@ namespace Tea.PolygonHit
          // 升级状态
          EventControl.SetGameState(GameState.LevelUp);
          // 等级UI更新
-         GUIManager.I.PlayerMessageUpdate(nowLevel, nowExp, MaxExp, Health);
+         GUIManager.I.LevelUpdate(nowLevel);
       }
 
       #endregion

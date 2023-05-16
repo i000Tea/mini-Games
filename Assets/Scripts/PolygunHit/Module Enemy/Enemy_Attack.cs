@@ -8,38 +8,57 @@ namespace Tea.PolygonHit.Enemy
       [SerializeField]
       private int Atk;
 
-      /// <summary>
-      /// 当前延迟
-      /// </summary>
-      private float nowDelay;
-      /// <summary>
-      /// 需求延迟
-      /// </summary>
-      [SerializeField]
-      private float neetDelay = 0.2f;
-      private void OnCollisionStay2D(Collision2D collision)
+      bool MeleeAtk;
+      private void OnTriggerEnter2D(Collider2D collision)
       {
-         // 当碰撞对象是目标且存在玩家脚本时累加
-         if (collision.transform == Base.m_Target && collision.transform.TryGetComponent(out PlayerBase player))
+         if (collision.transform == Base.TargetTransform)
          {
-            nowDelay += Time.deltaTime;
-            // 当时间超过阈值 尝试攻击 成功 则时间归零
-            if (nowDelay >= neetDelay)
+            switch (Base.AtkMode)
             {
-               if (player.UnAtk(Atk))
-               {
-                  nowDelay = 0;
-               }
-               else
-               {
-                  Debug.Log($"{collision.gameObject.name}");
-               }
+               case EnemyAttackMode.Melee:
+                  Base.Movement = false;
+                  MeleeAtk = true;
+                  break;
+               case EnemyAttackMode.speedUp:
+                  break;
+               case EnemyAttackMode.Charge:
+                  break;
             }
          }
       }
-      private void OnCollisionExit2D(Collision2D collision)
+      private void FixedUpdate()
       {
-         nowDelay = 0;
+         switch (Base.AtkMode)
+         {
+            case EnemyAttackMode.Melee:
+               if (MeleeAtk)
+               {
+                  Base.TargetPlayer.Injury(Atk);
+               }
+               break;
+            case EnemyAttackMode.speedUp:
+               break;
+            case EnemyAttackMode.Charge:
+               break;
+         }
+
+      }
+      private void OnTriggerExit2D(Collider2D collision)
+      {
+         if (collision.transform == Base.TargetTransform)
+         {
+            switch (Base.AtkMode)
+            {
+               case EnemyAttackMode.Melee:
+                  Base.Movement = true;
+                  MeleeAtk = false;
+                  break;
+               case EnemyAttackMode.speedUp:
+                  break;
+               case EnemyAttackMode.Charge:
+                  break;
+            }
+         }
       }
    }
 }

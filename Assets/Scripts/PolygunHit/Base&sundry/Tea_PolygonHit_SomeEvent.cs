@@ -66,12 +66,16 @@ namespace Tea.PolygonHit
    /// </summary>
    public enum EnemyAttackMode
    {
+      /// <summary>
+      /// 默认 近战
+      /// </summary>
+      Melee,
+
       speedUp,
       /// <summary>
       /// 蓄力发射
       /// </summary>
       Charge,
-
    }
    /// <summary> 
    /// 游戏状态 

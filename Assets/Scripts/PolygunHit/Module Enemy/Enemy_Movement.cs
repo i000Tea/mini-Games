@@ -9,18 +9,12 @@ namespace Tea.PolygonHit.Enemy
       #region variable     行动相关
 
       #region Movement
+      Vector3 Target => Base.TargetTransform.position;
       [SerializeField]
       /// <summary>
       /// 移动和旋转目标(玩家)
       /// </summary>
-      private Vector3 target;
-      private Vector3 Target
-      {
-         get
-         {
-            return Base.m_Target.position;
-         }
-      }
+      private Vector3 targetPoint;
 
       [Tooltip("移动速度")]
       public float moveSpeed;
@@ -28,7 +22,7 @@ namespace Tea.PolygonHit.Enemy
       /// <summary>
       /// 与玩家之间的距离
       /// </summary>
-      private float DistanceFromPlayer => Vector3.Distance(transform.position, PlayerBase.I.Point) * transform.lossyScale.x;
+      private float DistanceFromPlayer => Vector3.Distance(transform.position, Base.TargetTransform.position) * transform.lossyScale.x;
 
       /// <summary>
       /// 带有方向的基础速度
@@ -83,10 +77,14 @@ namespace Tea.PolygonHit.Enemy
       #endregion
 
       #region void         移动
-      Coroutine movement;
+      Coroutine movementCor;
+      /// <summary>
+      /// 停止时的距离
+      /// </summary>
+      private float _CloseDistance;
       protected override void Initialize()
       {
-         movement = StartCoroutine(MovementUpdate());
+         movementCor = StartCoroutine(MovementUpdate());
       }
       private void OnDestroy()
       {
@@ -97,6 +95,10 @@ namespace Tea.PolygonHit.Enemy
          yield return 1;
          while (true)
          {
+            if (!Base.Movement)
+            {
+               yield return new WaitUntil(() => Base.Movement == true);
+            }
             UpdateMove();
             UpdateRotate();
             yield return new WaitForFixedUpdate();
@@ -150,6 +152,22 @@ namespace Tea.PolygonHit.Enemy
             transform.localRotation = rotateTarget;
          else
             transform.localRotation = Quaternion.Slerp(transform.localRotation, rotateTarget, speed);
+      }
+
+      protected override void OnEnterHitTarget(Collision2D collision)
+      {
+         _CloseDistance = DistanceFromPlayer;
+         StartCoroutine(WaitRestartMovement());
+      }
+      /// <summary>
+      /// 等待重新开始移动
+      /// </summary>
+      /// <returns></returns>
+      IEnumerator WaitRestartMovement()
+      {
+         Base.Movement = false;
+         yield return new WaitUntil(() => DistanceFromPlayer >= _CloseDistance * 1.05f);
+         Base.Movement = true;
       }
       #endregion
    }

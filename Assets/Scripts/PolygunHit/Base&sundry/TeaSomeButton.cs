@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 namespace Tea.PolygonHit
 {
@@ -12,6 +13,8 @@ namespace Tea.PolygonHit
       [SerializeField]
       private string showButtonName;
 
+      [SerializeField]
+      bool ChangeName;
       Text ButtonText => transform.GetChild(0).GetComponent<Text>();
 
       //[SerializeField]
@@ -23,13 +26,16 @@ namespace Tea.PolygonHit
 
       private void OnValidate()
       {
-         if (showButtonName == null || showButtonName == "" || showButtonName == "新按钮_")
+         if (ChangeName)
          {
-            ButtonText.text = "新按钮";
-         }
-         else
-         {
-            ButtonText.text = showButtonName;
+            if (showButtonName == null || showButtonName == "" || showButtonName == "新按钮_")
+            {
+               ButtonText.text = "新按钮";
+            }
+            else
+            {
+               ButtonText.text = showButtonName;
+            }
          }
       }
 
@@ -39,7 +45,32 @@ namespace Tea.PolygonHit
       }
       private void TouthButton()
       {
-         EventControl.InvokeButton(m_ButtonType);
+         switch (m_ButtonType)
+         {
+            // 直接执行的场景切换
+            case ButtonType.Exit:
+               // 跳回0场景
+               SceneManager.LoadScene(0);
+               break;
+            case ButtonType.Restart:
+               // 重新开始
+               SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+               break;
+            //按钮事件
+            default:
+               if ((int)m_ButtonType > 10 && (int)m_ButtonType < 21)
+               {
+                  EventControl.InvokeButton(m_ButtonType);
+               }
+               break;
+            // 状态切换
+            case ButtonType.Gameing_Pause:
+               EventControl.SetGameState(GameState.Pause);
+               break;
+            case ButtonType.Gameing_Again:
+               EventControl.SetGameState(GameState.Gameing);
+               break;
+         }
       }
    }
 }

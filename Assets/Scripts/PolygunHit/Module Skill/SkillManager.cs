@@ -38,6 +38,32 @@ namespace Tea.PolygonHit
          EventControl.OnRemoveAhtnerList(ActionType.Shoot, Trigger_Shoot);
       }
 
+      #region MyRegion
+      /// <summary>
+      /// 选择技能
+      /// </summary>
+      public void SelectSkill()
+      {
+         List<ISkill> availableSkills = GetAvailableSkills();
+         List<ISkill> randomSkills = GetRandomSkills(availableSkills, 3);
+      }
+      private List<ISkill> GetAvailableSkills()
+      {
+         List<ISkill> availableSkills = new List<ISkill>();
+         // 根据玩家已拥有的技能列表，筛选出尚未拥有的技能，并添加到 availableSkills 中
+         // 可以根据需要从所有技能中进行筛选，或者从一个已定义的技能池中进行筛选
+         return availableSkills;
+      }
+      private List<ISkill> GetRandomSkills(List<ISkill> skillsList, int count)
+      {
+         List<ISkill> randomSkills = new List<ISkill>();
+         // 从技能列表中随机选择指定数量的技能
+         // 可以使用随机数生成器来实现随机选择的逻辑
+         return randomSkills;
+      }
+
+      #endregion
+
       public void AddSkill(GameObject inst)
       {
          // 实例化技能 设置参数

@@ -10,198 +10,223 @@ using System.Xml.Linq;
 
 namespace Tea
 {
-	public static class AddVoids
-	{
-		/// <summary>
-		/// 图像在一段时间内闪烁一次
-		/// </summary>
-		/// <param name="targetImage"></param>
-		/// <param name="Start"></param>
-		/// <param name="End"></param>
-		public static void ColorFlicker(this Image targetImage, Color Start, Color End,
-			float flickerTime = 0.3f)
-		{
-			targetImage.DOColor(Start, flickerTime / 2).OnComplete(() => targetImage.DOColor(End, flickerTime / 2));
-		}
+   public static class AddVoids
+   {
+      /// <summary>
+      /// 图像在一段时间内闪烁一次
+      /// </summary>
+      /// <param name="targetImage"></param>
+      /// <param name="Start"></param>
+      /// <param name="End"></param>
+      public static void ColorFlicker(this Image targetImage, Color Start, Color End,
+          float flickerTime = 0.3f)
+      {
+         targetImage.DOColor(Start, flickerTime / 2).OnComplete(() => targetImage.DOColor(End, flickerTime / 2));
+      }
 
-		#region List
-		/// <summary>
-		/// 提取列表与目标点距离最小的一个物体
-		/// </summary>
-		/// <param name="_List"></param>
-		/// <param name="target"></param>
-		/// <param name="_long">可传入最大范围</param>
-		/// <returns></returns>
-		public static GameObject ListMin(List<GameObject> _List, Vector3 target, float _long = 999999)
-		{
-			// 新建物体和最大长度
-			GameObject targetObj = null;
-			float longTarget;
-			// 循环
-			for (int i = 0; i < _List.Count; i++)
-			{
-				longTarget = Vector3.Distance(_List[i].transform.position, target);
-				if (longTarget < _long)
-				{
-					targetObj = _List[i];
-					_long = longTarget;
-				}
-			}
-			// 返回物体
-			return targetObj;
-		}
+      #region List
+      /// <summary>
+      /// 提取列表与目标点距离最小的一个物体
+      /// </summary>
+      /// <param name="_List"></param>
+      /// <param name="target"></param>
+      /// <param name="_long">可传入最大范围</param>
+      /// <returns></returns>
+      public static GameObject ListMin(List<GameObject> _List, Vector3 target, float _long = 999999)
+      {
+         // 新建物体和最大长度
+         GameObject targetObj = null;
+         float longTarget;
+         // 循环
+         for (int i = 0; i < _List.Count; i++)
+         {
+            longTarget = Vector3.Distance(_List[i].transform.position, target);
+            if (longTarget < _long)
+            {
+               targetObj = _List[i];
+               _long = longTarget;
+            }
+         }
+         // 返回物体
+         return targetObj;
+      }
 
-		/// <summary>
-		/// 提取列表中与目标小于一定距离的所有物体
-		/// </summary>
-		/// <param name="_List"></param>
-		/// <param name="traget"></param>
-		/// <param name="_long"></param>
-		/// <returns></returns>
-		public static GameObject[] ListDistance(List<GameObject> _List, Vector3 target, float _long)
-		{
-			// 新建数列
-			var newList = new List<GameObject>();
-			// 循环添加
-			for (int i = 0; i < _List.Count; i++)
-				if (Vector3.Distance(_List[i].transform.position, target) < _long)
-					newList.Add(_List[i]);
-			// 返回数组
-			return newList.ToArray();
-		}
+      /// <summary>
+      /// 提取列表中与目标小于一定距离的所有物体
+      /// </summary>
+      /// <param name="_List"></param>
+      /// <param name="traget"></param>
+      /// <param name="_long"></param>
+      /// <returns></returns>
+      public static GameObject[] ListDistance(List<GameObject> _List, Vector3 target, float _long)
+      {
+         // 新建数列
+         var newList = new List<GameObject>();
+         // 循环添加
+         for (int i = 0; i < _List.Count; i++)
+            if (Vector3.Distance(_List[i].transform.position, target) < _long)
+               newList.Add(_List[i]);
+         // 返回数组
+         return newList.ToArray();
+      }
 
-		/// <summary>
-		/// 列表随机
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="list"></param>
-		/// <param name="Seed"></param>
-		/// <returns></returns>
-		public static T RandomListValue<T>(this List<T> list, float Seed = -1)
-		{
-			if (list == null | list.Count <= 0)
-				return default(T);
-			int num = -1;
-			if (Seed == -1)
-				num = UnityEngine.Random.Range(0, list.Count);
-			//Debug.Log($"{list.Count} + {num}");
-			return list[num];
-		}
+      /// <summary>
+      /// 列表随机
+      /// </summary>
+      /// <typeparam name="T"></typeparam>
+      /// <param name="list"></param>
+      /// <param name="Seed"></param>
+      /// <returns></returns>
+      public static T RandomListValue<T>(this List<T> list, float Seed = -1)
+      {
+         if (list == null | list.Count <= 0)
+            return default(T);
+         int num = -1;
+         if (Seed == -1)
+            num = UnityEngine.Random.Range(0, list.Count);
+         //Debug.Log($"{list.Count} + {num}");
+         return list[num];
+      }
 
-		/// <summary>
-		/// 生成子物体集
-		/// </summary>
-		/// <returns></returns>
-		public static void CreateChildList(this Transform parent, ref List<GameObject> _list)
-		{
-			if (_list == null || _list.Count != parent.childCount)
-			{
-				_list = new List<GameObject>();
+      /// <summary>
+      /// 生成子物体集
+      /// </summary>
+      /// <returns></returns>
+      public static void CreateChildList(this Transform parent, ref List<GameObject> _list)
+      {
+         if (_list == null || _list.Count != parent.childCount)
+         {
+            _list = new List<GameObject>();
 
-				for (int i = 0; i < parent.childCount; i++)
-				{
-					_list.Add(parent.GetChild(i).gameObject);
-				}
-			}
-		}
+            for (int i = 0; i < parent.childCount; i++)
+            {
+               _list.Add(parent.GetChild(i).gameObject);
+            }
+         }
+      }
 
-		/// <summary>
-		/// 将数锁定在列表中
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="num"></param>
-		/// <param name="targetList"></param>
-		/// <returns></returns>
-		public static void NumInTheList<T>(this List<T> targetList, ref int num)
-		{
-			if (num >= targetList.Count)
-				num -= targetList.Count;
-			else if (num < 0)
-				num += targetList.Count;
-		}
+      /// <summary>
+      /// 将数锁定在列表中
+      /// </summary>
+      /// <typeparam name="T"></typeparam>
+      /// <param name="num"></param>
+      /// <param name="targetList"></param>
+      /// <returns></returns>
+      public static void NumInTheList<T>(this List<T> targetList, ref int num)
+      {
+         if (num >= targetList.Count)
+            num -= targetList.Count;
+         else if (num < 0)
+            num += targetList.Count;
+      }
 
 
-		#endregion
-		#region Game1
-		/// <summary>
-		/// 在画布上生成物体
-		/// </summary>
-		/// <param name="prefab"></param>
-		/// <returns></returns>
-		public static GameObject CreateObjInCanvas(this GameObject prefab, RectTransform rect, float inputLocalScale = 1)
-		{
-			var obj = GameObject.Instantiate(prefab);
-			obj.transform.SetParent(rect);
-			obj.transform.localScale = Vector3.one * inputLocalScale;
-			return obj;
-		}
-		public static UnCollision SetUnColl(float Power, Vector3 Target)
-		{
-			UnCollision data = new UnCollision();
-			data.Power = Power;
-			data.Target = Target;
-			return data;
-		}
+      #endregion
+      #region Game1
+      /// <summary>
+      /// 在画布上生成物体
+      /// </summary>
+      /// <param name="prefab"></param>
+      /// <returns></returns>
+      public static GameObject CreateObjInCanvas(this GameObject prefab, RectTransform rect, float inputLocalScale = 1)
+      {
+         var obj = GameObject.Instantiate(prefab);
+         obj.transform.SetParent(rect);
+         obj.transform.localScale = Vector3.one * inputLocalScale;
+         return obj;
+      }
+      public static UnCollision SetUnColl(float Power, Vector3 Target)
+      {
+         UnCollision data = new UnCollision();
+         data.Power = Power;
+         data.Target = Target;
+         return data;
+      }
 
-		#endregion
+      private static string ParseClassNameFromJson(this string jsonField)
+      {
+         return jsonField;
+      }
+      public static ISkill GetClassFromJson(this string jsonField)
+      {
+         // 解析JSON内容，获取关联的类名
+         string className = jsonField.ParseClassNameFromJson();
 
-		#region Game2
+         // 使用反射获取对应类的类型
+         Type classType = Type.GetType(className);
 
-		#endregion
+         if (classType != null)
+         {
+            // 创建对应的类实例
+            ISkill GetSkill = Activator.CreateInstance(classType) as ISkill;
+            return GetSkill;
+         }
+         else
+         {
+            Debug.LogWarning("No class found for JSON content: " + jsonField);
+            return null;
+         }
+      }
 
-		#region Anther
+      #endregion
 
-		/// <summary>
-		/// 加载环
-		/// </summary>
-		/// <param name="targetImage">图片</param>
-		/// <param name="isAdd">是否加载</param>
-		/// <returns>加载是否完成</returns>
-		public static bool LoadingRim(this Image targetImage, bool isAdd)
-		{
-			if (targetImage.fillAmount == 1)
-				return true;
-			if (isAdd)
-				targetImage.fillAmount += Time.deltaTime * PlayerMove.inst.RimRate;
-			else
-				targetImage.fillAmount -= Time.deltaTime;
+      #region Game2
 
-			return false;
-		}
+      #endregion
 
-		/// <summary>
-		/// 随机获取枚举值
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <returns></returns>
-		public static T RandomEnum<T>()
-		{
-			T[] results = Enum.GetValues(typeof(T)) as T[];
-			T result = results[UnityEngine.Random.Range(0, results.Length)];
-			return result;
-		}
+      #region Anther
 
-		/// <summary>
-		/// 经过角度转换后的V3
-		/// </summary>
-		/// <param name="beforePoint"></param>
-		/// <param name="angle"></param>
-		/// <returns></returns>
-		public static Vector3 AngleTransfor(this Vector3 beforePoint, float angle)
-		{
-			Vector3 a = new Vector3(
-				beforePoint.x * Mathf.Cos(angle * Mathf.Deg2Rad) +
-				beforePoint.z * Mathf.Sin(angle * Mathf.Deg2Rad),
-				beforePoint.y,
-				beforePoint.x * -Mathf.Sin(angle * Mathf.Deg2Rad) +
-				beforePoint.z * Mathf.Cos(angle * Mathf.Deg2Rad)
-				);
+      /// <summary>
+      /// 加载环
+      /// </summary>
+      /// <param name="targetImage">图片</param>
+      /// <param name="isAdd">是否加载</param>
+      /// <returns>加载是否完成</returns>
+      public static bool LoadingRim(this Image targetImage, bool isAdd)
+      {
+         if (targetImage.fillAmount == 1)
+            return true;
+         if (isAdd)
+            targetImage.fillAmount += Time.deltaTime * PlayerMove.inst.RimRate;
+         else
+            targetImage.fillAmount -= Time.deltaTime;
 
-			return a;
-		}
+         return false;
+      }
 
-		#endregion
-	}
+      /// <summary>
+      /// 随机获取枚举值
+      /// </summary>
+      /// <typeparam name="T"></typeparam>
+      /// <returns></returns>
+      public static T RandomEnum<T>()
+      {
+         T[] results = Enum.GetValues(typeof(T)) as T[];
+         T result = results[UnityEngine.Random.Range(0, results.Length)];
+         return result;
+      }
+
+      /// <summary>
+      /// 经过角度转换后的V3
+      /// </summary>
+      /// <param name="beforePoint"></param>
+      /// <param name="angle"></param>
+      /// <returns></returns>
+      public static Vector3 AngleTransfor(this Vector3 beforePoint, float angle)
+      {
+         Vector3 a = new Vector3(
+             beforePoint.x * Mathf.Cos(angle * Mathf.Deg2Rad) +
+             beforePoint.z * Mathf.Sin(angle * Mathf.Deg2Rad),
+             beforePoint.y,
+             beforePoint.x * -Mathf.Sin(angle * Mathf.Deg2Rad) +
+             beforePoint.z * Mathf.Cos(angle * Mathf.Deg2Rad)
+             );
+
+         return a;
+      }
+
+      #endregion
+   }
 }
 /// <summary>
 /// 受撞击的数据(撞击力度和撞击点)
@@ -209,7 +234,7 @@ namespace Tea
 [System.Serializable]
 public class UnCollision
 {
-	public float Power;
-	[HideInInspector]
-	public Vector3 Target;
+   public float Power;
+   [HideInInspector]
+   public Vector3 Target;
 }

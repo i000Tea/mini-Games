@@ -172,11 +172,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eb0ec111142a6e45b0d4288b750076d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useNew: 1
   m_ShowImage: {fileID: 3474716899612878988}
-  m_Rig: {fileID: 5108240431139796570}
   nowLevel: 1
   nowExp: 0
   HealthMax: 3
   m_HitDmg: 3
+  protectInjuryTime: 1.5
   destroyParticle: {fileID: 149344, guid: f0df6478f342da649a5550c239a66846, type: 3}
   m_Ammo: 0

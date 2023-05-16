@@ -9,6 +9,7 @@ using UnityEngine.Events;
 namespace Tea.PolygonHit
 {
    public delegate void BaseEvent();
+   public delegate void SwitchAtkMode(EnemyAttackMode atk);
    /// <summary>
    /// 敌人基类
    /// </summary>
@@ -21,6 +22,19 @@ namespace Tea.PolygonHit
       private Image ShowImage;
 
       private Collider2D m_Collider => GetComponent<Collider2D>() ?? gameObject.AddComponent<CircleCollider2D>();
+      
+      private Collider2D[] m_Colliders
+      {
+         get
+         {
+            if(m_colls == null)
+            {
+               m_colls = GetComponentsInChildren<Collider2D>(); 
+            }
+            return m_colls;
+         }
+      }
+      private Collider2D[] m_colls ;
 
       public EnemyState State => myState;
       [SerializeField]
@@ -29,7 +43,18 @@ namespace Tea.PolygonHit
       /// <summary>
       /// 目标
       /// </summary>
-      public Transform m_Target;
+      public Transform TargetTransform => m_TargetTransform;
+      private Transform m_TargetTransform;
+      public PlayerBase TargetPlayer => m_TargetPlayer;
+      private PlayerBase m_TargetPlayer;
+
+      public bool Movement
+      {
+         get => move;
+         set => move = value;
+      }
+      private bool move = true;
+
       #endregion
 
       #region Health 生命值相关
@@ -50,7 +75,7 @@ namespace Tea.PolygonHit
             {
                nowHealth = nowHealthMax;
             }
-            else if (value < 0)
+            else if (value <= 0)
             {
                nowHealth = 0;
                StartCoroutine(IsDeath());
@@ -81,10 +106,13 @@ namespace Tea.PolygonHit
       #endregion
 
       #region Anther
+      public EnemyAttackMode AtkMode { get; private set; }
 
-      #endregion
       public event BaseEvent ModeInitialize;
       public event BaseEvent ModeDestroy;
+      #endregion
+
+      public event SwitchAtkMode switchMode;
       #endregion
 
       #region unity void   原生方法
@@ -114,7 +142,14 @@ namespace Tea.PolygonHit
       /// <param name=""></param>
       private void Stop()
       {
-         enabled = false;
+         //关闭碰撞
+         for (int i = 0; i < m_Colliders.Length; i++)
+         {
+            m_Colliders[i].enabled = false;
+         }
+         Movement = false;
+         Debug.Log("玩家死亡");
+         ModeDestroy?.Invoke();
       }
       #endregion
 
@@ -122,14 +157,20 @@ namespace Tea.PolygonHit
       /// <summary>
       /// 初始化	
       /// </summary>
-      public void Initialize(float setHealthMulti = 1)
+      public void Initialize(float setHealthMulti = 1, EnemyAttackMode newMode = EnemyAttackMode.Melee)
       {
          // 开启自身
          gameObject.SetActive(true);
          // 设置生命上限
          nowHealthMax = baseHealthMax * setHealthMulti;
          NowHealth = nowHealthMax;
-         m_Collider.enabled = true;
+         // 开启碰撞
+         for (int i = 0; i < m_Colliders.Length; i++)
+         {
+            m_Colliders[i].enabled = true;
+         }
+         // 开启移动
+         Movement = true;
          AddEvent();
          try
          {
@@ -140,10 +181,11 @@ namespace Tea.PolygonHit
 
             throw;
          }
-         if (!m_Target)
+         if (!m_TargetTransform)
          {
             GetTarget();
          }
+         AtkMode = newMode;
       }
 
       /// <summary>
@@ -153,7 +195,10 @@ namespace Tea.PolygonHit
       private IEnumerator IsDeath()
       {
          //关闭碰撞
-         m_Collider.enabled = false;
+         for (int i = 0; i < m_Colliders.Length; i++)
+         {
+            m_Colliders[i].enabled = false;
+         }
          yield return 1;
 
          // 死亡动画
@@ -218,7 +263,8 @@ namespace Tea.PolygonHit
       /// </summary>
       private void GetTarget()
       {
-         m_Target = PlayerBase.I.transform;
+         m_TargetPlayer = PlayerBase.I;
+         m_TargetTransform = PlayerBase.I.transform;
       }
       #endregion
    }
