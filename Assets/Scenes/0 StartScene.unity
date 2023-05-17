@@ -353,7 +353,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &240775808
 RectTransform:
   m_ObjectHideFlags: 0
@@ -487,7 +487,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &383104000
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1077,7 +1077,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "(\u522B\u70B9 \u6CA1\u66F4\u65B0\u8FC7\u4E86)"
+  m_Text: "(\u4EE3\u7801\u91CD\u6784)"
 --- !u!222 &897757917
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1352,9 +1352,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.2
-  m_Text: 'v0.08
+  m_Text: 'v0.09
 
-    23.03.26'
+    23.05.17'
 --- !u!222 &970077293
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1805,7 +1805,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u76EE\u524D\u5F00\u59CB\u66F4\u65B0\u7B2C\u4E8C\u4E2A\u6E38\u620F\n\u672C\u6B21\u8FDB\u5EA6\uFF1A\n\u521D\u6B65\u7684demo\u5DF2\u5B8C\u6210\n\u4ECE\u5F00\u59CB\u5230\u7ED3\u675F\u5DF2\u5B8C\u6210"
+  m_Text: "\u91CD\u65B0\u5F00\u59CB\u66F4\u65B0\u6A2A\u51B2\u76F4\u649E\n\u76EE\u524D\u521A\u521A\u628A\u4EE3\u7801\u91CD\u6784\n\u51CF\u5C11\u4E86\u5927\u90E8\u5206\u5185\u5BB9\n\u4F46bug\u5E94\u8BE5\u5C11\u4E86\u5F88\u591A(\u5927\u6982)"
 --- !u!222 &1616821281
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2205,7 +2205,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u5F00\u59CB"
+  m_Text: "\u6A2A\u51B2\u76F4\u649E"
 --- !u!222 &1763760153
 CanvasRenderer:
   m_ObjectHideFlags: 0

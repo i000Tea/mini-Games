@@ -257,6 +257,10 @@ namespace Tea.PolygonHit
             // 新建伤害值
             float dmg = m_HitDmg;
 
+            ISkill.modifyingDamage_Player?.Invoke(ref dmg,EffectivePhase.BaseAdd);
+            ISkill.modifyingDamage_Player?.Invoke(ref dmg,EffectivePhase.StackMulti);
+            ISkill.modifyingDamage_Player?.Invoke(ref dmg,EffectivePhase.FinalAdd);
+
             //遍历buff列表 更新伤害值
             for (int i = 0; i < m_playerBuffs.Count; i++)
             {
@@ -285,7 +289,7 @@ namespace Tea.PolygonHit
       /// <returns>是否成功击中</returns>
       public bool Injury(int atk)
       {
-         Debug.Log($"是否可以攻击{IsInjury} 受伤防护{protectAfterInjury} 弹射防护{protectFromShoot}");
+         //Debug.Log($"是否可以攻击{IsInjury} 受伤防护{protectAfterInjury} 弹射防护{protectFromShoot}");
          if (!IsInjury)
          {
             return false;
@@ -361,7 +365,7 @@ namespace Tea.PolygonHit
          // 等待1秒后
          yield return new WaitForSeconds(1);
          // 执行游戏结束事件
-         EventControl.InvokeSomething(GameState.Over);
+         EventControl.SetGameState(GameState.Over);
       }
       #endregion
 

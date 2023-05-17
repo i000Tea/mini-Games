@@ -9,14 +9,17 @@ namespace Tea.PolygonHit
    public class TeaSkillButton : TeaSomeButton
    {
       [SerializeField]
-      int skillSerialNumber;
-      public void SetMySkill(int input)
+      string description;
+      string skillName;
+      public void InputSkillData(SkillData data)
       {
-         skillSerialNumber = input;
+         ButtonText.text = data.skillName;
+         description = data.description;
+         skillName = data.skillClassName;
       }
       protected override void OnClick()
       {
-         SkillManager.inst.AddSkill(skillSerialNumber);
+         SkillManager.I.AddSkill(skillName);
       }
    }
 }

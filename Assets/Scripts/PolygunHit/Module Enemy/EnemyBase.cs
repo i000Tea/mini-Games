@@ -109,6 +109,9 @@ namespace Tea.PolygonHit
       public EnemyAttackMode AtkMode { get; private set; }
 
       public event BaseEvent ModeInitialize;
+      /// <summary>
+      /// 模组结束
+      /// </summary>
       public event BaseEvent ModeDestroy;
       #endregion
 

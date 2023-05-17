@@ -2,6 +2,7 @@
 import moduleHelper from './module-helper';
 import response from './response';
 import Audio from './audio.js';
+import { formatJsonStr } from './sdk';
 
 const ads = {};
 
@@ -120,12 +121,13 @@ export default {
         }),
       );
     });
-    ad.onLoad(() => {
+    ad.onLoad((res) => {
       moduleHelper.send(
         'ADOnLoadCallback',
         JSON.stringify({
           callbackId: key,
           errMsg: '',
+          ...res,
         }),
       );
     });
@@ -355,6 +357,7 @@ export default {
     if (!ads[id]) {
       return '{}';
     }
-    return JSON.stringify(ads[id].reportShareBehavior(JSON.parse(conf)));
+    conf = formatJsonStr(conf);
+    return JSON.stringify(ads[id].reportShareBehavior(conf));
   },
 };

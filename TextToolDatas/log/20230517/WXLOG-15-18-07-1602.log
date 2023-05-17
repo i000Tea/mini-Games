@@ -1,0 +1,148 @@
+﻿<wxlog>
+  <threadId>#main</threadId>
+  <timestamp>15:18:07:2815</timestamp>
+  <msgtype>MsgWXLogLaunch</msgtype>
+  <content>[The WXLogger is launched!]</content>
+  <stackFrames>
+[CALL STACK][0]: Method:WXTextureTools.Application.Options.OptionsConfig..ctor; File:\\Mac\Home\Documents\tgit\wx_texture_min_v2\src\WXTextureTools\Application\Options\OptionsConfig.cs.12
+[CALL STACK][1]: Method:WXTextureTools.Application.App..ctor; File:\\Mac\Home\Documents\tgit\wx_texture_min_v2\src\WXTextureTools\Application\App.cs.26
+[CALL STACK][2]: Method:WXTextureTools.Program.Main; File:\\Mac\Home\Documents\tgit\wx_texture_min_v2\src\WXTextureTools\Program.cs.14
+</stackFrames>
+</wxlog>
+<wxlog>
+  <threadId>#main</threadId>
+  <timestamp>15:18:07:2945</timestamp>
+  <msgtype>MsgMixture</msgtype>
+  <content>string|String[]
+OptionsConfig,-option=text
+-do=assetListInfo
+-sourceDir=D:/UINTY/GamePackage\webgl
+-dataDir=C:/UnityProject/github/mini-Games/TextToolDatas
+</content>
+  <stackFrames>
+[CALL STACK][0]: Method:WXTextureTools.Application.App..ctor; File:\\Mac\Home\Documents\tgit\wx_texture_min_v2\src\WXTextureTools\Application\App.cs.26
+[CALL STACK][1]: Method:WXTextureTools.Program.Main; File:\\Mac\Home\Documents\tgit\wx_texture_min_v2\src\WXTextureTools\Program.cs.14
+</stackFrames>
+</wxlog>
+<wxlog>
+  <threadId>#main</threadId>
+  <timestamp>15:18:07:2955</timestamp>
+  <msgtype>MsgMixture</msgtype>
+  <content>string|string
+UnityBridgeHandler - SetDataDir,C:/UnityProject/github/mini-Games/TextToolDatas\temp</content>
+  <stackFrames>
+[CALL STACK][0]: Method:WXTextureTools.Program.Main; File:\\Mac\Home\Documents\tgit\wx_texture_min_v2\src\WXTextureTools\Program.cs.14
+</stackFrames>
+</wxlog>
+<wxlog>
+  <threadId>#main</threadId>
+  <timestamp>15:18:07:2985</timestamp>
+  <msgtype>MsgString</msgtype>
+  <content>WXTextureMinExec</content>
+  <stackFrames>
+[CALL STACK][0]: Method:WXTextureTools.Program.Main; File:\\Mac\Home\Documents\tgit\wx_texture_min_v2\src\WXTextureTools\Program.cs.14
+</stackFrames>
+</wxlog>
+<wxlog>
+  <threadId>#main</threadId>
+  <timestamp>15:18:07:3025</timestamp>
+  <msgtype>MsgMixture</msgtype>
+  <content>string|string
+IgnoreHandler,C:/UnityProject/github/mini-Games/TextToolDatas\bundlerIgnore.txt</content>
+  <stackFrames>
+[CALL STACK][0]: Method:WXTextureTools.Application.App.process; File:\\Mac\Home\Documents\tgit\wx_texture_min_v2\src\WXTextureTools\Application\App.cs.66
+[CALL STACK][1]: Method:WXTextureTools.Program.Main; File:\\Mac\Home\Documents\tgit\wx_texture_min_v2\src\WXTextureTools\Program.cs.14
+</stackFrames>
+</wxlog>
+<wxlog>
+  <threadId>#main</threadId>
+  <timestamp>15:18:07:3045</timestamp>
+  <msgtype>MsgMixture</msgtype>
+  <content>string|String[]
+WXTextureMinExec files,D:\UINTY\GamePackage\webgl\ab917b8087e2055c.webgl.data.unityweb.bin.txt
+D:\UINTY\GamePackage\webgl\af41b609310a9059.webgl.wasm.code.unityweb.wasm.br
+D:\UINTY\GamePackage\webgl\Build\webgl.data
+D:\UINTY\GamePackage\webgl\Build\webgl.framework.js
+D:\UINTY\GamePackage\webgl\Build\webgl.loader.js
+D:\UINTY\GamePackage\webgl\Build\webgl.symbols.json
+D:\UINTY\GamePackage\webgl\Build\webgl.wasm
+D:\UINTY\GamePackage\webgl\index.html
+D:\UINTY\GamePackage\webgl\index.html.private.0
+D:\UINTY\GamePackage\webgl\StreamingAssets\Skill\NewSkillData.asset
+D:\UINTY\GamePackage\webgl\StreamingAssets\Skill\skill.json
+</content>
+  <stackFrames>
+[CALL STACK][0]: Method:WXTextureTools.Program.Main; File:\\Mac\Home\Documents\tgit\wx_texture_min_v2\src\WXTextureTools\Program.cs.14
+</stackFrames>
+</wxlog>
+<wxlog>
+  <threadId>#main</threadId>
+  <timestamp>15:18:07:3045</timestamp>
+  <msgtype>MsgMixture</msgtype>
+  <content>string|String[]
+WXTextureMinExec filesAB,</content>
+  <stackFrames>
+[CALL STACK][0]: Method:WXTextureTools.Program.Main; File:\\Mac\Home\Documents\tgit\wx_texture_min_v2\src\WXTextureTools\Program.cs.14
+</stackFrames>
+</wxlog>
+<wxlog>
+  <threadId>#main</threadId>
+  <timestamp>15:18:07:3822</timestamp>
+  <msgtype>MsgMixture</msgtype>
+  <content>string|String[]
+WXTextureMinExec copyFiles,D:\UINTY\GamePackage\webgl\af41b609310a9059.webgl.wasm.code.unityweb.wasm.br
+D:\UINTY\GamePackage\webgl\Build\webgl.data
+D:\UINTY\GamePackage\webgl\Build\webgl.framework.js
+D:\UINTY\GamePackage\webgl\Build\webgl.loader.js
+D:\UINTY\GamePackage\webgl\Build\webgl.symbols.json
+D:\UINTY\GamePackage\webgl\Build\webgl.wasm
+D:\UINTY\GamePackage\webgl\index.html
+D:\UINTY\GamePackage\webgl\index.html.private.0
+D:\UINTY\GamePackage\webgl\StreamingAssets\Skill\NewSkillData.asset
+D:\UINTY\GamePackage\webgl\StreamingAssets\Skill\skill.json
+</content>
+  <stackFrames>
+[CALL STACK][0]: Method:WXTextureTools.Program.Main; File:\\Mac\Home\Documents\tgit\wx_texture_min_v2\src\WXTextureTools\Program.cs.14
+</stackFrames>
+</wxlog>
+<wxlog>
+  <threadId>#main</threadId>
+  <timestamp>15:18:07:3822</timestamp>
+  <msgtype>MsgMixture</msgtype>
+  <content>string|String[]
+WXTextureMinExec assetBundles,</content>
+  <stackFrames>
+[CALL STACK][0]: Method:WXTextureTools.Program.Main; File:\\Mac\Home\Documents\tgit\wx_texture_min_v2\src\WXTextureTools\Program.cs.14
+</stackFrames>
+</wxlog>
+<wxlog>
+  <threadId>#main</threadId>
+  <timestamp>15:18:07:3822</timestamp>
+  <msgtype>MsgMixture</msgtype>
+  <content>string|String[]
+WXTextureMinExec firstBundles,D:\UINTY\GamePackage\webgl\ab917b8087e2055c.webgl.data.unityweb.bin.txt
+</content>
+  <stackFrames>
+[CALL STACK][0]: Method:WXTextureTools.Program.Main; File:\\Mac\Home\Documents\tgit\wx_texture_min_v2\src\WXTextureTools\Program.cs.14
+</stackFrames>
+</wxlog>
+<wxlog>
+  <threadId>#main</threadId>
+  <timestamp>15:18:07:3822</timestamp>
+  <msgtype>MsgMixture</msgtype>
+  <content>string|String[]
+WXTextureMinExec copyFiles2,</content>
+  <stackFrames>
+[CALL STACK][0]: Method:WXTextureTools.Program.Main; File:\\Mac\Home\Documents\tgit\wx_texture_min_v2\src\WXTextureTools\Program.cs.14
+</stackFrames>
+</wxlog>
+<wxlog>
+  <threadId>#main</threadId>
+  <timestamp>15:18:07:3822</timestamp>
+  <msgtype>MsgMixture</msgtype>
+  <content>string|String[]
+WXTextureMinExec assetBundles2,</content>
+  <stackFrames>
+[CALL STACK][0]: Method:WXTextureTools.Program.Main; File:\\Mac\Home\Documents\tgit\wx_texture_min_v2\src\WXTextureTools\Program.cs.14
+</stackFrames>
+</wxlog>

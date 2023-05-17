@@ -122,6 +122,7 @@ namespace Tea
 
 
       #endregion
+
       #region Game1
       /// <summary>
       /// 在画布上生成物体
@@ -147,14 +148,20 @@ namespace Tea
       {
          return jsonField;
       }
-      public static ISkill GetClassFromJson(this string jsonField)
+
+      public static String GetStringFromJson(this string jsonField)
       {
-         // 解析JSON内容，获取关联的类名
-         string className = jsonField.ParseClassNameFromJson();
-
+         return jsonField;
+      }
+      /// <summary>
+      /// 输入类的名字 返回技能
+      /// </summary>
+      /// <param name="className"></param>
+      /// <returns></returns>
+      public static ISkill GetClassFromString(this string className, string classNamespace = "Tea")
+      {
          // 使用反射获取对应类的类型
-         Type classType = Type.GetType(className);
-
+         Type classType = Type.GetType(classNamespace + "." + className);
          if (classType != null)
          {
             // 创建对应的类实例
@@ -163,7 +170,7 @@ namespace Tea
          }
          else
          {
-            Debug.LogWarning("No class found for JSON content: " + jsonField);
+            Debug.LogWarning("无法找到对应的技能类" + className);
             return null;
          }
       }

@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Tea.PolygonHit;
 using UnityEngine;
-using static UnityEditor.Searcher.Searcher.AnalyticsEvent;
 
 namespace Tea
 {
@@ -180,7 +179,15 @@ namespace Tea
             DelegateEvent<T> dEvent = baseDele as DelegateEvent<T>;
             if (dEvent != null)
             {
-               dEvent(arg);
+               try
+               {
+                  dEvent(arg);
+               }
+               catch (Exception)
+               {
+                  Debug.Log("事件执行失败");
+                  throw;
+               }
             }
             else
             {

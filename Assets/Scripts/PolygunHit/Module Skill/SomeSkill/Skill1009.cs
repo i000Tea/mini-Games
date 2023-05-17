@@ -9,13 +9,5 @@ namespace Tea.PolygonHit
     /// </summary>
     public class Skill1009 : SkillBase
     {
-		[Header("地雷")]
-		[SerializeField]
-		GameObject DiLei;
-
-        public override void UseSkill()
-        {
-			GameManager.I.TeaInstantiate(DiLei, PlayerBase.I.transform.position, 1);
-        }
     }
 }

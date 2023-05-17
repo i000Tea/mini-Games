@@ -7,136 +7,119 @@ namespace Tea.PolygonHit
    /// <summary>
    /// 技能管理器
    /// </summary>
-   public class SkillManager : MonoBehaviour
+   public class SkillManager : Singleton<SkillManager>
    {
-      public static SkillManager inst;
-      public List<SkillBase> mySkills;
-      private void Awake()
-      {
-         mySkills = new List<SkillBase>();
-         inst = this;
+      #region MyRegion
+      /// <summary>
+      /// 所有的技能列表
+      /// </summary>
+      private List<SkillData> AllSkillData;
+      /// <summary>
+      /// 基础的技能列表
+      /// </summary>
+      private List<SkillData> baseSkillData;
+      /// <summary>
+      /// 准备就绪可以使用的列表
+      /// </summary>
+      private List<SkillData> readUseSkillData;
 
+      public List<SkillBase> mySkills;
+      /// <summary>
+      /// 玩家技能列表
+      /// </summary>
+      private List<ISkill> playerSkills;
+
+      #endregion
+
+      #region base
+      protected override void Awake()
+      {
+         base.Awake();
+         mySkills = new List<SkillBase>();
       }
 
       private void Start()
       {
-         AddEvent();
+         AllSkillData = JsonDataRead.I.LoadSkillData().skillList;
+         baseSkillData = AllSkillData;
+         readUseSkillData = baseSkillData;
+         playerSkills = new List<ISkill>();
+         Debug.Log(baseSkillData);
       }
-      private void OnDestroy()
-      {
-         RemoveEvent();
-      }
-      private void AddEvent()
-      {
-         EventControl.OnAddAntherList<ActionType, EnemyBase>(ActionType.Strike, Trigger_Strike);
-         EventControl.OnAddAntherList(ActionType.Shoot,Trigger_Shoot);
-      }
-      private void RemoveEvent()
-      {
-         EventControl.OnRemoveAhtnerList<ActionType,EnemyBase>(ActionType.Strike, Trigger_Strike);
+      #endregion
 
-         EventControl.OnRemoveAhtnerList(ActionType.Shoot, Trigger_Shoot);
-      }
-
-      #region MyRegion
-      /// <summary>
-      /// 选择技能
-      /// </summary>
-      public void SelectSkill()
+      #region Delegate
+      protected override void AddDelegate()
       {
-         List<ISkill> availableSkills = GetAvailableSkills();
-         List<ISkill> randomSkills = GetRandomSkills(availableSkills, 3);
+         base.AddDelegate();
+         EventControl.OnAddAntherList(ActionType.LevelUp, SetSkillThatProvidesChoice);
       }
-      private List<ISkill> GetAvailableSkills()
+      protected override void Removedelegate()
       {
-         List<ISkill> availableSkills = new List<ISkill>();
-         // 根据玩家已拥有的技能列表，筛选出尚未拥有的技能，并添加到 availableSkills 中
-         // 可以根据需要从所有技能中进行筛选，或者从一个已定义的技能池中进行筛选
-         return availableSkills;
-      }
-      private List<ISkill> GetRandomSkills(List<ISkill> skillsList, int count)
-      {
-         List<ISkill> randomSkills = new List<ISkill>();
-         // 从技能列表中随机选择指定数量的技能
-         // 可以使用随机数生成器来实现随机选择的逻辑
-         return randomSkills;
+         base.Removedelegate();
+         EventControl.OnRemoveAhtnerList(ActionType.LevelUp, SetSkillThatProvidesChoice);
       }
 
       #endregion
 
-      public void AddSkill(GameObject inst)
-      {
-         // 实例化技能 设置参数
-         Transform @object = Instantiate(inst).transform;
-         @object.SetParent(transform);
-         @object.localPosition = Vector3.zero;
-         @object.localScale = Vector3.one;
-
-         // 技能脚本添加到方法
-         mySkills.Add(@object.GetComponent<SkillBase>());
-
-         // 返回游戏
-         GameManager.I.SetState(GameState.Gameing);
-      }
-      public void AddSkill(int filePathNum)
-      {
-         // 获取技能位置
-         string filePath = "Prefabs/Skills/Skill";
-         if (filePathNum < 10)
-            filePath += "0";
-         filePath += filePathNum.ToString();
-         //Debug.Log(filePath);
-
-         AddSkill(Resources.Load<GameObject>(filePath));
-      }
-
-      #region Trigger 触发方式
+      #region Add
       /// <summary>
-      /// 弹射
+      /// 每当等级提升时 查找可以使用的技能并传递给GUI
       /// </summary>
-      private void Trigger_Shoot()
+      private void SetSkillThatProvidesChoice()
       {
-         for (int i = 0; i < mySkills.Count; i++)
-            mySkills[i].CompareSkill(SkillUseType.IsShoot);
+         SkillData[] datas = new SkillData[3];
+         for (int i = 0; i < 3; i++)
+         {
+            var newData = readUseSkillData[Random.Range(0, readUseSkillData.Count)];
+            datas[i] = newData;
+         }
+         GUIManager.I.InputSkillData(datas);
+      }
+      public void AddSkill(int SkillSN)
+      {
+         ISkill newSkill = GetClassNameFromSN(SkillSN).GetClassFromString("Tea.PolygonHit");
+         AddSkill(newSkill);
+      }
+      public void AddSkill(string ClassName)
+      {
+         ISkill newSkill = ClassName.GetClassFromString("Tea.PolygonHit");
+         AddSkill(newSkill);
       }
       /// <summary>
-      /// 撞击
+      /// 添加技能
       /// </summary>
-      private void Trigger_Strike(EnemyBase enemy)
+      /// <param name="someSkill"></param>
+      public void AddSkill(ISkill someSkill)
       {
-         for (int i = 0; i < mySkills.Count; i++)
-            mySkills[i].StrikeTrigger(enemy);
+         if (someSkill != null)
+         {
+            playerSkills.Add(someSkill);
+            someSkill.GetSkill();
+            EventControl.SetGameState(GameState.Gameing);
+         }
+         else
+         {
+            Debug.LogWarning("技能类不存在 添加技能失败");
+         }
       }
       /// <summary>
-      /// 受击时
+      /// 从SN中获取类名
       /// </summary>
-
-      public virtual void Trigger_UnStrike()
+      /// <param name="SN"></param>
+      /// <returns></returns>
+      private string GetClassNameFromSN(int SN)
       {
-         for (int i = 0; i < mySkills.Count; i++)
-            mySkills[i].EventTrigger(SkillReplyType.UnStrike);
+         for (int i = 0; i < AllSkillData.Count; i++)
+         {
+            if (AllSkillData[i].skillSN == SN)
+            {
+               return AllSkillData[i].skillClassName;
+            }
+         }
+         Debug.Log($"未找到匹配{SN}序号的技能");
+         return null;
       }
-      /// <summary>
-      /// 杀敌时
-      /// </summary>
-
-      public virtual void Trigger_Kill()
-      {
-
-         for (int i = 0; i < mySkills.Count; i++)
-            mySkills[i].EventTrigger(SkillReplyType.Kill);
-      }
-
-      /// <summary>
-      /// 升级时
-      /// </summary>
-      public virtual void Trigger_LevelUp()
-      {
-
-         for (int i = 0; i < mySkills.Count; i++)
-            mySkills[i].EventTrigger(SkillReplyType.LevelUp);
-      }
-
       #endregion
    }
 }

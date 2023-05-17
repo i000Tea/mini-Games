@@ -85,6 +85,7 @@ namespace WeChatWASM
         public string inviteUserAdunit; // 当 operation 为 6 时必填，填写分享人分享时的广告单元
         public int shareValue; // 分享推荐值，必填
         public int rewardValue; // 激励广告推荐值，必填
+        public int? depositAmount; // ⽤户产生的付费⾦额，只要发生付费，都需要回传，用于优化分享价值预估。选填，该字段要求基础库版本在2.24.7及以上
     }
 
     public class WXRewardedVideoAdReportShareBehaviorResponse : WXBaseResponse {

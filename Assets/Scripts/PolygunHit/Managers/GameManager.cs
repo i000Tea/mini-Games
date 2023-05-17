@@ -27,6 +27,8 @@ namespace Tea.PolygonHit
 
       #region Data 数据
 
+      //private List<SkillData> SkillData;
+
       private int score;
 
       [SerializeField]
@@ -42,6 +44,7 @@ namespace Tea.PolygonHit
          Time.timeScale = 1;
          gameSpeed = Time.timeScale;
       }
+     
       #endregion
 
       /// <summary>

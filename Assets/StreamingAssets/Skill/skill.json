@@ -1,0 +1,36 @@
+{
+  "skillList": [
+    {
+      "skillName": "测试技能1",
+      "description": "技能描述",
+      "skillClassName": "Skill_1001",
+      "skillSN": 1001
+    },
+    {
+      "skillName": "测试技能2",
+      "description": "技能描述",
+      "skillClassName": "Skill_1002",
+      "skillSN": 1002
+    },
+    {
+      "skillName": "测试技能3",
+      "description": "技能描述",
+      "skillClassName": "Skill_1003",
+      "skillSN": 1003
+    },
+    {
+      "skillName": "测试技能4",
+      "description": "技能描述",
+      "skillClassName": "Skill_1004",
+      "skillSN": 1004
+    },
+    {
+      "skillName": "测试技能5",
+      "description": "技能描述",
+      "skillClassName": "Skill_1005",
+      "skillSN": 1005
+    }
+  ],
+  "name": "NewSkillData",
+  "hideFlags": 0
+}

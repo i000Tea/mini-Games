@@ -15,7 +15,7 @@ namespace Tea.PolygonHit
 
       [SerializeField]
       bool ChangeName;
-      Text ButtonText => transform.GetChild(0).GetComponent<Text>();
+      protected Text ButtonText => transform.GetChild(0).GetComponent<Text>();
 
       //[SerializeField]
       //[Range(0.1f, 2f)]

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using LitJson;
 
 namespace WeChatWASM
 {
@@ -59,7 +60,7 @@ namespace WeChatWASM
         /// </summary>
         public WXRewardedVideoAdReportShareBehaviorResponse ReportShareBehavior(RequestAdReportShareBehaviorParam param)
         {
-            var res = WXRewardedVideoAdReportShareBehavior(instanceId, JsonUtility.ToJson(param));
+            var res = WXRewardedVideoAdReportShareBehavior(instanceId, JsonMapper.ToJson(param));
             return JsonUtility.FromJson<WXRewardedVideoAdReportShareBehaviorResponse>(res);
         }
     }

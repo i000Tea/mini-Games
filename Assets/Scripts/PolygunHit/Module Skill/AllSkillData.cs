@@ -20,10 +20,12 @@ public class AllSkillData : ScriptableObject
 
 public class SkillData
 {
+   /// <summary> 简介/描述 </summary>
    public string skillName;
    /// <summary> 简介/描述 </summary>
    public string description;
-   /// <summary> 简介/描述 </summary>
+   /// <summary> 技能对应类名 </summary>
    public string skillClassName;
-   public int id;
+   /// <summary> 技能编号 </summary>
+   public int skillSN;
 }

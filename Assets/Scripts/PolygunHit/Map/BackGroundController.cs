@@ -86,27 +86,27 @@ namespace Tea.PolygonHit
 		/// </summary>
 		void InfiniteMap()
 		{
-			if (CameraController.inst.MaxUp() > bGPoints[0].position.y)
+			if (CameraController.I.MaxUp() > bGPoints[0].position.y)
 			{
 				bGPoints[mapNums - 1].position = bGPoints[0].position + new Vector3(0, 4, 0);
 				bGPoints[mapNums - 1].SetAsFirstSibling();
 				SetBackGrounds();
 			}
-			if (CameraController.inst.MaxDown() < bGPoints[mapNums - 1].position.y)
+			if (CameraController.I.MaxDown() < bGPoints[mapNums - 1].position.y)
 			{
 				bGPoints[0].position = bGPoints[mapNums - 1].position - new Vector3(0, 4, 0);
 				bGPoints[0].SetAsLastSibling();
 				SetBackGrounds();
 			}
 
-			if (CameraController.inst.MaxLeft() < longLeft)
+			if (CameraController.I.MaxLeft() < longLeft)
 			{
 				for (int i = 0; i < backGrounsds.Count; i++)
 					backGrounsds[i].ForTheLeft();
 				GetLandR();
 			}
 
-			if (CameraController.inst.MaxRight() > longRight)
+			if (CameraController.I.MaxRight() > longRight)
 			{
 				for (int i = 0; i < backGrounsds.Count; i++)
 					backGrounsds[i].ForTheRight();

@@ -418,7 +418,6 @@ GameObject:
   - component: {fileID: 48993155}
   - component: {fileID: 48993158}
   - component: {fileID: 48993157}
-  - component: {fileID: 48993156}
   - component: {fileID: 48993159}
   m_Layer: 5
   m_Name: Button return
@@ -447,62 +446,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -246}
   m_SizeDelta: {x: 420, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &48993156
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 48993154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 48993157}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 512191492}
-        m_TargetAssemblyTypeName: Tea.CyberCard.GameManager, Assembly-CSharp
-        m_MethodName: ButtonReturn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &48993157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -648,7 +591,7 @@ GameObject:
   - component: {fileID: 90642552}
   - component: {fileID: 90642551}
   m_Layer: 5
-  m_Name: Canvas LevelUp
+  m_Name: Canvas ShowSelectSkill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1479,6 +1422,7 @@ GameObject:
   m_Component:
   - component: {fileID: 512191493}
   - component: {fileID: 512191492}
+  - component: {fileID: 512191494}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -1514,6 +1458,19 @@ Transform:
   m_Father: {fileID: 879409260}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &512191494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 512191491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f7f224b8f63cda489d49a81b5d34c9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useNew: 1
 --- !u!1 &516945756
 GameObject:
   m_ObjectHideFlags: 0
@@ -2433,53 +2390,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 773050329}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 41616ad0c5580ce4e9057fb89590f450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 773050332}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 512191492}
-        m_TargetAssemblyTypeName: Tea.CyberCard.GameManager, Assembly-CSharp
-        m_MethodName: ButtonReturn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  m_Setting: {fileID: 11400000, guid: bed84d8da0932b74cbf40d195899606b, type: 2}
+  isDebug: 0
+  dragSomeObj: {fileID: 0}
+  m_ButtonType: 2
+  showButtonName: "\u91CD\u65B0\u5F00\u59CB"
+  ChangeName: 0
 --- !u!114 &773050332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2947,7 +2866,7 @@ MonoBehaviour:
   baseCamera: {fileID: 1311794526}
   myCamera: {fileID: 963194227}
   CameraAnim: {fileID: 254411629}
-  MaxEdgeDistance: 0
+  MaxEdgeDistance: 10
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3129,53 +3048,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1048309805}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 41616ad0c5580ce4e9057fb89590f450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 1048309808}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 512191492}
-        m_TargetAssemblyTypeName: Tea.CyberCard.GameManager, Assembly-CSharp
-        m_MethodName: ButtonQuit
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  m_Setting: {fileID: 11400000, guid: bed84d8da0932b74cbf40d195899606b, type: 2}
+  isDebug: 0
+  dragSomeObj: {fileID: 0}
+  m_ButtonType: 1
+  showButtonName: "\u8FD4\u56DE"
+  ChangeName: 0
 --- !u!114 &1048309808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3226,6 +3107,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: 0SkillButton_3
       objectReference: {fileID: 0}
+    - target: {fileID: 2984244747448558216, guid: 45f6257cef0a7cf4790e935ac3547db1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2984244747448558217, guid: 45f6257cef0a7cf4790e935ac3547db1,
         type: 3}
       propertyPath: m_Pivot.x
@@ -3249,7 +3135,7 @@ PrefabInstance:
     - target: {fileID: 2984244747448558217, guid: 45f6257cef0a7cf4790e935ac3547db1,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2984244747448558217, guid: 45f6257cef0a7cf4790e935ac3547db1,
         type: 3}
@@ -3259,7 +3145,7 @@ PrefabInstance:
     - target: {fileID: 2984244747448558217, guid: 45f6257cef0a7cf4790e935ac3547db1,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2984244747448558217, guid: 45f6257cef0a7cf4790e935ac3547db1,
         type: 3}
@@ -3309,12 +3195,12 @@ PrefabInstance:
     - target: {fileID: 2984244747448558217, guid: 45f6257cef0a7cf4790e935ac3547db1,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 489.14365
       objectReference: {fileID: 0}
     - target: {fileID: 2984244747448558217, guid: 45f6257cef0a7cf4790e935ac3547db1,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -1434.8114
       objectReference: {fileID: 0}
     - target: {fileID: 2984244747448558217, guid: 45f6257cef0a7cf4790e935ac3547db1,
         type: 3}
@@ -4137,7 +4023,7 @@ MonoBehaviour:
   m_Setting: {fileID: 11400000, guid: bed84d8da0932b74cbf40d195899606b, type: 2}
   isDebug: 0
   dragSomeObj: {fileID: 0}
-  m_ButtonType: 0
+  m_ButtonType: 21
   showButtonName: "\u6682\u505C"
   ChangeName: 0
 --- !u!114 &1300311199
@@ -4302,11 +4188,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56ab3a73a457bc742839fa6d1d8e07a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mySkills:
-  - costText: {fileID: 0}
-    needSp: 0
-    m_ReplyType: 0
-    m_UseType: 0
+  useNew: 1
+  mySkills: []
 --- !u!114 &1311418221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4915,7 +4798,7 @@ MonoBehaviour:
   levelText: {fileID: 2107622875}
   scoreText: {fileID: 1667030355}
   HealthText: {fileID: 736075641}
-  SkillParent: {fileID: 0}
+  SkillParent: {fileID: 354144623}
 --- !u!1 &1429472420
 GameObject:
   m_ObjectHideFlags: 0
@@ -5553,7 +5436,6 @@ GameObject:
   - component: {fileID: 1720141926}
   - component: {fileID: 1720141929}
   - component: {fileID: 1720141928}
-  - component: {fileID: 1720141927}
   - component: {fileID: 1720141930}
   m_Layer: 5
   m_Name: Button back
@@ -5582,62 +5464,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -423}
   m_SizeDelta: {x: 420, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1720141927
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1720141925}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 1720141928}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 512191492}
-        m_TargetAssemblyTypeName: Tea.CyberCard.GameManager, Assembly-CSharp
-        m_MethodName: ButtonQuit
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1720141928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6079,8 +5905,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362795711237538704, guid: 45f6257cef0a7cf4790e935ac3547db1,
         type: 3}
+      propertyPath: ChangeName
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4362795711237538704, guid: 45f6257cef0a7cf4790e935ac3547db1,
+        type: 3}
       propertyPath: showButtonName
-      value: "\u4E0D\u9009\u62E9"
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45f6257cef0a7cf4790e935ac3547db1, type: 3}
@@ -6101,7 +5932,6 @@ GameObject:
   - component: {fileID: 1781438011}
   - component: {fileID: 1781438014}
   - component: {fileID: 1781438013}
-  - component: {fileID: 1781438012}
   - component: {fileID: 1781438015}
   m_Layer: 5
   m_Name: Button Again
@@ -6130,74 +5960,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 226}
   m_SizeDelta: {x: 420, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1781438012
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1781438010}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 1781438013}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 512191492}
-        m_TargetAssemblyTypeName: Tea.CyberCard.GameManager, Assembly-CSharp
-        m_MethodName: ButtonPause
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1614921037}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1781438013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6420,6 +6182,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: 0SkillButton_4
       objectReference: {fileID: 0}
+    - target: {fileID: 2984244747448558216, guid: 45f6257cef0a7cf4790e935ac3547db1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2984244747448558217, guid: 45f6257cef0a7cf4790e935ac3547db1,
         type: 3}
       propertyPath: m_Pivot.x
@@ -6443,7 +6210,7 @@ PrefabInstance:
     - target: {fileID: 2984244747448558217, guid: 45f6257cef0a7cf4790e935ac3547db1,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2984244747448558217, guid: 45f6257cef0a7cf4790e935ac3547db1,
         type: 3}
@@ -6453,7 +6220,7 @@ PrefabInstance:
     - target: {fileID: 2984244747448558217, guid: 45f6257cef0a7cf4790e935ac3547db1,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2984244747448558217, guid: 45f6257cef0a7cf4790e935ac3547db1,
         type: 3}
@@ -6503,12 +6270,12 @@ PrefabInstance:
     - target: {fileID: 2984244747448558217, guid: 45f6257cef0a7cf4790e935ac3547db1,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 489.14365
       objectReference: {fileID: 0}
     - target: {fileID: 2984244747448558217, guid: 45f6257cef0a7cf4790e935ac3547db1,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -1559.8114
       objectReference: {fileID: 0}
     - target: {fileID: 2984244747448558217, guid: 45f6257cef0a7cf4790e935ac3547db1,
         type: 3}

@@ -14,7 +14,6 @@ namespace Tea.PolygonHit
 	public class CameraController : Singleton<CameraController>
 	{
 		public CinemachineVirtualCamera baseCamera;
-		public static CameraController inst;
 		public Camera myCamera;
 
 		[SerializeField]
@@ -48,7 +47,6 @@ namespace Tea.PolygonHit
 			baseCamera.m_Follow = PlayerBase.I.transform;
 
 			myCamera = Camera.main;
-			inst = this;
 
 			MaxEdgeDistance = Camera.main.ViewportToWorldPoint(new Vector2(-0.3f, -0.3f)).magnitude;
 

@@ -17,7 +17,7 @@ namespace Tea.PolygonHit
 			AmmoMax(10);
 			for (int i = 0; i < skill.Length; i++)
 			{
-				SkillManager.inst.AddSkill(skill[i]);
+				//SkillManager.I.AddSkill(skill[i]);
 			}
 		}
 		public int fenshu;

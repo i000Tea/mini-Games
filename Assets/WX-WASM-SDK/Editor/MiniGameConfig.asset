@@ -15,7 +15,7 @@ MonoBehaviour:
   ProjectConf:
     projectName: "\u5343\u676F\u8336\u7684\u5C0F\u6E38\u620F"
     Appid: wx3729aaa37f53d4c2
-    CDN: ' https://itea-minigames.oss-cn-nanjing.aliyuncs.com/'
+    CDN: https://a.unity.cn/client_api/v1/buckets/8ee07152-9ce6-4c4e-9480-388a6235840c/entry_by_path/content/?path=
     assetLoadType: 0
     VideoUrl: 
     DST: D:/UINTY/GamePackage
@@ -26,9 +26,9 @@ MonoBehaviour:
     AssetsUrl: 
     MemorySize: 256
     HideAfterCallMain: 1
-    preloadFiles: 
+    preloadFiles: skill.json
     Orientation: 0
-    bgImageSrc: Assets/texture/BalaBala.gif
+    bgImageSrc: Assets/Texture/BalaBala.gif
     dataFileSubPrefix: 
     maxStorage: 200
     defaultReleaseSize: 31457280
@@ -37,6 +37,7 @@ MonoBehaviour:
     needCacheTextures: 1
     loadingBarWidth: 240
     needCheckUpdate: 0
+    disableHighPerformanceFallback: 0
   SDKOptions:
     UseAudioApi: 0
     UseFriendRelation: 0
@@ -44,7 +45,7 @@ MonoBehaviour:
   CompileOptions:
     DevelopBuild: 0
     AutoProfile: 0
-    ScriptOnly: 0
+    ScriptOnly: 1
     profilingFuncs: 0
     Webgl2: 0
     DeleteStreamingAssets: 1

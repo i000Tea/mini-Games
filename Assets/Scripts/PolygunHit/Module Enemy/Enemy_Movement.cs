@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Tea.PolygonHit.Enemy
 {
@@ -22,7 +23,7 @@ namespace Tea.PolygonHit.Enemy
       /// <summary>
       /// 与玩家之间的距离
       /// </summary>
-      private float DistanceFromPlayer => Vector3.Distance(transform.position, Base.TargetTransform.position) * transform.lossyScale.x;
+      private float DistanceFromPlayer => Vector3.Distance(transform.position, Base.TargetTransform.position);
 
       /// <summary>
       /// 带有方向的基础速度
@@ -86,6 +87,10 @@ namespace Tea.PolygonHit.Enemy
       {
          movementCor = StartCoroutine(MovementUpdate());
       }
+      protected override void BeDestroy()
+      {
+         StopAllCoroutines();
+      }
       private void OnDestroy()
       {
          StopAllCoroutines();
@@ -104,6 +109,7 @@ namespace Tea.PolygonHit.Enemy
             yield return new WaitForFixedUpdate();
          }
       }
+      float A, B;
       /// <summary>
       /// 移动方法
       /// </summary>
@@ -114,7 +120,8 @@ namespace Tea.PolygonHit.Enemy
 
          //Debug.Log($"{DistanceFromPlayer}  {CameraController.inst.MaxEdgeDistance}");
          // 当与玩家间的距离大于视线外 倍速移动靠近玩家
-         if (DistanceFromPlayer > CameraController.inst.MaxEdgeDistance)
+         A = DistanceFromPlayer; B = CameraController.I.MaxEdgeDistance;
+         if (DistanceFromPlayer > CameraController.I.MaxEdgeDistance)
          {
             transform.localPosition += (Vector3)BaseDirSpeed * Mathf.Pow(DistanceFromPlayer, 2.4f);
          }

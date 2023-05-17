@@ -246,20 +246,20 @@ namespace Tea.PolygonHit
          switch (a)
          {
             case 0:
-               pointX = Random.Range(CameraController.inst.MaxLeft(), CameraController.inst.MaxRight());
-               pointY = CameraController.inst.MaxUp() + 0.2f;
+               pointX = Random.Range(CameraController.I.MaxLeft(), CameraController.I.MaxRight());
+               pointY = CameraController.I.MaxUp() + 0.2f;
                break;
             case 1:
-               pointY = Random.Range(CameraController.inst.MaxUp(), CameraController.inst.MaxDown());
-               pointX = CameraController.inst.MaxLeft() - 0.2f;
+               pointY = Random.Range(CameraController.I.MaxUp(), CameraController.I.MaxDown());
+               pointX = CameraController.I.MaxLeft() - 0.2f;
                break;
             case 2:
-               pointY = Random.Range(CameraController.inst.MaxUp(), CameraController.inst.MaxDown());
-               pointX = CameraController.inst.MaxRight() + 0.2f;
+               pointY = Random.Range(CameraController.I.MaxUp(), CameraController.I.MaxDown());
+               pointX = CameraController.I.MaxRight() + 0.2f;
                break;
             case 3:
-               pointX = Random.Range(CameraController.inst.MaxLeft(), CameraController.inst.MaxRight());
-               pointY = CameraController.inst.MaxDown() - 0.2f;
+               pointX = Random.Range(CameraController.I.MaxLeft(), CameraController.I.MaxRight());
+               pointY = CameraController.I.MaxDown() - 0.2f;
                break;
             default:
                break;
