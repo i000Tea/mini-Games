@@ -53,7 +53,7 @@ namespace Tea.PolygonHit
 
          EventControl.OnAddGameStateList(CanvasSwitch);
       }
-      protected override void Removedelegate()
+      protected override void RemoveDelegate()
       {
          EventControl.OnRemoveButtonList(ButtonType.Menu_StartGame, GameStart);
 
@@ -71,7 +71,7 @@ namespace Tea.PolygonHit
       }
       private void GameStart()
       {
-         Debug.Log("游戏开始");
+         //Debug.Log("游戏开始");
          _Awake.SetActive(false);
          CanvasSwitch(GameState.Gameing);
       }
@@ -120,7 +120,7 @@ namespace Tea.PolygonHit
       /// <param name="state"></param>
       private void CanvasSwitch(GameState state)
       {
-         Debug.Log($"{state}?");
+         //Debug.Log($"{state}?");
          for (int i = 1; i < showCanvas.Length; i++)
          {
             showCanvas[i].SetActive(false);

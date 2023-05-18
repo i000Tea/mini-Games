@@ -71,7 +71,7 @@ namespace Tea.PolygonHit
          EventControl.OnAddButtonList(ButtonType.Exit, ExitGame);
          EventControl.OnAddGameStateList(SetState);
       }
-      protected override void Removedelegate()
+      protected override void RemoveDelegate()
       {
          EventControl.OnRemoveButtonList(ButtonType.Menu_StartGame, GameStart);
          EventControl.OnRemoveButtonList(ButtonType.Exit, ExitGame);
@@ -93,7 +93,7 @@ namespace Tea.PolygonHit
       /// </summary>
       public void SetState(GameState State)
       {
-         Debug.Log($"状态切换至{State}");
+         //Debug.Log($"状态切换至{State}");
          if (gameSpeed == 0 && Time.timeScale != 0)
          {
             gameSpeed = Time.timeScale;

@@ -5,36 +5,82 @@ using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEditor;
 using WeChatWASM;
+using UnityEngine.Networking;
+using Tea.PolygonHit;
+using System.Net;
 
 namespace Tea
 {
    public class JsonDataRead : Singleton<JsonDataRead>
    {
+      [SerializeField]
+      public string DATA_CDN_File;
+      public string jsonFile;
+      public string skillJsonFile = "StreamingAssets/Skill/skill.json";
+
       /// <summary>
       /// 缓存json字符
       /// </summary>
       string cacheJsonData;
-      /// <summary>
-      /// 读取技能信息
-      /// </summary>
-      public AllSkillData LoadSkillData()
+
+      protected override void Awake()
       {
+         StartCoroutine(ReadSkillData());
+      }
+      IEnumerator ReadSkillData()
+      {
+         yield return 0;
          string filePath = Path.Combine(Application.streamingAssetsPath, "Skill/skill.json");
-#if UNITY_ANDROID && !UNITY_EDITOR
-        // 在Android平台上，使用UnityWebRequest来读取StreamingAssets文件夹中的内容
+
+#if UNITY_WEBGL
+         var endFile = DATA_CDN_File + skillJsonFile;
+         // 处理 StreamingAssets 文件夹中的本地文件路径
+         if (endFile.StartsWith("file://"))
+         {
+            endFile = Path.Combine(Application.streamingAssetsPath, endFile.Substring("file://".Length));
+         }
+
+         using (UnityWebRequest webRequest = UnityWebRequest.Get(endFile))
+         {
+            yield return webRequest.SendWebRequest();
+
+            if (webRequest.result == UnityWebRequest.Result.Success)
+            {
+               string json = webRequest.downloadHandler.text;
+               Debug.Log("下载的 JSON 文件内容：" + json);
+               cacheJsonData = json;
+            }
+            else
+            {
+               Debug.LogError($"下载地址{endFile} 无法下载 JSON 文件。错误：{webRequest.error}");
+            }
+         }
+#elif UNITY_ANDROID && !UNITY_EDITOR
+         // 在Android平台上，使用UnityWebRequest来读取StreamingAssets文件夹中的内容
          Coroutine coroutine = StartCoroutine(ReadAndroidJSON(filePath));
-//#elif UNITY_WEBGL
 #else
          // 在其他平台上，直接使用File类来读取StreamingAssets文件夹中的内容
          ReadJSON(filePath);
 #endif
-         var data = ConvertingToData();
-         cacheJsonData = default;
-         if (!data)
+         try
          {
-            Debug.LogWarning("数据读取异常");
+            var data = ConvertingToData();
+            cacheJsonData = default;
+            if (!data)
+            {
+               Debug.LogWarning("数据读取异常");
+            }
+            else
+            {
+               SkillManager.I.SetSkillData(data);
+            }
          }
-         return data;
+         catch (System.Exception)
+         {
+
+            throw;
+         }
+
       }
 
       private void ReadJSON(string filePath)
@@ -88,6 +134,10 @@ namespace Tea
          AllSkillData getSkillData = ScriptableObject.CreateInstance<AllSkillData>();
          //AllSkillData getSkillData = JsonConvert.DeserializeObject<AllSkillData>(cacheJsonData) as AllSkillData;
 
+         if (cacheJsonData == null || cacheJsonData == default)
+         {
+            Debug.LogWarning("缓存字符串为空");
+         }
          JsonConvert.PopulateObject(cacheJsonData, getSkillData);
 
          // 处理ScriptableObject

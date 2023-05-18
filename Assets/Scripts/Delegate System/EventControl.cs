@@ -150,7 +150,7 @@ namespace Tea
       /// <exception cref="Exception"></exception>
       public static void InvokeSomething<_Enum>(_Enum someEnum) where _Enum : Enum
       {
-         Debug.Log($"执行{someEnum}");
+         //Debug.Log($"执行{someEnum}");
          Delegate baseDele;
          if (m_EveryTable.TryGetValue(someEnum, out baseDele))
          {
@@ -261,7 +261,7 @@ namespace Tea
       /// <exception cref="Exception"></exception>
       public static void SetGameState(GameState newState)
       {
-         Debug.Log($"游戏状态切换至{newState}");
+         //Debug.Log($"游戏状态切换至{newState}");
          Delegate baseDele;
          if (m_EveryTable.TryGetValue(EventType.GameState, out baseDele))
          {

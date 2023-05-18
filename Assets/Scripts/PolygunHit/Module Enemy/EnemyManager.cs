@@ -108,7 +108,7 @@ namespace Tea.PolygonHit
          EventControl.OnAddAntherList(ActionType.PlayerDestory, StopCreate);
          EventControl.OnAddAntherList(ActionType.LevelUp, PlayerLevelUp);
       }
-      protected override void Removedelegate()
+      protected override void RemoveDelegate()
       {
          EventControl.OnRemoveButtonList(ButtonType.Menu_StartGame, GameStart);
          EventControl.OnRemoveGameStateList(SetTheState);

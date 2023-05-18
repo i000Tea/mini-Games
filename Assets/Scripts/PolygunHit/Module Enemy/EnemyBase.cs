@@ -151,7 +151,7 @@ namespace Tea.PolygonHit
             m_Colliders[i].enabled = false;
          }
          Movement = false;
-         Debug.Log("玩家死亡");
+         //Debug.Log("玩家死亡");
          ModeDestroy?.Invoke();
       }
       #endregion

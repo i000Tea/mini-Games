@@ -83,6 +83,7 @@ namespace Tea.PolygonHit
          {
             if (value <= 0)
             {
+               value = 0;
                StartCoroutine(IsDestroy());
             }
             nowHP = value;
@@ -196,7 +197,7 @@ namespace Tea.PolygonHit
       {
          EventControl.OnAddAntherList<ActionType, int>(ActionType.ExpAdd, ExpAdd);
       }
-      protected override void Removedelegate()
+      protected override void RemoveDelegate()
       {
          EventControl.OnRemoveAhtnerList<ActionType, int>(ActionType.ExpAdd, ExpAdd);
       }
@@ -257,15 +258,10 @@ namespace Tea.PolygonHit
             // 新建伤害值
             float dmg = m_HitDmg;
 
-            ISkill.modifyingDamage_Player?.Invoke(ref dmg,EffectivePhase.BaseAdd);
-            ISkill.modifyingDamage_Player?.Invoke(ref dmg,EffectivePhase.StackMulti);
-            ISkill.modifyingDamage_Player?.Invoke(ref dmg,EffectivePhase.FinalAdd);
-
             //遍历buff列表 更新伤害值
-            for (int i = 0; i < m_playerBuffs.Count; i++)
-            {
-               m_playerBuffs[i].IsStrike(ref dmg);
-            }
+            IBuff.AlterDamage?.Invoke(ref dmg,ValueAlterEffectPhase.BaseAdd);
+            IBuff.AlterDamage?.Invoke(ref dmg,ValueAlterEffectPhase.StackMulti);
+            IBuff.AlterDamage?.Invoke(ref dmg,ValueAlterEffectPhase.FinalAdd);
 
             int particlePower = 0;
             if (dmg > m_HitDmg)

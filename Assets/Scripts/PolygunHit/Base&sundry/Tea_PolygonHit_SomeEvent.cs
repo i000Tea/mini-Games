@@ -1,5 +1,31 @@
 namespace Tea.PolygonHit
 {
+   #region Buff & Skill
+
+   /// <summary>
+   /// 数值 修改 生效 阶段
+   /// </summary>
+   public enum ValueAlterEffectPhase
+   {
+      none,
+      /// <summary> 
+      /// 基础增加 <br/>
+      /// 如果在这里尽可能用加法
+      /// </summary>
+      BaseAdd = 1,
+      /// <summary> 
+      /// 叠加乘算 <br/>
+      /// 如果在这里尽可能用乘法
+      /// </summary>
+      StackMulti = 5,
+      /// <summary> 
+      /// 最终增加 <br/>
+      /// 如果在这里尽可能用加法
+      /// </summary>
+      FinalAdd = 11,
+   }
+
+
    /// <summary>
    /// 技能恢复sp值的方式
    /// </summary>
@@ -46,6 +72,7 @@ namespace Tea.PolygonHit
       enemy,
       enemy_Boss,
    }
+   #endregion
    /// <summary>
    /// 敌人状态
    /// </summary>
@@ -109,45 +136,6 @@ namespace Tea.PolygonHit
       /// <summary> 等级提升 </summary>
       LevelUp,
       /// <summary> 玩家死亡 无参 </summary>
-      PlayerDestory,
-   }
-   public enum EventType
-   {
-      ShowText0,
-      ShowText1,
-      ShowText2,
-      ShowText3,
-      ShowText4,
-      ShowText5,
-
-      #region 行为事件
-      /// <summary>
-      /// 拖拽弹射时
-      /// </summary>
-      action_Shoot,
-      /// <summary>
-      /// 撞击时
-      /// </summary>
-      action_Strike,
-      /// <summary>
-      /// 受击时
-      /// </summary>
-      action_UnStrike,
-
-      /// <summary>
-      /// 击杀时
-      /// </summary>
-      action_Kill,
-
-      /// <summary>
-      /// 等级提升
-      /// </summary>
-      action_LevelUp,
-      #endregion
-
-      /// <summary>
-      /// 玩家死亡
-      /// </summary>
       PlayerDestory,
    }
 }

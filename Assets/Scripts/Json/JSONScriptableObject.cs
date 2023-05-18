@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 
 #if UNITY_EDITOR
 using UnityEditor;
+using WeChatWASM;
 #endif
 
 namespace Tea
@@ -111,9 +112,10 @@ namespace Tea
             return null;
          }
       }
+
       #region UNITY_EDITOR
 #if UNITY_EDITOR
-      const string editorFilePath = "Assets/Resources/Skill";
+      const string editorFilePath = "Assets/StreamingAssets/Skill";
 
       /// <summary>
       /// 转换为Json
@@ -121,8 +123,7 @@ namespace Tea
       [MenuItem("TeaAdd/Skill/从Resources Skill中的文件 转换为JSON字符串")]
       private static void ConvertToJson()
       {
-         string folderPath = "Assets/Resources/Skill"; // 替换为你的文件夹路径
-         string[] assetGuids = AssetDatabase.FindAssets("t:ScriptableObject", new[] { folderPath });
+         string[] assetGuids = AssetDatabase.FindAssets("t:ScriptableObject", new[] { editorFilePath });
          if (assetGuids.Length > 0)
          {
             string assetPath = AssetDatabase.GUIDToAssetPath(assetGuids[0]);
@@ -137,13 +138,13 @@ namespace Tea
 
                if (skillData != null)
                {
-                  JsonUtilityHelper.SaveToJsonFile(skillData, "Assets/Resources/Skill/skill.json");
+                  JsonUtilityHelper.SaveToJsonFile(skillData, editorFilePath + "/skill.json");
                }
             }
          }
          else
          {
-            Debug.LogWarning($"文件夹{folderPath}中没有ScriptableObjects");
+            Debug.LogWarning($"文件夹{editorFilePath}中没有ScriptableObjects");
          }
       }
 
