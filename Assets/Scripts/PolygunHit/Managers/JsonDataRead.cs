@@ -7,7 +7,6 @@ using UnityEditor;
 using WeChatWASM;
 using UnityEngine.Networking;
 using Tea.PolygonHit;
-using System.Net;
 
 namespace Tea
 {
@@ -17,6 +16,8 @@ namespace Tea
       public string DATA_CDN_File;
       public string jsonFile;
       public string skillJsonFile = "StreamingAssets/Skill/skill.json";
+
+      const string jsonFilePath = "Assets/StreamingAssets/Skill";
 
       /// <summary>
       /// 缓存json字符
@@ -29,10 +30,21 @@ namespace Tea
       }
       IEnumerator ReadSkillData()
       {
-         yield return 0;
+         yield return new WaitForFixedUpdate();
          string filePath = Path.Combine(Application.streamingAssetsPath, "Skill/skill.json");
+#if UNITY_EDITOR
+         var jsPath = jsonFilePath + "/skill.json";
+         if (File.Exists(jsPath))
+         {
+            // 从JSON文件读取内容
+            cacheJsonData = File.ReadAllText(jsPath);
+         }
+         else
+         {
+            Debug.LogWarning("JSON文件找不到:" + jsPath);
+         }
 
-#if UNITY_WEBGL
+#elif UNITY_WEBGL
          var endFile = DATA_CDN_File + skillJsonFile;
          // 处理 StreamingAssets 文件夹中的本地文件路径
          if (endFile.StartsWith("file://"))
@@ -72,12 +84,11 @@ namespace Tea
             }
             else
             {
-               SkillManager.I.SetSkillData(data);
+               SkillAndBuffManager.I.SetSkillData(data);
             }
          }
          catch (System.Exception)
          {
-
             throw;
          }
 
@@ -132,6 +143,8 @@ namespace Tea
       {
          // 将JSON字符串反序列化为ScriptableObject
          AllSkillData getSkillData = ScriptableObject.CreateInstance<AllSkillData>();
+         // 将JSON字符串反序列化为ScriptableObject
+         //AllSkillData getSkillData = JsonConvert.DeserializeObject<AllSkillData>(cacheJsonData) as AllSkillData;
          //AllSkillData getSkillData = JsonConvert.DeserializeObject<AllSkillData>(cacheJsonData) as AllSkillData;
 
          if (cacheJsonData == null || cacheJsonData == default)

@@ -12,12 +12,24 @@ namespace Tea.PolygonHit
    /// </summary>
    public class Skill_1001 : ISkill
    {
+      float AddDamageNum = 0.2f;
+      /// <summary>
+      /// 
+      /// </summary>
+      Buff_AlterDamage alterDamage;
       protected override void SkillInitialize()
       {
+         // 初始化buff
+         alterDamage = new AlterDamageInBase(AddDamageNum);
+         // buff加入buff列表
+         PlayerBase.I.buffList.Add(alterDamage);
+         // 加入委托
+         PlayerBase.I.valueAlterDamage += alterDamage.AlterDamageIng;
       }
-      protected override void ModifyingDamage(ref float damage, EffectivePhase phase)
+      protected override void SkillDelete()
       {
-         base.ModifyingDamage(ref damage, phase);
+         PlayerBase.I.buffList.Remove(alterDamage);
+         PlayerBase.I.valueAlterDamage -= alterDamage.AlterDamageIng;
       }
    }
    public class Skill_1002 : ISkill

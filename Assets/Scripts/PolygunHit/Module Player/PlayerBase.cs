@@ -107,14 +107,15 @@ namespace Tea.PolygonHit
       /// 受到伤害时的动画
       /// </summary>
       private Tween unAtkColorTween;
+      /// <summary>
+      /// 是否可以受攻击
+      /// </summary>
       public bool IsInjury => !protectAfterInjury && !protectFromShoot;
-
       /// <summary>
       /// 弹射保护
       /// </summary>
       private bool protectFromShoot;
       Coroutine protectShoot;
-
       /// <summary>
       /// 受伤后保护
       /// </summary>
@@ -124,6 +125,26 @@ namespace Tea.PolygonHit
       /// </summary>
       [SerializeField]
       private float protectInjuryTime = 1.5f;
+
+      /// <summary>
+      /// 自身输出伤害修改
+      /// </summary>
+      public BuffValueAlter valueAlterDamage;
+      /// <summary>
+      /// 自身受到伤害修改
+      /// </summary>
+      public BuffValueAlter valueAlterInjury;
+      #endregion
+
+      #region buff & skill
+      /// <summary>
+      /// 玩家技能列表
+      /// </summary>
+      public List<ISkill> skillList;
+      /// <summary>
+      /// 玩家技能列表
+      /// </summary>
+      public List<IBuff> buffList;
       #endregion
 
       #region Anther
@@ -173,11 +194,17 @@ namespace Tea.PolygonHit
          // 更新血量
          Health = HealthMax;
          GUIManager.I.GUIUpdate(nowLevel, 0, MaxExp, Health);
+         skillList = new List<ISkill>();
+         buffList = new List<IBuff>();
       }
-
       private void FixedUpdate()
       {
          UpdateMovement();
+      }
+      protected override void OnDestroy()
+      {
+         base.OnDestroy();
+         DestroySkills();
       }
       /// <summary>
       /// 碰撞时
@@ -259,9 +286,9 @@ namespace Tea.PolygonHit
             float dmg = m_HitDmg;
 
             //遍历buff列表 更新伤害值
-            IBuff.AlterDamage?.Invoke(ref dmg,ValueAlterEffectPhase.BaseAdd);
-            IBuff.AlterDamage?.Invoke(ref dmg,ValueAlterEffectPhase.StackMulti);
-            IBuff.AlterDamage?.Invoke(ref dmg,ValueAlterEffectPhase.FinalAdd);
+            valueAlterDamage?.Invoke(ref dmg, ValueAlterEffectPhase.BaseAdd);
+            valueAlterDamage?.Invoke(ref dmg, ValueAlterEffectPhase.StackMulti);
+            valueAlterDamage?.Invoke(ref dmg, ValueAlterEffectPhase.FinalAdd);
 
             int particlePower = 0;
             if (dmg > m_HitDmg)
@@ -392,26 +419,13 @@ namespace Tea.PolygonHit
 
       #endregion
 
-      #region Buff         增益
-      /// <summary>
-      /// 传入一个新的buff 若列表中存在相同类 则返回列表中的 否则 添加到列表中
-      /// </summary>
-      /// <param name="newBuff"></param>
-      /// <returns></returns>
-      public IBuff AddBuff(IBuff newBuff)
+      #region Skill&Buff   技能和增减益
+      private void DestroySkills()
       {
-         for (int i = 0; i < m_playerBuffs.Count; i++)
+         for (int i = 0; i < skillList.Count; i++)
          {
-            //Debug.Log(m_playerBuffs[i].ToString() + "  " + newBuff.ToString());
-            if (m_playerBuffs[i].ToString() == newBuff.ToString())
-            {
-               Debug.Log("相同");
-               return m_playerBuffs[i];
-            }
+            skillList[i].SkillDestory();
          }
-
-         m_playerBuffs.Add(newBuff);
-         return newBuff;
       }
       #endregion
 

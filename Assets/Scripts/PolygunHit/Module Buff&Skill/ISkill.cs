@@ -9,7 +9,6 @@ namespace Tea.PolygonHit
    /// 技能触发器委托
    /// </summary>
    public delegate void SkillTriggerHandler();
-   public delegate void SkillModifyingDamage(ref float damage, EffectivePhase phase);
 
    /// <summary>
    /// 生效阶段
@@ -45,24 +44,26 @@ namespace Tea.PolygonHit
       /// <summary>
       /// 获得此技能时
       /// </summary>
-      public void GetSkill()
+      public void SkillAwake()
       {
-         AddDelegate();
          SkillInitialize();
       }
-
+      /// <summary>
+      /// 移除技能
+      /// </summary>
+      public void SkillDestory()
+      {
+         SkillDelete();
+      }
       /// <summary>
       /// 技能 初始化
       /// </summary>
-      protected virtual void SkillInitialize()
-      {
+      protected virtual void SkillInitialize() { }
+      /// <summary>
+      /// 删除技能
+      /// </summary>
+      protected virtual void SkillDelete() { }
 
-      }
-      protected virtual void AddDelegate() { }
-      protected virtual void RemoveDelegate()
-      {
-         modifyingDamage_Player -= ModifyingDamage;
-      }
       /// <summary>
       /// 修改伤害
       /// </summary>

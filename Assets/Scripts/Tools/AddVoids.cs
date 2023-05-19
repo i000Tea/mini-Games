@@ -144,11 +144,27 @@ namespace Tea
          return data;
       }
 
-      private static string ParseClassNameFromJson(this string jsonField)
+      /// <summary>
+      /// 需要连带命名空间一同输入
+      /// </summary>
+      /// <param name="fullClassName"></param>
+      /// <returns></returns>
+      public static Type GetClass(this string fullClassName)
       {
-         return jsonField;
+         // 使用反射获取对应类的类型
+         Type classType = Type.GetType(fullClassName);
+         if (classType != null)
+         {
+            // 创建对应的类实例
+            Type GetType = Activator.CreateInstance(classType) as Type;
+            return GetType;
+         }
+         else
+         {
+            Debug.LogWarning("无法找到对应的默认类" + fullClassName);
+            return null;
+         }
       }
-
       public static String GetStringFromJson(this string jsonField)
       {
          return jsonField;
@@ -158,10 +174,10 @@ namespace Tea
       /// </summary>
       /// <param name="className"></param>
       /// <returns></returns>
-      public static ISkill GetClassFromString(this string className, string classNamespace = "Tea")
+      public static ISkill GetSkillFromString(this string className, string @namespace = "Tea")
       {
          // 使用反射获取对应类的类型
-         Type classType = Type.GetType(classNamespace + "." + className);
+         Type classType = GetClass(@namespace + "." + className);
          if (classType != null)
          {
             // 创建对应的类实例
@@ -171,6 +187,31 @@ namespace Tea
          else
          {
             Debug.LogWarning("无法找到对应的技能类" + className);
+            return null;
+         }
+      }
+
+      /// <summary>
+      /// 添加一个buff
+      /// </summary>
+      /// <param name="effectObj"></param>
+      public static void AddBuff(this List<IBuff> effectObj,IBuff someBuff)
+      {
+         effectObj.Add(someBuff);
+      }
+      public static IBuff GetBuffFromString(this string className, string @namespace = "Tea")
+      {
+         // 使用反射获取对应类的类型
+         Type classType = GetClass(@namespace + "." + className);
+         if (classType != null)
+         {
+            // 创建对应的类实例
+            IBuff GetBuff = Activator.CreateInstance(classType) as IBuff;
+            return GetBuff;
+         }
+         else
+         {
+            Debug.LogWarning("无法找到对应的增益类" + className);
             return null;
          }
       }

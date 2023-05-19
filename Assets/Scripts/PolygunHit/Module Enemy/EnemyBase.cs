@@ -22,19 +22,19 @@ namespace Tea.PolygonHit
       private Image ShowImage;
 
       private Collider2D m_Collider => GetComponent<Collider2D>() ?? gameObject.AddComponent<CircleCollider2D>();
-      
+
       private Collider2D[] m_Colliders
       {
          get
          {
-            if(m_colls == null)
+            if (m_colls == null)
             {
-               m_colls = GetComponentsInChildren<Collider2D>(); 
+               m_colls = GetComponentsInChildren<Collider2D>();
             }
             return m_colls;
          }
       }
-      private Collider2D[] m_colls ;
+      private Collider2D[] m_colls;
 
       public EnemyState State => myState;
       [SerializeField]
@@ -108,14 +108,14 @@ namespace Tea.PolygonHit
       #region Anther
       public EnemyAttackMode AtkMode { get; private set; }
 
-      public event BaseEvent ModeInitialize;
+      public BaseEvent ModeInitialize;
       /// <summary>
       /// 模组结束
       /// </summary>
-      public event BaseEvent ModeDestroy;
+      public BaseEvent ModeDestroy;
       #endregion
 
-      public event SwitchAtkMode switchMode;
+      public SwitchAtkMode switchMode;
       #endregion
 
       #region unity void   原生方法

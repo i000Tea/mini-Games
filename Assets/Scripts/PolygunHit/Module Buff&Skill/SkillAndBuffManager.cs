@@ -9,7 +9,7 @@ namespace Tea.PolygonHit
    /// <summary>
    /// 技能管理器
    /// </summary>
-   public class SkillManager : Singleton<SkillManager>
+   public class SkillAndBuffManager : Singleton<SkillAndBuffManager>
    {
       #region MyRegion
       /// <summary>
@@ -25,11 +25,7 @@ namespace Tea.PolygonHit
       /// </summary>
       private List<SkillData> readUseSkillData;
 
-      public List<SkillBase> mySkills;
-      /// <summary>
-      /// 玩家技能列表
-      /// </summary>
-      private List<ISkill> playerSkills;
+      private List<IBuff> bufflist;
 
       #endregion
 
@@ -37,13 +33,8 @@ namespace Tea.PolygonHit
       protected override void Awake()
       {
          base.Awake();
-         mySkills = new List<SkillBase>();
       }
-
-      private void Start()
-      {
-         playerSkills = new List<ISkill>();
-      }
+      
       public void SetSkillData(AllSkillData data)
       {
          AllSkillData = data.skillList;
@@ -52,7 +43,7 @@ namespace Tea.PolygonHit
 
          readUseSkillData = baseSkillData;
 
-         Debug.Log(baseSkillData);
+         //Debug.Log(baseSkillData);
       }
       #endregion
 
@@ -66,11 +57,12 @@ namespace Tea.PolygonHit
       {
          base.RemoveDelegate();
          EventControl.OnRemoveAhtnerList(ActionType.LevelUp, SetSkillThatProvidesChoice);
+         
       }
 
       #endregion
 
-      #region Add
+      #region AddSkill
       /// <summary>
       /// 每当等级提升时 查找可以使用的技能并传递给GUI
       /// </summary>
@@ -84,26 +76,12 @@ namespace Tea.PolygonHit
          }
          GUIManager.I.InputSkillData(datas);
       }
-      public void AddSkill(int SkillSN)
-      {
-         ISkill newSkill = GetClassNameFromSN(SkillSN).GetClassFromString("Tea.PolygonHit");
-         AddSkill(newSkill);
-      }
-      public void AddSkill(string ClassName)
-      {
-         ISkill newSkill = ClassName.GetClassFromString("Tea.PolygonHit");
-         AddSkill(newSkill);
-      }
-      /// <summary>
-      /// 添加技能
-      /// </summary>
-      /// <param name="someSkill"></param>
       public void AddSkill(ISkill someSkill)
       {
          if (someSkill != null)
          {
-            playerSkills.Add(someSkill);
-            someSkill.GetSkill();
+            PlayerBase.I.skillList.Add(someSkill);
+            someSkill.SkillAwake();
             EventControl.SetGameState(GameState.Gameing);
          }
          else
@@ -111,23 +89,12 @@ namespace Tea.PolygonHit
             Debug.LogWarning("技能类不存在 添加技能失败");
          }
       }
-      /// <summary>
-      /// 从SN中获取类名
-      /// </summary>
-      /// <param name="SN"></param>
-      /// <returns></returns>
-      private string GetClassNameFromSN(int SN)
+      public void AddSkill(string ClassName)
       {
-         for (int i = 0; i < AllSkillData.Count; i++)
-         {
-            if (AllSkillData[i].skillSN == SN)
-            {
-               return AllSkillData[i].skillClassName;
-            }
-         }
-         Debug.Log($"未找到匹配{SN}序号的技能");
-         return null;
+         ISkill newSkill = ClassName.GetSkillFromString("Tea.PolygonHit");
+         AddSkill(newSkill);
       }
       #endregion
+
    }
 }

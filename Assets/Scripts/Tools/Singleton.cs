@@ -48,9 +48,9 @@ namespace Tea
          _instance = (T)this;
          AddDelegate();
       }
-      private void OnDestroy()
+      protected virtual void OnDestroy()
       {
-         Debug.Log($"{gameObject.name} 移除");
+         //Debug.Log($"{gameObject.name} 移除");
          if (_instance == this)
          {
             _instance = null;

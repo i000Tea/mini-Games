@@ -115,7 +115,8 @@ namespace Tea
 
       #region UNITY_EDITOR
 #if UNITY_EDITOR
-      const string editorFilePath = "Assets/StreamingAssets/Skill";
+      const string jsonFilePath = "Assets/StreamingAssets/Skill";
+      const string objFilePath = "Assets/Resources/Skill";
 
       /// <summary>
       /// 转换为Json
@@ -123,7 +124,7 @@ namespace Tea
       [MenuItem("TeaAdd/Skill/从Resources Skill中的文件 转换为JSON字符串")]
       private static void ConvertToJson()
       {
-         string[] assetGuids = AssetDatabase.FindAssets("t:ScriptableObject", new[] { editorFilePath });
+         string[] assetGuids = AssetDatabase.FindAssets("t:ScriptableObject", new[] { objFilePath });
          if (assetGuids.Length > 0)
          {
             string assetPath = AssetDatabase.GUIDToAssetPath(assetGuids[0]);
@@ -138,13 +139,13 @@ namespace Tea
 
                if (skillData != null)
                {
-                  JsonUtilityHelper.SaveToJsonFile(skillData, editorFilePath + "/skill.json");
+                  JsonUtilityHelper.SaveToJsonFile(skillData, jsonFilePath + "/skill.json");
                }
             }
          }
          else
          {
-            Debug.LogWarning($"文件夹{editorFilePath}中没有ScriptableObjects");
+            Debug.LogWarning($"文件夹{objFilePath}中没有ScriptableObjects");
          }
       }
 
@@ -154,7 +155,7 @@ namespace Tea
       [MenuItem("TeaAdd/Skill/将JSON导入ScriptableObject")]
       private static void ImportJsonToScriptableObject()
       {
-         var jsPath = editorFilePath + "/skill.json";
+         var jsPath = jsonFilePath + "/skill.json";
          if (File.Exists(jsPath))
          {
             // 从JSON文件读取内容
@@ -167,7 +168,7 @@ namespace Tea
             if (scriptableObject != null)
             {
                Debug.Log("从JSON导入的ScriptableObject:" + scriptableObject.name);
-               var assetPath = editorFilePath + "/NewSkillData.asset";
+               var assetPath = objFilePath + "/NewSkillData.asset";
 
                AssetDatabase.CreateAsset((AllSkillData)scriptableObject, assetPath);
                AssetDatabase.SaveAssets();

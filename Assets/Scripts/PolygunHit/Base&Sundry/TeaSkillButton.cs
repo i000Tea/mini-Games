@@ -19,7 +19,7 @@ namespace Tea.PolygonHit
       }
       protected override void OnClick()
       {
-         SkillManager.I.AddSkill(skillName);
+         SkillAndBuffManager.I.AddSkill(skillName);
       }
    }
 }

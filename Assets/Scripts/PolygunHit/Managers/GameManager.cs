@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
+using System;
 
 namespace Tea.PolygonHit
 {
@@ -43,6 +44,8 @@ namespace Tea.PolygonHit
          base.Awake();
          Time.timeScale = 1;
          gameSpeed = Time.timeScale;
+         // 每次游戏开始前 进行一次GC回收
+         GC.Collect();
       }
      
       #endregion

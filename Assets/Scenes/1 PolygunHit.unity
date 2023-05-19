@@ -1472,6 +1472,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useNew: 1
+  DATA_CDN_File: 
+  jsonFile: 
+  skillJsonFile: StreamingAssets/Skill/skill.json
 --- !u!114 &512191495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1481,12 +1484,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 512191491}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56ab3a73a457bc742839fa6d1d8e07a7, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b4353a5fd6f3d04380eaa3774fded79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   useNew: 1
-  DATA_CDN_File: 
-  mySkills: []
 --- !u!1 &516945756
 GameObject:
   m_ObjectHideFlags: 0
