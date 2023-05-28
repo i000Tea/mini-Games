@@ -20,13 +20,15 @@ namespace Tea.BreakThroughWall
       float attack;
       [SerializeField]
       float health;
+
+      bool animing;
       #endregion
 
       #endregion
 
       private void Update()
       {
-         if (!MovementControl.I.IsAniming)
+         if (!animing)
          {
             DetectKeyInput();
          }
@@ -71,7 +73,7 @@ namespace Tea.BreakThroughWall
          }
          else
          {
-            StartCoroutine(ProcessOfMovingToPoint(inputDir, targetWall));
+            _ = StartCoroutine(ProcessOfMovingToPoint(inputDir, targetWall));
          }
       }
 
@@ -81,12 +83,13 @@ namespace Tea.BreakThroughWall
       /// <returns></returns>
       IEnumerator ProcessOfMovingToPoint(MoveDirection dir, FacingWall wall)
       {
+         animing = true;
          float time;
          //尝试对墙壁进行攻击 若成功 则执行动画并返回动画长度
          if (wall.TryHitWall(attack))
          {
-            time = MovementControl.I.SuccessMove(dir);
-            yield return WallManager.I.WallsReturn(time);
+            MovementControl.I.SuccessMove(dir);
+            yield return WallManager.I.WallsReturn();
          }
          // 否则 播放失败移动的动画
          else
@@ -94,6 +97,7 @@ namespace Tea.BreakThroughWall
             time = MovementControl.I.FailingMove(dir);
             yield return new WaitForSeconds(time);
          }
+         animing = false;
       }
    }
 }
