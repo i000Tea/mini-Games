@@ -195,7 +195,7 @@ namespace Tea
       /// 添加一个buff
       /// </summary>
       /// <param name="effectObj"></param>
-      public static void AddBuff(this List<IBuff> effectObj,IBuff someBuff)
+      public static void AddBuff(this List<IBuff> effectObj, IBuff someBuff)
       {
          effectObj.Add(someBuff);
       }
@@ -220,6 +220,32 @@ namespace Tea
 
       #region Game2
 
+      #endregion
+
+      #region Game3
+
+      /// <summary>
+      /// 将dir转化为v3
+      /// </summary>
+      /// <param name="dir"></param>
+      /// <returns></returns>
+      public static Vector3 DirToPoint(this BreakThroughWall.MoveDirection dir)
+      {
+         switch (dir)
+         {
+            case BreakThroughWall.MoveDirection.up:
+               return Vector3.up;
+            case BreakThroughWall.MoveDirection.down:
+               return Vector3.down;
+            case BreakThroughWall.MoveDirection.left:
+               return Vector3.left;
+            case BreakThroughWall.MoveDirection.right:
+               return Vector3.right;
+            default:
+               break;
+         }
+         return default;
+      }
       #endregion
 
       #region Anther

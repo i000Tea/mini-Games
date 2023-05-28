@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 namespace Tea.BreakThroughWall
 {
@@ -12,10 +13,10 @@ namespace Tea.BreakThroughWall
       float durability;
       [SerializeField]
       float armor;
-
+      public Transform Axis => transform.GetChild(0);
       private void Start()
       {
-         InterControl.I.AddWall(this, myDirection);
+         WallManager.I.AddWall(this, myDirection);
          if (durability <= 0)
          {
             durability = 1;
@@ -41,6 +42,10 @@ namespace Tea.BreakThroughWall
             return true;
          }
          return false;
+      }
+      public void RandomData()
+      {
+
       }
    }
 }

@@ -7,9 +7,10 @@ namespace Tea.BreakThroughWall
 {
    public class MovementControl : Singleton<MovementControl>
    {
+      public Vector3 pLocalPosition => Player.localPosition;
       [SerializeField]
       private Transform Player;
-      private Tween twAnim;
+      public Tween TwAnim { get; private set; }
       /// <summary>
       /// 动画是否进行中
       /// </summary>
@@ -17,13 +18,13 @@ namespace Tea.BreakThroughWall
       {
          get
          {
-            if (twAnim == null)
+            if (TwAnim == null)
             {
                return false;
             }
             else
             {
-               return twAnim.active;
+               return TwAnim.active;
             }
          }
       }
@@ -32,33 +33,29 @@ namespace Tea.BreakThroughWall
       float moveScale = 100;
       [SerializeField]
       [Range(0.1f, 2)]
-      float moveTime = 1;
+      private float moveTime = 1;
 
       public void Movement(MoveDirection dir, bool isSuccess)
       {
          if (isSuccess)
          {
-            var AddPoint = DirToPoint(dir) * moveScale + Player.localPosition;
-            //Debug.Log(AddPoint);
-            twAnim = Player.DOLocalMove(AddPoint, moveTime).SetEase(Ease.OutExpo);
          }
       }
-      Vector3 DirToPoint(MoveDirection dir)
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="dir"></param>
+      /// <returns></returns>
+      public float SuccessMove(MoveDirection dir)
       {
-         switch (dir)
-         {
-            case MoveDirection.up:
-               return Vector3.up;
-            case MoveDirection.down:
-               return Vector3.down;
-            case MoveDirection.left:
-               return Vector3.left;
-            case MoveDirection.right:
-               return Vector3.right;
-            default:
-               break;
-         }
-         return default;
+         var AddPoint = dir.DirToPoint() * moveScale + Player.localPosition;
+         //Debug.Log(AddPoint);
+         TwAnim = Player.DOLocalMove(AddPoint, moveTime).SetEase(Ease.OutExpo);
+         return moveTime;
+      }
+      public float FailingMove(MoveDirection dir)
+      {
+         return moveTime;
       }
    }
 }

@@ -15,11 +15,6 @@ namespace Tea.BreakThroughWall
    {
       #region V
 
-      #region Wall
-      private List<FacingWall> walls;
-      private List<MoveDirection> wallDirs;
-      #endregion
-
       #region Fight
       [SerializeField]
       float attack;
@@ -37,38 +32,13 @@ namespace Tea.BreakThroughWall
          }
       }
 
-      #region Wall
-
-      public void AddWall(FacingWall wall, MoveDirection wallDir)
-      {
-         if (walls == null || wallDirs == null)
-         {
-            walls = new List<FacingWall>();
-            wallDirs = new List<MoveDirection>();
-         }
-         walls.Add(wall);
-         wallDirs.Add(wallDir);
-      }
-      public FacingWall GetWall(MoveDirection inputDir)
-      {
-         for (int i = 0; i < wallDirs.Count; i++)
-         {
-            if (wallDirs[i] == inputDir)
-            {
-               return walls[i];
-            }
-         }
-         Debug.LogWarning("未找到相对应的墙");
-         return null;
-      }
-      #endregion
-
       /// <summary>
       /// 检测鼠标按键
       /// </summary>
       void DetectKeyInput()
       {
          MoveDirection inputDir = default;
+         // 四个方向
          if (Input.GetKeyUp(KeyCode.W))
          {
             inputDir = MoveDirection.up;
@@ -85,8 +55,15 @@ namespace Tea.BreakThroughWall
          {
             inputDir = MoveDirection.right;
          }
-         if (inputDir == default) { return; }
-         var targetWall = GetWall(inputDir);
+         // 若方向为空 则返回
+         if (inputDir == default)
+         {
+            Debug.LogWarning("方向为空");
+            return;
+         }
+         // 获取对应的墙壁
+         var targetWall = WallManager.I.GetWall(inputDir);
+         // 若脚本为空 返回
          if (targetWall == null)
          {
             Debug.LogWarning("未获取到墙");
@@ -94,7 +71,28 @@ namespace Tea.BreakThroughWall
          }
          else
          {
-            MovementControl.I.Movement(inputDir, targetWall.TryHitWall(attack));
+            StartCoroutine(ProcessOfMovingToPoint(inputDir, targetWall));
+         }
+      }
+
+      /// <summary>
+      /// 移动到点的过程
+      /// </summary>
+      /// <returns></returns>
+      IEnumerator ProcessOfMovingToPoint(MoveDirection dir, FacingWall wall)
+      {
+         float time;
+         //尝试对墙壁进行攻击 若成功 则执行动画并返回动画长度
+         if (wall.TryHitWall(attack))
+         {
+            time = MovementControl.I.SuccessMove(dir);
+            yield return WallManager.I.WallsReturn(time);
+         }
+         // 否则 播放失败移动的动画
+         else
+         {
+            time = MovementControl.I.FailingMove(dir);
+            yield return new WaitForSeconds(time);
          }
       }
    }
