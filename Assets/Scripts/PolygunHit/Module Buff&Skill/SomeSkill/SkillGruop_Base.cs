@@ -28,7 +28,11 @@ namespace Tea.PolygonHit
       }
       protected override void SkillDelete()
       {
-         PlayerBase.I.buffList.Remove(alterDamage);
+         try
+         {
+            PlayerBase.I.buffList.Remove(alterDamage);
+         }
+         catch (System.Exception) { }
          PlayerBase.I.valueAlterDamage -= alterDamage.AlterDamageIng;
       }
    }

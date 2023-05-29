@@ -13,23 +13,28 @@ MonoBehaviour:
   m_Name: NewSkillData
   m_EditorClassIdentifier: 
   skillList:
-  - skillName: "\u6D4B\u8BD5\u6280\u80FD1"
+  - skillName: "\u5F3A\u5316\u649E\u51FB"
     description: "\u6280\u80FD\u63CF\u8FF0"
     skillClassName: Skill_1001
     skillSN: 1001
-  - skillName: "\u6D4B\u8BD5\u6280\u80FD2"
+    imageName: punch-blast
+  - skillName: "\u9707\u6CE2"
     description: "\u6280\u80FD\u63CF\u8FF0"
     skillClassName: Skill_1002
     skillSN: 1002
+    imageName: vibrating-ball
   - skillName: "\u6D4B\u8BD5\u6280\u80FD3"
     description: "\u6280\u80FD\u63CF\u8FF0"
     skillClassName: Skill_1003
     skillSN: 1003
+    imageName: 
   - skillName: "\u6D4B\u8BD5\u6280\u80FD4"
     description: "\u6280\u80FD\u63CF\u8FF0"
     skillClassName: Skill_1004
     skillSN: 1004
+    imageName: 
   - skillName: "\u6D4B\u8BD5\u6280\u80FD5"
     description: "\u6280\u80FD\u63CF\u8FF0"
     skillClassName: Skill_1005
     skillSN: 1005
+    imageName: 

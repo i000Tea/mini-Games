@@ -202,7 +202,7 @@ namespace Tea.PolygonHit
          {
             m_Colliders[i].enabled = false;
          }
-         yield return 1;
+         yield return new WaitForFixedUpdate();
 
          // 死亡动画
 
@@ -237,9 +237,10 @@ namespace Tea.PolygonHit
       #endregion
 
       #region health       生命值相关
-      public void UnAtk(float DMG)
+      public float UnAtk(float DMG)
       {
          NowHealth -= DMG;
+         return DMG;
       }
       #endregion
 

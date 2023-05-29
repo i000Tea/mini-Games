@@ -27,4 +27,6 @@ public class SkillData
    public string skillClassName;
    /// <summary> 技能编号 </summary>
    public int skillSN;
+   /// <summary> 图标名称 </summary>
+   public string imageName;
 }

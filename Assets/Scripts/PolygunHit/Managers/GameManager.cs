@@ -32,8 +32,9 @@ namespace Tea.PolygonHit
 
       private int score;
 
+      public Transform GameCanvas => gameCanvas;
       [SerializeField]
-      private Transform GameCanvas;
+      private Transform gameCanvas;
 
       public Transform PlayerParent => GameCanvas;
       #endregion
@@ -47,7 +48,7 @@ namespace Tea.PolygonHit
          // 每次游戏开始前 进行一次GC回收
          GC.Collect();
       }
-     
+
       #endregion
 
       /// <summary>

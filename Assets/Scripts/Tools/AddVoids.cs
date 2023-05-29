@@ -156,8 +156,9 @@ namespace Tea
          if (classType != null)
          {
             // 创建对应的类实例
+            object instance = Activator.CreateInstance(classType);
             Type GetType = Activator.CreateInstance(classType) as Type;
-            return GetType;
+            return instance.GetType();
          }
          else
          {
@@ -176,8 +177,11 @@ namespace Tea
       /// <returns></returns>
       public static ISkill GetSkillFromString(this string className, string @namespace = "Tea")
       {
+         string fullName = @namespace + "." + className;
          // 使用反射获取对应类的类型
-         Type classType = GetClass(@namespace + "." + className);
+         Type classType = fullName.GetClass();
+         Debug.Log(classType);
+
          if (classType != null)
          {
             // 创建对应的类实例
@@ -186,7 +190,7 @@ namespace Tea
          }
          else
          {
-            Debug.LogWarning("无法找到对应的技能类" + className);
+            Debug.LogWarning("无法找到对应的技能类" + fullName);
             return null;
          }
       }

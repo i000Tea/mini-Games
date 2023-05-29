@@ -26,7 +26,8 @@ namespace Tea.PolygonHit
       private List<SkillData> readUseSkillData;
 
       private List<IBuff> bufflist;
-
+      [SerializeField] private Transform SkillCanvas;
+      [SerializeField] private GameObject SkillIcon;
       #endregion
 
       #region base
@@ -34,7 +35,7 @@ namespace Tea.PolygonHit
       {
          base.Awake();
       }
-      
+
       public void SetSkillData(AllSkillData data)
       {
          AllSkillData = data.skillList;
@@ -57,11 +58,10 @@ namespace Tea.PolygonHit
       {
          base.RemoveDelegate();
          EventControl.OnRemoveAhtnerList(ActionType.LevelUp, SetSkillThatProvidesChoice);
-         
+
       }
 
       #endregion
-
       #region AddSkill
       /// <summary>
       /// 每当等级提升时 查找可以使用的技能并传递给GUI
@@ -76,7 +76,7 @@ namespace Tea.PolygonHit
          }
          GUIManager.I.InputSkillData(datas);
       }
-      public void AddSkill(ISkill someSkill)
+      public void AddSkill(ISkill someSkill, Texture2D texture = null)
       {
          if (someSkill != null)
          {
@@ -86,10 +86,10 @@ namespace Tea.PolygonHit
          }
          else
          {
-            Debug.LogWarning("技能类不存在 添加技能失败");
+            Debug.LogWarning($"技能类不存在 添加技能{someSkill}失败");
          }
       }
-      public void AddSkill(string ClassName)
+      public void AddSkill(string ClassName, string textureName = default)
       {
          ISkill newSkill = ClassName.GetSkillFromString("Tea.PolygonHit");
          AddSkill(newSkill);

@@ -301,7 +301,12 @@ namespace Tea.PolygonHit
                 new Vector3(0, 0, 10));
 
             // 对撞击到的地人打出伤害
-            enemyBase.UnAtk(dmg);
+            var finalDMG = enemyBase.UnAtk(dmg);
+            //// 获取碰撞点信息
+            //ContactPoint2D contact = collision.GetContact(0);
+            //Vector2 collisionPoint = contact.point;
+            ParticleManager.I.CreateDamage(enemyBase.transform.position + Vector3.up * 0.75f, finalDMG, 2);
+
          }
       }
 
