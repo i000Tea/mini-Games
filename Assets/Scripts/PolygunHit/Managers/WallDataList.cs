@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
 ///	=
@@ -9,15 +10,22 @@ using UnityEngine;
 [System.Serializable]
 public class WallDataList : ScriptableObject
 {
-   public List<WallData> WallDatas;
-   public WallData RandomData()
+   [FormerlySerializedAs("WallDatas")]
+   public List<HinderWallData> HinderWallDatas;
+   public List<AwardWallData> AwardWallDatas;
+   public HinderWallData RandomHData()
    {
-      var value = Random.Range(0, WallDatas.Count);
-      return WallDatas[value];
+      var value = Random.Range(0, HinderWallDatas.Count);
+      return HinderWallDatas[value];
+   }
+   public AwardWallData RandomAData()
+   {
+      var value = Random.Range(0, AwardWallDatas.Count);
+      return AwardWallDatas[value];
    }
 }
 [System.Serializable]
-public class WallData
+public class HinderWallData
 {
    public string Name;
 
@@ -28,4 +36,11 @@ public class WallData
    /// <summary> 护甲 </summary>
    public float armor = 0;
    [Range(1, 10)] public float armMulit = 1;
+}
+[System.Serializable]
+public class AwardWallData
+{
+   public string Name;
+
+
 }

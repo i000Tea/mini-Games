@@ -208,7 +208,7 @@ namespace Tea.PolygonHit
 
          // 玩家经验增加 分数增加
          EventControl.InvokeSomething(ActionType.ExpAdd, 1);
-         GameManager.I.ScoreAdd();
+         Game1Manager.I.ScoreAdd();
 
          // 实例化粒子 粒子位置为自身 6秒后删除粒子
          var particle = Instantiate(Particle);

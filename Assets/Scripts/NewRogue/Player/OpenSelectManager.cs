@@ -85,7 +85,7 @@ namespace Tea.NewRouge
 
 		protected void Start()
 		{
-			GameManager.I.OnGameStart += GameStart;
+			Game2Manager.I.OnGameStart += GameStart;
 		}
 
 		void GameStart()

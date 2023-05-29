@@ -30,7 +30,7 @@ namespace Tea.NewRouge
 		}
 		private void Start()
 		{
-			GameManager.I.OnPlayerDead += () =>
+			Game2Manager.I.OnPlayerDead += () =>
 			{
 				joyStick = null;
 			};

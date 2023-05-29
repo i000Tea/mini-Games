@@ -61,8 +61,8 @@ namespace Tea.NewRouge
 		private void Start()
 		{
 			Button_ChangeSelect_Player();
-			GameManager.I.OnGameStart += GameStart;
-			GameManager.I.OnPlayerDead += GameOver;
+			Game2Manager.I.OnGameStart += GameStart;
+			Game2Manager.I.OnPlayerDead += GameOver;
 		}
 
 		#endregion

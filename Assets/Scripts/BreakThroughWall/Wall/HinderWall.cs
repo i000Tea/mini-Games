@@ -6,12 +6,16 @@ using DG.Tweening;
 
 namespace Tea.BreakThroughWall
 {
-   public class FacingWall : MonoBehaviour
+   /// <summary>
+   /// 面朝的墙壁
+   /// </summary>
+   public class HinderWall : BaseWall
    {
       #region V
-      [SerializeField] private MoveDirection myDirection;
-      #region MyRegion
+      public Transform CreateParticlePoint=> particlePoint;
+      [SerializeField] private Transform particlePoint;
 
+      #region Durability 耐久
       private float Durability
       {
          get => durability;
@@ -29,8 +33,7 @@ namespace Tea.BreakThroughWall
       [SerializeField] private Image durFill;
       #endregion
 
-      #region MyRegion
-
+      #region 护甲
       private float Armor
       {
          get => armor;
@@ -42,16 +45,13 @@ namespace Tea.BreakThroughWall
       }
       private float armor;
       [SerializeField] private Text armorText;
-      public Transform Axis => transform.GetChild(0);
-      private void Start()
-      {
-         WallManager.I.AddWall(this, myDirection);
-      }
       #endregion
 
+      [SerializeField] private Animator animator;
       [SerializeField] private Text nameText;
 
       #endregion
+
       /// <summary>
       /// 尝试攻击墙
       /// </summary>
@@ -75,8 +75,12 @@ namespace Tea.BreakThroughWall
       /// <summary>
       /// 设置属性
       /// </summary>
-      public void SetData(WallData data)
+      public void SetData(HinderWallData data)
       {
+         if (!gameObject.activeInHierarchy)
+         {
+            gameObject.SetActive(true);
+         }
          durMax = data.durability;
          Durability = durMax;
          Armor = data.armor;

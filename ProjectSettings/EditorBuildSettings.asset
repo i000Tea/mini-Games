@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/1 PolygunHit.unity
     guid: 15721d511c2395245a7432502c2a402d
+  - enabled: 1
+    path: Assets/Scenes/3 BreakThroughWall.unity
+    guid: 5fb3c7118a02bfd478d823e00ed773ba
   m_configObjects: {}

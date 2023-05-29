@@ -11,7 +11,7 @@ namespace Tea.PolygonHit
    /// <summary>
    /// 游戏管理器
    /// </summary>
-   public class GameManager : Singleton<GameManager>
+   public class Game1Manager : Singleton<Game1Manager>
    {
       #region State 游戏状态
 

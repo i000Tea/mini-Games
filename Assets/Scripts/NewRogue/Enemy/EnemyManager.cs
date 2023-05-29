@@ -60,8 +60,8 @@ namespace Tea.NewRouge
 		}
 		protected void Start()
 		{
-			GameManager.I.OnGameStart += OnCreate;
-			GameManager.I.OnPlayerDead += GameOver;
+			Game2Manager.I.OnGameStart += OnCreate;
+			Game2Manager.I.OnPlayerDead += GameOver;
 		}
 		/// <summary>
 		/// 游戏结束

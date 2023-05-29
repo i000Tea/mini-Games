@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Tea.NewRouge
 {
 	public delegate void BaseEvent();
-	public class GameManager : Singleton<GameManager>
+	public class Game2Manager : Singleton<Game2Manager>
 	{
 		public event BaseEvent OnGameStart;
 		public event BaseEvent OnPlayerDead;

@@ -24,7 +24,7 @@ namespace Tea
 
       public void CreateDamage(Vector3 point, float dmg, float scale = 1)
       {
-         var obj = Instantiate(damagePrefab, PolygonHit.GameManager.I.GameCanvas);
+         var obj = Instantiate(damagePrefab, PolygonHit.Game1Manager.I.GameCanvas);
          obj.transform.position = point;
          obj.GetComponent<Text>().text = dmg.ToString();
          _ = StartCoroutine(DamageLift(obj.transform, scale));

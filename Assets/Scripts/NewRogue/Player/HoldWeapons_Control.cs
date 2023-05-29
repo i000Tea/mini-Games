@@ -106,7 +106,7 @@ namespace Tea.NewRouge
 		#region Weapon
 		protected void Start()
 		{
-			GameManager.I.OnPlayerDead += () =>
+			Game2Manager.I.OnPlayerDead += () =>
 			{
 				enabled = false; 
 			};

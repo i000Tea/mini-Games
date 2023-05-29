@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3891b2f2dfe7a141ae0c3d695fbdf7a, type: 3}
-  m_Name: WallData
+  m_Name: Game3 WallData
   m_EditorClassIdentifier: 
   WallDatas:
   - Name: "\u7EAF\u8010\u4E45"
