@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.Profiling.Memory.Experimental;
+using System;
 
 namespace Tea.BreakThroughWall
 {
@@ -12,8 +14,9 @@ namespace Tea.BreakThroughWall
    public class HinderWall : BaseWall
    {
       #region V
-      public Transform CreateParticlePoint=> particlePoint;
+      public Transform CreateParticlePoint => particlePoint;
       [SerializeField] private Transform particlePoint;
+      HinderWallData getData;
 
       #region Durability 耐久
       private float Durability
@@ -21,9 +24,9 @@ namespace Tea.BreakThroughWall
          get => durability;
          set
          {
-            if (value < 0) { value = 0; }
+            if (value < 0.3) { value = 0; }
             durability = value;
-            durText.text = durability.ToString();
+            durText.text = String.Format("{0:N2}", durability);
             durFill.fillAmount = durability / durMax;
          }
       }
@@ -56,15 +59,23 @@ namespace Tea.BreakThroughWall
       /// 尝试攻击墙
       /// </summary>
       /// <returns>是否击碎</returns>
-      public bool TryHitWall(float atk)
+      public bool TryHitWall(float atk, float num)
       {
          var newAtk = atk - Armor;
          if (newAtk <= 0 && atk > 0)
          {
             newAtk = 1;
          }
-         Durability -= newAtk;
-         Debug.Log($"方位{myDirection}的墙收到{newAtk}攻击 目前剩余{Durability}");
+         for (int i = 0; i < num; i++)
+         {
+            Durability -= newAtk;
+            if (Durability <= 0)
+            {
+               break;
+            }
+
+         }
+         //Debug.Log($"方位{myDirection}的墙收到{newAtk}攻击 目前剩余{Durability}");
          if (Durability <= 0)
          {
             Durability = 0;
@@ -81,10 +92,29 @@ namespace Tea.BreakThroughWall
          {
             gameObject.SetActive(true);
          }
+         getData = data;
          durMax = data.durability;
          Durability = durMax;
          Armor = data.armor;
          nameText.text = data.Name;
+      }
+
+      public override void OnInter()
+      {
+         base.OnInter();
+         var obj = Instantiate(WallManager.I.HinderCrushParticlePrefab, CreateParticlePoint.position, CreateParticlePoint.rotation);
+         Destroy(obj, 5);
+         gameObject.SetActive(false);
+      }
+      protected override void OnEnter()
+      {
+         base.OnEnter();
+         CanvasManaver.I.ShowHinderState(getData.Name, getData.durability.ToString(), getData.armor.ToString(), getData.introduction);
+      }
+      protected override void OnExit()
+      {
+         base.OnExit();
+         CanvasManaver.I.BackHinder();
       }
    }
 }

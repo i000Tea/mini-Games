@@ -46,8 +46,10 @@ namespace Tea.PolygonHit
 
       private void Start()
       {
-         baseCamera.m_Follow = PlayerBase.I.transform;
-
+         if (PlayerBase.I)
+         {
+            baseCamera.m_Follow = PlayerBase.I.transform;
+         }
          myCamera = Camera.main;
 
          MaxEdgeDistance = Camera.main.ViewportToWorldPoint(new Vector2(-0.3f, -0.3f)).magnitude;

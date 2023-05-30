@@ -12,79 +12,61 @@ namespace Tea.BreakThroughWall
       left,
       right,
    }
+   public enum WallType
+   {
+      //空
+      none,
+      // 面对阻碍
+      Hinder,
+      // 面对奖励
+      Award,
+   }
    public class InterControl : Singleton<InterControl>
    {
       #region V
 
-      #region Fight
-      public float Attack
-      {
-         get => attack;
-         set
-         {
-            attack = value;
-            CanvasManaver.I.Atk.text = value.ToString();
-         }
-      }
-      [SerializeField] private float attack;
-      public float AtkNum
-      {
-         get => atkNum;
-         set
-         {
-            atkNum = value;
-            CanvasManaver.I.AtkNum.text = value.ToString();
+      WallType nowState;
+      private bool isShoot = true;
 
-         }
-      }
-      [SerializeField] private float atkNum;
-      public float Cost
-      {
-         get => cost;
-         set
-         {
-            cost = value;
-            CanvasManaver.I.Cost.text = value.ToString();
-
-         }
-      }
-      [SerializeField] private float cost;
-
-      private bool animing;
-      #endregion
-
+      public static int Difficulty => difficulty;
+      public int KillWallNum => difficulty;
+      static int difficulty = 0;
       #endregion
 
       private void Start()
       {
-         Attack = Attack;
-         AtkNum = AtkNum;
-         Cost = Cost;
+         difficulty = 0;
+         nowState = WallType.Hinder;
       }
       private void Update()
       {
-         if (animing) { return; }
+         if (!isShoot) { return; }
          DetectKeyInput();
       }
       public void JoyStickInput(Vector2 joyStick)
       {
-         if (animing) { return; }
+         // 获取长度
          var _length = joyStick.magnitude;
+         // 获取方差
          var devOfDir = joyStick.x * joyStick.y;
-         Debug.Log($"x {joyStick.x} y {joyStick.y} x*y {devOfDir}");
+         // 打印
+         //Debug.Log($"x {joyStick.x} y {joyStick.y} x*y {devOfDir}");
+         // 当方差小(指向性明确) 且距离大于0.85 确认为可以发射
          if (Mathf.Abs(devOfDir) < 0.4f && _length > 0.85f)
          {
+            MoveDirection inputDir;
             //横向小于0.5 只能是纵向上下俩
             if (Mathf.Abs(joyStick.x) < 0.5f)
             {
-               if (joyStick.y > 0) { OnShoot(MoveDirection.up); }
-               else { OnShoot(MoveDirection.down); }
+               if (joyStick.y > 0) { inputDir = MoveDirection.up; }
+               else { inputDir = MoveDirection.down; }
             }
             else
             {
-               if (joyStick.x < 0) { OnShoot(MoveDirection.left); }
-               else { OnShoot(MoveDirection.right); }
+               if (joyStick.x < 0) { inputDir = MoveDirection.left; }
+               else { inputDir = MoveDirection.right; }
             }
+            OnShoot(inputDir);
          }
       }
 
@@ -116,44 +98,101 @@ namespace Tea.BreakThroughWall
          OnShoot(inputDir);
       }
 
+      /// <summary>
+      /// 朝着某个方向发射
+      /// </summary>
+      /// <param name="inputDir"></param>
       private void OnShoot(MoveDirection inputDir)
       {
-         // 获取对应的墙壁
-         var targetWall = WallManager.I.GetWall(inputDir);
-         // 若脚本为空 返回
-         if (targetWall == null)
+         if (!isShoot) { return; }
+         switch (nowState)
          {
-            Debug.LogWarning("未获取到墙");
-            return;
+            case WallType.none:
+               break;
+
+            case WallType.Hinder:
+               var targetHWall = WallManager.I.GetHWall(inputDir);   // 获取对应的墙壁
+               if (targetHWall == null) { return; }                  // 若脚本为空 返回
+               else 
+               { 
+                  _ = StartCoroutine(HitToHinder(inputDir, targetHWall));
+               }
+               break;
+
+            case WallType.Award:
+               var targetAWall = WallManager.I.GetAWall(inputDir);   // 获取对应的墙壁
+               if (targetAWall == null) { return; }                  // 若脚本为空 返回
+               else { _ = StartCoroutine(GetSomeAward(inputDir, targetAWall)); }
+               break;
+
+            default:
+               break;
          }
-         else
-         {
-            _ = StartCoroutine(ProcessOfMovingToPoint(inputDir, targetWall));
-         }
+
       }
-
-
       /// <summary>
-      /// 移动到点的过程
+      /// 朝着墙壁撞击
       /// </summary>
       /// <returns></returns>
-      IEnumerator ProcessOfMovingToPoint(MoveDirection dir, HinderWall wall)
+      private IEnumerator HitToHinder(MoveDirection dir, HinderWall wall)
       {
-         animing = true;
-         float time;
+         isShoot = false;
          //尝试对墙壁进行攻击 若成功 则执行动画并返回动画长度
-         if (wall.TryHitWall(attack))
+         if (wall.TryHitWall(FightControl.I.Attack, FightControl.I.AtkNum))
          {
+            difficulty++;
             MovementControl.I.SuccessMove(dir);
-            yield return WallManager.I.HWallsReturn(wall);
+            FightControl.I.CostAdd();
+            yield return WallManager.I.BackSomeWalls(WallType.Hinder, wall);
+
+            if (TryCreateAward())
+            {
+               yield return WallManager.I.ShowSomeWalls(WallType.Award);
+               nowState = WallType.Award;
+            }
+            else
+            {
+               yield return WallManager.I.ShowSomeWalls(WallType.Hinder);
+            }
          }
-         // 否则 播放失败移动的动画
+         // 否则 播放失败移动的动画 扣除费用
          else
          {
-            time = MovementControl.I.FailingMove(dir);
+            FightControl.I.MinusCost();
+            float time = MovementControl.I.FailingMove(dir);
             yield return new WaitForSeconds(time);
          }
-         animing = false;
+
+         isShoot = true;
+      }
+
+      private IEnumerator GetSomeAward(MoveDirection dir, AwardWall wall)
+      {
+         isShoot = false;
+         FightControl.I.GetAward(wall.getData);
+         yield return WallManager.I.BackSomeWalls(WallType.Award, wall);
+
+         nowState = WallType.Hinder;
+
+         yield return WallManager.I.ShowSomeWalls(WallType.Hinder);
+         isShoot = true;
+      }
+
+      /// <summary>
+      /// 检测是否可以生成奖励
+      /// </summary>
+      /// <returns></returns>
+      bool TryCreateAward()
+      {
+         var r = Random.Range(0f, 1f);
+         if (r < WallManager.I.probability)
+         {
+            return true;
+         }
+         else
+         {
+            return false;
+         }
       }
    }
 }

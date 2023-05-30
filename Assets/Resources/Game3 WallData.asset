@@ -12,34 +12,83 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3891b2f2dfe7a141ae0c3d695fbdf7a, type: 3}
   m_Name: Game3 WallData
   m_EditorClassIdentifier: 
-  WallDatas:
+  HinderWallDatas:
   - Name: "\u7EAF\u8010\u4E45"
-    durability: 12
-    durMulit: 4
+    introduction: 
+    baseDurability: 12
+    durMulit: 3
     armor: 0
     armMulit: 1
   - Name: "\u7EAF\u62A4\u7532"
-    durability: 2
+    introduction: 
+    baseDurability: 2
     durMulit: 2
     armor: 8
     armMulit: 3
   - Name: "\u5404\u4E00\u534A"
-    durability: 6
+    introduction: 
+    baseDurability: 6
     durMulit: 2.5
     armor: 5
     armMulit: 2.5
   - Name: "\u4E3B\u8010\u9644\u7532"
-    durability: 6
+    introduction: 
+    baseDurability: 6
     durMulit: 3
     armor: 3
     armMulit: 2
   - Name: "\u4E3B\u7532\u9644\u8010"
-    durability: 2
+    introduction: 
+    baseDurability: 2
     durMulit: 2
     armor: 5
     armMulit: 3
   - Name: "\u500D\u7387\u602A\u7269"
-    durability: 2
+    introduction: 
+    baseDurability: 2
     durMulit: 8
     armor: 2
     armMulit: 8
+  - Name: "\u767D\u7ED9"
+    introduction: 
+    baseDurability: 1
+    durMulit: 1
+    armor: 1
+    armMulit: 1
+  AwardWallDatas:
+  - Name: "\u5F3A\u529B\u51FB"
+    introduction: "\u63D0\u5347\u653B\u51FB\u529B"
+    atk: 5
+    atkMulit: 0
+    atkNum: 0
+    cost: 0
+  - Name: "\u591A\u65A9"
+    introduction: "\u589E\u52A0\u653B\u51FB\u9891\u7387"
+    atk: 0
+    atkMulit: 0
+    atkNum: 2
+    cost: 0
+  - Name: "\u4F11\u6574"
+    introduction: "\u56DE\u590D\u8D39\u7528"
+    atk: 0
+    atkMulit: 0
+    atkNum: 0
+    cost: 6
+  - Name: "\u53CC\u65A9"
+    introduction: "\u589E\u52A0\u9891\u7387 \u589E\u52A0\u4F24\u5BB3"
+    atk: -2
+    atkMulit: 0
+    atkNum: 2.2
+    cost: 0
+  - Name: "\u6DB2\u538B\u808C\u8089"
+    introduction: "\u57FA\u7840\u4F24\u5BB3x3"
+    atk: 3
+    atkMulit: 1
+    atkNum: 0
+    cost: 0
+  - Name: "\u84C4\u529B"
+    introduction: "\u51CF\u5C11\u4F24\u5BB3 \u589E\u52A0\u9891\u7387"
+    atk: -2.6
+    atkMulit: 0
+    atkNum: 2.6
+    cost: 0
