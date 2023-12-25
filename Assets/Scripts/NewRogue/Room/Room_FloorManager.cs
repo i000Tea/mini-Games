@@ -319,7 +319,6 @@ namespace Tea.NewRouge
 
 			int layer = 1 << 6;
 			var _list = Physics.OverlapBox(CollPosition, collScale / 2, Quaternion.Euler(0, rotateY, 0), layer);
-
 			/// 生成碰撞区域
 			if (createCollider)
 			{

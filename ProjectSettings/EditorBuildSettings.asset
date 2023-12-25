@@ -12,6 +12,15 @@ EditorBuildSettings:
     path: Assets/Scenes/1 PolygunHit.unity
     guid: 15721d511c2395245a7432502c2a402d
   - enabled: 1
+    path: Assets/Scenes/2_rouge.unity
+    guid: e46d900501153c54c964efc37da6e4d9
+  - enabled: 1
     path: Assets/Scenes/3 BreakThroughWall.unity
     guid: 5fb3c7118a02bfd478d823e00ed773ba
+  - enabled: 1
+    path: Assets/Scenes/4 WarframeHacker.unity
+    guid: 5c49a1e9302a90d4ca8f7b1456a4597b
+  - enabled: 1
+    path: Assets/Scenes/2_rouge_NoPost.unity
+    guid: a33a4c778e2acfd4881e4e410f69b450
   m_configObjects: {}

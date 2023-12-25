@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using System.Linq;
 using Tea.PolygonHit;
 using Tea.NewRouge;
-using System.Xml.Linq;
 
 namespace Tea
 {
@@ -120,8 +120,40 @@ namespace Tea
             num += targetList.Count;
       }
 
+      /// <summary>
+      /// 对带有权重的枚举列表进行随机
+      /// </summary>
+      /// <typeparam name="T"></typeparam>
+      /// <param name="someType"></param>
+      /// <returns></returns>
+      public static T GetRandomThrown<T>(this List<T> someType) where T : Weight
+      {
+         var totalWeight = someType.Sum(item => item.weight);
+         var randomValue = UnityEngine.Random.value * totalWeight;
 
+         foreach (var enumWithWeight in someType)
+         {
+            randomValue -= enumWithWeight.weight;
+            if (randomValue <= 0)
+            {
+               return enumWithWeight;
+            }
+         }
+         // 如果出现异常情况，返回第一个枚举值
+         return someType[0];
+      }
       #endregion
+
+      public static int GetEnumItemCount<T>() where T : Enum
+      {
+         T[] values = (T[])Enum.GetValues(typeof(T));
+         return values.Length;
+      }
+      public static T[] GetEnumItem<T>() where T : Enum
+      {
+         T[] values = (T[])Enum.GetValues(typeof(T));
+         return values;
+      }
 
       #region Game1
       /// <summary>
@@ -175,7 +207,7 @@ namespace Tea
       /// </summary>
       /// <param name="className"></param>
       /// <returns></returns>
-      public static ISkill GetSkillFromString(this string className, string @namespace = "Tea")
+      public static ISkill CreateSkillFromString(this string className, string @namespace = "Tea")
       {
          string fullName = @namespace + "." + className;
          // 使用反射获取对应类的类型
@@ -193,6 +225,15 @@ namespace Tea
             Debug.LogWarning("无法找到对应的技能类" + fullName);
             return null;
          }
+      }
+      public static Sprite GetSkillImage(this string fileName)
+      {
+         // 构建完整的资源路径
+         string resourcePath = "Images/" + fileName; // 这里假设图片存储在"Resources/Images/"文件夹下
+                                                     // 加载图片资源
+         Sprite image = Resources.Load<Sprite>(resourcePath);
+
+         return image;
       }
 
       /// <summary>
@@ -315,4 +356,8 @@ public class UnCollision
    public float Power;
    [HideInInspector]
    public Vector3 Target;
+}
+public class Weight
+{
+   [Range(0, 1f)] public float weight = 1f;
 }

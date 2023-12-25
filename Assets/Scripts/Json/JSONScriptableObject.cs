@@ -39,7 +39,7 @@ namespace Tea
          string filePath = Path.Combine(Application.streamingAssetsPath, "Skill/skill.json");
 #if UNITY_ANDROID && !UNITY_EDITOR
         // 在Android平台上，使用UnityWebRequest来读取StreamingAssets文件夹中的内容
-         Coroutine coroutine = StartCoroutine(ReadAndroidJSON(filePath));
+        // Coroutine coroutine = StartCoroutine(ReadAndroidJSON(filePath));
 #else
          // 在其他平台上，直接使用File类来读取StreamingAssets文件夹中的内容
          ReadJSON(filePath);

@@ -8,18 +8,22 @@ namespace Tea.PolygonHit
    /// </summary>
    public class TeaSkillButton : TeaSomeButton
    {
-      [SerializeField]
-      string description;
+      SkillData cacheData;
+      [Space(10)]
+      [SerializeField] private Image skillImage;
+      [SerializeField] private string description;
       string skillName;
       public void InputSkillData(SkillData data)
       {
+         cacheData = data;
          ButtonText.text = data.skillName;
          description = data.description;
          skillName = data.skillClassName;
+         skillImage.sprite = data.imageName.GetSkillImage();
       }
       protected override void OnClick()
       {
-         SkillAndBuffManager.I.AddSkill(skillName);
+         SkillAndBuffManager.I.AddSkill(cacheData);
       }
    }
 }

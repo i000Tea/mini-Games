@@ -120,16 +120,16 @@ namespace Tea.PolygonHit
       }
 
       #endregion
-
+     
       protected override void AwakeSet()
       {
-         if (dragSomeObj == null)
+         if (dragObj == null)
          {
             var A = new GameObject();
             A.transform.SetParent(transform);
             A.transform.localPosition = Vector3.zero;
             A.AddComponent<RectTransform>();
-            dragSomeObj = A.transform as RectTransform;
+            dragObj = A.transform as RectTransform;
          }
          base.AwakeSet();
          AddEvent();

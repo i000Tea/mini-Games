@@ -89,9 +89,15 @@ namespace Tea.PolygonHit
             Debug.LogWarning($"技能类不存在 添加技能{someSkill}失败");
          }
       }
+      public void AddSkill(SkillData data)
+      {
+         ISkill newSkill = data.skillClassName.CreateSkillFromString("Tea.PolygonHit");
+
+         AddSkill(newSkill);
+      }
       public void AddSkill(string ClassName, string textureName = default)
       {
-         ISkill newSkill = ClassName.GetSkillFromString("Tea.PolygonHit");
+         ISkill newSkill = ClassName.CreateSkillFromString("Tea.PolygonHit");
          AddSkill(newSkill);
       }
       #endregion
